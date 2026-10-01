@@ -6,6 +6,10 @@ export const zhCN: WcTranslations = {
   'pagination.total': '共 {total} 条',
   'pagination.prev': '上一页',
   'pagination.next': '下一页',
+  'pagination.label': '分页导航',
+  'pagination.page': '第 {page} 页',
+  'pagination.jumpTo': '跳至',
+  'pagination.pageUnit': '页',
   'dialog.confirm': '确认',
   'dialog.cancel': '取消',
   'empty.noData': '暂无数据',
@@ -27,4 +31,7 @@ export const zhCN: WcTranslations = {
   'form.pattern': '{name}格式不正确',
   'form.invalid': '{name}校验不通过',
   'tag.close': '删除',
+  'dialog.close': '关闭',
+  'message.close': '关闭',
+  'breadcrumb.label': '面包屑导航',
 };

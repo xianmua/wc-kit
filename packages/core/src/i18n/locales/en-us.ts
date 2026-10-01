@@ -6,6 +6,10 @@ export const enUS: WcTranslations = {
   'pagination.total': '{total} items in total',
   'pagination.prev': 'Previous page',
   'pagination.next': 'Next page',
+  'pagination.label': 'Pagination',
+  'pagination.page': 'Page {page}',
+  'pagination.jumpTo': 'Go to',
+  'pagination.pageUnit': 'Page',
   'dialog.confirm': 'Confirm',
   'dialog.cancel': 'Cancel',
   'empty.noData': 'No data',
@@ -27,4 +31,7 @@ export const enUS: WcTranslations = {
   'form.pattern': '{name} format is invalid',
   'form.invalid': '{name} is invalid',
   'tag.close': 'Remove',
+  'dialog.close': 'Close',
+  'message.close': 'Close',
+  'breadcrumb.label': 'Breadcrumb',
 };

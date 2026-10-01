@@ -9,10 +9,13 @@ import { chevronLeft } from './chevron-left.js';
 import { chevronRight } from './chevron-right.js';
 import { chevronUp } from './chevron-up.js';
 import { close } from './close.js';
+import { error } from './error.js';
+import { info } from './info.js';
 import { loader } from './loader.js';
 import { minus } from './minus.js';
 import { plus } from './plus.js';
 import { search } from './search.js';
+import { warning } from './warning.js';
 
 export type { WcIconData } from './library.js';
 export * from './library.js';
@@ -26,10 +29,13 @@ export { chevronLeft } from './chevron-left.js';
 export { chevronRight } from './chevron-right.js';
 export { chevronUp } from './chevron-up.js';
 export { close } from './close.js';
+export { error } from './error.js';
+export { info } from './info.js';
 export { loader } from './loader.js';
 export { minus } from './minus.js';
 export { plus } from './plus.js';
 export { search } from './search.js';
+export { warning } from './warning.js';
 
 /** 全部内置图标，供 registerBuiltinIcons 批量注册 */
 export const builtinIcons: WcIconData[] = [
@@ -42,14 +48,17 @@ export const builtinIcons: WcIconData[] = [
   chevronRight,
   chevronUp,
   close,
+  error,
+  info,
   loader,
   minus,
   plus,
   search,
+  warning,
 ];
 
 /**
- * 批量注册全部内置图标（13 个）。
+ * 批量注册全部内置图标（16 个）。
  * 应用入口调用一次即可；也可以从各图标文件单独 import + registerIcon 按需注册。
  */
 export function registerBuiltinIcons(): void {

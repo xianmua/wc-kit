@@ -92,11 +92,29 @@ wc/
 
 ### Phase 4 — 反馈与导航（8 个）
 
-Message、Dialog、Drawer、Tooltip、Popconfirm、Tabs、Breadcrumb、Pagination
+- [x] Dialog 对话框（open/show/close / 可取消 wc-close / 焦点陷阱 + 焦点归还 / 滚动锁 / Escape / 遮罩点击）
+- [x] Message 全局提示（命令式 message.info/success/warning/error/loading API + 单例容器 + duration 自动关闭）
+- [x] Drawer 抽屉（四方向 placement / size 档位 / 复用 OverlaySideEffects 弹层副作用）
+- [x] Tooltip 文字提示（auto-placement 定位引擎 common/position.ts / hover·click·manual 触发 / 12 方向 / 箭头）
+- [x] Popconfirm 气泡确认（复用 position.ts 定位 / wc-confirm·wc-cancel 事件 / 外部点击·Esc 关闭）
+- [x] Tabs 标签页（light-DOM wc-tab 子元素 / MutationObserver 元数据收集 / roving tabindex 键盘导航 / 激活下划线动画）
+- [x] Breadcrumb 面包屑（light-DOM wc-breadcrumb-item 子元素 / href 原生链接 / disabled / separator / 末项 aria-current / wc-select 事件）
+- [x] Pagination 分页（total/page-size 推导页数 / folded-page-count 折叠省略号 / prev·next 边界禁用 / show-total / show-jumper 跳页 / wc-change 事件 / 越界静默夹紧）
+
+Phase 4 完成（8/8）。
 
 ### Phase 5 — 数据展示（6 个）
 
 Table、Card、List、Badge、Empty、Progress
+
+- [x] Badge 徽标（count/max「99+」/ dot 圆点 / theme 语义色 / 包裹或独立 / count=0 隐藏）
+- [x] Empty 空状态（默认占位图形 + i18n「暂无数据」/ icon·description·action 插槽）
+- [x] Progress 进度条（line/circle 双主题 / value 夹紧 / status 语义色+状态图标 / show-label / stroke-width / progressbar ARIA）
+- [x] Card 卡片（title/subtitle 头部 + header/actions/footer 插槽 / bordered·hoverable / slotchange 恒渲染 slot + hidden 切换）
+- [x] List 列表（::slotted 统一条目样式 / size·striped·hoverable / 空态回退 wc-empty + empty 插槽覆盖）
+- [x] Table 表格（columns/data 驱动 / sortable 升降取消循环 + aria-sort / width·align·ellipsis / render 自定义单元格 / 空态回退 wc-empty / loading 遮罩 / wc-sort·wc-row-click 事件 / striped·bordered·size）
+
+Phase 5 完成（6/6）。
 
 ### Phase 6 — 框架适配与发布
 

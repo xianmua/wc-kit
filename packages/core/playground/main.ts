@@ -4,6 +4,7 @@ import {
   setTheme,
   getTheme,
   initTheme,
+  message,
   THEME_CHANGE_EVENT,
   tokensCss,
   type WcTheme,
@@ -44,6 +45,22 @@ class PlaygroundApp extends LitElement {
   private switchTheme(e: Event) {
     const theme = (e.target as WcButton).getAttribute('data-theme') as WcTheme;
     setTheme(theme, { persist: true });
+  }
+
+  private openDemoDialog() {
+    (this.renderRoot.querySelector('#demo-dialog') as { show(): void }).show();
+  }
+
+  private openDemoDrawer() {
+    (this.renderRoot.querySelector('#demo-drawer') as { show(): void }).show();
+  }
+
+  private demoLoadingMessage() {
+    const loading = message.loading('正在上传…');
+    setTimeout(() => {
+      loading.close();
+      message.success('上传完成');
+    }, 2000);
   }
 
   private renderSwatches() {
@@ -299,6 +316,228 @@ class PlaygroundApp extends LitElement {
         </section>
 
         <section>
+          <h3>Dialog 对话框</h3>
+          <div class="row">
+            <wc-button theme="primary" id="open-dialog-btn" @click=${() => this.openDemoDialog()}
+              >打开对话框</wc-button
+            >
+          </div>
+          <wc-dialog id="demo-dialog" header="操作确认" close-on-overlay-click>
+            <p>确认删除这条记录吗？此操作不可撤销。</p>
+          </wc-dialog>
+        </section>
+
+        <section>
+          <h3>Drawer 抽屉</h3>
+          <div class="row">
+            <wc-button theme="primary" id="open-drawer-btn" @click=${() => this.openDemoDrawer()}
+              >打开抽屉</wc-button
+            >
+          </div>
+          <wc-drawer id="demo-drawer" header="详情面板" size="medium" placement="right">
+            <p>这里是从右侧滑出的抽屉内容。</p>
+            <p>支持四个方向：left / right / top / bottom。</p>
+          </wc-drawer>
+        </section>
+
+        <section>
+          <h3>Message 全局提示</h3>
+          <div class="row">
+            <wc-button
+              theme="default"
+              id="msg-info-btn"
+              @click=${() => message.info('这是一条普通提示')}
+              >普通</wc-button
+            >
+            <wc-button
+              theme="success"
+              id="msg-success-btn"
+              @click=${() => message.success('保存成功')}
+              >成功</wc-button
+            >
+            <wc-button
+              theme="warning"
+              id="msg-warning-btn"
+              @click=${() => message.warning('磁盘空间不足')}
+              >警告</wc-button
+            >
+            <wc-button
+              theme="danger"
+              id="msg-error-btn"
+              @click=${() => message.error('操作失败，请重试')}
+              >错误</wc-button
+            >
+            <wc-button
+              theme="primary"
+              id="msg-loading-btn"
+              @click=${() => this.demoLoadingMessage()}
+              >加载</wc-button
+            >
+          </div>
+        </section>
+
+        <section>
+          <h3>Tooltip 文字提示</h3>
+          <div class="row" style="gap: 24px">
+            <wc-tooltip content="上方提示（默认 top）"
+              ><wc-button theme="default">top</wc-button></wc-tooltip
+            >
+            <wc-tooltip placement="bottom" content="下方提示，空间不足会自动翻转"
+              ><wc-button theme="default">bottom</wc-button></wc-tooltip
+            >
+            <wc-tooltip placement="left" content="左侧提示"
+              ><wc-button theme="default">left</wc-button></wc-tooltip
+            >
+            <wc-tooltip placement="right" content="右侧提示"
+              ><wc-button theme="default">right</wc-button></wc-tooltip
+            >
+            <wc-tooltip trigger="click" placement="bottom" content="点击触发，点外部或 Esc 关闭"
+              ><wc-button theme="primary">点击触发</wc-button></wc-tooltip
+            >
+          </div>
+        </section>
+
+        <section>
+          <h3>Popconfirm 气泡确认</h3>
+          <div class="row" style="gap: 24px">
+            <wc-popconfirm
+              content="确认删除这条记录吗？"
+              @wc-confirm=${() => message.success('已删除')}
+              @wc-cancel=${() => message.info('已取消')}
+            >
+              <wc-button theme="danger">删除</wc-button>
+            </wc-popconfirm>
+            <wc-popconfirm
+              content="自定义文案与按钮"
+              confirm-text="好的"
+              cancel-text="算了"
+              icon=""
+              placement="bottom"
+            >
+              <wc-button theme="default">自定义</wc-button>
+            </wc-popconfirm>
+          </div>
+        </section>
+
+        <section>
+          <h3>Tabs 标签页</h3>
+          <wc-tabs
+            id="demo-tabs"
+            @wc-change=${(e: CustomEvent) => message.info(`切换到 ${e.detail.value}`)}
+          >
+            <wc-tab label="账户"><p>账户信息面板。</p></wc-tab>
+            <wc-tab label="安全" value="security"><p>安全设置面板。</p></wc-tab>
+            <wc-tab label="通知" value="notify"><p>通知偏好面板。</p></wc-tab>
+            <wc-tab label="高级" value="pro" disabled><p>高级选项（禁用）。</p></wc-tab>
+          </wc-tabs>
+        </section>
+
+        <section>
+          <h3>Breadcrumb 面包屑</h3>
+          <wc-breadcrumb @wc-select=${(e: CustomEvent) => message.info(`导航到 ${e.detail.label}`)}>
+            <wc-breadcrumb-item href="#/">首页</wc-breadcrumb-item>
+            <wc-breadcrumb-item href="#/list">组件列表</wc-breadcrumb-item>
+            <wc-breadcrumb-item>面包屑</wc-breadcrumb-item>
+          </wc-breadcrumb>
+          <div class="row" style="margin-top: 12px">
+            <wc-breadcrumb separator=">">
+              <wc-breadcrumb-item href="#/">首页</wc-breadcrumb-item>
+              <wc-breadcrumb-item disabled>禁用层</wc-breadcrumb-item>
+              <wc-breadcrumb-item>详情</wc-breadcrumb-item>
+            </wc-breadcrumb>
+          </div>
+        </section>
+
+        <section>
+          <h3>Pagination 分页</h3>
+          <wc-pagination
+            id="demo-pagination"
+            total="200"
+            show-total
+            show-jumper
+            @wc-change=${(e: CustomEvent) => message.info(`跳到第 ${e.detail.current} 页`)}
+          ></wc-pagination>
+          <div class="row" style="margin-top: 12px">
+            <wc-pagination total="50" current="2"></wc-pagination>
+          </div>
+        </section>
+
+        <section>
+          <h3>Badge 徽标</h3>
+          <div class="row">
+            <wc-badge count="5"><wc-icon name="search" label="搜索"></wc-icon></wc-badge>
+            <wc-badge count="120"><wc-icon name="calendar" label="日历"></wc-icon></wc-badge>
+            <wc-badge count="0"><wc-icon name="close" label="关闭"></wc-icon></wc-badge>
+            <wc-badge dot theme="primary"><wc-icon name="check" label="完成"></wc-icon></wc-badge>
+            <wc-badge count="8" theme="success">独立徽标</wc-badge>
+          </div>
+        </section>
+
+        <section>
+          <h3>Empty 空状态</h3>
+          <wc-empty style="border: 1px dashed var(--wc-color-border); border-radius: 6px">
+            <wc-button slot="action" theme="primary" variant="outline">重新加载</wc-button>
+          </wc-empty>
+        </section>
+
+        <section>
+          <h3>Progress 进度条</h3>
+          <div class="col" style="display: grid; gap: 12px; max-width: 420px">
+            <wc-progress value="60"></wc-progress>
+            <wc-progress value="80" status="success"></wc-progress>
+            <wc-progress value="30" status="error" label="上传失败"></wc-progress>
+            <wc-progress theme="circle" value="75"></wc-progress>
+          </div>
+        </section>
+
+        <section>
+          <h3>Card 卡片</h3>
+          <div class="row" style="align-items: stretch">
+            <wc-card title="卡片标题" subtitle="副标题" hoverable style="flex: 1">
+              <p>这是一张带悬浮阴影的卡片。</p>
+              <wc-button slot="footer" variant="outline" size="small">更多</wc-button>
+            </wc-card>
+            <wc-card style="flex: 1">
+              <span slot="header">纯插槽头部</span>
+              <p>使用 header 插槽自定义头部。</p>
+              <wc-button slot="actions" variant="text" size="small">
+                <wc-icon name="close"></wc-icon>
+              </wc-button>
+            </wc-card>
+          </div>
+        </section>
+
+        <section>
+          <h3>List 列表</h3>
+          <div class="row" style="align-items: stretch">
+            <wc-list
+              striped
+              hoverable
+              style="flex: 1; border: 1px solid var(--wc-color-border); border-radius: 6px"
+            >
+              <wc-list-item>消息通知：您有一条新的系统消息</wc-list-item>
+              <wc-list-item>安全提醒：登录地点发生变更</wc-list-item>
+              <wc-list-item>版本更新：v2.0 已发布</wc-list-item>
+            </wc-list>
+            <wc-list
+              style="flex: 1; border: 1px dashed var(--wc-color-border); border-radius: 6px"
+            ></wc-list>
+          </div>
+        </section>
+
+        <section>
+          <h3>Table 表格</h3>
+          <wc-table
+            id="demo-table"
+            striped
+            hoverable
+            style="max-width: 560px"
+            @wc-sort=${(e: CustomEvent) => message.info(`排序：${e.detail.key} ${e.detail.order ?? '取消'}`)}
+            @wc-row-click=${(e: CustomEvent) => message.info(`点击行：${e.detail.row.name}`)}
+          ></wc-table>
+        </section>
+
+        <section>
           <h3>图标（1em / currentColor）</h3>
           <div class="row icons">
             <wc-icon name="check" label="完成"></wc-icon>
@@ -322,3 +561,24 @@ class PlaygroundApp extends LitElement {
 
 customElements.define('playground-app', PlaygroundApp);
 document.querySelector('#app')!.append(document.createElement('playground-app'));
+
+// Table 演示数据（columns/data 为复杂属性，需 JS 赋值）
+const demoTable = document.querySelector('#demo-table') as {
+  columns: unknown[];
+  data: unknown[];
+};
+demoTable.columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', align: 'right', width: 100 },
+  { key: 'city', title: '城市', ellipsis: true },
+  {
+    key: 'tags',
+    title: '标签',
+    render: (row: { tags: string[] }) => row.tags.join(' / '),
+  },
+];
+demoTable.data = [
+  { name: '张三', age: 28, city: '上海', tags: ['前端', '渲染'] },
+  { name: '李四', age: 22, city: '北京', tags: ['测试'] },
+  { name: '王五', age: 25, city: '广州', tags: ['后端', '网关', '存储'] },
+];
