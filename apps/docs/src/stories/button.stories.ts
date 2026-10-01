@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import type { wcButton } from '@wc/core';
 
-const meta: Meta<wcButton> = {
+const meta: Meta<wcButton & { label: string }> = {
   title: '基础组件/Button 按钮',
   component: 'wc-button',
   tags: ['autodocs'],
