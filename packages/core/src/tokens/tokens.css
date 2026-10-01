@@ -1,0 +1,207 @@
+/**
+ * WUI 设计令牌（三层：primitive -> semantic -> component）
+ * - primitive：原子值（色板/字号/间距），不含用途语义，组件禁止直接引用
+ * - semantic：语义映射，主题切换只覆盖这一层
+ * - component：组件级默认值，声明在各自组件的 :host 上（见各组件样式文件）
+ */
+:root {
+  /* ============================================================
+   * primitive：品牌色阶（brand-50 最浅 -> brand-800 最深）
+   * ============================================================ */
+  --wc-color-brand-50: #f2f7ff;
+  --wc-color-brand-100: #d9e8ff;
+  --wc-color-brand-200: #b5d0ff;
+  --wc-color-brand-300: #8cb8ff;
+  --wc-color-brand-400: #5f96f7;
+  --wc-color-brand-500: #0052d9;
+  --wc-color-brand-600: #0045c2;
+  --wc-color-brand-700: #00359e;
+  --wc-color-brand-800: #002a7d;
+
+  /* ============================================================
+   * primitive：功能色（light 为浅底 / base / dark 为深色悬停态）
+   * ============================================================ */
+  --wc-color-success-light: #e3f9e9;
+  --wc-color-success: #2ba471;
+  --wc-color-success-dark: #1f895c;
+
+  --wc-color-warning-light: #fdf3e6;
+  --wc-color-warning: #e37318;
+  --wc-color-warning-dark: #c25c0a;
+
+  --wc-color-error-light: #fdecee;
+  --wc-color-error: #d54941;
+  --wc-color-error-dark: #b5362f;
+
+  --wc-color-info-light: #f2f7ff;
+  --wc-color-info: #0052d9;
+  --wc-color-info-dark: #0045c2;
+
+  /* ============================================================
+   * primitive：中性灰阶（gray-50 最浅 -> gray-900 最深）
+   * ============================================================ */
+  --wc-color-gray-50: #f5f7fa;
+  --wc-color-gray-100: #e7eaee;
+  --wc-color-gray-200: #d5dbe3;
+  --wc-color-gray-300: #c2c9d4;
+  --wc-color-gray-400: #a6b0bf;
+  --wc-color-gray-500: #8a94a6;
+  --wc-color-gray-600: #6b7687;
+  --wc-color-gray-700: #4b5563;
+  --wc-color-gray-800: #2f3540;
+  --wc-color-gray-900: #1b1f27;
+
+  /* ============================================================
+   * primitive：字体
+   * ============================================================ */
+  --wc-font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  --wc-font-family-mono:
+    ui-monospace, sfmono-regular, 'SF Mono', menlo, consolas, 'Liberation Mono', monospace;
+
+  /* 正文字号 */
+  --wc-font-size-xsmall: 12px;
+  --wc-font-size-small: 12px;
+  --wc-font-size-medium: 14px;
+  --wc-font-size-large: 16px;
+  --wc-font-size-xlarge: 20px;
+
+  /* 标题字号（Typography 组件用） */
+  --wc-font-size-h1: 24px;
+  --wc-font-size-h2: 20px;
+  --wc-font-size-h3: 18px;
+
+  --wc-font-weight-normal: 400;
+  --wc-font-weight-medium: 500;
+  --wc-font-weight-semibold: 600;
+  --wc-font-weight-bold: 700;
+
+  --wc-line-height-base: 1.5;
+  --wc-line-height-compact: 1.25;
+
+  /* ============================================================
+   * primitive：间距（4px 基准网格，数字 = 像素 / 4）
+   * ============================================================ */
+  --wc-space-1: 4px;
+  --wc-space-2: 8px;
+  --wc-space-3: 12px;
+  --wc-space-4: 16px;
+  --wc-space-5: 20px;
+  --wc-space-6: 24px;
+  --wc-space-8: 32px;
+  --wc-space-10: 40px;
+  --wc-space-12: 48px;
+
+  /* ============================================================
+   * primitive：圆角
+   * ============================================================ */
+  --wc-radius-none: 0;
+  --wc-radius-small: 3px;
+  --wc-radius-medium: 6px;
+  --wc-radius-large: 9px;
+  --wc-radius-xlarge: 12px;
+  --wc-radius-round: 999px;
+  --wc-radius-circle: 50%;
+
+  /* ============================================================
+   * primitive：阴影分层（1 卡片 / 2 下拉浮层 / 3 模态）
+   * ============================================================ */
+  --wc-shadow-1: 0 1px 4px rgb(0 0 0 / 12%);
+  --wc-shadow-2: 0 3px 14px 2px rgb(0 0 0 / 8%), 0 1px 4px rgb(0 0 0 / 10%);
+  --wc-shadow-3: 0 6px 30px 5px rgb(0 0 0 / 8%), 0 3px 12px 2px rgb(0 0 0 / 12%);
+
+  /* ============================================================
+   * primitive：动效
+   * ============================================================ */
+  --wc-duration-fast: 150ms;
+  --wc-duration-medium: 300ms;
+  --wc-duration-slow: 1s;
+  --wc-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --wc-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ============================================================
+   * primitive：z-index 分层（避免组件间互相覆盖失控）
+   * ============================================================ */
+  --wc-z-index-dropdown: 1000;
+  --wc-z-index-sticky: 1100;
+  --wc-z-index-modal: 1200;
+  --wc-z-index-drawer: 1200;
+  --wc-z-index-message: 1500;
+  --wc-z-index-tooltip: 1600;
+
+  /* ============================================================
+   * semantic：主题语义映射（暗色主题只覆盖这一层）
+   * ============================================================ */
+
+  /* 品牌 */
+  --wc-color-primary: var(--wc-color-brand-500);
+  --wc-color-primary-hover: var(--wc-color-brand-600);
+  --wc-color-primary-active: var(--wc-color-brand-700);
+  --wc-color-primary-light: var(--wc-color-brand-50);
+  --wc-color-text-anti: #ffffff;
+
+  /* 功能色语义（暗色下 light 底换成低饱和深底） */
+  --wc-color-success-bg: var(--wc-color-success-light);
+  --wc-color-warning-bg: var(--wc-color-warning-light);
+  --wc-color-error-bg: var(--wc-color-error-light);
+  --wc-color-info-bg: var(--wc-color-info-light);
+
+  /* 文本 */
+  --wc-color-text: var(--wc-color-gray-900);
+  --wc-color-text-secondary: var(--wc-color-gray-700);
+  --wc-color-text-placeholder: var(--wc-color-gray-500);
+  --wc-color-text-disabled: var(--wc-color-gray-500);
+
+  /* 边框与背景 */
+  --wc-color-border: var(--wc-color-gray-300);
+  --wc-color-border-strong: var(--wc-color-gray-500);
+  --wc-color-bg: var(--wc-color-gray-50);
+  --wc-color-bg-container: #ffffff;
+  --wc-color-bg-container-secondary: var(--wc-color-gray-50);
+  --wc-color-bg-hover: var(--wc-color-gray-100);
+  --wc-color-bg-disabled: var(--wc-color-gray-100);
+  --wc-color-mask: rgb(0 0 0 / 60%);
+  --wc-color-focus-ring: var(--wc-color-brand-300);
+}
+
+/* ============================================================
+ * 暗色主题：只覆盖 semantic 层
+ * ============================================================ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --wc-color-primary: var(--wc-color-brand-300);
+  --wc-color-primary-hover: var(--wc-color-brand-200);
+  --wc-color-primary-active: var(--wc-color-brand-100);
+  --wc-color-primary-light: var(--wc-color-brand-800);
+  --wc-color-text-anti: #1b1f27;
+
+  --wc-color-success: #4fce8e;
+  --wc-color-success-bg: #103524;
+  --wc-color-warning: #f5a962;
+  --wc-color-warning-bg: #3c2a15;
+  --wc-color-error: #e76f68;
+  --wc-color-error-bg: #442423;
+  --wc-color-info: var(--wc-color-brand-300);
+  --wc-color-info-bg: var(--wc-color-brand-800);
+
+  --wc-color-text: var(--wc-color-gray-50);
+  --wc-color-text-secondary: var(--wc-color-gray-300);
+  --wc-color-text-placeholder: var(--wc-color-gray-500);
+  --wc-color-text-disabled: var(--wc-color-gray-500);
+
+  --wc-color-border: var(--wc-color-gray-700);
+  --wc-color-border-strong: var(--wc-color-gray-500);
+  --wc-color-bg: var(--wc-color-gray-900);
+  --wc-color-bg-container: #242832;
+  --wc-color-bg-container-secondary: #2f3540;
+  --wc-color-bg-hover: var(--wc-color-gray-800);
+  --wc-color-bg-disabled: var(--wc-color-gray-700);
+  --wc-color-mask: rgb(0 0 0 / 70%);
+  --wc-color-focus-ring: var(--wc-color-brand-200);
+
+  --wc-shadow-1: 0 1px 4px rgb(0 0 0 / 40%);
+  --wc-shadow-2: 0 3px 14px 2px rgb(0 0 0 / 32%), 0 1px 4px rgb(0 0 0 / 40%);
+  --wc-shadow-3: 0 6px 30px 5px rgb(0 0 0 / 32%), 0 3px 12px 2px rgb(0 0 0 / 40%);
+}

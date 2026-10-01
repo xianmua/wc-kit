@@ -1,0 +1,206 @@
+/**
+ * @wc/core/reset.css — 全局基础样式（宿主页面 light DOM）
+ *
+ * 可选引入，适合整站使用 WUI 的应用：
+ *   import '@wc/core/reset.css';
+ *   或 <link rel="stylesheet" href="node_modules/@wc/core/reset.css">
+ *
+ * 职责：统一 box-sizing、排版基线、链接/表单/媒体元素默认值、
+ * focus-visible 焦点环。依赖 @wc/core/tokens.css 提供的 CSS 变量。
+ */
+
+/* ---------- 盒模型 ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+/* ---------- 文档与文本基线 ---------- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+body {
+  font-family: var(--wc-font-family);
+  font-size: var(--wc-font-size-medium);
+  line-height: var(--wc-line-height-base);
+  color: var(--wc-color-text);
+  background-color: var(--wc-color-bg-container);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+}
+
+/* ---------- 标题排版：字号走令牌，字重统一 ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--wc-font-weight-semibold);
+  line-height: var(--wc-line-height-compact);
+}
+
+h1 {
+  font-size: var(--wc-font-size-h1);
+}
+
+h2 {
+  font-size: var(--wc-font-size-h2);
+}
+
+h3 {
+  font-size: var(--wc-font-size-h3);
+}
+
+h4 {
+  font-size: var(--wc-font-size-large);
+}
+
+h5,
+h6 {
+  font-size: var(--wc-font-size-medium);
+}
+
+/* ---------- 列表 ---------- */
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- 链接 ---------- */
+a {
+  color: var(--wc-color-primary);
+  text-decoration: none;
+  transition: color var(--wc-duration-fast) var(--wc-easing-standard);
+}
+
+a:hover {
+  color: var(--wc-color-primary-hover);
+}
+
+a:active {
+  color: var(--wc-color-primary-active);
+}
+
+a[disabled] {
+  color: var(--wc-color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* ---------- 媒体元素 ---------- */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  border-style: none;
+}
+
+/* ---------- 表单元素：继承字体，去除原生外观差异 ---------- */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+input,
+select,
+textarea {
+  background-color: transparent;
+  border: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--wc-color-text-placeholder);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* ---------- 代码 ---------- */
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--wc-font-family-mono);
+  font-size: var(--wc-font-size-small);
+}
+
+/* ---------- 表格 ---------- */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  font-weight: var(--wc-font-weight-medium);
+  text-align: inherit;
+}
+
+/* ---------- 其他块级默认 ---------- */
+fieldset {
+  border: none;
+  padding: 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--wc-color-border);
+}
+
+blockquote,
+figure,
+dd,
+dl {
+  margin: 0;
+}
+
+/* ---------- 焦点环统一：键盘操作可见，鼠标操作不出现 ---------- */
+:focus-visible {
+  outline: 2px solid var(--wc-color-focus-ring);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---------- 选中态 ---------- */
+::selection {
+  background: var(--wc-color-primary-light);
+  color: var(--wc-color-text);
+}

@@ -1,0 +1,95 @@
+/* playground 页面样式（light DOM，不在组件库范围内） */
+body {
+  margin: 0;
+  background: var(--wc-color-bg);
+  color: var(--wc-color-text);
+  font-family: var(--wc-font-family);
+  transition: background var(--wc-duration-fast) var(--wc-easing-standard);
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--wc-space-8) var(--wc-space-4);
+}
+
+h2 {
+  font-size: var(--wc-font-size-xlarge);
+  margin: 0 0 var(--wc-space-2);
+}
+
+h3 {
+  font-size: var(--wc-font-size-large);
+  margin: 0 0 var(--wc-space-3);
+}
+
+.hint {
+  color: var(--wc-color-text-secondary);
+  font-size: var(--wc-font-size-medium);
+  margin: 0 0 var(--wc-space-4);
+}
+
+section {
+  margin-top: var(--wc-space-8);
+  padding: var(--wc-space-4);
+  background: var(--wc-color-bg-container);
+  border: 1px solid var(--wc-color-border);
+  border-radius: var(--wc-radius-large);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wc-space-3);
+}
+
+.col wc-input {
+  width: 320px;
+}
+
+.row {
+  display: flex;
+  gap: var(--wc-space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row + .row {
+  margin-top: var(--wc-space-3);
+}
+
+.icons wc-icon {
+  font-size: 24px;
+  color: var(--wc-color-primary);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--wc-space-2);
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: var(--wc-space-2);
+  font-size: var(--wc-font-size-small);
+}
+
+.swatch-color {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--wc-radius-small);
+  border: 1px solid var(--wc-color-border);
+  flex-shrink: 0;
+}
+
+.swatch code {
+  color: var(--wc-color-text-secondary);
+  word-break: break-all;
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--wc-space-2);
+}

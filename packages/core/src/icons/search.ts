@@ -1,0 +1,7 @@
+import { createIcon } from './library.js';
+
+/** 搜索/放大镜 */
+export const search = createIcon(
+  'search',
+  '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+);
