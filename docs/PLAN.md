@@ -116,10 +116,15 @@ Table、Card、List、Badge、Empty、Progress
 
 Phase 5 完成（6/6）。
 
+### Phase 7 — 组件补遗（Phase 6 收尾后）
+
+- [ ] Image 图片（加载/失败态 + fallback、懒加载、大图预览缩放旋转，复用浮层基建）
+- [ ] Upload 上传（文件选择 + 拖拽、上传进度对接 Progress、预览列表、requestMethod 自定义上传）
+
 ### Phase 6 — 框架适配与发布
 
-- [ ] `@wc/react`：@lit/react 包装 + Events 映射
-- [ ] `@wc/vue`：GlobalComponents 类型声明 + v-model 适配说明
+- [x] `@wc/react`：@lit/react 包装 + Events 映射（38 个标签全量包装；事件回调参数标注 CustomEvent；vitest 需 alias @lit/react 到浏览器构建——node 条件命中 SSR 构建会静默丢弃 props/事件）
+- [x] `@wc/vue`：GlobalComponents 类型声明（38 标签 → DefineComponent<Partial<元素类>>，实例类型自动推导零手工维护）+ v-model 适配说明（README：wc-input 等派发 wc-input/wc-change 自定义事件，原生 v-model 不生效，用 :value + @wc-input/@wc-change）
 - [ ] 文档站补全每组件的 React/Vue 用法示例
 - [ ] npm 首次发布
 
