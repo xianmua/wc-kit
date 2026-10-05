@@ -1,4 +1,4 @@
-# Layout 布局
+# Grid 栅格
 
 布局组件：`wc-row` 为行容器（flex 布局），`wc-col` 为列容器，配合实现 24 栅格。
 

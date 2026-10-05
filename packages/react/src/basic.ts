@@ -8,6 +8,11 @@ import {
   wcSpace,
   wcRow,
   wcCol,
+  wcLayout,
+  wcLayoutHeader,
+  wcLayoutContent,
+  wcLayoutFooter,
+  wcLayoutSider,
   wcSplitter,
   wcSplitterPanel,
   wcText,
@@ -67,6 +72,37 @@ export const WcCol = createWrapper({
   tagName: 'wc-col',
   elementClass: wcCol,
   displayName: 'WcCol',
+});
+
+export const WcLayout = createWrapper({
+  tagName: 'wc-layout',
+  elementClass: wcLayout,
+  displayName: 'WcLayout',
+});
+
+export const WcLayoutHeader = createWrapper({
+  tagName: 'wc-layout-header',
+  elementClass: wcLayoutHeader,
+  displayName: 'WcLayoutHeader',
+});
+
+export const WcLayoutContent = createWrapper({
+  tagName: 'wc-layout-content',
+  elementClass: wcLayoutContent,
+  displayName: 'WcLayoutContent',
+});
+
+export const WcLayoutFooter = createWrapper({
+  tagName: 'wc-layout-footer',
+  elementClass: wcLayoutFooter,
+  displayName: 'WcLayoutFooter',
+});
+
+export const WcLayoutSider = createWrapper({
+  tagName: 'wc-layout-sider',
+  elementClass: wcLayoutSider,
+  events: { onWcCollapse: 'wc-collapse' },
+  displayName: 'WcLayoutSider',
 });
 
 export const WcSplitter = createWrapper({

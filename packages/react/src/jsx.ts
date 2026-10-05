@@ -39,6 +39,11 @@ import type {
   wcImage,
   wcInput,
   wcInputNumber,
+  wcLayout,
+  wcLayoutContent,
+  wcLayoutFooter,
+  wcLayoutHeader,
+  wcLayoutSider,
   wcList,
   wcListItem,
   wcMenu,
@@ -109,6 +114,11 @@ interface WcTags {
   'wc-image': WcIntrinsic<wcImage>;
   'wc-input': WcIntrinsic<wcInput>;
   'wc-input-number': WcIntrinsic<wcInputNumber>;
+  'wc-layout': WcIntrinsic<wcLayout>;
+  'wc-layout-content': WcIntrinsic<wcLayoutContent>;
+  'wc-layout-footer': WcIntrinsic<wcLayoutFooter>;
+  'wc-layout-header': WcIntrinsic<wcLayoutHeader>;
+  'wc-layout-sider': WcIntrinsic<wcLayoutSider>;
   'wc-list': WcIntrinsic<wcList>;
   'wc-list-item': WcIntrinsic<wcListItem>;
   'wc-menu': WcIntrinsic<wcMenu>;

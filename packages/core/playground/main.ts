@@ -256,6 +256,27 @@ class PlaygroundApp extends LitElement {
         </section>
 
         <section>
+          <h3>Layout 布局</h3>
+          <div class="col">
+            <p>页面骨架：header / sider / content / footer，含 sider 时自动横向；侧栏可折叠。</p>
+            <wc-layout
+              style="height: 260px; border: 1px solid var(--wc-color-border); border-radius: var(--wc-radius-medium); overflow: hidden; text-align: center"
+            >
+              <wc-layout-header style="background: var(--wc-color-gray-100)">Header</wc-layout-header>
+              <wc-layout>
+                <wc-layout-sider collapsible collapsed-width="0">
+                  <div style="padding: 12px">Sider</div>
+                </wc-layout-sider>
+                <wc-layout-content style="background: var(--wc-color-bg-container)"
+                  >Content</wc-layout-content
+                >
+              </wc-layout>
+              <wc-layout-footer style="background: var(--wc-color-gray-100)">Footer</wc-layout-footer>
+            </wc-layout>
+          </div>
+        </section>
+
+        <section>
           <h3>Menu 导航菜单</h3>
           <div class="row" style="align-items: flex-start; gap: 24px">
             <wc-menu selected="home" bordered style="width: 200px">

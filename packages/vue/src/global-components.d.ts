@@ -49,6 +49,11 @@ import type {
   wcProgress,
   wcRadio,
   wcRow,
+  wcLayout,
+  wcLayoutHeader,
+  wcLayoutContent,
+  wcLayoutFooter,
+  wcLayoutSider,
   wcSelect,
   wcSlider,
   wcSpace,
@@ -83,6 +88,11 @@ declare module 'vue' {
     'wc-splitter-panel': WcComponent<wcSplitterPanel>;
     'wc-row': WcComponent<wcRow>;
     'wc-col': WcComponent<wcCol>;
+    'wc-layout': WcComponent<wcLayout>;
+    'wc-layout-header': WcComponent<wcLayoutHeader>;
+    'wc-layout-content': WcComponent<wcLayoutContent>;
+    'wc-layout-footer': WcComponent<wcLayoutFooter>;
+    'wc-layout-sider': WcComponent<wcLayoutSider>;
     'wc-text': WcComponent<wcText>;
     // 表单
     'wc-input': WcComponent<wcInput>;
