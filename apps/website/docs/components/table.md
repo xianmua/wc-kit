@@ -510,7 +510,7 @@ useEffect(() => {
   <wc-table ref="table"></wc-table>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import { onMounted, ref } from 'vue';
 
 // columns / data 为属性型（对象数组），需 JS 赋值
@@ -769,7 +769,7 @@ useEffect(() => {
   <wc-table ref="table"></wc-table>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import { onMounted, ref } from 'vue';
 
 const table = ref(null);

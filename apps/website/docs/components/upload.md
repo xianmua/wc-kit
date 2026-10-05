@@ -367,7 +367,7 @@ useEffect(() => {
   <wc-upload ref="uploader" multiple @wc-error="onError"></wc-upload>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue';
 const uploader = ref();
 onMounted(() => {

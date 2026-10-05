@@ -131,7 +131,7 @@ import { WcAlert } from '@wc-kit/react';
 ```
 
 ```vue [Vue]
-<script setup>
+<script setup lang="ts">
 const onClosed = () => console.log('alert closed');
 </script>
 
