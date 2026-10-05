@@ -3,8 +3,8 @@ import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { typographyStyles } from './wc-text.styles';
 
-export type wcTextVariant = 'text' | 'heading';
-export type wcTextType = 'default' | 'secondary' | 'success' | 'warning' | 'danger';
+export type wcTextType = 'text' | 'heading';
+export type wcTextTheme = 'default' | 'secondary' | 'success' | 'warning' | 'danger';
 
 /**
  * 排版文本。text 为正文；heading 按 level（1~6）渲染对应语义与字号，
@@ -16,14 +16,14 @@ export type wcTextType = 'default' | 'secondary' | 'success' | 'warning' | 'dang
 export class wcText extends LitElement {
   static styles = [baseStyles, typographyStyles];
 
-  /** 变体：正文 / 标题 */
-  @property({ reflect: true }) variant: wcTextVariant = 'text';
+  /** 类型：正文 / 标题 */
+  @property({ reflect: true }) type: wcTextType = 'text';
 
   /** 标题级别（仅 heading 生效，1~6，默认 3） */
   @property({ type: Number }) level = 3;
 
   /** 语义色 */
-  @property({ reflect: true }) type: wcTextType = 'default';
+  @property({ reflect: true }) theme: wcTextTheme = 'default';
 
   /** 禁用态（灰字 + not-allowed） */
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -34,7 +34,7 @@ export class wcText extends LitElement {
   }
 
   render() {
-    if (this.variant === 'heading') {
+    if (this.type === 'heading') {
       const level = this.headingLevel;
       return html`
         <div class="text heading level-${level}" part="base" role="heading" aria-level=${level}>

@@ -40,27 +40,13 @@ import { WcEmpty, WcButton } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-empty>这里还没有任何订单</wc-empty>
 ```
 
-```vue [Vue]
-<template>
-  <wc-empty>这里还没有任何订单</wc-empty>
-</template>
-```
-
-```tsx [React]
-import { WcEmpty } from '@wc-kit/react';
-
-<WcEmpty>这里还没有任何订单</WcEmpty>;
-```
-
-:::
-::::
+</details>
 
 ### 自定义占位图形
 
@@ -73,38 +59,16 @@ import { WcEmpty } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-empty>
   <span slot="icon" style="font-size:48px;" aria-hidden="true">📦</span>
   暂无包裹，去下一单吧
 </wc-empty>
 ```
 
-```vue [Vue]
-<template>
-  <wc-empty>
-    <span slot="icon" style="font-size:48px;" aria-hidden="true">📦</span>
-    暂无包裹，去下一单吧
-  </wc-empty>
-</template>
-```
-
-```tsx [React]
-import { WcEmpty } from '@wc-kit/react';
-
-<WcEmpty>
-  <span slot="icon" style="font-size:48px;" aria-hidden="true">
-    📦
-  </span>
-  暂无包裹，去下一单吧
-</WcEmpty>;
-```
-
-:::
-::::
+</details>
 
 ### 带操作按钮
 
@@ -116,35 +80,15 @@ import { WcEmpty } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-empty>
   <wc-button slot="action" theme="primary">重新加载</wc-button>
 </wc-empty>
 ```
 
-```vue [Vue]
-<template>
-  <wc-empty>
-    <wc-button slot="action" theme="primary">重新加载</wc-button>
-  </wc-empty>
-</template>
-```
-
-```tsx [React]
-import { WcButton, WcEmpty } from '@wc-kit/react';
-
-<WcEmpty>
-  <WcButton slot="action" theme="primary">
-    重新加载
-  </WcButton>
-</WcEmpty>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

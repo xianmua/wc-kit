@@ -61,10 +61,9 @@ import { WcTextarea } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-textarea
   style="width:320px"
   maxlength="100"
@@ -72,28 +71,7 @@ import { WcTextarea } from '@wc-kit/react';
 ></wc-textarea>
 ```
 
-```vue [Vue]
-<template>
-  <wc-textarea
-    style="width:320px"
-    maxlength="100"
-    placeholder="最多输入 100 个字，右下角显示字数统计"
-  ></wc-textarea>
-</template>
-```
-
-```tsx [React]
-import { WcTextarea } from '@wc-kit/react';
-
-<WcTextarea
-  style="width:320px"
-  maxlength={100}
-  placeholder="最多输入 100 个字，右下角显示字数统计"
-></WcTextarea>;
-```
-
-:::
-::::
+</details>
 
 ### 自动高度
 
@@ -110,36 +88,16 @@ import { WcTextarea } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:flex-start;">
   <wc-textarea style="width:240px" autosize placeholder="autosize：随内容自动增高"></wc-textarea>
   <wc-textarea style="width:240px" rows="5" placeholder="rows=5：固定 5 行"></wc-textarea>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:flex-start;">
-    <wc-textarea style="width:240px" autosize placeholder="autosize：随内容自动增高"></wc-textarea>
-    <wc-textarea style="width:240px" rows="5" placeholder="rows=5：固定 5 行"></wc-textarea>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcTextarea } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:flex-start;">
-  <WcTextarea style="width:240px" autosize placeholder="autosize：随内容自动增高"></WcTextarea>
-  <WcTextarea style="width:240px" rows={5} placeholder="rows=5：固定 5 行"></WcTextarea>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 状态
 
@@ -155,10 +113,9 @@ import { WcTextarea } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-textarea style="width:200px" status="success" placeholder="成功 success"></wc-textarea>
   <wc-textarea style="width:200px" status="warning" placeholder="警告 warning"></wc-textarea>
@@ -168,32 +125,7 @@ import { WcTextarea } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-textarea style="width:200px" status="success" placeholder="成功 success"></wc-textarea>
-    <wc-textarea style="width:200px" status="warning" placeholder="警告 warning"></wc-textarea>
-    <wc-textarea style="width:200px" status="error" placeholder="错误 error"></wc-textarea>
-    <wc-textarea style="width:200px" value="只读内容" readonly></wc-textarea>
-    <wc-textarea style="width:200px" value="禁用内容" disabled></wc-textarea>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcTextarea } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcTextarea style="width:200px" status="success" placeholder="成功 success"></WcTextarea>
-  <WcTextarea style="width:200px" status="warning" placeholder="警告 warning"></WcTextarea>
-  <WcTextarea style="width:200px" status="error" placeholder="错误 error"></WcTextarea>
-  <WcTextarea style="width:200px" value="只读内容" readonly></WcTextarea>
-  <WcTextarea style="width:200px" value="禁用内容" disabled></WcTextarea>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

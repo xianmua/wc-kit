@@ -32,7 +32,7 @@ pnpm --filter @wc-kit/core playground   # 启动组件 playground（端口 5180�
   <wc-form-item label="用户名" name="username" required>
     <wc-input></wc-input>
   </wc-form-item>
-  <wc-button theme="primary" type="submit">提交</wc-button>
+  <wc-button theme="primary" html-type="submit">提交</wc-button>
 </wc-form>
 ```
 
@@ -45,7 +45,7 @@ packages/
 ├── vue/      # @wc-kit/vue Vue 适配层
 └── tokens/   # @wc-kit/tokens 设计令牌
 apps/
-└── docs/     # Storybook 文档站
+└── website/  # VitePress 文档站（apps/website）
 ```
 
 ## 开发计划

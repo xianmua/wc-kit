@@ -22,7 +22,7 @@
 - 枚举值：`attribute` 反射字符串，TS 侧用联合类型收敛
 
 ```ts
-@property() variant: 'base' | 'outline' | 'text' = 'base';
+@property() type: 'base' | 'outline' | 'text' = 'base';
 @property({ type: Boolean, reflect: true }) disabled = false;
 ```
 
@@ -95,7 +95,7 @@ components/button/
 - TypeScript `strict: true`，禁止 `any`（公共 API 处绝对禁止）
 - 格式化用 oxfmt（`pnpm format`，配置见 `.oxfmtrc.json`），lint 用 ESLint；提交前必须通过 `format:check` + `lint`
 - 提交信息遵循 Conventional Commits
-- 每个组件 PR 必须包含：实现 + 测试 + Storybook story + 文档注释（tsdoc）
+- 每个组件 PR 必须包含：实现 + 测试 + VitePress 文档页（apps/website/docs/components/）+ 文档注释（tsdoc）
 - 版本发布只通过 Changesets，禁止手动改版本号
 - core 包 `sideEffects: false`，保证按需 tree-shaking
 

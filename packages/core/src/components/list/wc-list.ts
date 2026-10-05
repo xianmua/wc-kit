@@ -23,6 +23,7 @@ export type wcListSize = 'small' | 'medium' | 'large';
  * @slot empty - 空状态（默认渲染 wc-empty）
  * @csspart base - 列表容器
  * @csspart empty - 空状态区
+ * @cssprop --wc-list-radius - 列表圆角（默认 --wc-radius-medium）
  */
 export class wcList extends LitElement {
   static styles = [baseStyles, listStyles];

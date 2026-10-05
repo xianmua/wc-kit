@@ -3,6 +3,7 @@ import { css } from 'lit';
 export const cardStyles = css`
   :host {
     display: block;
+    --wc-card-radius: var(--wc-radius-medium);
   }
 
   /* display:flex 类会覆盖 [hidden] 的 UA 样式，显式关闭 */
@@ -12,7 +13,7 @@ export const cardStyles = css`
 
   .card {
     background-color: var(--wc-color-bg-container);
-    border-radius: var(--wc-radius-large);
+    border-radius: var(--wc-card-radius);
     transition: box-shadow var(--wc-duration-base, 200ms) var(--wc-easing-standard);
   }
 

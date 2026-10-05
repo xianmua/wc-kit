@@ -81,7 +81,7 @@ export const tagStyles = css`
     border-color: var(--wc-color-border);
   }
 
-  /* ---- 语义色 × light 浅底（默认 variant） ---- */
+  /* ---- 语义色 × light 浅底（默认 type） ---- */
   :host([theme='primary']) .tag {
     color: var(--wc-color-primary);
     background-color: var(--wc-color-primary-light);
@@ -103,54 +103,54 @@ export const tagStyles = css`
   }
 
   /* ---- dark 实底 ---- */
-  :host([variant='dark'][theme='default']) .tag {
+  :host([type='dark'][theme='default']) .tag {
     color: var(--wc-color-text-anti);
     background-color: var(--wc-color-text-secondary);
     border-color: transparent;
   }
 
-  :host([variant='dark'][theme='primary']) .tag {
+  :host([type='dark'][theme='primary']) .tag {
     color: var(--wc-color-text-anti);
     background-color: var(--wc-color-primary);
   }
 
-  :host([variant='dark'][theme='success']) .tag {
+  :host([type='dark'][theme='success']) .tag {
     color: var(--wc-color-text-anti);
     background-color: var(--wc-color-success);
   }
 
-  :host([variant='dark'][theme='warning']) .tag {
+  :host([type='dark'][theme='warning']) .tag {
     color: var(--wc-color-text-anti);
     background-color: var(--wc-color-warning);
   }
 
-  :host([variant='dark'][theme='danger']) .tag {
+  :host([type='dark'][theme='danger']) .tag {
     color: var(--wc-color-text-anti);
     background-color: var(--wc-color-error);
   }
 
   /* ---- outline 描边 ---- */
-  :host([variant='outline']) .tag {
+  :host([type='outline']) .tag {
     background-color: transparent;
   }
 
-  :host([variant='outline'][theme='default']) .tag {
+  :host([type='outline'][theme='default']) .tag {
     border-color: var(--wc-color-border);
   }
 
-  :host([variant='outline'][theme='primary']) .tag {
+  :host([type='outline'][theme='primary']) .tag {
     border-color: var(--wc-color-primary);
   }
 
-  :host([variant='outline'][theme='success']) .tag {
+  :host([type='outline'][theme='success']) .tag {
     border-color: var(--wc-color-success);
   }
 
-  :host([variant='outline'][theme='warning']) .tag {
+  :host([type='outline'][theme='warning']) .tag {
     border-color: var(--wc-color-warning);
   }
 
-  :host([variant='outline'][theme='danger']) .tag {
+  :host([type='outline'][theme='danger']) .tag {
     border-color: var(--wc-color-error);
   }
 

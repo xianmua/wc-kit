@@ -124,6 +124,7 @@
    * primitive：z-index 分层（避免组件间互相覆盖失控）
    * ============================================================ */
   --wc-z-index-dropdown: 1000;
+  --wc-z-index-fab: 1050;
   --wc-z-index-sticky: 1100;
   --wc-z-index-modal: 1200;
   --wc-z-index-drawer: 1300;

@@ -54,10 +54,9 @@ Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-tabs value="pending">
   <wc-tab label="全部订单" value="all">全部订单的内容区域</wc-tab>
   <wc-tab label="待支付" value="pending">待支付的内容区域</wc-tab>
@@ -65,34 +64,7 @@ Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 </wc-tabs>
 ```
 
-```vue [Vue]
-<template>
-  <wc-tabs value="pending">
-    <wc-tab label="全部订单" value="all">全部订单的内容区域</wc-tab>
-    <wc-tab label="待支付" value="pending">待支付的内容区域</wc-tab>
-    <wc-tab label="已完成" value="done">已完成的内容区域</wc-tab>
-  </wc-tabs>
-</template>
-```
-
-```tsx [React]
-import { WcTab, WcTabs } from '@wc-kit/react';
-
-<WcTabs value="pending">
-  <WcTab label="全部订单" value="all">
-    全部订单的内容区域
-  </WcTab>
-  <WcTab label="待支付" value="pending">
-    待支付的内容区域
-  </WcTab>
-  <WcTab label="已完成" value="done">
-    已完成的内容区域
-  </WcTab>
-</WcTabs>;
-```
-
-:::
-::::
+</details>
 
 ### 禁用项
 
@@ -106,10 +78,9 @@ import { WcTab, WcTabs } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-tabs value="a">
   <wc-tab label="可点击" value="a">可点击的内容区域</wc-tab>
   <wc-tab label="禁用项" value="b" disabled>禁用项的内容区域</wc-tab>
@@ -117,34 +88,7 @@ import { WcTab, WcTabs } from '@wc-kit/react';
 </wc-tabs>
 ```
 
-```vue [Vue]
-<template>
-  <wc-tabs value="a">
-    <wc-tab label="可点击" value="a">可点击的内容区域</wc-tab>
-    <wc-tab label="禁用项" value="b" disabled>禁用项的内容区域</wc-tab>
-    <wc-tab label="也可点击" value="c">也可点击的内容区域</wc-tab>
-  </wc-tabs>
-</template>
-```
-
-```tsx [React]
-import { WcTab, WcTabs } from '@wc-kit/react';
-
-<WcTabs value="a">
-  <WcTab label="可点击" value="a">
-    可点击的内容区域
-  </WcTab>
-  <WcTab label="禁用项" value="b" disabled>
-    禁用项的内容区域
-  </WcTab>
-  <WcTab label="也可点击" value="c">
-    也可点击的内容区域
-  </WcTab>
-</WcTabs>;
-```
-
-:::
-::::
+</details>
 
 ### 键盘导航
 
@@ -158,10 +102,9 @@ import { WcTab, WcTabs } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-tabs value="home">
   <wc-tab label="首页" value="home">首页的内容区域</wc-tab>
   <wc-tab label="发现" value="discover">发现的内容区域</wc-tab>
@@ -169,34 +112,7 @@ import { WcTab, WcTabs } from '@wc-kit/react';
 </wc-tabs>
 ```
 
-```vue [Vue]
-<template>
-  <wc-tabs value="home">
-    <wc-tab label="首页" value="home">首页的内容区域</wc-tab>
-    <wc-tab label="发现" value="discover">发现的内容区域</wc-tab>
-    <wc-tab label="我的" value="mine">我的的内容区域</wc-tab>
-  </wc-tabs>
-</template>
-```
-
-```tsx [React]
-import { WcTab, WcTabs } from '@wc-kit/react';
-
-<WcTabs value="home">
-  <WcTab label="首页" value="home">
-    首页的内容区域
-  </WcTab>
-  <WcTab label="发现" value="discover">
-    发现的内容区域
-  </WcTab>
-  <WcTab label="我的" value="mine">
-    我的的内容区域
-  </WcTab>
-</WcTabs>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

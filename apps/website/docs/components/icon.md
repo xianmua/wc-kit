@@ -2,7 +2,7 @@
 
 图标组件。图标来源优先级：src（SVG 地址直连）> name + library（图标库解析）。
 
-内置 22 个图标：arrow-left / arrow-right / calendar / check / chevron-down / chevron-left / chevron-right / chevron-up / close / error / file / image-off / info / loader / minus / plus / rotate-cw / search / upload / warning / zoom-in / zoom-out。使用前需在应用入口调用一次 `registerBuiltinIcons()`（也可用 `registerIcon(name, svg)` 注册单个图标、`registerIconLibrary(name, lib)` 注册自定义/远程图标库）。
+内置 291 个图标 = **Feather Icons 全集**（287 个）+ error / image-off / warning 补充（Feather 缺失）；其中与 Feather 重名的 19 个（如 arrow-up 带回顶横线）为按组件需求定制过的版本，以定制为准。使用前需在应用入口调用一次 `registerBuiltinIcons()`（也可用 `registerIcon(name, svg)` 注册单个图标、`registerIconLibrary(name, lib)` 注册自定义/远程图标库）。
 
 主要 API：`name` 图标名、`src` SVG 地址、`library` 图标库（默认 default）、`label` 无障碍描述、`spin` 旋转动画、`pulse` 缓动旋转动画。尺寸默认跟随字号（1em），可用 CSS 变量 `--wc-icon-size` 覆盖。
 
@@ -48,6 +48,10 @@ registerBuiltinIcons(); // 应用入口调用一次
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;">
       <wc-icon name="arrow-right" style="font-size:22px;"></wc-icon>
       <span style="font-size:12px;color:var(--wc-color-gray-500);">arrow-right</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;">
+      <wc-icon name="arrow-up" style="font-size:22px;"></wc-icon>
+      <span style="font-size:12px;color:var(--wc-color-gray-500);">arrow-up</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;">
       <wc-icon name="calendar" style="font-size:22px;"></wc-icon>
@@ -132,7 +136,7 @@ registerBuiltinIcons(); // 应用入口调用一次
   </div>
 </div>
 
-内置共 22 个图标，需先调用 `registerBuiltinIcons()` 注册。
+内置共 291 个图标，需先调用 `registerBuiltinIcons()` 注册。
 
 :::: details 查看代码
 ::: code-group
@@ -240,6 +244,10 @@ registerBuiltinIcons(); // 应用入口调用一次
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;">
       <wc-icon name="arrow-right" style="font-size:22px;"></wc-icon>
       <span style="font-size:12px;color:var(--wc-color-gray-500);">arrow-right</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;">
+      <wc-icon name="arrow-up" style="font-size:22px;"></wc-icon>
+      <span style="font-size:12px;color:var(--wc-color-gray-500);">arrow-up</span>
     </div>
     <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;">
       <wc-icon name="calendar" style="font-size:22px;"></wc-icon>

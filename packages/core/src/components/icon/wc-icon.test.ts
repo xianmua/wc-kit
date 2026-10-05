@@ -98,4 +98,13 @@ describe('wc-icon', () => {
       globalThis.fetch = original;
     }
   });
+
+  it('样式规则：:host color 用 inherit 覆盖 baseStyles 文字色（深色上下文需跟随 currentColor）', async () => {
+    const el = await fixture<WcIcon>(html`<wc-icon name="check"></wc-icon>`);
+    await el.updateComplete;
+    const css = Array.from(el.shadowRoot!.querySelectorAll('style'))
+      .map((s) => s.textContent)
+      .join('');
+    expect(css).to.contain('color: inherit');
+  });
 });

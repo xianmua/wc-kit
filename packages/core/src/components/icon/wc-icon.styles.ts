@@ -3,6 +3,12 @@ import { css } from 'lit';
 export const iconStyles = css`
   :host {
     display: inline-flex;
+    /*
+     * 覆盖 baseStyles 的 :host { color: var(--wc-color-text) }——组件自身 :host
+     * 声明的优先级高于继承，不改为 inherit 的话，图标放进实色按钮等深色上下文
+     * 时会被强制成文字色而非跟随 currentColor（currentColor → stroke 继承链断裂）。
+     */
+    color: inherit;
     /* 尺寸默认 1em，跟随 font-size 缩放；颜色继承 currentColor */
     width: 1em;
     height: 1em;

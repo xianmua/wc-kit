@@ -58,10 +58,9 @@ import { WcSwitch } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-switch></wc-switch>
   <wc-switch checked></wc-switch>
@@ -70,30 +69,7 @@ import { WcSwitch } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-switch></wc-switch>
-    <wc-switch checked></wc-switch>
-    <wc-switch disabled></wc-switch>
-    <wc-switch checked disabled></wc-switch>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcSwitch } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcSwitch></WcSwitch>
-  <WcSwitch checked></WcSwitch>
-  <WcSwitch disabled></WcSwitch>
-  <WcSwitch checked disabled></WcSwitch>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 带标签文本
 
@@ -106,36 +82,16 @@ import { WcSwitch } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-switch checked>消息通知</wc-switch>
   <wc-switch>夜间模式</wc-switch>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-switch checked>消息通知</wc-switch>
-    <wc-switch>夜间模式</wc-switch>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcSwitch } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcSwitch checked>消息通知</WcSwitch>
-  <WcSwitch>夜间模式</WcSwitch>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 提交值
 
@@ -147,35 +103,15 @@ import { WcSwitch } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-switch name="notice" checked-value="1" unchecked-value="0" checked>开启/关闭</wc-switch>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-switch name="notice" checked-value="1" unchecked-value="0" checked>开启/关闭</wc-switch>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcSwitch } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcSwitch name="notice" checkedValue={1} uncheckedValue={0} checked>
-    开启/关闭
-  </WcSwitch>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

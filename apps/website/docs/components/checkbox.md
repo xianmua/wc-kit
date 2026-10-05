@@ -52,10 +52,9 @@ import { WcCheckbox } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-checkbox>未选中</wc-checkbox>
   <wc-checkbox checked>选中</wc-checkbox>
@@ -65,34 +64,7 @@ import { WcCheckbox } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-checkbox>未选中</wc-checkbox>
-    <wc-checkbox checked>选中</wc-checkbox>
-    <wc-checkbox indeterminate>半选</wc-checkbox>
-    <wc-checkbox disabled>禁用未选中</wc-checkbox>
-    <wc-checkbox checked disabled>禁用选中</wc-checkbox>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcCheckbox } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcCheckbox>未选中</WcCheckbox>
-  <WcCheckbox checked>选中</WcCheckbox>
-  <WcCheckbox indeterminate>半选</WcCheckbox>
-  <WcCheckbox disabled>禁用未选中</WcCheckbox>
-  <WcCheckbox checked disabled>
-    禁用选中
-  </WcCheckbox>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 复选框组
 
@@ -107,10 +79,9 @@ import { WcCheckbox } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-checkbox name="skill" value="js" checked>JavaScript</wc-checkbox>
   <wc-checkbox name="skill" value="ts">TypeScript</wc-checkbox>
@@ -119,38 +90,7 @@ import { WcCheckbox } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-checkbox name="skill" value="js" checked>JavaScript</wc-checkbox>
-    <wc-checkbox name="skill" value="ts">TypeScript</wc-checkbox>
-    <wc-checkbox name="skill" value="css">CSS</wc-checkbox>
-    <wc-checkbox name="skill" value="rust" disabled>Rust（禁用）</wc-checkbox>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcCheckbox } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcCheckbox name="skill" value="js" checked>
-    JavaScript
-  </WcCheckbox>
-  <WcCheckbox name="skill" value="ts">
-    TypeScript
-  </WcCheckbox>
-  <WcCheckbox name="skill" value="css">
-    CSS
-  </WcCheckbox>
-  <WcCheckbox name="skill" value="rust" disabled>
-    Rust（禁用）
-  </WcCheckbox>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

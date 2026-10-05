@@ -26,6 +26,7 @@ import { cardStyles } from './wc-card.styles';
  * @csspart actions - 头部操作区
  * @csspart body - 内容区
  * @csspart footer - 底部
+ * @cssprop --wc-card-radius - 卡片圆角（默认 --wc-radius-medium）
  */
 export class wcCard extends LitElement {
   static styles = [baseStyles, cardStyles];

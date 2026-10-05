@@ -72,10 +72,9 @@ import { WcSelect, WcOption } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-select style="width:200px" value="shanghai" placeholder="默认选中">
     <wc-option value="beijing">北京</wc-option>
@@ -90,42 +89,7 @@ import { WcSelect, WcOption } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-select style="width:200px" value="shanghai" placeholder="默认选中">
-      <wc-option value="beijing">北京</wc-option>
-      <wc-option value="shanghai">上海</wc-option>
-      <wc-option value="guangzhou">广州</wc-option>
-    </wc-select>
-    <wc-select style="width:200px" value="guangzhou" clearable placeholder="可清除">
-      <wc-option value="beijing">北京</wc-option>
-      <wc-option value="shanghai">上海</wc-option>
-      <wc-option value="guangzhou">广州</wc-option>
-    </wc-select>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcOption, WcSelect } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcSelect style="width:200px" value="shanghai" placeholder="默认选中">
-    <WcOption value="beijing">北京</WcOption>
-    <WcOption value="shanghai">上海</WcOption>
-    <WcOption value="guangzhou">广州</WcOption>
-  </WcSelect>
-  <WcSelect style="width:200px" value="guangzhou" clearable placeholder="可清除">
-    <WcOption value="beijing">北京</WcOption>
-    <WcOption value="shanghai">上海</WcOption>
-    <WcOption value="guangzhou">广州</WcOption>
-  </WcSelect>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 尺寸
 
@@ -148,10 +112,9 @@ import { WcOption, WcSelect } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-select size="small" style="width:140px" placeholder="小号 small">
     <wc-option value="a">选项 A</wc-option>
@@ -168,46 +131,7 @@ import { WcOption, WcSelect } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-select size="small" style="width:140px" placeholder="小号 small">
-      <wc-option value="a">选项 A</wc-option>
-      <wc-option value="b">选项 B</wc-option>
-    </wc-select>
-    <wc-select size="medium" style="width:140px" placeholder="中号 medium">
-      <wc-option value="a">选项 A</wc-option>
-      <wc-option value="b">选项 B</wc-option>
-    </wc-select>
-    <wc-select size="large" style="width:140px" placeholder="大号 large">
-      <wc-option value="a">选项 A</wc-option>
-      <wc-option value="b">选项 B</wc-option>
-    </wc-select>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcOption, WcSelect } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcSelect size="small" style="width:140px" placeholder="小号 small">
-    <WcOption value="a">选项 A</WcOption>
-    <WcOption value="b">选项 B</WcOption>
-  </WcSelect>
-  <WcSelect size="medium" style="width:140px" placeholder="中号 medium">
-    <WcOption value="a">选项 A</WcOption>
-    <WcOption value="b">选项 B</WcOption>
-  </WcSelect>
-  <WcSelect size="large" style="width:140px" placeholder="大号 large">
-    <WcOption value="a">选项 A</WcOption>
-    <WcOption value="b">选项 B</WcOption>
-  </WcSelect>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 禁用选项与禁用选择器
 
@@ -226,10 +150,9 @@ import { WcOption, WcSelect } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-select style="width:200px" placeholder="含禁用选项">
     <wc-option value="beijing">北京</wc-option>
@@ -242,40 +165,7 @@ import { WcOption, WcSelect } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-select style="width:200px" placeholder="含禁用选项">
-      <wc-option value="beijing">北京</wc-option>
-      <wc-option value="shanghai" disabled>上海（禁用）</wc-option>
-      <wc-option value="guangzhou">广州</wc-option>
-    </wc-select>
-    <wc-select style="width:200px" value="beijing" disabled>
-      <wc-option value="beijing">北京</wc-option>
-    </wc-select>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcOption, WcSelect } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcSelect style="width:200px" placeholder="含禁用选项">
-    <WcOption value="beijing">北京</WcOption>
-    <WcOption value="shanghai" disabled>
-      上海（禁用）
-    </WcOption>
-    <WcOption value="guangzhou">广州</WcOption>
-  </WcSelect>
-  <WcSelect style="width:200px" value="beijing" disabled>
-    <WcOption value="beijing">北京</WcOption>
-  </WcSelect>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 校验状态
 
@@ -295,10 +185,9 @@ import { WcOption, WcSelect } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-select status="success" style="width:160px" value="a">
     <wc-option value="a">成功 success</wc-option>
@@ -312,40 +201,7 @@ import { WcOption, WcSelect } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-select status="success" style="width:160px" value="a">
-      <wc-option value="a">成功 success</wc-option>
-    </wc-select>
-    <wc-select status="warning" style="width:160px" value="a">
-      <wc-option value="a">警告 warning</wc-option>
-    </wc-select>
-    <wc-select status="error" style="width:160px" value="a">
-      <wc-option value="a">错误 error</wc-option>
-    </wc-select>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcOption, WcSelect } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcSelect status="success" style="width:160px" value="a">
-    <WcOption value="a">成功 success</WcOption>
-  </WcSelect>
-  <WcSelect status="warning" style="width:160px" value="a">
-    <WcOption value="a">警告 warning</WcOption>
-  </WcSelect>
-  <WcSelect status="error" style="width:160px" value="a">
-    <WcOption value="a">错误 error</WcOption>
-  </WcSelect>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

@@ -44,7 +44,7 @@ import { WcCard, WcButton } from '@wc-kit/react';
 <div class="demo-block">
 
 <wc-card title="项目列表" subtitle="共 12 个" style="max-width: 420px;">
-      <wc-button slot="actions" variant="text" size="small">更多</wc-button>
+      <wc-button slot="actions" type="text" size="small">更多</wc-button>
       <p style="margin:0;">卡片主体内容，支持任意元素。</p>
       <wc-button slot="footer" theme="primary">保存</wc-button>
       <wc-button slot="footer">取消</wc-button>
@@ -57,7 +57,7 @@ import { WcCard, WcButton } from '@wc-kit/react';
 
 ```html [HTML]
 <wc-card title="项目列表" subtitle="共 12 个" style="max-width: 420px;">
-  <wc-button slot="actions" variant="text" size="small">更多</wc-button>
+  <wc-button slot="actions" type="text" size="small">更多</wc-button>
   <p style="margin:0;">卡片主体内容，支持任意元素。</p>
   <wc-button slot="footer" theme="primary">保存</wc-button>
   <wc-button slot="footer">取消</wc-button>
@@ -67,7 +67,7 @@ import { WcCard, WcButton } from '@wc-kit/react';
 ```vue [Vue]
 <template>
   <wc-card title="项目列表" subtitle="共 12 个" style="max-width: 420px;">
-    <wc-button slot="actions" variant="text" size="small">更多</wc-button>
+    <wc-button slot="actions" type="text" size="small">更多</wc-button>
     <p style="margin:0;">卡片主体内容，支持任意元素。</p>
     <wc-button slot="footer" theme="primary">保存</wc-button>
     <wc-button slot="footer">取消</wc-button>
@@ -79,7 +79,7 @@ import { WcCard, WcButton } from '@wc-kit/react';
 import { WcButton, WcCard } from '@wc-kit/react';
 
 <WcCard title="项目列表" subtitle="共 12 个" style="max-width: 420px;">
-  <WcButton slot="actions" variant="text" size="small">
+  <WcButton slot="actions" type="text" size="small">
     更多
   </WcButton>
   <p style="margin:0;">卡片主体内容，支持任意元素。</p>

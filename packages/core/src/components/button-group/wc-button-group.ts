@@ -14,7 +14,21 @@ export class wcButtonGroup extends LitElement {
   static styles = [baseStyles, buttonGroupStyles];
 
   render() {
-    return html`<div class="group" part="base"><slot></slot></div>`;
+    return html`<div class="group" part="base">
+      <slot @slotchange=${this._syncMargins}></slot>
+    </div>`;
+  }
+
+  /*
+   * 相邻边框合并必须用内联样式：CSS 规则（::slotted margin-left）会被宿主页面
+   * 的全局 reset（如 * { margin: 0 }）覆盖——外层文档样式对 slotted 元素
+   * 永远优先于 ::slotted 声明。内联样式优先级最高，且 slotchange 时同步。
+   */
+  private _syncMargins(e: Event) {
+    const els = (e.target as HTMLSlotElement).assignedElements({ flatten: true }) as HTMLElement[];
+    for (let i = 0; i < els.length; i++) {
+      els[i]!.style.marginLeft = i > 0 ? '-1px' : '';
+    }
   }
 }
 

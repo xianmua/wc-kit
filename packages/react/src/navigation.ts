@@ -1,4 +1,15 @@
-import { wcTabs, wcTab, wcBreadcrumb, wcBreadcrumbItem, wcPagination } from '@wc-kit/core';
+import {
+  wcTabs,
+  wcTab,
+  wcBreadcrumb,
+  wcBreadcrumbItem,
+  wcPagination,
+  wcDropdown,
+  wcDropdownItem,
+  wcSplitButton,
+  wcFloatButton,
+  wcFloatButtonGroup,
+} from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
 export const WcTabs = createWrapper({
@@ -32,4 +43,47 @@ export const WcPagination = createWrapper({
   elementClass: wcPagination,
   events: { onWcChange: 'wc-change' },
   displayName: 'WcPagination',
+});
+
+export const WcDropdown = createWrapper({
+  tagName: 'wc-dropdown',
+  elementClass: wcDropdown,
+  events: {
+    onWcOpen: 'wc-open',
+    onWcClose: 'wc-close',
+    onWcSelect: 'wc-select',
+  },
+  displayName: 'WcDropdown',
+});
+
+export const WcDropdownItem = createWrapper({
+  tagName: 'wc-dropdown-item',
+  elementClass: wcDropdownItem,
+  displayName: 'WcDropdownItem',
+});
+
+export const WcSplitButton = createWrapper({
+  tagName: 'wc-split-button',
+  elementClass: wcSplitButton,
+  events: {
+    onWcMainClick: 'wc-main-click',
+    onWcArrowClick: 'wc-arrow-click',
+    onWcSelect: 'wc-select',
+    onWcOpen: 'wc-open',
+    onWcClose: 'wc-close',
+  },
+  displayName: 'WcSplitButton',
+});
+
+export const WcFloatButton = createWrapper({
+  tagName: 'wc-float-button',
+  elementClass: wcFloatButton,
+  displayName: 'WcFloatButton',
+});
+
+export const WcFloatButtonGroup = createWrapper({
+  tagName: 'wc-float-button-group',
+  elementClass: wcFloatButtonGroup,
+  events: { onWcOpen: 'wc-open', onWcClose: 'wc-close' },
+  displayName: 'WcFloatButtonGroup',
 });

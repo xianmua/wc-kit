@@ -2,7 +2,7 @@
 
 标签组件。内容走默认插槽，前置图标走 icon 插槽（可放 wc-icon 等任意元素）。设置 closable 后展示关闭按钮，点击派发 `wc-close` 事件，是否移除标签由使用方控制。
 
-主要 API：`theme` 语义色（default / primary / success / warning / danger）、`size` 尺寸（small / medium / large）、`variant` 填充风格（dark 实底 / light 浅底 / outline 描边，默认 light）、`closable` 可关闭、`disabled` 禁用。事件：`wc-close`。
+主要 API：`theme` 语义色（default / primary / success / warning / danger）、`size` 尺寸（small / medium / large）、`type` 填充风格（dark 实底 / light 浅底 / outline 描边，默认 light）、`closable` 可关闭、`disabled` 禁用。事件：`wc-close`。
 
 React 用法（`@wc-kit/react` 包装组件）：
 
@@ -96,9 +96,9 @@ import { WcTag } from '@wc-kit/react';
 <div class="demo-block">
 
 <div style="display:flex;gap:12px;align-items:center;">
-      <wc-tag theme="primary" variant="dark">dark</wc-tag>
-      <wc-tag theme="primary" variant="light">light</wc-tag>
-      <wc-tag theme="primary" variant="outline">outline</wc-tag>
+      <wc-tag theme="primary" type="dark">dark</wc-tag>
+      <wc-tag theme="primary" type="light">light</wc-tag>
+      <wc-tag theme="primary" type="outline">outline</wc-tag>
     </div>
 
 </div>
@@ -108,18 +108,18 @@ import { WcTag } from '@wc-kit/react';
 
 ```html [HTML]
 <div style="display:flex;gap:12px;align-items:center;">
-  <wc-tag theme="primary" variant="dark">dark</wc-tag>
-  <wc-tag theme="primary" variant="light">light</wc-tag>
-  <wc-tag theme="primary" variant="outline">outline</wc-tag>
+  <wc-tag theme="primary" type="dark">dark</wc-tag>
+  <wc-tag theme="primary" type="light">light</wc-tag>
+  <wc-tag theme="primary" type="outline">outline</wc-tag>
 </div>
 ```
 
 ```vue [Vue]
 <template>
   <div style="display:flex;gap:12px;align-items:center;">
-    <wc-tag theme="primary" variant="dark">dark</wc-tag>
-    <wc-tag theme="primary" variant="light">light</wc-tag>
-    <wc-tag theme="primary" variant="outline">outline</wc-tag>
+    <wc-tag theme="primary" type="dark">dark</wc-tag>
+    <wc-tag theme="primary" type="light">light</wc-tag>
+    <wc-tag theme="primary" type="outline">outline</wc-tag>
   </div>
 </template>
 ```
@@ -128,13 +128,13 @@ import { WcTag } from '@wc-kit/react';
 import { WcTag } from '@wc-kit/react';
 
 <div style="display:flex;gap:12px;align-items:center;">
-  <WcTag theme="primary" variant="dark">
+  <WcTag theme="primary" type="dark">
     dark
   </WcTag>
-  <WcTag theme="primary" variant="light">
+  <WcTag theme="primary" type="light">
     light
   </WcTag>
-  <WcTag theme="primary" variant="outline">
+  <WcTag theme="primary" type="outline">
     outline
   </WcTag>
 </div>;
@@ -195,7 +195,7 @@ import { WcTag } from '@wc-kit/react';
   <div style="display:flex;gap:12px;align-items:center;">
     <wc-tag closable @wc-close="removeTag">标签一</wc-tag>
     <wc-tag theme="primary" closable @wc-close="removeTag">标签二</wc-tag>
-    <wc-tag theme="danger" variant="outline" closable disabled>禁用关闭</wc-tag>
+    <wc-tag theme="danger" type="outline" closable disabled>禁用关闭</wc-tag>
   </div>
 </div>
 
@@ -208,7 +208,7 @@ import { WcTag } from '@wc-kit/react';
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-tag closable id="tag-4-btn0">标签一</wc-tag>
   <wc-tag theme="primary" closable id="tag-4-btn1">标签二</wc-tag>
-  <wc-tag theme="danger" variant="outline" closable disabled>禁用关闭</wc-tag>
+  <wc-tag theme="danger" type="outline" closable disabled>禁用关闭</wc-tag>
 </div>
 
 <script type="module">
@@ -237,7 +237,7 @@ import { WcTag } from '@wc-kit/react';
   <div style="display:flex;gap:12px;align-items:center;">
     <wc-tag closable @wc-close="removeTag">标签一</wc-tag>
     <wc-tag theme="primary" closable @wc-close="removeTag">标签二</wc-tag>
-    <wc-tag theme="danger" variant="outline" closable disabled>禁用关闭</wc-tag>
+    <wc-tag theme="danger" type="outline" closable disabled>禁用关闭</wc-tag>
   </div>
 </template>
 
@@ -270,7 +270,7 @@ import { WcTag } from '@wc-kit/react';
   >
     标签二
   </WcTag>
-  <WcTag theme="danger" variant="outline" closable disabled>
+  <WcTag theme="danger" type="outline" closable disabled>
     禁用关闭
   </WcTag>
 </div>;
@@ -342,7 +342,7 @@ import { WcIcon, WcTag } from '@wc-kit/react';
 | ---------- | ---------- | -------------------------------------------------------------- | ----------- | ----------------------------------------------- |
 | `theme`    | `theme`    | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 语义色                                          |
 | `size`     | `size`     | `'small' \| 'medium' \| 'large'`                               | `'medium'`  | 尺寸                                            |
-| `variant`  | `variant`  | `'dark' \| 'light' \| 'outline'`                               | `'light'`   | 填充风格：dark 实底 / light 浅底 / outline 描边 |
+| `type`     | `type`     | `'dark' \| 'light' \| 'outline'`                               | `'light'`   | 填充风格：dark 实底 / light 浅底 / outline 描边 |
 | `closable` | `closable` | `boolean`                                                      | `false`     | 可关闭                                          |
 | `disabled` | `disabled` | `boolean`                                                      | `false`     | 禁用                                            |
 

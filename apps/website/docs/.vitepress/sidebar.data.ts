@@ -1,4 +1,4 @@
-// 由 scripts/gen-from-stories.mjs 自动生成，勿手工编辑（每次运行脚本会覆盖）。
+// 组件侧边栏（手工维护；历史：曾由 gen-from-stories.mjs 自动生成，该脚本已随 Storybook 一并移除）。
 export interface SidebarEntry {
   text: string;
   link: string;
@@ -57,7 +57,10 @@ export const componentSidebar: SidebarGroup[] = [
     collapsed: false,
     items: [
       { text: 'Breadcrumb 面包屑', link: '/components/breadcrumb' },
+      { text: 'Dropdown 下拉菜单', link: '/components/dropdown' },
+      { text: 'FloatButton 悬浮按钮', link: '/components/float-button' },
       { text: 'Pagination 分页', link: '/components/pagination' },
+      { text: 'SplitButton 组合按钮', link: '/components/split-button' },
       { text: 'Tabs 标签页', link: '/components/tabs' },
     ],
   },

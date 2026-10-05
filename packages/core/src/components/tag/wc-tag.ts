@@ -7,7 +7,7 @@ import { tagStyles } from './wc-tag.styles';
 
 export type wcTagTheme = 'default' | 'primary' | 'success' | 'warning' | 'danger';
 export type wcTagSize = 'small' | 'medium' | 'large';
-export type wcTagVariant = 'dark' | 'light' | 'outline';
+export type wcTagType = 'dark' | 'light' | 'outline';
 
 /**
  * 标签。closable 时展示关闭按钮，点击派发 wc-close（是否移除由使用方控制）。
@@ -28,7 +28,7 @@ export class wcTag extends LitElement {
   @property({ reflect: true }) size: wcTagSize = 'medium';
 
   /** 填充风格：dark 实底 / light 浅底 / outline 描边 */
-  @property({ reflect: true }) variant: wcTagVariant = 'light';
+  @property({ reflect: true }) type: wcTagType = 'light';
 
   /** 可关闭 */
   @property({ type: Boolean, reflect: true }) closable = false;

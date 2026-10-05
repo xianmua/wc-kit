@@ -9,7 +9,6 @@ export default tseslint.config(
       '**/playground-dist/**',
       '**/coverage/**',
       '**/node_modules/**',
-      '**/storybook-static/**',
       '**/.vitepress/cache/**',
     ],
   },

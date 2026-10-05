@@ -1,23 +1,23 @@
 {
   "name": "@wc-kit/vue",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Vue 3 type definitions and helpers for @wc-kit/core web components",
   "keywords": [
-    "vue",
-    "web-components",
+    "components",
     "lit",
     "ui",
-    "components",
-    "wc-kit"
-  ],
-  "files": [
-    "dist"
+    "vue",
+    "wc-kit",
+    "web-components"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xianmua/wui.git",
     "directory": "packages/vue"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",

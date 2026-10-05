@@ -18,10 +18,9 @@
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-button>默认</wc-button>
   <wc-button theme="primary">主要</wc-button>
@@ -31,96 +30,35 @@
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-button>默认</wc-button>
-    <wc-button theme="primary">主要</wc-button>
-    <wc-button theme="success">成功</wc-button>
-    <wc-button theme="warning">警告</wc-button>
-    <wc-button theme="danger">危险</wc-button>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcButton } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcButton>默认</WcButton>
-  <WcButton theme="primary">主要</WcButton>
-  <WcButton theme="success">成功</WcButton>
-  <WcButton theme="warning">警告</WcButton>
-  <WcButton theme="danger">危险</WcButton>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 变体
 
 <div class="demo-block">
 
 <div style="display:flex;gap:12px;align-items:center;">
-      <wc-button theme="primary" variant="base">base</wc-button>
-      <wc-button theme="primary" variant="outline">outline</wc-button>
-      <wc-button theme="primary" variant="text">text</wc-button>
-      <wc-button theme="primary" variant="dashed">dashed</wc-button>
-      <wc-button theme="primary" variant="link">link</wc-button>
+      <wc-button theme="primary" type="base">base</wc-button>
+      <wc-button theme="primary" type="outline">outline</wc-button>
+      <wc-button theme="primary" type="text">text</wc-button>
+      <wc-button theme="primary" type="dashed">dashed</wc-button>
+      <wc-button theme="primary" type="link">link</wc-button>
     </div>
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
-  <wc-button theme="primary" variant="base">base</wc-button>
-  <wc-button theme="primary" variant="outline">outline</wc-button>
-  <wc-button theme="primary" variant="text">text</wc-button>
-  <wc-button theme="primary" variant="dashed">dashed</wc-button>
-  <wc-button theme="primary" variant="link">link</wc-button>
+  <wc-button theme="primary" type="base">base</wc-button>
+  <wc-button theme="primary" type="outline">outline</wc-button>
+  <wc-button theme="primary" type="text">text</wc-button>
+  <wc-button theme="primary" type="dashed">dashed</wc-button>
+  <wc-button theme="primary" type="link">link</wc-button>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-button theme="primary" variant="base">base</wc-button>
-    <wc-button theme="primary" variant="outline">outline</wc-button>
-    <wc-button theme="primary" variant="text">text</wc-button>
-    <wc-button theme="primary" variant="dashed">dashed</wc-button>
-    <wc-button theme="primary" variant="link">link</wc-button>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcButton } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcButton theme="primary" variant="base">
-    base
-  </WcButton>
-  <WcButton theme="primary" variant="outline">
-    outline
-  </WcButton>
-  <WcButton theme="primary" variant="text">
-    text
-  </WcButton>
-  <WcButton theme="primary" variant="dashed">
-    dashed
-  </WcButton>
-  <WcButton theme="primary" variant="link">
-    link
-  </WcButton>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 尺寸
 
@@ -134,10 +72,9 @@ import { WcButton } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-button size="small">小号</wc-button>
   <wc-button size="medium">中号</wc-button>
@@ -145,28 +82,7 @@ import { WcButton } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-button size="small">小号</wc-button>
-    <wc-button size="medium">中号</wc-button>
-    <wc-button size="large">大号</wc-button>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcButton } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcButton size="small">小号</WcButton>
-  <WcButton size="medium">中号</WcButton>
-  <WcButton size="large">大号</WcButton>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 状态
 
@@ -175,6 +91,7 @@ import { WcButton } from '@wc-kit/react';
 <div style="display:flex;gap:12px;align-items:center;">
       <wc-button theme="primary" disabled>禁用</wc-button>
       <wc-button theme="primary" loading>加载中</wc-button>
+      <wc-button theme="success" loading>加载中（spinner 替换图标）</wc-button>
     </div>
     <div style="margin-top:12px;">
       <wc-button theme="primary" block>块级按钮（block）</wc-button>
@@ -182,237 +99,132 @@ import { WcButton } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-button theme="primary" disabled>禁用</wc-button>
   <wc-button theme="primary" loading>加载中</wc-button>
+  <wc-button theme="success" loading>加载中（spinner 替换图标）</wc-button>
 </div>
 <div style="margin-top:12px;">
   <wc-button theme="primary" block>块级按钮（block）</wc-button>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-button theme="primary" disabled>禁用</wc-button>
-    <wc-button theme="primary" loading>加载中</wc-button>
-  </div>
-  <div style="margin-top:12px;">
-    <wc-button theme="primary" block>块级按钮（block）</wc-button>
-  </div>
-</template>
+</details>
+
+### 幽灵按钮
+
+<div class="demo-block">
+
+<div
+      style="display:flex;gap:12px;align-items:center;padding:16px;background:var(--wc-color-gray-900, #1f2329);border-radius:8px;"
+    >
+      <wc-button ghost theme="primary">幽灵主要</wc-button>
+      <wc-button ghost type="dashed" theme="success">幽灵虚线</wc-button>
+      <wc-button ghost theme="warning">幽灵警告</wc-button>
+      <wc-button ghost theme="danger">幽灵危险</wc-button>
+    </div>
+
+</div>
+
+<details><summary>查看代码</summary>
+
+```html
+<div
+  style="display:flex;gap:12px;align-items:center;padding:16px;background:var(--wc-color-gray-900, #1f2329);border-radius:8px;"
+>
+  <wc-button ghost theme="primary">幽灵主要</wc-button>
+  <wc-button ghost type="dashed" theme="success">幽灵虚线</wc-button>
+  <wc-button ghost theme="warning">幽灵警告</wc-button>
+  <wc-button ghost theme="danger">幽灵危险</wc-button>
+</div>
 ```
 
-```tsx [React]
-import { WcButton } from '@wc-kit/react';
+</details>
 
-<div style="display:flex;gap:12px;align-items:center;">
-      <WcButton theme="primary" disabled>禁用</WcButton>
-      <WcButton theme="primary" loading>加载中</WcButton>
-    </div>
-    <div style="margin-top:12px;">
-      <WcButton theme="primary" block>块级按钮（block）</WcButton>
-    </div>
-```
-
-:::
-::::
-
-### 图标按钮
-
-图标走 `icon` 插槽；位置由 `icon-position` 控制（`start` 左 / `end` 右）。只有图标没有文案时自动收为正方形。
+### 渐变按钮
 
 <div class="demo-block">
 
 <div style="display:flex;gap:12px;align-items:center;">
-      <wc-button><wc-icon name="search" slot="icon"></wc-icon>搜索</wc-button>
-      <wc-button icon-position="end" theme="primary"><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button>
-      <wc-button theme="primary"><wc-icon name="search" slot="icon"></wc-icon></wc-button>
-      <wc-button theme="danger" variant="outline"><wc-icon name="close" slot="icon"></wc-icon></wc-button>
+      <wc-button gradient theme="primary">渐变主要</wc-button>
+      <wc-button gradient theme="success">渐变成功</wc-button>
+      <wc-button gradient theme="danger">渐变危险</wc-button>
     </div>
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
-  <wc-button><wc-icon name="search" slot="icon"></wc-icon>搜索</wc-button>
-  <wc-button icon-position="end" theme="primary"
-    ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
-  >
-  <wc-button theme="primary"><wc-icon name="search" slot="icon"></wc-icon></wc-button>
-  <wc-button theme="danger" variant="outline"
-    ><wc-icon name="close" slot="icon"></wc-icon
-  ></wc-button>
+  <wc-button gradient theme="primary">渐变主要</wc-button>
+  <wc-button gradient theme="success">渐变成功</wc-button>
+  <wc-button gradient theme="danger">渐变危险</wc-button>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-button><wc-icon name="search" slot="icon"></wc-icon>搜索</wc-button>
-    <wc-button icon-position="end" theme="primary"
-      ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
-    >
-    <wc-button theme="primary"><wc-icon name="search" slot="icon"></wc-icon></wc-button>
-    <wc-button theme="danger" variant="outline"
-      ><wc-icon name="close" slot="icon"></wc-icon
-    ></wc-button>
-  </div>
-</template>
-```
+</details>
 
-```tsx [React]
-import { WcButton, WcIcon } from '@wc-kit/react';
-
-<div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-  <WcButton>
-    <WcIcon slot="icon" name="search" />
-    搜索
-  </WcButton>
-  <WcButton iconPosition="end" theme="primary">
-    <WcIcon slot="icon" name="arrow-right" />
-    下一步
-  </WcButton>
-  <WcButton theme="primary">
-    <WcIcon slot="icon" name="search" />
-  </WcButton>
-  <WcButton theme="danger" variant="outline">
-    <WcIcon slot="icon" name="close" />
-  </WcButton>
-</div>;
-```
-
-:::
-::::
-
-### 按钮分组
-
-`wc-button-group` 包裹多个按钮：中间按钮去圆角、相邻边框合并，首尾保留外侧圆角。
+### 点击波纹
 
 <div class="demo-block">
 
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-      <wc-button-group>
-        <wc-button><wc-icon name="arrow-left" slot="icon"></wc-icon>上一步</wc-button>
-        <wc-button>第 2 步</wc-button>
-        <wc-button icon-position="end"><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button>
-      </wc-button-group>
-      <wc-button-group>
-        <wc-button theme="primary">新建</wc-button>
-        <wc-button theme="primary"><wc-icon name="chevron-down" slot="icon"></wc-icon></wc-button>
-      </wc-button-group>
+<div style="display:flex;gap:12px;align-items:center;">
+      <wc-button ripple theme="primary">实色波纹</wc-button>
+      <wc-button ripple>描边波纹</wc-button>
+      <wc-button ripple type="outline" theme="danger">危险描边波纹</wc-button>
     </div>
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <wc-button-group>
-    <wc-button><wc-icon name="arrow-left" slot="icon"></wc-icon>上一步</wc-button>
-    <wc-button>第 2 步</wc-button>
-    <wc-button icon-position="end"
-      ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
-    >
-  </wc-button-group>
-  <wc-button-group>
-    <wc-button theme="primary">新建</wc-button>
-    <wc-button theme="primary"><wc-icon name="chevron-down" slot="icon"></wc-icon></wc-button>
-  </wc-button-group>
+```html
+<div style="display:flex;gap:12px;align-items:center;">
+  <wc-button ripple theme="primary">实色波纹</wc-button>
+  <wc-button ripple>描边波纹</wc-button>
+  <wc-button ripple type="outline" theme="danger">危险描边波纹</wc-button>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-button-group>
-      <wc-button><wc-icon name="arrow-left" slot="icon"></wc-icon>上一步</wc-button>
-      <wc-button>第 2 步</wc-button>
-      <wc-button icon-position="end"
-        ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
-      >
-    </wc-button-group>
-    <wc-button-group>
-      <wc-button theme="primary">新建</wc-button>
-      <wc-button theme="primary"><wc-icon name="chevron-down" slot="icon"></wc-icon></wc-button>
-    </wc-button-group>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcButton, WcButtonGroup, WcIcon } from '@wc-kit/react';
-
-<div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-  <WcButtonGroup>
-    <WcButton>
-      <WcIcon slot="icon" name="arrow-left" />
-      上一步
-    </WcButton>
-    <WcButton>第 2 步</WcButton>
-    <WcButton iconPosition="end">
-      <WcIcon slot="icon" name="arrow-right" />
-      下一步
-    </WcButton>
-  </WcButtonGroup>
-  <WcButtonGroup>
-    <WcButton theme="primary">新建</WcButton>
-    <WcButton theme="primary">
-      <WcIcon slot="icon" name="chevron-down" />
-    </WcButton>
-  </WcButtonGroup>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 
 ### 属性
 
-| 属性           | attribute       | 类型                                                           | 默认值      | 说明               |
-| -------------- | --------------- | -------------------------------------------------------------- | ----------- | ------------------ |
-| `theme`        | `theme`         | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 组件风格（语义色） |
-| `variant`      | `variant`       | `'base' \| 'outline' \| 'dashed' \| 'text' \| 'link'`          | `'base'`    | 按钮形式           |
-| `size`         | `size`          | `'small' \| 'medium' \| 'large'`                               | `'medium'`  | 尺寸               |
-| `iconPosition` | `icon-position` | `'start' \| 'end'`                                             | `'start'`   | 图标位置：左 / 右  |
-| `block`        | `block`         | `boolean`                                                      | `false`     | 是否为块级元素     |
-| `disabled`     | `disabled`      | `boolean`                                                      | `false`     | 禁用状态           |
-| `loading`      | `loading`       | `boolean`                                                      | `false`     | 加载状态           |
+| 属性           | attribute       | 类型                                                           | 默认值      | 说明                                                                                  |
+| -------------- | --------------- | -------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------- |
+| `theme`        | `theme`         | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 组件风格（语义色）                                                                    |
+| `type`         | `type`          | `'base' \| 'outline' \| 'dashed' \| 'text' \| 'link'`          | `'base'`    | 按钮形式                                                                              |
+| `size`         | `size`          | `'small' \| 'medium' \| 'large'`                               | `'medium'`  | 尺寸                                                                                  |
+| `iconPosition` | `icon-position` | `'start' \| 'end'`                                             | `'start'`   | 图标位置：start 左 / end 右                                                           |
+| `block`        | `block`         | `boolean`                                                      | `false`     | 是否为块级元素                                                                        |
+| `disabled`     | `disabled`      | `boolean`                                                      | `false`     | 禁用状态                                                                              |
+| `loading`      | `loading`       | `boolean`                                                      | `false`     | 加载状态                                                                              |
+| `ghost`        | `ghost`         | `boolean`                                                      | `false`     | 幽灵模式：透明底 + 主题色边框/文字（用于深色背景；outline/dashed 悬停改为半透明淡底） |
+| `gradient`     | `gradient`      | `boolean`                                                      | `false`     | 渐变底：实色按钮改为主题色线性渐变（仅 base 变体且非 default 主题生效）               |
+| `ripple`       | `ripple`        | `boolean`                                                      | `false`     | 点击波纹效果                                                                          |
 
 ### 插槽
 
-| 名称     | 说明                                |
-| -------- | ----------------------------------- |
-| （默认） | 按钮内容                            |
-| `icon`   | 图标（位置由 `icon-position` 控制） |
+| 名称     | 说明                                                        |
+| -------- | ----------------------------------------------------------- |
+| （默认） | 按钮内容                                                    |
+| `icon`   | 图标（位置由 iconPosition 控制；loading 时被 spinner 替换） |
 
 ### CSS 变量
 
-| 变量                 | 说明     |
-| -------------------- | -------- |
-| `--wc-button-height` | 按钮高度 |
-
-#### wc-button-group
-
-| 变量                       | 说明                   |
-| -------------------------- | ---------------------- |
-| `--wc-button-group-radius` | 分组首尾按钮保留的圆角 |
+| 变量                          | 说明                                     |
+| ----------------------------- | ---------------------------------------- |
+| `--wc-button-height`          | 按钮高度                                 |
+| `--wc-button-ghost-hover-bg`  | ghost 模式悬停淡底色                     |
+| `--wc-button-ripple-color`    | 波纹颜色（默认 currentColor 45% 透明度） |
+| `--wc-button-ripple-duration` | 波纹扩散时长（默认 600ms）               |
 
 ### CSS Parts
 
-`base`、`icon`、`content`
-
-#### wc-button-group
-
-`base`
+`base` / `icon` / `content`

@@ -13,10 +13,10 @@ import type { wcFormItem } from './wc-form-item.js';
  *   <wc-form-item label="用户名" name="username" required>
  *     <wc-input></wc-input>
  *   </wc-form-item>
- *   <wc-button theme="primary" type="submit">提交</wc-button>
+ *   <wc-button theme="primary" html-type="submit">提交</wc-button>
  * </wc-form>
  * ```
- * 点击 `wc-button[type=submit]` / `wc-button[type=reset]` 会触发提交流程 /
+ * 点击 `wc-button[html-type=submit]` / `wc-button[html-type=reset]` 会触发提交流程 /
  * 重置（事件委托，按钮可以是任意层级后代）。
  *
  * @slot - 放置 wc-form-item 与按钮
@@ -82,13 +82,13 @@ export class wcForm extends LitElement {
     void this.submit();
   };
 
-  /** 委托处理 wc-button[type=submit|reset]（控件在各自 shadow 内，需用 composedPath） */
+  /** 委托处理 wc-button[html-type=submit|reset]（控件在各自 shadow 内，需用 composedPath） */
   private onHostClick = (e: MouseEvent): void => {
     const button = (e.composedPath() as Element[]).find(
       (el) => el instanceof Element && el.tagName === 'WC-BUTTON',
     );
     if (!button) return;
-    const type = button.getAttribute('type');
+    const type = button.getAttribute('html-type');
     if (type === 'submit') {
       e.preventDefault();
       void this.submit();

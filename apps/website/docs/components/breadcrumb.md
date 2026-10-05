@@ -51,10 +51,9 @@ Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-breadcrumb>
   <wc-breadcrumb-item>一级页面</wc-breadcrumb-item>
   <wc-breadcrumb-item>二级页面</wc-breadcrumb-item>
@@ -62,28 +61,7 @@ Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 </wc-breadcrumb>
 ```
 
-```vue [Vue]
-<template>
-  <wc-breadcrumb>
-    <wc-breadcrumb-item>一级页面</wc-breadcrumb-item>
-    <wc-breadcrumb-item>二级页面</wc-breadcrumb-item>
-    <wc-breadcrumb-item>当前页面</wc-breadcrumb-item>
-  </wc-breadcrumb>
-</template>
-```
-
-```tsx [React]
-import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
-
-<WcBreadcrumb>
-  <WcBreadcrumbItem>一级页面</WcBreadcrumbItem>
-  <WcBreadcrumbItem>二级页面</WcBreadcrumbItem>
-  <WcBreadcrumbItem>当前页面</WcBreadcrumbItem>
-</WcBreadcrumb>;
-```
-
-:::
-::::
+</details>
 
 ### 自定义分隔符
 
@@ -104,10 +82,9 @@ import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:grid;gap:16px;">
   <wc-breadcrumb separator=">">
     <wc-breadcrumb-item href="/">首页</wc-breadcrumb-item>
@@ -122,42 +99,7 @@ import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:grid;gap:16px;">
-    <wc-breadcrumb separator=">">
-      <wc-breadcrumb-item href="/">首页</wc-breadcrumb-item>
-      <wc-breadcrumb-item href="/list">列表</wc-breadcrumb-item>
-      <wc-breadcrumb-item>详情</wc-breadcrumb-item>
-    </wc-breadcrumb>
-    <wc-breadcrumb separator="·">
-      <wc-breadcrumb-item href="/">首页</wc-breadcrumb-item>
-      <wc-breadcrumb-item href="/list">列表</wc-breadcrumb-item>
-      <wc-breadcrumb-item>详情</wc-breadcrumb-item>
-    </wc-breadcrumb>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
-
-<div style="display:grid;gap:16px;">
-  <WcBreadcrumb separator=">">
-    <WcBreadcrumbItem href="/">首页</WcBreadcrumbItem>
-    <WcBreadcrumbItem href="/list">列表</WcBreadcrumbItem>
-    <WcBreadcrumbItem>详情</WcBreadcrumbItem>
-  </WcBreadcrumb>
-  <WcBreadcrumb separator="·">
-    <WcBreadcrumbItem href="/">首页</WcBreadcrumbItem>
-    <WcBreadcrumbItem href="/list">列表</WcBreadcrumbItem>
-    <WcBreadcrumbItem>详情</WcBreadcrumbItem>
-  </WcBreadcrumb>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 禁用项
 
@@ -171,10 +113,9 @@ import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <wc-breadcrumb>
   <wc-breadcrumb-item href="/">首页</wc-breadcrumb-item>
   <wc-breadcrumb-item href="/list" disabled>列表</wc-breadcrumb-item>
@@ -182,30 +123,7 @@ import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
 </wc-breadcrumb>
 ```
 
-```vue [Vue]
-<template>
-  <wc-breadcrumb>
-    <wc-breadcrumb-item href="/">首页</wc-breadcrumb-item>
-    <wc-breadcrumb-item href="/list" disabled>列表</wc-breadcrumb-item>
-    <wc-breadcrumb-item>详情</wc-breadcrumb-item>
-  </wc-breadcrumb>
-</template>
-```
-
-```tsx [React]
-import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
-
-<WcBreadcrumb>
-  <WcBreadcrumbItem href="/">首页</WcBreadcrumbItem>
-  <WcBreadcrumbItem href="/list" disabled>
-    列表
-  </WcBreadcrumbItem>
-  <WcBreadcrumbItem>详情</WcBreadcrumbItem>
-</WcBreadcrumb>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

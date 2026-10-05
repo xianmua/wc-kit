@@ -5,9 +5,9 @@ import type { wcText } from './wc-text.js';
 describe('wc-text', () => {
   it('默认属性正确', async () => {
     const el = await fixture<wcText>(html`<wc-text>正文</wc-text>`);
-    expect(el.variant).to.equal('text');
+    expect(el.type).to.equal('text');
     expect(el.level).to.equal(3);
-    expect(el.type).to.equal('default');
+    expect(el.theme).to.equal('default');
     expect(el.disabled).to.be.false;
   });
 
@@ -19,7 +19,7 @@ describe('wc-text', () => {
   });
 
   it('heading 模式带 role/aria-level 与级别类名', async () => {
-    const el = await fixture<wcText>(html`<wc-text variant="heading" level="2">标题</wc-text>`);
+    const el = await fixture<wcText>(html`<wc-text type="heading" level="2">标题</wc-text>`);
     const base = el.shadowRoot!.querySelector('[part="base"]')!;
     expect(base.getAttribute('role')).to.equal('heading');
     expect(base.getAttribute('aria-level')).to.equal('2');
@@ -27,9 +27,9 @@ describe('wc-text', () => {
   });
 
   it('level 越界收敛到 1~6', async () => {
-    const high = await fixture<wcText>(html`<wc-text variant="heading" level="9">标题</wc-text>`);
+    const high = await fixture<wcText>(html`<wc-text type="heading" level="9">标题</wc-text>`);
     expect(high.shadowRoot!.querySelector('.level-6')).to.exist;
-    const low = await fixture<wcText>(html`<wc-text variant="heading" level="0">标题</wc-text>`);
+    const low = await fixture<wcText>(html`<wc-text type="heading" level="0">标题</wc-text>`);
     expect(low.shadowRoot!.querySelector('.level-1')).to.exist;
   });
 

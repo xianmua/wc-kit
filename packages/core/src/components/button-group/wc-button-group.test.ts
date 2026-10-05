@@ -39,7 +39,7 @@ describe('wc-button-group', () => {
     expect(css).to.contain('--wc-button-group-radius');
   });
 
-  it('样式规则：相邻按钮负边距合并边框', async () => {
+  it('相邻按钮用内联 margin-left 合并边框（内联可抵御宿主 reset 覆盖 ::slotted）', async () => {
     const el = await fixture<wcButtonGroup>(html`
       <wc-button-group>
         <wc-button>左</wc-button>
@@ -47,7 +47,33 @@ describe('wc-button-group', () => {
       </wc-button-group>
     `);
     await el.updateComplete;
-    expect(groupCssText(el)).to.contain('margin-left: -1px');
+    const buttons = el.querySelectorAll('wc-button');
+    expect(buttons[0]!.style.marginLeft).to.equal('');
+    expect(buttons[1]!.style.marginLeft).to.equal('-1px');
+  });
+
+  it('子按钮增删后重新同步边距', async () => {
+    const el = await fixture<wcButtonGroup>(html`
+      <wc-button-group>
+        <wc-button>左</wc-button>
+        <wc-button>右</wc-button>
+      </wc-button-group>
+    `);
+    await el.updateComplete;
+    const buttons = el.querySelectorAll('wc-button');
+    expect(buttons[1]!.style.marginLeft).to.equal('-1px');
+    buttons[0]!.remove();
+    await el.updateComplete;
+    // 原第二颗变成第一颗，边距应被清空
+    expect(el.querySelectorAll('wc-button')[0]!.style.marginLeft).to.equal('');
+  });
+
+  it('样式规则：分组内聚焦环 offset 改为内嵌令牌', async () => {
+    const el = await fixture<wcButtonGroup>(
+      html`<wc-button-group><wc-button>独</wc-button></wc-button-group>`,
+    );
+    await el.updateComplete;
+    expect(groupCssText(el)).to.contain('--wc-button-focus-ring-offset: -2px');
   });
 
   it('暴露 part="base" 供外部定制', async () => {

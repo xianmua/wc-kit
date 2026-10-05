@@ -5,7 +5,7 @@ export const typographyStyles = css`
     display: inline;
   }
 
-  :host([variant='heading']) {
+  :host([type='heading']) {
     display: block;
   }
 
@@ -52,19 +52,19 @@ export const typographyStyles = css`
   }
 
   /* ---- 语义色 ---- */
-  :host([type='secondary']) .text {
+  :host([theme='secondary']) .text {
     color: var(--wc-color-text-secondary);
   }
 
-  :host([type='success']) .text {
+  :host([theme='success']) .text {
     color: var(--wc-color-success);
   }
 
-  :host([type='warning']) .text {
+  :host([theme='warning']) .text {
     color: var(--wc-color-warning);
   }
 
-  :host([type='danger']) .text {
+  :host([theme='danger']) .text {
     color: var(--wc-color-error);
   }
 

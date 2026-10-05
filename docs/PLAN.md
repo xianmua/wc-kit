@@ -17,7 +17,7 @@
 | 样式 | Shadow DOM + CSS 变量                        | `::part` / CSS custom properties 穿透定制 |
 | 构建 | Vite + vite-plugin-dts                       | ESM/CJS 双产物 + 类型声明                 |
 | 测试 | Vitest + @open-wc/testing + Playwright(a11y) | 单测 + 组件测试                           |
-| 文档 | Storybook 8                                  | 组件演示、API 表、控制台交互              |
+| 文档 | VitePress（apps/website）                    | 组件演示、API 表、live demo               |
 | 工程 | pnpm workspace + Changesets                  | monorepo 管理、版本发布                   |
 | 适配 | @lit/react、Vue defineCustomElement          | 官方推荐的适配路径                        |
 
@@ -68,7 +68,7 @@ wc/
 
 ### Phase 2 — 基础组件（8 个）✅
 
-- [x] Button 按钮（theme/variant/size/loading/block，playground 已含）
+- [x] Button 按钮（theme/type/size/loading/block，playground 已含）
 - [x] Icon 图标（图标系统 + 13 内置图标）
 - [x] Divider 分隔线（虚线 / align 文案对齐 / vertical 竖向）
 - [x] Space 间距（预设与自定义尺寸 / direction / wrap / gap 实现）

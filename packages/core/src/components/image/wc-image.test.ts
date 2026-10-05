@@ -203,7 +203,7 @@ describe('wc-image', () => {
     it('工具栏：放大/缩小/旋转/重置', async () => {
       const el = await previewFixture();
       await openPreview(el);
-      const buttons = el.shadowRoot!.querySelectorAll('.toolbar button');
+      const buttons = el.shadowRoot!.querySelectorAll<HTMLElement>('.toolbar button');
       // 放大
       buttons[0]!.click();
       await el.updateComplete;

@@ -43,9 +43,9 @@ describe('wc-upload', () => {
     );
     const dragger = el.shadowRoot!.querySelector('[part="dragger"]');
     expect(dragger).to.exist;
-    expect(el.shadowRoot!.querySelector('slot[name="tip"]')!.assignedElements()).to.have.lengthOf(
-      1,
-    );
+    expect(
+      (el.shadowRoot!.querySelector('slot[name="tip"]') as HTMLSlotElement).assignedElements(),
+    ).to.have.lengthOf(1);
   });
 
   it('选择文件加入列表并派发 wc-select 与 wc-change', async () => {
@@ -56,7 +56,7 @@ describe('wc-upload', () => {
     el.addEventListener('wc-change', () => changes.push(1));
     await pickFiles(el, [makeFile('a.txt'), makeFile('b.txt')]);
     expect(el.files).to.have.lengthOf(2);
-    expect(el.files[0].status).to.equal('waiting');
+    expect(el.files[0]!.status).to.equal('waiting');
     expect(selected).to.have.lengthOf(1);
     expect(selected[0]).to.have.lengthOf(2);
     expect(changes.length).to.be.greaterThan(0);
@@ -67,7 +67,7 @@ describe('wc-upload', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const el = await fixture<wcUpload>(html`<wc-upload></wc-upload>`);
     await pickFiles(el, [makeFile('a.txt')]);
-    expect(el.files[0].status).to.equal('waiting');
+    expect(el.files[0]!.status).to.equal('waiting');
     expect(warn.mock.calls.filter((c) => String(c[0]).includes('wc-upload'))).to.have.lengthOf(1);
   });
 
@@ -81,15 +81,15 @@ describe('wc-upload', () => {
       el.addEventListener('wc-success', (e) => successes.push((e as CustomEvent).detail.file));
       await pickFiles(el, [makeFile('a.txt')]);
       expect(calls).to.have.lengthOf(1);
-      calls[0].options.onProgress(50);
+      calls[0]!.options.onProgress(50);
       await el.updateComplete;
-      expect(el.files[0].status).to.equal('uploading');
-      expect(el.files[0].percent).to.equal(50);
-      calls[0].options.onSuccess({ url: 'https://example.com/a.txt' });
+      expect(el.files[0]!.status).to.equal('uploading');
+      expect(el.files[0]!.percent).to.equal(50);
+      calls[0]!.options.onSuccess({ url: 'https://example.com/a.txt' });
       await el.updateComplete;
-      expect(el.files[0].status).to.equal('success');
-      expect(el.files[0].percent).to.equal(100);
-      expect(el.files[0].url).to.equal('https://example.com/a.txt');
+      expect(el.files[0]!.status).to.equal('success');
+      expect(el.files[0]!.percent).to.equal(100);
+      expect(el.files[0]!.url).to.equal('https://example.com/a.txt');
       expect(successes).to.have.lengthOf(1);
       expect(progresses).to.deep.equal([50]);
     });
@@ -100,18 +100,18 @@ describe('wc-upload', () => {
       const errors: string[] = [];
       el.addEventListener('wc-error', (e) => errors.push((e as CustomEvent).detail.message));
       await pickFiles(el, [makeFile('a.txt')]);
-      calls[0].options.onError('boom');
+      calls[0]!.options.onError('boom');
       await el.updateComplete;
-      expect(el.files[0].status).to.equal('error');
+      expect(el.files[0]!.status).to.equal('error');
       expect(errors).to.deep.equal(['boom']);
       const retryBtn = el.shadowRoot!.querySelector<HTMLButtonElement>('.icon-btn');
       expect(retryBtn).to.exist;
       retryBtn!.click();
       await el.updateComplete;
       expect(calls).to.have.lengthOf(2);
-      calls[1].options.onSuccess();
+      calls[1]!.options.onSuccess();
       await el.updateComplete;
-      expect(el.files[0].status).to.equal('success');
+      expect(el.files[0]!.status).to.equal('success');
     });
 
     it('autoUpload=false 时等待 submit() 手动上传', async () => {
@@ -120,7 +120,7 @@ describe('wc-upload', () => {
         html`<wc-upload auto-upload="false" .requestMethod=${method}></wc-upload>`,
       );
       await pickFiles(el, [makeFile('a.txt')]);
-      expect(el.files[0].status).to.equal('waiting');
+      expect(el.files[0]!.status).to.equal('waiting');
       expect(calls).to.have.lengthOf(0);
       el.submit();
       await el.updateComplete;
@@ -133,14 +133,14 @@ describe('wc-upload', () => {
       const previews: wcUploadFile[] = [];
       el.addEventListener('wc-preview', (e) => previews.push((e as CustomEvent).detail.file));
       await pickFiles(el, [makeFile('a.txt')]);
-      calls[0].options.onSuccess({ url: 'https://example.com/a.txt' });
+      calls[0]!.options.onSuccess({ url: 'https://example.com/a.txt' });
       await el.updateComplete;
       const name = el.shadowRoot!.querySelector<HTMLElement>('.name.link')!;
       expect(name).to.exist;
       name.click();
       await el.updateComplete;
       expect(previews).to.have.lengthOf(1);
-      expect(previews[0].url).to.equal('https://example.com/a.txt');
+      expect(previews[0]!.url).to.equal('https://example.com/a.txt');
     });
   });
 
@@ -151,8 +151,8 @@ describe('wc-upload', () => {
     await pickFiles(el, [makeFile('a.txt'), makeFile('b.txt'), makeFile('c.txt')]);
     expect(el.files).to.have.lengthOf(2);
     expect(exceeds).to.have.lengthOf(1);
-    expect(exceeds[0].files).to.have.lengthOf(1);
-    expect(exceeds[0].max).to.equal(2);
+    expect(exceeds[0]!.files).to.have.lengthOf(1);
+    expect(exceeds[0]!.max).to.equal(2);
   });
 
   it('移除文件可取消；接受后从列表移除并派发 wc-change', async () => {
@@ -200,19 +200,19 @@ describe('wc-upload', () => {
     await el.updateComplete;
     expect(dragger.classList.contains('drag-over')).to.be.false;
     expect(el.files).to.have.lengthOf(1);
-    expect(el.files[0].name).to.equal('d.txt');
+    expect(el.files[0]!.name).to.equal('d.txt');
   });
 
   it('percent 进度夹紧到 0-100', async () => {
     const { calls, method } = captureMethod();
     const el = await fixture<wcUpload>(html`<wc-upload .requestMethod=${method}></wc-upload>`);
     await pickFiles(el, [makeFile('a.txt')]);
-    calls[0].options.onProgress(150);
+    calls[0]!.options.onProgress(150);
     await el.updateComplete;
-    expect(el.files[0].percent).to.equal(100);
-    calls[0].options.onProgress(-5);
+    expect(el.files[0]!.percent).to.equal(100);
+    calls[0]!.options.onProgress(-5);
     await el.updateComplete;
-    expect(el.files[0].percent).to.equal(0);
+    expect(el.files[0]!.percent).to.equal(0);
   });
 
   it('大小格式化：B / KB / MB', async () => {

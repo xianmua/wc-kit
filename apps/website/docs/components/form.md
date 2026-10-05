@@ -33,7 +33,7 @@ import { WcForm, WcFormItem, WcInput, WcButton } from '@wc-kit/react';
   <WcFormItem label="用户名" name="username" required>
     <WcInput name="username" />
   </WcFormItem>
-  <WcButton theme="primary" type="submit">
+  <WcButton theme="primary" html-type="submit">
     提交
   </WcButton>
 </WcForm>;
@@ -49,8 +49,8 @@ import { WcForm, WcFormItem, WcInput, WcButton } from '@wc-kit/react';
   <wc-form-item label="用户名" name="username" required>
     <wc-input name="username" :value="username" @wc-input="(e) => (username = e.detail.value)" />
   </wc-form-item>
-  <wc-button theme="primary" type="submit">提交</wc-button>
-  <wc-button variant="outline" type="reset">重置</wc-button>
+  <wc-button theme="primary" html-type="submit">提交</wc-button>
+  <wc-button type="outline" html-type="reset">重置</wc-button>
 </wc-form>
 ```
 
@@ -98,8 +98,8 @@ onMounted(() => {
       <wc-textarea name="bio" placeholder="长度 5 ~ 50 个字符"></wc-textarea>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
-      <wc-button theme="primary" type="submit">提交</wc-button>
-      <wc-button variant="outline" type="reset">重置</wc-button>
+      <wc-button theme="primary" html-type="submit">提交</wc-button>
+      <wc-button type="outline" html-type="reset">重置</wc-button>
     </div>
   </wc-form>
 </div>
@@ -124,8 +124,8 @@ onMounted(() => {
     <wc-textarea name="bio" placeholder="长度 5 ~ 50 个字符"></wc-textarea>
   </wc-form-item>
   <div style="display:flex;gap:12px;">
-    <wc-button theme="primary" type="submit">提交</wc-button>
-    <wc-button variant="outline" type="reset">重置</wc-button>
+    <wc-button theme="primary" html-type="submit">提交</wc-button>
+    <wc-button type="outline" html-type="reset">重置</wc-button>
   </div>
 </wc-form>
 ```
@@ -146,8 +146,8 @@ onMounted(() => {
       <wc-textarea name="bio" placeholder="长度 5 ~ 50 个字符"></wc-textarea>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
-      <wc-button theme="primary" type="submit">提交</wc-button>
-      <wc-button variant="outline" type="reset">重置</wc-button>
+      <wc-button theme="primary" html-type="submit">提交</wc-button>
+      <wc-button type="outline" html-type="reset">重置</wc-button>
     </div>
   </wc-form>
 </template>
@@ -170,10 +170,10 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
     <WcTextarea name="bio" placeholder="长度 5 ~ 50 个字符"></WcTextarea>
   </WcFormItem>
   <div style="display:flex;gap:12px;">
-    <WcButton theme="primary" type="submit">
+    <WcButton theme="primary" html-type="submit">
       提交
     </WcButton>
-    <WcButton variant="outline" type="reset">
+    <WcButton type="outline" html-type="reset">
       重置
     </WcButton>
   </div>
@@ -194,8 +194,8 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
       <wc-input name="nickname" placeholder="试试输入 admin 触发异步校验"></wc-input>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
-      <wc-button theme="primary" type="submit">提交</wc-button>
-      <wc-button variant="outline" type="reset">重置</wc-button>
+      <wc-button theme="primary" html-type="submit">提交</wc-button>
+      <wc-button type="outline" html-type="reset">重置</wc-button>
     </div>
   </wc-form>
 </div>
@@ -214,8 +214,8 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
     <wc-input name="nickname" placeholder="试试输入 admin 触发异步校验"></wc-input>
   </wc-form-item>
   <div style="display:flex;gap:12px;">
-    <wc-button theme="primary" type="submit">提交</wc-button>
-    <wc-button variant="outline" type="reset">重置</wc-button>
+    <wc-button theme="primary" html-type="submit">提交</wc-button>
+    <wc-button type="outline" html-type="reset">重置</wc-button>
   </div>
 </wc-form>
 
@@ -247,8 +247,8 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
       <wc-input name="nickname" placeholder="试试输入 admin 触发异步校验"></wc-input>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
-      <wc-button theme="primary" type="submit">提交</wc-button>
-      <wc-button variant="outline" type="reset">重置</wc-button>
+      <wc-button theme="primary" html-type="submit">提交</wc-button>
+      <wc-button type="outline" html-type="reset">重置</wc-button>
     </div>
   </wc-form>
 </template>
@@ -284,10 +284,10 @@ import { WcButton, WcForm, WcFormItem, WcInput } from '@wc-kit/react';
     <WcInput name="nickname" placeholder="试试输入 admin 触发异步校验"></WcInput>
   </WcFormItem>
   <div style="display:flex;gap:12px;">
-    <WcButton theme="primary" type="submit">
+    <WcButton theme="primary" html-type="submit">
       提交
     </WcButton>
-    <WcButton variant="outline" type="reset">
+    <WcButton type="outline" html-type="reset">
       重置
     </WcButton>
   </div>
@@ -320,8 +320,8 @@ useEffect(() => {
       <wc-input name="email" placeholder="请输入邮箱"></wc-input>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
-      <wc-button theme="primary" type="submit">提交</wc-button>
-      <wc-button variant="outline" type="reset">重置</wc-button>
+      <wc-button theme="primary" html-type="submit">提交</wc-button>
+      <wc-button type="outline" html-type="reset">重置</wc-button>
     </div>
   </wc-form>
 </div>
@@ -337,8 +337,8 @@ useEffect(() => {
     <wc-input name="email" placeholder="请输入邮箱"></wc-input>
   </wc-form-item>
   <div style="display:flex;gap:12px;">
-    <wc-button theme="primary" type="submit">提交</wc-button>
-    <wc-button variant="outline" type="reset">重置</wc-button>
+    <wc-button theme="primary" html-type="submit">提交</wc-button>
+    <wc-button type="outline" html-type="reset">重置</wc-button>
   </div>
 </wc-form>
 
@@ -365,8 +365,8 @@ useEffect(() => {
       <wc-input name="email" placeholder="请输入邮箱"></wc-input>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
-      <wc-button theme="primary" type="submit">提交</wc-button>
-      <wc-button variant="outline" type="reset">重置</wc-button>
+      <wc-button theme="primary" html-type="submit">提交</wc-button>
+      <wc-button type="outline" html-type="reset">重置</wc-button>
     </div>
   </wc-form>
 </template>
@@ -391,10 +391,10 @@ import { WcButton, WcForm, WcFormItem, WcInput } from '@wc-kit/react';
     <WcInput name="email" placeholder="请输入邮箱"></WcInput>
   </WcFormItem>
   <div style="display:flex;gap:12px;">
-    <WcButton theme="primary" type="submit">
+    <WcButton theme="primary" html-type="submit">
       提交
     </WcButton>
-    <WcButton variant="outline" type="reset">
+    <WcButton type="outline" html-type="reset">
       重置
     </WcButton>
   </div>

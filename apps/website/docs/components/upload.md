@@ -234,7 +234,7 @@ useEffect(() => {
 <div class="demo-block">
   <wc-upload ref="manual" auto-upload="false"></wc-upload>
   <p style="margin-top: 8px">
-    <wc-button size="small" variant="outline" @click="manual?.submit()">开始上传</wc-button>
+    <wc-button size="small" type="outline" @click="manual?.submit()">开始上传</wc-button>
   </p>
 </div>
 
@@ -243,7 +243,7 @@ useEffect(() => {
 
 ```html [HTML]
 <wc-upload id="manual" auto-upload="false"></wc-upload>
-<wc-button id="manual-submit" size="small" variant="outline">开始上传</wc-button>
+<wc-button id="manual-submit" size="small" type="outline">开始上传</wc-button>
 
 <script type="module">
   const manual = document.getElementById('manual');
@@ -254,7 +254,7 @@ useEffect(() => {
 ```vue [Vue]
 <template>
   <wc-upload ref="manual" auto-upload="false"></wc-upload>
-  <wc-button size="small" variant="outline" @click="manual?.submit()">开始上传</wc-button>
+  <wc-button size="small" type="outline" @click="manual?.submit()">开始上传</wc-button>
 </template>
 
 <script setup lang="ts">
@@ -279,7 +279,7 @@ useEffect(() => {
 }, []);
 
 <WcUpload ref={manual} autoUpload={false} />
-<WcButton size="small" variant="outline" onClick={() => manual.current?.submit()}>
+<WcButton size="small" type="outline" onClick={() => manual.current?.submit()}>
   开始上传
 </WcButton>
 ```

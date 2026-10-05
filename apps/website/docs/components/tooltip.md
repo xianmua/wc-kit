@@ -53,40 +53,40 @@ function msg(type, text) {
 <div class="demo-block">
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
     <wc-tooltip content="top" placement="top">
-      <wc-button variant="outline">top</wc-button>
+      <wc-button type="outline">top</wc-button>
     </wc-tooltip>
     <wc-tooltip content="top-start" placement="top-start">
-      <wc-button variant="outline">top-start</wc-button>
+      <wc-button type="outline">top-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="top-end" placement="top-end">
-      <wc-button variant="outline">top-end</wc-button>
+      <wc-button type="outline">top-end</wc-button>
     </wc-tooltip>
     <wc-tooltip content="bottom" placement="bottom">
-      <wc-button variant="outline">bottom</wc-button>
+      <wc-button type="outline">bottom</wc-button>
     </wc-tooltip>
     <wc-tooltip content="bottom-start" placement="bottom-start">
-      <wc-button variant="outline">bottom-start</wc-button>
+      <wc-button type="outline">bottom-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="bottom-end" placement="bottom-end">
-      <wc-button variant="outline">bottom-end</wc-button>
+      <wc-button type="outline">bottom-end</wc-button>
     </wc-tooltip>
     <wc-tooltip content="left" placement="left">
-      <wc-button variant="outline">left</wc-button>
+      <wc-button type="outline">left</wc-button>
     </wc-tooltip>
     <wc-tooltip content="left-start" placement="left-start">
-      <wc-button variant="outline">left-start</wc-button>
+      <wc-button type="outline">left-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="left-end" placement="left-end">
-      <wc-button variant="outline">left-end</wc-button>
+      <wc-button type="outline">left-end</wc-button>
     </wc-tooltip>
     <wc-tooltip content="right" placement="right">
-      <wc-button variant="outline">right</wc-button>
+      <wc-button type="outline">right</wc-button>
     </wc-tooltip>
     <wc-tooltip content="right-start" placement="right-start">
-      <wc-button variant="outline">right-start</wc-button>
+      <wc-button type="outline">right-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="right-end" placement="right-end">
-      <wc-button variant="outline">right-end</wc-button>
+      <wc-button type="outline">right-end</wc-button>
     </wc-tooltip>
   </div>
 </div>
@@ -99,40 +99,40 @@ function msg(type, text) {
 ```html [HTML]
 <div style="display:flex;gap:12px;flex-wrap:wrap;">
   <wc-tooltip content="top" placement="top">
-    <wc-button variant="outline">top</wc-button>
+    <wc-button type="outline">top</wc-button>
   </wc-tooltip>
   <wc-tooltip content="top-start" placement="top-start">
-    <wc-button variant="outline">top-start</wc-button>
+    <wc-button type="outline">top-start</wc-button>
   </wc-tooltip>
   <wc-tooltip content="top-end" placement="top-end">
-    <wc-button variant="outline">top-end</wc-button>
+    <wc-button type="outline">top-end</wc-button>
   </wc-tooltip>
   <wc-tooltip content="bottom" placement="bottom">
-    <wc-button variant="outline">bottom</wc-button>
+    <wc-button type="outline">bottom</wc-button>
   </wc-tooltip>
   <wc-tooltip content="bottom-start" placement="bottom-start">
-    <wc-button variant="outline">bottom-start</wc-button>
+    <wc-button type="outline">bottom-start</wc-button>
   </wc-tooltip>
   <wc-tooltip content="bottom-end" placement="bottom-end">
-    <wc-button variant="outline">bottom-end</wc-button>
+    <wc-button type="outline">bottom-end</wc-button>
   </wc-tooltip>
   <wc-tooltip content="left" placement="left">
-    <wc-button variant="outline">left</wc-button>
+    <wc-button type="outline">left</wc-button>
   </wc-tooltip>
   <wc-tooltip content="left-start" placement="left-start">
-    <wc-button variant="outline">left-start</wc-button>
+    <wc-button type="outline">left-start</wc-button>
   </wc-tooltip>
   <wc-tooltip content="left-end" placement="left-end">
-    <wc-button variant="outline">left-end</wc-button>
+    <wc-button type="outline">left-end</wc-button>
   </wc-tooltip>
   <wc-tooltip content="right" placement="right">
-    <wc-button variant="outline">right</wc-button>
+    <wc-button type="outline">right</wc-button>
   </wc-tooltip>
   <wc-tooltip content="right-start" placement="right-start">
-    <wc-button variant="outline">right-start</wc-button>
+    <wc-button type="outline">right-start</wc-button>
   </wc-tooltip>
   <wc-tooltip content="right-end" placement="right-end">
-    <wc-button variant="outline">right-end</wc-button>
+    <wc-button type="outline">right-end</wc-button>
   </wc-tooltip>
 </div>
 ```
@@ -141,40 +141,40 @@ function msg(type, text) {
 <template>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
     <wc-tooltip content="top" placement="top">
-      <wc-button variant="outline">top</wc-button>
+      <wc-button type="outline">top</wc-button>
     </wc-tooltip>
     <wc-tooltip content="top-start" placement="top-start">
-      <wc-button variant="outline">top-start</wc-button>
+      <wc-button type="outline">top-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="top-end" placement="top-end">
-      <wc-button variant="outline">top-end</wc-button>
+      <wc-button type="outline">top-end</wc-button>
     </wc-tooltip>
     <wc-tooltip content="bottom" placement="bottom">
-      <wc-button variant="outline">bottom</wc-button>
+      <wc-button type="outline">bottom</wc-button>
     </wc-tooltip>
     <wc-tooltip content="bottom-start" placement="bottom-start">
-      <wc-button variant="outline">bottom-start</wc-button>
+      <wc-button type="outline">bottom-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="bottom-end" placement="bottom-end">
-      <wc-button variant="outline">bottom-end</wc-button>
+      <wc-button type="outline">bottom-end</wc-button>
     </wc-tooltip>
     <wc-tooltip content="left" placement="left">
-      <wc-button variant="outline">left</wc-button>
+      <wc-button type="outline">left</wc-button>
     </wc-tooltip>
     <wc-tooltip content="left-start" placement="left-start">
-      <wc-button variant="outline">left-start</wc-button>
+      <wc-button type="outline">left-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="left-end" placement="left-end">
-      <wc-button variant="outline">left-end</wc-button>
+      <wc-button type="outline">left-end</wc-button>
     </wc-tooltip>
     <wc-tooltip content="right" placement="right">
-      <wc-button variant="outline">right</wc-button>
+      <wc-button type="outline">right</wc-button>
     </wc-tooltip>
     <wc-tooltip content="right-start" placement="right-start">
-      <wc-button variant="outline">right-start</wc-button>
+      <wc-button type="outline">right-start</wc-button>
     </wc-tooltip>
     <wc-tooltip content="right-end" placement="right-end">
-      <wc-button variant="outline">right-end</wc-button>
+      <wc-button type="outline">right-end</wc-button>
     </wc-tooltip>
   </div>
 </template>
@@ -185,40 +185,40 @@ import { WcButton, WcTooltip } from '@wc-kit/react';
 
 <div style="display:flex;gap:12px;flex-wrap:wrap;">
   <WcTooltip content="top" placement="top">
-    <WcButton variant="outline">top</WcButton>
+    <WcButton type="outline">top</WcButton>
   </WcTooltip>
   <WcTooltip content="top-start" placement="top-start">
-    <WcButton variant="outline">top-start</WcButton>
+    <WcButton type="outline">top-start</WcButton>
   </WcTooltip>
   <WcTooltip content="top-end" placement="top-end">
-    <WcButton variant="outline">top-end</WcButton>
+    <WcButton type="outline">top-end</WcButton>
   </WcTooltip>
   <WcTooltip content="bottom" placement="bottom">
-    <WcButton variant="outline">bottom</WcButton>
+    <WcButton type="outline">bottom</WcButton>
   </WcTooltip>
   <WcTooltip content="bottom-start" placement="bottom-start">
-    <WcButton variant="outline">bottom-start</WcButton>
+    <WcButton type="outline">bottom-start</WcButton>
   </WcTooltip>
   <WcTooltip content="bottom-end" placement="bottom-end">
-    <WcButton variant="outline">bottom-end</WcButton>
+    <WcButton type="outline">bottom-end</WcButton>
   </WcTooltip>
   <WcTooltip content="left" placement="left">
-    <WcButton variant="outline">left</WcButton>
+    <WcButton type="outline">left</WcButton>
   </WcTooltip>
   <WcTooltip content="left-start" placement="left-start">
-    <WcButton variant="outline">left-start</WcButton>
+    <WcButton type="outline">left-start</WcButton>
   </WcTooltip>
   <WcTooltip content="left-end" placement="left-end">
-    <WcButton variant="outline">left-end</WcButton>
+    <WcButton type="outline">left-end</WcButton>
   </WcTooltip>
   <WcTooltip content="right" placement="right">
-    <WcButton variant="outline">right</WcButton>
+    <WcButton type="outline">right</WcButton>
   </WcTooltip>
   <WcTooltip content="right-start" placement="right-start">
-    <WcButton variant="outline">right-start</WcButton>
+    <WcButton type="outline">right-start</WcButton>
   </WcTooltip>
   <WcTooltip content="right-end" placement="right-end">
-    <WcButton variant="outline">right-end</WcButton>
+    <WcButton type="outline">right-end</WcButton>
   </WcTooltip>
 </div>;
 ```
@@ -231,7 +231,7 @@ import { WcButton, WcTooltip } from '@wc-kit/react';
 <div class="demo-block">
   <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
     <wc-tooltip trigger="click" content="点击触发，点击外部或按 Esc 关闭">
-      <wc-button theme="primary" variant="outline">click 触发</wc-button>
+      <wc-button theme="primary" type="outline">click 触发</wc-button>
     </wc-tooltip>
     <wc-button @click="tooltipManual?.show()">show()</wc-button>
     <wc-button @click="tooltipManual?.hide()">hide()</wc-button>
@@ -249,7 +249,7 @@ hover 模式含键盘聚焦触发；manual 模式完全由 show() / hide() 控�
 ```html [HTML]
 <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
   <wc-tooltip trigger="click" content="点击触发，点击外部或按 Esc 关闭">
-    <wc-button theme="primary" variant="outline">click 触发</wc-button>
+    <wc-button theme="primary" type="outline">click 触发</wc-button>
   </wc-tooltip>
   <wc-button id="tooltip-2-btn0">show()</wc-button>
   <wc-button id="tooltip-2-btn1">hide()</wc-button>
@@ -276,7 +276,7 @@ hover 模式含键盘聚焦触发；manual 模式完全由 show() / hide() 控�
 <template>
   <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
     <wc-tooltip trigger="click" content="点击触发，点击外部或按 Esc 关闭">
-      <wc-button theme="primary" variant="outline">click 触发</wc-button>
+      <wc-button theme="primary" type="outline">click 触发</wc-button>
     </wc-tooltip>
     <wc-button @click="tooltipManual?.show()">show()</wc-button>
     <wc-button @click="tooltipManual?.hide()">hide()</wc-button>
@@ -298,7 +298,7 @@ import { WcButton, WcTooltip } from '@wc-kit/react';
 
 <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
   <WcTooltip trigger="click" content="点击触发，点击外部或按 Esc 关闭">
-    <WcButton theme="primary" variant="outline">
+    <WcButton theme="primary" type="outline">
       click 触发
     </WcButton>
   </WcTooltip>
@@ -332,7 +332,7 @@ const tooltipManual = useRef(null);
 <div class="demo-block">
 
 <wc-tooltip placement="bottom">
-      <wc-button variant="outline">悬浮查看富文本</wc-button>
+      <wc-button type="outline">悬浮查看富文本</wc-button>
       <div slot="content">
         <b>加粗标题</b><br />
         这段内容来自 content 插槽，会覆盖 content 属性。
@@ -346,7 +346,7 @@ const tooltipManual = useRef(null);
 
 ```html [HTML]
 <wc-tooltip placement="bottom">
-  <wc-button variant="outline">悬浮查看富文本</wc-button>
+  <wc-button type="outline">悬浮查看富文本</wc-button>
   <div slot="content">
     <b>加粗标题</b><br />
     这段内容来自 content 插槽，会覆盖 content 属性。
@@ -357,7 +357,7 @@ const tooltipManual = useRef(null);
 ```vue [Vue]
 <template>
   <wc-tooltip placement="bottom">
-    <wc-button variant="outline">悬浮查看富文本</wc-button>
+    <wc-button type="outline">悬浮查看富文本</wc-button>
     <div slot="content">
       <b>加粗标题</b><br />
       这段内容来自 content 插槽，会覆盖 content 属性。
@@ -370,7 +370,7 @@ const tooltipManual = useRef(null);
 import { WcButton, WcTooltip } from '@wc-kit/react';
 
 <WcTooltip placement="bottom">
-  <WcButton variant="outline">悬浮查看富文本</WcButton>
+  <WcButton type="outline">悬浮查看富文本</WcButton>
   <div slot="content">
     <b>加粗标题</b>
     <br />

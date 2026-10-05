@@ -17,6 +17,11 @@ import type {
   wcDialog,
   wcDivider,
   wcDrawer,
+  wcDropdown,
+  wcDropdownItem,
+  wcSplitButton,
+  wcFloatButton,
+  wcFloatButtonGroup,
   wcEmpty,
   wcForm,
   wcFormItem,
@@ -82,6 +87,11 @@ declare module 'vue' {
     'wc-message': WcComponent<wcMessage>;
     'wc-tooltip': WcComponent<wcTooltip>;
     'wc-popconfirm': WcComponent<wcPopconfirm>;
+    'wc-dropdown': WcComponent<wcDropdown>;
+    'wc-dropdown-item': WcComponent<wcDropdownItem>;
+    'wc-split-button': WcComponent<wcSplitButton>;
+    'wc-float-button': WcComponent<wcFloatButton>;
+    'wc-float-button-group': WcComponent<wcFloatButtonGroup>;
     // 导航
     'wc-tabs': WcComponent<wcTabs>;
     'wc-tab': WcComponent<wcTab>;

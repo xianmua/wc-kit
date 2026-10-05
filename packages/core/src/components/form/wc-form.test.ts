@@ -209,8 +209,8 @@ describe('wc-form', () => {
       <wc-form-item label="邮箱" name="email" required>
         <wc-input></wc-input>
       </wc-form-item>
-      <wc-button type="submit" theme="primary">提交</wc-button>
-      <wc-button type="reset">重置</wc-button>
+      <wc-button html-type="submit" theme="primary">提交</wc-button>
+      <wc-button html-type="reset">重置</wc-button>
     </wc-form>
   `;
 
@@ -263,7 +263,7 @@ describe('wc-form', () => {
     form.addEventListener('wc-submit', () => {
       submitted = true;
     });
-    const submitBtn = form.querySelector<HTMLElement>('wc-button[type="submit"]')!;
+    const submitBtn = form.querySelector<HTMLElement>('wc-button[html-type="submit"]')!;
     submitBtn.click();
     await flush();
     expect(submitted).to.be.true;
@@ -281,7 +281,7 @@ describe('wc-form', () => {
     expect(result.valid).to.be.false;
     expect(form.getItem('email')!.error).to.not.equal('');
 
-    form.querySelector<HTMLElement>('wc-button[type="reset"]')!.click();
+    form.querySelector<HTMLElement>('wc-button[html-type="reset"]')!.click();
     await flush();
     await form.getItem('email')!.updateComplete;
     expect(username.value).to.equal('');

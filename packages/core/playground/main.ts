@@ -121,7 +121,7 @@ class PlaygroundApp extends LitElement {
               (t) => html`
                 <wc-button
                   data-theme=${t.value}
-                  variant=${this.theme === t.value ? 'base' : 'outline'}
+                  type=${this.theme === t.value ? 'base' : 'outline'}
                   theme="primary"
                   size="small"
                   @click=${this.switchTheme}
@@ -137,9 +137,9 @@ class PlaygroundApp extends LitElement {
           <div class="row">
             <wc-button>默认</wc-button>
             <wc-button theme="primary">主要</wc-button>
-            <wc-button theme="success" variant="outline">成功</wc-button>
-            <wc-button theme="warning" variant="dashed">警告</wc-button>
-            <wc-button theme="danger" variant="text">危险</wc-button>
+            <wc-button theme="success" type="outline">成功</wc-button>
+            <wc-button theme="warning" type="dashed">警告</wc-button>
+            <wc-button theme="danger" type="text">危险</wc-button>
             <wc-button disabled>禁用</wc-button>
             <wc-button loading theme="primary">加载中</wc-button>
           </div>
@@ -166,7 +166,54 @@ class PlaygroundApp extends LitElement {
               >
             </wc-button-group>
           </div>
+          <div class="row">
+            <wc-button ghost theme="primary">幽灵主要</wc-button>
+            <wc-button ghost theme="danger">幽灵危险</wc-button>
+            <wc-button gradient theme="primary">渐变主要</wc-button>
+            <wc-button ripple theme="primary">波纹主要</wc-button>
+            <wc-button ripple theme="success" type="outline">波纹成功描边</wc-button>
+            <wc-button loading theme="success">加载成功</wc-button>
+          </div>
+          <div class="row">
+            <wc-dropdown>
+              <wc-button slot="trigger" theme="default" icon-position="end"
+                >下拉菜单<wc-icon name="chevron-down" slot="icon"></wc-icon
+              ></wc-button>
+              <wc-dropdown-item value="edit">编辑</wc-dropdown-item>
+              <wc-dropdown-item value="copy">复制</wc-dropdown-item>
+              <wc-dropdown-item divider></wc-dropdown-item>
+              <wc-dropdown-item value="delete" danger>删除</wc-dropdown-item>
+            </wc-dropdown>
+            <wc-split-button theme="primary" ripple>
+              主操作
+              <wc-dropdown-item value="a">菜单一</wc-dropdown-item>
+              <wc-dropdown-item value="b">菜单二</wc-dropdown-item>
+              <wc-dropdown-item divider></wc-dropdown-item>
+              <wc-dropdown-item value="c" danger>危险操作</wc-dropdown-item>
+            </wc-split-button>
+          </div>
         </section>
+
+        <section>
+          <h3>FloatButton 悬浮按钮</h3>
+          <div class="col">
+            <p>
+              悬浮按钮固定在视口右下角；组合按钮点击展开 speed-dial；回到顶部在页面滚动超过 200px
+              后出现。
+            </p>
+          </div>
+        </section>
+        <wc-float-button icon="plus" tooltip="新增"></wc-float-button>
+        <wc-float-button-group trigger="click" style="--wc-float-button-bottom: 84px">
+          <wc-float-button icon="search" tooltip="搜索"></wc-float-button>
+          <wc-float-button icon="upload" tooltip="上传"></wc-float-button>
+          <wc-float-button icon="file" tooltip="文件" type="primary"></wc-float-button>
+        </wc-float-button-group>
+        <wc-float-button
+          backtop
+          visibility-height="200"
+          style="--wc-float-button-right: 84px"
+        ></wc-float-button>
 
         <section>
           <h3>Input 输入框</h3>
@@ -316,8 +363,8 @@ class PlaygroundApp extends LitElement {
             <wc-tag theme="success">成功</wc-tag>
             <wc-tag theme="warning">警告</wc-tag>
             <wc-tag theme="danger">危险</wc-tag>
-            <wc-tag theme="primary" variant="dark">实底</wc-tag>
-            <wc-tag theme="primary" variant="outline">描边</wc-tag>
+            <wc-tag theme="primary" type="dark">实底</wc-tag>
+            <wc-tag theme="primary" type="outline">描边</wc-tag>
             <wc-tag theme="primary" size="small">小号</wc-tag>
             <wc-tag theme="primary" size="large">大号</wc-tag>
             <wc-tag theme="primary" closable>可关闭</wc-tag>
@@ -349,7 +396,7 @@ class PlaygroundApp extends LitElement {
             <wc-col span="6" offset="6"><div class="grid-demo">span=6 offset=6</div></wc-col>
           </wc-row>
           <div style="margin-top: 12px">
-            <wc-text variant="heading" level="2">H2 标题</wc-text>
+            <wc-text type="heading" level="2">H2 标题</wc-text>
             <wc-text type="secondary">次级说明文本</wc-text>
             <wc-text type="danger">危险色文本</wc-text>
           </div>
@@ -516,7 +563,7 @@ class PlaygroundApp extends LitElement {
         <section>
           <h3>Empty 空状态</h3>
           <wc-empty style="border: 1px dashed var(--wc-color-border); border-radius: 6px">
-            <wc-button slot="action" theme="primary" variant="outline">重新加载</wc-button>
+            <wc-button slot="action" theme="primary" type="outline">重新加载</wc-button>
           </wc-empty>
         </section>
 
@@ -535,12 +582,12 @@ class PlaygroundApp extends LitElement {
           <div class="row" style="align-items: stretch">
             <wc-card title="卡片标题" subtitle="副标题" hoverable style="flex: 1">
               <p>这是一张带悬浮阴影的卡片。</p>
-              <wc-button slot="footer" variant="outline" size="small">更多</wc-button>
+              <wc-button slot="footer" type="outline" size="small">更多</wc-button>
             </wc-card>
             <wc-card style="flex: 1">
               <span slot="header">纯插槽头部</span>
               <p>使用 header 插槽自定义头部。</p>
-              <wc-button slot="actions" variant="text" size="small">
+              <wc-button slot="actions" type="text" size="small">
                 <wc-icon name="close"></wc-icon>
               </wc-button>
             </wc-card>
@@ -644,7 +691,7 @@ class PlaygroundApp extends LitElement {
                 auto-upload="false"
               ></wc-upload>
               <div style="margin-top: 8px">
-                <wc-button size="small" variant="outline" @click=${this.submitManualUpload}
+                <wc-button size="small" type="outline" @click=${this.submitManualUpload}
                   >开始上传</wc-button
                 >
               </div>

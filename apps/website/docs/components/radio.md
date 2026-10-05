@@ -66,10 +66,9 @@ import { WcRadio } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-radio name="city" value="beijing" checked>北京</wc-radio>
   <wc-radio name="city" value="shanghai">上海</wc-radio>
@@ -77,34 +76,7 @@ import { WcRadio } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-radio name="city" value="beijing" checked>北京</wc-radio>
-    <wc-radio name="city" value="shanghai">上海</wc-radio>
-    <wc-radio name="city" value="guangzhou">广州</wc-radio>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcRadio } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcRadio name="city" value="beijing" checked>
-    北京
-  </WcRadio>
-  <WcRadio name="city" value="shanghai">
-    上海
-  </WcRadio>
-  <WcRadio name="city" value="guangzhou">
-    广州
-  </WcRadio>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 禁用
 
@@ -117,40 +89,16 @@ import { WcRadio } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-radio name="plan" value="free" disabled>免费版（禁用）</wc-radio>
   <wc-radio name="plan" value="pro" checked disabled>专业版（禁用选中）</wc-radio>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-radio name="plan" value="free" disabled>免费版（禁用）</wc-radio>
-    <wc-radio name="plan" value="pro" checked disabled>专业版（禁用选中）</wc-radio>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcRadio } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcRadio name="plan" value="free" disabled>
-    免费版（禁用）
-  </WcRadio>
-  <WcRadio name="plan" value="pro" checked disabled>
-    专业版（禁用选中）
-  </WcRadio>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

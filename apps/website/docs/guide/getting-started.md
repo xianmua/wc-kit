@@ -35,7 +35,7 @@ initTheme();
 任意框架中直接书写原生标签：
 
 ```html
-<wc-button variant="outline">按钮</wc-button> <wc-input placeholder="请输入"></wc-input>
+<wc-button type="outline">按钮</wc-button> <wc-input placeholder="请输入"></wc-input>
 ```
 
 ## 框架适配

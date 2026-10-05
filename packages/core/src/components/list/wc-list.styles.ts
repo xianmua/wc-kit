@@ -3,9 +3,10 @@ import { css } from 'lit';
 export const listStyles = css`
   :host {
     display: block;
+    --wc-list-radius: var(--wc-radius-medium);
   }
 
-  /* display:flex/grid 类会覆盖 [hidden] 的 UA 样式，显式关闭 */
+  /* display:flex 类会覆盖 [hidden] 的 UA 样式，显式关闭 */
   [hidden] {
     display: none !important;
   }
@@ -16,6 +17,9 @@ export const listStyles = css`
     list-style: none;
     color: var(--wc-color-text);
     font-size: var(--wc-font-size-medium);
+    border-radius: var(--wc-list-radius);
+    /* 裁剪条目背景（striped/hover）避免溢出圆角 */
+    overflow: hidden;
   }
 
   /* 通过 ::slotted 为 light-DOM 条目提供统一样式 */

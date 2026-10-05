@@ -90,7 +90,7 @@ describe('tokens.css', () => {
 
   it('z-index 分层令牌存在', () => {
     const names = extractVarNames(rootBlock);
-    for (const z of ['dropdown', 'sticky', 'modal', 'message', 'tooltip']) {
+    for (const z of ['dropdown', 'fab', 'sticky', 'modal', 'message', 'tooltip']) {
       expect(names.has(`--wc-z-index-${z}`)).to.be.true;
     }
   });

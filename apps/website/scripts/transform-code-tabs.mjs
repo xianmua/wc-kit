@@ -1,6 +1,6 @@
 /**
  * 把组件页 demo 的「查看代码」details 折叠块转换为三语言 code-group（HTML / Vue / React）。
- * - 幂等：已是 code-group 的 demo 自动跳过；配合 gen-from-stories.mjs 重生成后可重跑
+ * - 幂等：已是 code-group 的 demo 自动跳过，可重复执行
  * - 函数体复用页面 <script setup> 的源码（动态 import 风格，框架无关）
  * - 模板层做机械转换：Vue 指令 → 原生 addEventListener / React props
  *

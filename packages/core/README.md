@@ -41,11 +41,11 @@ import '@wc-kit/core/tokens.css';
 
 ## 框架适配
 
-| 框架 | 包 | 说明 |
-| ---- | -- | ---- |
-| React 18/19 | [`@wc-kit/react`](https://www.npmjs.com/package/@wc-kit/react) | @lit/react 包装，事件映射为 `onWc*` props |
-| Vue 3 | [`@wc-kit/vue`](https://www.npmjs.com/package/@wc-kit/vue) | GlobalComponents 模板类型检查 + v-model 适配说明 |
-| 原生 HTML | 本包 | 直接使用，无需任何适配层 |
+| 框架        | 包                                                             | 说明                                             |
+| ----------- | -------------------------------------------------------------- | ------------------------------------------------ |
+| React 18/19 | [`@wc-kit/react`](https://www.npmjs.com/package/@wc-kit/react) | @lit/react 包装，事件映射为 `onWc*` props        |
+| Vue 3       | [`@wc-kit/vue`](https://www.npmjs.com/package/@wc-kit/vue)     | GlobalComponents 模板类型检查 + v-model 适配说明 |
+| 原生 HTML   | 本包                                                           | 直接使用，无需任何适配层                         |
 
 ## 文档
 

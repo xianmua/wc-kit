@@ -38,10 +38,9 @@ Vue 用法（`@wc-kit/vue` 为纯类型增强包，直接使用原生标签）�
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;flex-direction:column;gap:16px;">
   <wc-divider align="left">左</wc-divider>
   <wc-divider align="center">中</wc-divider>
@@ -49,28 +48,7 @@ Vue 用法（`@wc-kit/vue` 为纯类型增强包，直接使用原生标签）�
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;flex-direction:column;gap:16px;">
-    <wc-divider align="left">左</wc-divider>
-    <wc-divider align="center">中</wc-divider>
-    <wc-divider align="right">右</wc-divider>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcDivider } from '@wc-kit/react';
-
-<div style="display:flex;flex-direction:column;gap:16px;">
-  <WcDivider align="left">左</WcDivider>
-  <WcDivider align="center">中</WcDivider>
-  <WcDivider align="right">右</WcDivider>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 虚线
 
@@ -83,36 +61,16 @@ import { WcDivider } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;flex-direction:column;gap:16px;">
   <wc-divider dashed>虚线 + 文案</wc-divider>
   <wc-divider dashed></wc-divider>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;flex-direction:column;gap:16px;">
-    <wc-divider dashed>虚线 + 文案</wc-divider>
-    <wc-divider dashed></wc-divider>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcDivider } from '@wc-kit/react';
-
-<div style="display:flex;flex-direction:column;gap:16px;">
-  <WcDivider dashed>虚线 + 文案</WcDivider>
-  <WcDivider dashed></WcDivider>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 竖向分隔线
 
@@ -123,50 +81,24 @@ import { WcDivider } from '@wc-kit/react';
       <wc-divider vertical></wc-divider>
       <span>列表</span>
       <wc-divider vertical></wc-divider>
-      <wc-button variant="text">详情</wc-button>
+      <wc-button type="text">详情</wc-button>
     </div>
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <span>首页</span>
   <wc-divider vertical></wc-divider>
   <span>列表</span>
   <wc-divider vertical></wc-divider>
-  <wc-button variant="text">详情</wc-button>
+  <wc-button type="text">详情</wc-button>
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <span>首页</span>
-    <wc-divider vertical></wc-divider>
-    <span>列表</span>
-    <wc-divider vertical></wc-divider>
-    <wc-button variant="text">详情</wc-button>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcButton, WcDivider } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <span>首页</span>
-  <WcDivider vertical></WcDivider>
-  <span>列表</span>
-  <WcDivider vertical></WcDivider>
-  <WcButton variant="text">详情</WcButton>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

@@ -21,13 +21,12 @@ export const buttonGroupStyles = css`
    */
   ::slotted(wc-button) {
     --wc-button-radius: 0;
+    /* 聚焦环内嵌：光环画在按钮边缘内侧，避免叠在相邻按钮上造成割裂感 */
+    --wc-button-focus-ring-offset: -2px;
     position: relative;
   }
 
-  /* 相邻边框合并：后一个左移 1px 压在前一个边框上 */
-  ::slotted(wc-button:not(:first-child)) {
-    margin-left: -1px;
-  }
+  /* 边距合并由组件用内联样式实现（见 _syncMargins），CSS 声明会被外层 reset 压过 */
 
   /* 悬停/聚焦的上层按钮边框完整可见 */
   ::slotted(wc-button:hover),

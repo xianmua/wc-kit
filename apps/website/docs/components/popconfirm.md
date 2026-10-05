@@ -63,40 +63,40 @@ function onCancel(e) {
 <div class="demo-block">
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
     <wc-popconfirm content="位置：top" placement="top">
-      <wc-button variant="outline">top</wc-button>
+      <wc-button type="outline">top</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：top-start" placement="top-start">
-      <wc-button variant="outline">top-start</wc-button>
+      <wc-button type="outline">top-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：top-end" placement="top-end">
-      <wc-button variant="outline">top-end</wc-button>
+      <wc-button type="outline">top-end</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：bottom" placement="bottom">
-      <wc-button variant="outline">bottom</wc-button>
+      <wc-button type="outline">bottom</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：bottom-start" placement="bottom-start">
-      <wc-button variant="outline">bottom-start</wc-button>
+      <wc-button type="outline">bottom-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：bottom-end" placement="bottom-end">
-      <wc-button variant="outline">bottom-end</wc-button>
+      <wc-button type="outline">bottom-end</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：left" placement="left">
-      <wc-button variant="outline">left</wc-button>
+      <wc-button type="outline">left</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：left-start" placement="left-start">
-      <wc-button variant="outline">left-start</wc-button>
+      <wc-button type="outline">left-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：left-end" placement="left-end">
-      <wc-button variant="outline">left-end</wc-button>
+      <wc-button type="outline">left-end</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：right" placement="right">
-      <wc-button variant="outline">right</wc-button>
+      <wc-button type="outline">right</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：right-start" placement="right-start">
-      <wc-button variant="outline">right-start</wc-button>
+      <wc-button type="outline">right-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：right-end" placement="right-end">
-      <wc-button variant="outline">right-end</wc-button>
+      <wc-button type="outline">right-end</wc-button>
     </wc-popconfirm>
   </div>
 </div>
@@ -109,40 +109,40 @@ function onCancel(e) {
 ```html [HTML]
 <div style="display:flex;gap:12px;flex-wrap:wrap;">
   <wc-popconfirm content="位置：top" placement="top">
-    <wc-button variant="outline">top</wc-button>
+    <wc-button type="outline">top</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：top-start" placement="top-start">
-    <wc-button variant="outline">top-start</wc-button>
+    <wc-button type="outline">top-start</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：top-end" placement="top-end">
-    <wc-button variant="outline">top-end</wc-button>
+    <wc-button type="outline">top-end</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：bottom" placement="bottom">
-    <wc-button variant="outline">bottom</wc-button>
+    <wc-button type="outline">bottom</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：bottom-start" placement="bottom-start">
-    <wc-button variant="outline">bottom-start</wc-button>
+    <wc-button type="outline">bottom-start</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：bottom-end" placement="bottom-end">
-    <wc-button variant="outline">bottom-end</wc-button>
+    <wc-button type="outline">bottom-end</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：left" placement="left">
-    <wc-button variant="outline">left</wc-button>
+    <wc-button type="outline">left</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：left-start" placement="left-start">
-    <wc-button variant="outline">left-start</wc-button>
+    <wc-button type="outline">left-start</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：left-end" placement="left-end">
-    <wc-button variant="outline">left-end</wc-button>
+    <wc-button type="outline">left-end</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：right" placement="right">
-    <wc-button variant="outline">right</wc-button>
+    <wc-button type="outline">right</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：right-start" placement="right-start">
-    <wc-button variant="outline">right-start</wc-button>
+    <wc-button type="outline">right-start</wc-button>
   </wc-popconfirm>
   <wc-popconfirm content="位置：right-end" placement="right-end">
-    <wc-button variant="outline">right-end</wc-button>
+    <wc-button type="outline">right-end</wc-button>
   </wc-popconfirm>
 </div>
 ```
@@ -151,40 +151,40 @@ function onCancel(e) {
 <template>
   <div style="display:flex;gap:12px;flex-wrap:wrap;">
     <wc-popconfirm content="位置：top" placement="top">
-      <wc-button variant="outline">top</wc-button>
+      <wc-button type="outline">top</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：top-start" placement="top-start">
-      <wc-button variant="outline">top-start</wc-button>
+      <wc-button type="outline">top-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：top-end" placement="top-end">
-      <wc-button variant="outline">top-end</wc-button>
+      <wc-button type="outline">top-end</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：bottom" placement="bottom">
-      <wc-button variant="outline">bottom</wc-button>
+      <wc-button type="outline">bottom</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：bottom-start" placement="bottom-start">
-      <wc-button variant="outline">bottom-start</wc-button>
+      <wc-button type="outline">bottom-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：bottom-end" placement="bottom-end">
-      <wc-button variant="outline">bottom-end</wc-button>
+      <wc-button type="outline">bottom-end</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：left" placement="left">
-      <wc-button variant="outline">left</wc-button>
+      <wc-button type="outline">left</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：left-start" placement="left-start">
-      <wc-button variant="outline">left-start</wc-button>
+      <wc-button type="outline">left-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：left-end" placement="left-end">
-      <wc-button variant="outline">left-end</wc-button>
+      <wc-button type="outline">left-end</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：right" placement="right">
-      <wc-button variant="outline">right</wc-button>
+      <wc-button type="outline">right</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：right-start" placement="right-start">
-      <wc-button variant="outline">right-start</wc-button>
+      <wc-button type="outline">right-start</wc-button>
     </wc-popconfirm>
     <wc-popconfirm content="位置：right-end" placement="right-end">
-      <wc-button variant="outline">right-end</wc-button>
+      <wc-button type="outline">right-end</wc-button>
     </wc-popconfirm>
   </div>
 </template>
@@ -195,40 +195,40 @@ import { WcButton, WcPopconfirm } from '@wc-kit/react';
 
 <div style="display:flex;gap:12px;flex-wrap:wrap;">
   <WcPopconfirm content="位置：top" placement="top">
-    <WcButton variant="outline">top</WcButton>
+    <WcButton type="outline">top</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：top-start" placement="top-start">
-    <WcButton variant="outline">top-start</WcButton>
+    <WcButton type="outline">top-start</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：top-end" placement="top-end">
-    <WcButton variant="outline">top-end</WcButton>
+    <WcButton type="outline">top-end</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：bottom" placement="bottom">
-    <WcButton variant="outline">bottom</WcButton>
+    <WcButton type="outline">bottom</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：bottom-start" placement="bottom-start">
-    <WcButton variant="outline">bottom-start</WcButton>
+    <WcButton type="outline">bottom-start</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：bottom-end" placement="bottom-end">
-    <WcButton variant="outline">bottom-end</WcButton>
+    <WcButton type="outline">bottom-end</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：left" placement="left">
-    <WcButton variant="outline">left</WcButton>
+    <WcButton type="outline">left</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：left-start" placement="left-start">
-    <WcButton variant="outline">left-start</WcButton>
+    <WcButton type="outline">left-start</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：left-end" placement="left-end">
-    <WcButton variant="outline">left-end</WcButton>
+    <WcButton type="outline">left-end</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：right" placement="right">
-    <WcButton variant="outline">right</WcButton>
+    <WcButton type="outline">right</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：right-start" placement="right-start">
-    <WcButton variant="outline">right-start</WcButton>
+    <WcButton type="outline">right-start</WcButton>
   </WcPopconfirm>
   <WcPopconfirm content="位置：right-end" placement="right-end">
-    <WcButton variant="outline">right-end</WcButton>
+    <WcButton type="outline">right-end</WcButton>
   </WcPopconfirm>
 </div>;
 ```

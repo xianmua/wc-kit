@@ -62,10 +62,9 @@ import { WcInput } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-input style="width:200px" placeholder="文本（text）"></wc-input>
   <wc-input style="width:200px" type="password" placeholder="密码（password）"></wc-input>
@@ -74,30 +73,7 @@ import { WcInput } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-input style="width:200px" placeholder="文本（text）"></wc-input>
-    <wc-input style="width:200px" type="password" placeholder="密码（password）"></wc-input>
-    <wc-input style="width:200px" type="search" placeholder="搜索（search）"></wc-input>
-    <wc-input style="width:200px" type="tel" placeholder="电话（tel）"></wc-input>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcInput } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcInput style="width:200px" placeholder="文本（text）"></WcInput>
-  <WcInput style="width:200px" type="password" placeholder="密码（password）"></WcInput>
-  <WcInput style="width:200px" type="search" placeholder="搜索（search）"></WcInput>
-  <WcInput style="width:200px" type="tel" placeholder="电话（tel）"></WcInput>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 尺寸
 
@@ -111,10 +87,9 @@ import { WcInput } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-input size="small" style="width:160px" placeholder="小号 small"></wc-input>
   <wc-input size="medium" style="width:160px" placeholder="中号 medium"></wc-input>
@@ -122,28 +97,7 @@ import { WcInput } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-input size="small" style="width:160px" placeholder="小号 small"></wc-input>
-    <wc-input size="medium" style="width:160px" placeholder="中号 medium"></wc-input>
-    <wc-input size="large" style="width:160px" placeholder="大号 large"></wc-input>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcInput } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcInput size="small" style="width:160px" placeholder="小号 small"></WcInput>
-  <WcInput size="medium" style="width:160px" placeholder="中号 medium"></WcInput>
-  <WcInput size="large" style="width:160px" placeholder="大号 large"></WcInput>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 校验状态
 
@@ -158,10 +112,9 @@ import { WcInput } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-input status="default" style="width:160px" placeholder="默认 default"></wc-input>
   <wc-input status="success" style="width:160px" placeholder="成功 success"></wc-input>
@@ -170,30 +123,7 @@ import { WcInput } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-input status="default" style="width:160px" placeholder="默认 default"></wc-input>
-    <wc-input status="success" style="width:160px" placeholder="成功 success"></wc-input>
-    <wc-input status="warning" style="width:160px" placeholder="警告 warning"></wc-input>
-    <wc-input status="error" style="width:160px" placeholder="错误 error"></wc-input>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcInput } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcInput status="default" style="width:160px" placeholder="默认 default"></WcInput>
-  <WcInput status="success" style="width:160px" placeholder="成功 success"></WcInput>
-  <WcInput status="warning" style="width:160px" placeholder="警告 warning"></WcInput>
-  <WcInput status="error" style="width:160px" placeholder="错误 error"></WcInput>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 前缀与后缀
 
@@ -210,10 +140,9 @@ import { WcInput } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-input style="width:240px" placeholder="请输入搜索关键词" clearable>
     <wc-icon slot="prefix" name="search"></wc-icon>
@@ -224,34 +153,7 @@ import { WcInput } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-input style="width:240px" placeholder="请输入搜索关键词" clearable>
-      <wc-icon slot="prefix" name="search"></wc-icon>
-    </wc-input>
-    <wc-input style="width:240px" value="1000">
-      <span slot="suffix">元</span>
-    </wc-input>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcIcon, WcInput } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcInput style="width:240px" placeholder="请输入搜索关键词" clearable>
-    <WcIcon slot="prefix" name="search"></WcIcon>
-  </WcInput>
-  <WcInput style="width:240px" value={1000}>
-    <span slot="suffix">元</span>
-  </WcInput>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 清除与只读禁用
 
@@ -266,10 +168,9 @@ import { WcIcon, WcInput } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
   <wc-input style="width:200px" value="可清除文本" clearable></wc-input>
   <wc-input style="width:200px" value="只读文本" readonly></wc-input>
@@ -278,30 +179,7 @@ import { WcIcon, WcInput } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-input style="width:200px" value="可清除文本" clearable></wc-input>
-    <wc-input style="width:200px" value="只读文本" readonly></wc-input>
-    <wc-input style="width:200px" value="禁用文本" disabled></wc-input>
-    <wc-input style="width:200px" maxlength="10" placeholder="最多 10 个字"></wc-input>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcInput } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcInput style="width:200px" value="可清除文本" clearable></WcInput>
-  <WcInput style="width:200px" value="只读文本" readonly></WcInput>
-  <WcInput style="width:200px" value="禁用文本" disabled></WcInput>
-  <WcInput style="width:200px" maxlength={10} placeholder="最多 10 个字"></WcInput>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

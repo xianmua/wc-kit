@@ -40,10 +40,9 @@ import { WcBadge } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:12px;align-items:center;">
   <wc-badge count="8" theme="primary"><span>主要</span></wc-badge>
   <wc-badge count="8" theme="success"><span>成功</span></wc-badge>
@@ -52,38 +51,7 @@ import { WcBadge } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;">
-    <wc-badge count="8" theme="primary"><span>主要</span></wc-badge>
-    <wc-badge count="8" theme="success"><span>成功</span></wc-badge>
-    <wc-badge count="8" theme="warning"><span>警告</span></wc-badge>
-    <wc-badge count="8" theme="danger"><span>危险</span></wc-badge>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcBadge } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;">
-  <WcBadge count={8} theme="primary">
-    <span>主要</span>
-  </WcBadge>
-  <WcBadge count={8} theme="success">
-    <span>成功</span>
-  </WcBadge>
-  <WcBadge count={8} theme="warning">
-    <span>警告</span>
-  </WcBadge>
-  <WcBadge count={8} theme="danger">
-    <span>危险</span>
-  </WcBadge>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 圆点模式
 
@@ -97,10 +65,9 @@ import { WcBadge } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:24px;align-items:center;">
   <wc-badge dot></wc-badge>
   <wc-badge dot theme="primary"><span>消息中心</span></wc-badge>
@@ -108,32 +75,7 @@ import { WcBadge } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:24px;align-items:center;">
-    <wc-badge dot></wc-badge>
-    <wc-badge dot theme="primary"><span>消息中心</span></wc-badge>
-    <wc-badge dot theme="success"><span>在线客服</span></wc-badge>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcBadge } from '@wc-kit/react';
-
-<div style="display:flex;gap:24px;align-items:center;">
-  <WcBadge dot></WcBadge>
-  <WcBadge dot theme="primary">
-    <span>消息中心</span>
-  </WcBadge>
-  <WcBadge dot theme="success">
-    <span>在线客服</span>
-  </WcBadge>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 数字上限
 
@@ -147,10 +89,9 @@ import { WcBadge } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:24px;align-items:center;">
   <wc-badge count="120"><span>默认 max=99</span></wc-badge>
   <wc-badge count="120" max="20"><span>max=20</span></wc-badge>
@@ -158,34 +99,7 @@ import { WcBadge } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:24px;align-items:center;">
-    <wc-badge count="120"><span>默认 max=99</span></wc-badge>
-    <wc-badge count="120" max="20"><span>max=20</span></wc-badge>
-    <wc-badge count="99" max="99"><span>恰好 99</span></wc-badge>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcBadge } from '@wc-kit/react';
-
-<div style="display:flex;gap:24px;align-items:center;">
-  <WcBadge count={120}>
-    <span>默认 max=99</span>
-  </WcBadge>
-  <WcBadge count={120} max={20}>
-    <span>max=20</span>
-  </WcBadge>
-  <WcBadge count={99} max={99}>
-    <span>恰好 99</span>
-  </WcBadge>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ### 独立展示与隐藏
 
@@ -199,10 +113,9 @@ import { WcBadge } from '@wc-kit/react';
 
 </div>
 
-:::: details 查看代码
-::: code-group
+<details><summary>查看代码</summary>
 
-```html [HTML]
+```html
 <div style="display:flex;gap:24px;align-items:center;">
   <wc-badge count="8"></wc-badge>
   <wc-badge count="0"><span>count 为 0 时隐藏</span></wc-badge>
@@ -210,32 +123,7 @@ import { WcBadge } from '@wc-kit/react';
 </div>
 ```
 
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:24px;align-items:center;">
-    <wc-badge count="8"></wc-badge>
-    <wc-badge count="0"><span>count 为 0 时隐藏</span></wc-badge>
-    <wc-badge count="5"><span>包裹内容时悬浮于右上角</span></wc-badge>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcBadge } from '@wc-kit/react';
-
-<div style="display:flex;gap:24px;align-items:center;">
-  <WcBadge count={8}></WcBadge>
-  <WcBadge count={0}>
-    <span>count 为 0 时隐藏</span>
-  </WcBadge>
-  <WcBadge count={5}>
-    <span>包裹内容时悬浮于右上角</span>
-  </WcBadge>
-</div>;
-```
-
-:::
-::::
+</details>
 
 ## API
 

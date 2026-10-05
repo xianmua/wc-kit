@@ -1,23 +1,23 @@
 {
   "name": "@wc-kit/react",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React wrappers for @wc-kit/core web components, built on @lit/react",
   "keywords": [
-    "react",
-    "web-components",
-    "lit",
-    "ui",
     "components",
-    "wc-kit"
-  ],
-  "files": [
-    "dist"
+    "lit",
+    "react",
+    "ui",
+    "wc-kit",
+    "web-components"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xianmua/wui.git",
     "directory": "packages/react"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
