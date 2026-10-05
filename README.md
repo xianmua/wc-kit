@@ -43,6 +43,8 @@ packages/
 ├── core/     # @wc-kit/core 组件库本体（Lit）
 ├── react/    # @wc-kit/react React 适配层
 ├── vue/      # @wc-kit/vue Vue 适配层
+├── svelte/   # @wc-kit/svelte Svelte 类型增强
+├── solid/    # @wc-kit/solid Solid 类型增强
 └── tokens/   # @wc-kit/tokens 设计令牌
 apps/
 └── website/  # VitePress 文档站（apps/website）

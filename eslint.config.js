@@ -39,4 +39,17 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
+  {
+    // 框架类型增强文件：ambient namespace / 空接口继承是 declare module 增强的惯用写法
+    files: [
+      'packages/react/src/jsx.ts',
+      'packages/vue/src/global-components.ts',
+      'packages/svelte/src/svelte-elements.ts',
+      'packages/solid/src/jsx.ts',
+    ],
+    rules: {
+      '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
+    },
+  },
 );
