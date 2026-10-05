@@ -1,12 +1,28 @@
 {
   "name": "@wc-kit/core",
-  "version": "0.0.1",
-  "description": "wc core - framework-agnostic UI components built with Lit",
+  "version": "0.0.2",
+  "description": "Framework-agnostic Web Components UI library built with Lit - 38 components, design tokens, dark mode and i18n",
+  "keywords": [
+    "web-components",
+    "lit",
+    "custom-elements",
+    "ui",
+    "components",
+    "design-system",
+    "component-library",
+    "wc",
+    "wc-kit"
+  ],
   "files": [
     "dist",
     "src/tokens/tokens.css",
     "src/styles/reset.css"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xianmua/wui.git",
+    "directory": "packages/core"
+  },
   "type": "module",
   "sideEffects": [
     "**/components/**"
