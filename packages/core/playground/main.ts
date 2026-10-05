@@ -845,6 +845,7 @@ class PlaygroundApp extends LitElement {
             id="demo-table-pager"
             striped
             show-total
+            show-jumper
             show-size-changer
             style="max-width: 560px"
             @wc-row-click=${(e: CustomEvent) => message.info(`点击行：${e.detail.row.name}`)}

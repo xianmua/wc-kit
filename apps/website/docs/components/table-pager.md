@@ -33,16 +33,16 @@ onMounted(() => {
 ### 基础用法
 
 <div class="demo-block">
-  <wc-table-pager ref="pagerTable" striped show-total show-size-changer></wc-table-pager>
+  <wc-table-pager ref="pagerTable" striped show-total show-jumper show-size-changer></wc-table-pager>
 </div>
 
-25 条模拟数据：每页 10 条，共 3 页；点击「姓名」列头会全量排序后重新切片。
+25 条模拟数据：每页 10 条，共 3 页；分页区靠左对齐，含总条数、每页条数选择与跳页输入；点击「姓名」列头会全量排序后重新切片。
 
 :::: details 查看代码
 ::: code-group
 
 ```html [HTML]
-<wc-table-pager striped show-total show-size-changer id="table"></wc-table-pager>
+<wc-table-pager striped show-total show-jumper show-size-changer id="table"></wc-table-pager>
 
 <script type="module">
   const table = document.getElementById('table');
@@ -64,7 +64,7 @@ onMounted(() => {
 
 ```vue [Vue]
 <template>
-  <wc-table-pager ref="table" striped show-total show-size-changer></wc-table-pager>
+  <wc-table-pager ref="table" striped show-total show-jumper show-size-changer></wc-table-pager>
 </template>
 
 <script setup lang="ts">
@@ -91,7 +91,7 @@ onMounted(() => {
 ```tsx [React]
 import { WcTablePager } from '@wc-kit/react';
 
-<WcTablePager striped showTotal showSizeChanger ref={table}></WcTablePager>;
+<WcTablePager striped showTotal showJumper showSizeChanger ref={table}></WcTablePager>;
 
 // columns / data 为属性型（对象数组），需 JS 赋值
 const table = useRef(null);
@@ -125,6 +125,7 @@ useEffect(() => {
 | `size`              | `size`                | `'small' \| 'medium' \| 'large'` | `'medium'`        | 密度                         |
 | `loading`           | `loading`             | `boolean`                        | `false`           | 加载中（叠加遮罩）           |
 | `showTotal`         | `show-total`          | `boolean`                        | `false`           | 分页区显示总条数             |
+| `showJumper`        | `show-jumper`         | `boolean`                        | `false`           | 分页区显示跳页输入框         |
 | `showSizeChanger`   | `show-size-changer`   | `boolean`                        | `false`           | 分页区显示每页条数选择器     |
 | `pageSizeOptions`   | `page-size-options`   | `string`                         | `'10,20,50,100'`  | 每页条数可选项（逗号分隔）   |
 

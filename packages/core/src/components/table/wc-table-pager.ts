@@ -60,6 +60,9 @@ export class wcTablePager extends LitElement {
   /** 显示总条数（透传给分页器） */
   @property({ type: Boolean, attribute: 'show-total' }) showTotal = false;
 
+  /** 显示跳页输入框（透传给分页器） */
+  @property({ type: Boolean, attribute: 'show-jumper' }) showJumper = false;
+
   /** 显示每页条数选择器（透传给分页器） */
   @property({ type: Boolean, attribute: 'show-size-changer' }) showSizeChanger = false;
 
@@ -148,6 +151,7 @@ export class wcTablePager extends LitElement {
             .current=${this.currentPage}
             .pageSize=${this.currentPageSize}
             ?show-total=${this.showTotal}
+            ?show-jumper=${this.showJumper}
             ?show-size-changer=${this.showSizeChanger}
             page-size-options=${this.pageSizeOptions}
             @wc-change=${this.onPageChange}

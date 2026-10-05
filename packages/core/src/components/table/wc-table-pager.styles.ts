@@ -9,10 +9,10 @@ export const tablePagerStyles = css`
     display: block;
   }
 
-  /* 分页区右对齐（antd Table bottomRight 同款） */
+  /* 分页区靠左对齐 */
   .pager {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-top: var(--wc-space-3);
   }
 `;
