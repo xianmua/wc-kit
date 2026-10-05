@@ -36,7 +36,8 @@ export const dateRangePickerStyles = css`
   }
 
   /* ---- 双月面板 ---- */
-  :host([range]) .panel {
+  /* :not([hidden]) 避免覆盖 hidden 属性的 UA display:none（作者样式优先级高于 UA 规则） */
+  :host([range]) .panel:not([hidden]) {
     display: flex;
     gap: var(--wc-space-5);
   }

@@ -260,6 +260,12 @@ import { WcDatePicker } from '@wc-kit/react';
 | `clearable`      | `clearable`         | `boolean`                                        | `false`     | 可清除                                 |
 | `readonly`       | `readonly`          | `boolean`                                        | `false`     | 只读                                   |
 | `open`           | `open`              | `boolean`                                        | `false`     | 面板是否展开（内部状态）               |
+| `name`           | `name`              | `string`                                         | `''`        | 表单字段名（随表单提交/重置）          |
+| `disabled`       | `disabled`          | `boolean`                                        | `false`     | 禁用                                   |
+
+::: tip 兼容说明
+`<wc-date-range-picker>` 标签保留且等价于 `<wc-date-picker range>`，仅为兼容旧代码存在，新代码请直接用 `range` 属性。
+:::
 
 ### 事件
 
@@ -270,9 +276,10 @@ import { WcDatePicker } from '@wc-kit/react';
 
 ### CSS 变量
 
-| 变量                      | 说明       |
-| ------------------------- | ---------- |
-| `--wc-date-picker-height` | 触发器高度 |
+| 变量                                | 说明                       |
+| ----------------------------------- | -------------------------- |
+| `--wc-date-picker-height`           | 触发器高度                 |
+| `--wc-date-range-picker-cell-size`  | 范围模式日历格尺寸（默认 28px，随 size 变化） |
 
 ### CSS Parts
 
