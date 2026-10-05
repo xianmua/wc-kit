@@ -47,7 +47,7 @@ const ref = useRef<import('@wc-kit/core').wcDialog>(null);
 return <wc-dialog ref={ref}></wc-dialog>;
 ```
 
-组件 API 与交互示例见仓库 [apps/website](https://github.com/xianmua/wui/tree/main/apps/website) 文档站。
+组件 API 与交互示例见仓库 [apps/website](https://github.com/xianmua/wc-kit/tree/main/apps/website) 文档站。
 
 ## License
 

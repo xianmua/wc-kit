@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xianmua/wui.git",
+    "url": "git+https://github.com/xianmua/wc-kit.git",
     "directory": "packages/react"
   },
   "files": [

@@ -49,7 +49,7 @@ import '@wc-kit/core/tokens.css';
 
 ## 文档
 
-组件文档与交互式示例：见仓库 [apps/website](https://github.com/xianmua/wui/tree/main/apps/website)。
+组件文档与交互式示例：见仓库 [apps/website](https://github.com/xianmua/wc-kit/tree/main/apps/website)。
 
 ## License
 
