@@ -9,6 +9,7 @@ import {
   wcSlider,
   wcInputNumber,
   wcDatePicker,
+  wcDateRangePicker,
   wcForm,
   wcFormItem,
   wcUpload,
@@ -82,6 +83,13 @@ export const WcDatePicker = createWrapper({
   elementClass: wcDatePicker,
   events: { onWcChange: 'wc-change', onWcClear: 'wc-clear' },
   displayName: 'WcDatePicker',
+});
+
+export const WcDateRangePicker = createWrapper({
+  tagName: 'wc-date-range-picker',
+  elementClass: wcDateRangePicker,
+  events: { onWcChange: 'wc-change', onWcClear: 'wc-clear' },
+  displayName: 'WcDateRangePicker',
 });
 
 export const WcForm = createWrapper({

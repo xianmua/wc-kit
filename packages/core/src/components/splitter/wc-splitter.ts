@@ -186,7 +186,7 @@ export class wcSplitter extends LitElement {
     const neighbor = dir === 'prev' ? d + 1 : d;
     const saved = [...this.sizes];
     this.sizes[index] = 0;
-    this.sizes[neighbor] = this.clampSize(neighbor, saved[neighbor] + saved[index]);
+    this.sizes[neighbor] = this.clampSize(neighbor, saved[neighbor]! + saved[index]!);
     this.fitTotal();
     this.collapsed = { divider: d, dir, sizes: saved };
     this.requestUpdate();

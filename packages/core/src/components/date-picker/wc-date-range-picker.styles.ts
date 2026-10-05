@@ -1,0 +1,76 @@
+import { css } from 'lit';
+
+/**
+ * 范围选择器样式：在 datePickerStyles 之上做范围特化覆盖——
+ * 双月并排、方形区间高亮、端点圆形选中、触发器箭头分隔。
+ */
+export const dateRangePickerStyles = css`
+  :host {
+    width: 300px;
+    /* 范围面板更紧凑：复用 datePickerStyles 的格尺寸变量，整体调小一档 */
+    --wc-date-picker-cell-size: var(--wc-date-range-picker-cell-size);
+  }
+
+  :host([size='small']) {
+    --wc-date-range-picker-cell-size: 24px;
+  }
+
+  :host([size='medium']) {
+    --wc-date-range-picker-cell-size: 28px;
+  }
+
+  :host([size='large']) {
+    --wc-date-range-picker-cell-size: 32px;
+  }
+
+  /* 触发器：起点 → 终点 */
+  .sep {
+    margin: 0 var(--wc-space-1);
+    color: var(--wc-color-text-placeholder);
+    flex-shrink: 0;
+  }
+
+  .value .placeholder {
+    color: var(--wc-color-text-placeholder);
+  }
+
+  /* ---- 双月面板 ---- */
+  .panel {
+    display: flex;
+    gap: var(--wc-space-5);
+    padding: var(--wc-space-3);
+  }
+
+  .month {
+    min-width: 0;
+  }
+
+  .month .header {
+    min-height: 22px;
+  }
+
+  /* ---- 区间高亮：中间方形浅底，端点保持圆形实底 ---- */
+  .cell.day {
+    border-radius: 0;
+  }
+
+  .cell.day.in-range {
+    background-color: var(--wc-color-primary-light);
+  }
+
+  .cell.day.selected {
+    border-radius: var(--wc-radius-circle);
+  }
+
+  .cell.day.selected.today {
+    color: var(--wc-color-text-anti);
+  }
+
+  .cell.day.active {
+    border-radius: var(--wc-radius-circle);
+  }
+
+  .cell.day.in-range.active {
+    box-shadow: inset 0 0 0 1px var(--wc-color-primary);
+  }
+`;

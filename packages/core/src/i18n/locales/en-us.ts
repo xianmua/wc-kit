@@ -23,6 +23,8 @@ export const enUS: WcTranslations = {
   'datePicker.prevMonth': 'Previous month',
   'datePicker.nextMonth': 'Next month',
   'datePicker.nextYear': 'Next year',
+  'rangePicker.placeholderStart': 'Start date',
+  'rangePicker.placeholderEnd': 'End date',
   'form.required': '{name} is required',
   'form.min': '{name} must be no less than {min}',
   'form.max': '{name} must be no greater than {max}',

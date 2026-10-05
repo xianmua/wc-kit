@@ -125,7 +125,8 @@ export class wcAnchor extends LitElement {
       : this.scrollContainer.clientHeight;
   }
 
-  private get scrollHeight(): number {
+  /** 容器滚动高度（命名避开 HTMLElement.scrollHeight——TS 私有成员遮蔽公开属性会导致 react 包装类型不兼容） */
+  private get containerScrollHeight(): number {
     return this.scrollContainer instanceof Document
       ? document.documentElement.scrollHeight
       : this.scrollContainer.scrollHeight;
@@ -171,8 +172,8 @@ export class wcAnchor extends LitElement {
     }
     if (this.scrollTop <= 0) next = valid[0].href;
     else if (
-      this.scrollHeight > this.viewportHeight &&
-      this.scrollTop + this.viewportHeight >= this.scrollHeight - 1
+      this.containerScrollHeight > this.viewportHeight &&
+      this.scrollTop + this.viewportHeight >= this.containerScrollHeight - 1
     ) {
       next = valid[valid.length - 1].href;
     }

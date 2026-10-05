@@ -467,6 +467,8 @@ class PlaygroundApp extends LitElement {
             <wc-date-picker value="2026-10-15" clearable></wc-date-picker>
             <wc-date-picker placeholder="请选择日期"></wc-date-picker>
             <wc-date-picker placeholder="禁用" disabled></wc-date-picker>
+            <wc-date-range-picker clearable></wc-date-range-picker>
+            <wc-date-range-picker value="2026-10-01,2026-10-15" clearable></wc-date-range-picker>
           </div>
         </section>
 

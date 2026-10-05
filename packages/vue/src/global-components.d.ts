@@ -14,6 +14,7 @@ import type {
   wcCheckbox,
   wcCol,
   wcDatePicker,
+  wcDateRangePicker,
   wcDialog,
   wcDivider,
   wcDrawer,
@@ -94,6 +95,7 @@ declare module 'vue' {
     'wc-slider': WcComponent<wcSlider>;
     'wc-input-number': WcComponent<wcInputNumber>;
     'wc-date-picker': WcComponent<wcDatePicker>;
+    'wc-date-range-picker': WcComponent<wcDateRangePicker>;
     'wc-form': WcComponent<wcForm>;
     'wc-form-item': WcComponent<wcFormItem>;
     'wc-upload': WcComponent<wcUpload>;

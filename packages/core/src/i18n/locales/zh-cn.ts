@@ -23,6 +23,8 @@ export const zhCN: WcTranslations = {
   'datePicker.prevMonth': '上个月',
   'datePicker.nextMonth': '下个月',
   'datePicker.nextYear': '下一年',
+  'rangePicker.placeholderStart': '开始日期',
+  'rangePicker.placeholderEnd': '结束日期',
   'form.required': '{name}不能为空',
   'form.min': '{name}不能小于{min}',
   'form.max': '{name}不能大于{max}',
