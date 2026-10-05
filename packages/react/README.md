@@ -28,6 +28,34 @@ export function Demo() {
 }
 ```
 
+## 受控用法
+
+表单组件由 core 伴发原生 `input` / `change` 事件，包装组件把它们映射为 `onInput` / `onChange` props，可像原生控件一样受控：
+
+```tsx
+import { useState } from 'react';
+import { WcInput, WcSelect, WcSwitch } from '@wc-kit/react';
+
+export function Form() {
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [on, setOn] = useState(false);
+
+  return (
+    <>
+      {/* onInput 实时受控；onChange 为提交式（失焦/回车） */}
+      <WcInput value={name} onInput={(e) => setName(e.target.value)} />
+      <WcSelect value={city} onChange={(e) => setCity(e.target.value)}>
+        <wc-option value="1">北京</wc-option>
+      </WcSelect>
+      <WcSwitch checked={on} onChange={(e) => setOn(e.target.checked)} />
+    </>
+  );
+}
+```
+
+> `wc-input-number` 的原生事件仅在值提交（失焦/回车/步进）时触发，编辑中不触发。
+
 ## 说明
 
 - 覆盖全部 38 个 `<wc-*>` 组件，组件名 PascalCase（`wc-button` → `WcButton`）

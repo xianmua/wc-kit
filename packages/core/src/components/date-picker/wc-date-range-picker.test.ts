@@ -56,7 +56,9 @@ function monthLabel(year: number, month: number): string {
 
 describe('wc-date-range-picker', () => {
   it('默认属性正确', async () => {
-    const el = await fixture<wcDateRangePicker>(html`<wc-date-range-picker></wc-date-range-picker>`);
+    const el = await fixture<wcDateRangePicker>(
+      html`<wc-date-range-picker></wc-date-range-picker>`,
+    );
     expect(el.value).to.equal('');
     expect(el.open).to.be.false;
     expect(el.clearable).to.be.false;
@@ -81,7 +83,9 @@ describe('wc-date-range-picker', () => {
   });
 
   it('展开渲染双月面板，右月 = 左月 + 1', async () => {
-    const el = await fixture<wcDateRangePicker>(html`<wc-date-range-picker></wc-date-range-picker>`);
+    const el = await fixture<wcDateRangePicker>(
+      html`<wc-date-range-picker></wc-date-range-picker>`,
+    );
     await open(el);
     const months = el.shadowRoot!.querySelectorAll('.month');
     expect(months.length).to.equal(2);
@@ -93,7 +97,9 @@ describe('wc-date-range-picker', () => {
   });
 
   it('两次点击完成选择：detail.value 为 [start, end]，面板收起并提交表单值', async () => {
-    const el = await fixture<wcDateRangePicker>(html`<wc-date-range-picker></wc-date-range-picker>`);
+    const el = await fixture<wcDateRangePicker>(
+      html`<wc-date-range-picker></wc-date-range-picker>`,
+    );
     const events: Array<{ value: string[] }> = [];
     el.addEventListener('wc-change', (e) => events.push((e as CustomEvent).detail));
     await open(el);
@@ -113,7 +119,9 @@ describe('wc-date-range-picker', () => {
   });
 
   it('第二击早于起点时自动交换', async () => {
-    const el = await fixture<wcDateRangePicker>(html`<wc-date-range-picker></wc-date-range-picker>`);
+    const el = await fixture<wcDateRangePicker>(
+      html`<wc-date-range-picker></wc-date-range-picker>`,
+    );
     const events: Array<{ value: string[] }> = [];
     el.addEventListener('wc-change', (e) => events.push((e as CustomEvent).detail));
     await open(el);
@@ -155,7 +163,9 @@ describe('wc-date-range-picker', () => {
   });
 
   it('键盘：ArrowDown 高亮后 Enter 两击完成选择', async () => {
-    const el = await fixture<wcDateRangePicker>(html`<wc-date-range-picker></wc-date-range-picker>`);
+    const el = await fixture<wcDateRangePicker>(
+      html`<wc-date-range-picker></wc-date-range-picker>`,
+    );
     const events: Array<{ value: string[] }> = [];
     el.addEventListener('wc-change', (e) => events.push((e as CustomEvent).detail));
     await open(el);
@@ -177,7 +187,9 @@ describe('wc-date-range-picker', () => {
   });
 
   it('暴露 part="base" / "trigger" / "panel"', async () => {
-    const el = await fixture<wcDateRangePicker>(html`<wc-date-range-picker></wc-date-range-picker>`);
+    const el = await fixture<wcDateRangePicker>(
+      html`<wc-date-range-picker></wc-date-range-picker>`,
+    );
     await open(el);
     expect(el.shadowRoot!.querySelector('[part="base"]')).to.exist;
     expect(el.shadowRoot!.querySelector('[part="trigger"]')).to.exist;

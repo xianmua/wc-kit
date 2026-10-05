@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
 import { inputNumberStyles } from './wc-input-number.styles';
@@ -22,6 +23,8 @@ export type wcInputNumberStatus = 'default' | 'success' | 'warning' | 'error';
  * @cssprop --wc-input-number-height - 高度
  * @fires wc-input - 手动输入时持续触发，detail.value 为解析结果（非法时为 NaN）
  * @fires wc-change - 值提交时触发（失焦/回车/步进），detail.value
+ * @fires input - 原生伴发事件，值提交/步进时触发（供框架 v-model 绑定；编辑中不触发，等价 .lazy 语义）
+ * @fires change - 原生伴发事件，值提交/步进时触发
  */
 export class wcInputNumber extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, inputNumberStyles];
@@ -122,6 +125,8 @@ export class wcInputNumber extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   /** 提交编辑中的文本：空/非法回退当前值，合法则取整夹紧后提交 */
@@ -143,6 +148,8 @@ export class wcInputNumber extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   private handleFocus(): void {
@@ -156,6 +163,9 @@ export class wcInputNumber extends FormAssociatedMixin(LitElement) {
   }
 
   private handleInput(e: Event): void {
+    // 阻断内层 composed input 事件外泄：编辑中 host.value 尚未提交，
+    // 泄漏出去会让框架 v-model 读到过期值，提交时由宿主统一派发
+    stopInnerEvent(e);
     const input = e.target as HTMLInputElement;
     this._text = input.value;
     this.dispatchEvent(

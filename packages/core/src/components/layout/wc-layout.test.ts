@@ -5,10 +5,21 @@ import type { wcLayout, wcLayoutSider } from './wc-layout.js';
 // jsdom 未实现 matchMedia，断点测试用假 MQL 替换（组件侧已有 typeof 守卫）
 const originalMatchMedia = window.matchMedia;
 
+/** 替换/恢复 window.matchMedia（绕开 no-explicit-any，走 unknown 断言） */
+const setMatchMedia = (impl: unknown): void => {
+  (window as unknown as { matchMedia: unknown }).matchMedia = impl;
+};
+
+/** 读取组件内部缓存的 MQL（绕开 no-explicit-any，走 unknown 断言） */
+const getMediaQuery = (el: object): { matches: boolean } =>
+  (el as unknown as { mediaQuery: { matches: boolean } }).mediaQuery;
+
 describe('wc-layout', () => {
   it('默认纵向，不含 auto-sider 类', async () => {
     const el = await fixture<wcLayout>(html`
-      <wc-layout><wc-layout-header></wc-layout-header><wc-layout-content></wc-layout-content></wc-layout>
+      <wc-layout
+        ><wc-layout-header></wc-layout-header><wc-layout-content></wc-layout-content
+      ></wc-layout>
     `);
     expect(el.classList.contains('auto-sider')).to.be.false;
   });
@@ -52,7 +63,9 @@ describe('wc-layout', () => {
 
 describe('wc-layout-sider', () => {
   it('collapsible 渲染触发器，点击切换 collapsed 并派发事件', async () => {
-    const el = await fixture<wcLayoutSider>(html`<wc-layout-sider collapsible>菜单</wc-layout-sider>`);
+    const el = await fixture<wcLayoutSider>(
+      html`<wc-layout-sider collapsible>菜单</wc-layout-sider>`,
+    );
     const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('.trigger')!;
     expect(trigger).to.exist;
 
@@ -86,7 +99,7 @@ describe('wc-layout-sider', () => {
 
   it('breakpoint 变化重新注册 matchMedia', async () => {
     const queries: string[] = [];
-    (window as any).matchMedia = (query: string) => {
+    setMatchMedia((query: string) => {
       queries.push(query);
       return {
         matches: false,
@@ -94,7 +107,7 @@ describe('wc-layout-sider', () => {
         addEventListener: () => {},
         removeEventListener: () => {},
       };
-    };
+    });
 
     const el = await fixture<wcLayoutSider>(
       html`<wc-layout-sider breakpoint="md"></wc-layout-sider>`,
@@ -105,7 +118,7 @@ describe('wc-layout-sider', () => {
     await el.updateComplete;
     expect(queries.some((q) => q.includes('1199px'))).to.be.true;
 
-    (window as any).matchMedia = originalMatchMedia;
+    setMatchMedia(originalMatchMedia);
   });
 
   it('断点触发折叠事件（模拟视口变窄）', async () => {
@@ -121,7 +134,7 @@ describe('wc-layout-sider', () => {
         listener = null;
       },
     };
-    (window as any).matchMedia = (query: string) => ({ ...mql, media: query });
+    setMatchMedia((query: string) => ({ ...mql, media: query }));
 
     const el = await fixture<wcLayoutSider>(
       html`<wc-layout-sider collapsible breakpoint="lg"></wc-layout-sider>`,
@@ -130,13 +143,13 @@ describe('wc-layout-sider', () => {
     el.addEventListener('wc-collapse', (e) => events.push((e as CustomEvent).detail.isCollapsed));
 
     // 视口变窄（低于 lg）→ 自动折叠（组件读的是自身缓存的 MQL.matches）
-    const registered = (el as any).mediaQuery as { matches: boolean };
+    const registered = getMediaQuery(el);
     registered.matches = true;
     listener!();
     await el.updateComplete;
     expect(el.collapsed).to.be.true;
     expect(events).to.deep.equal([true]);
 
-    (window as any).matchMedia = originalMatchMedia;
+    setMatchMedia(originalMatchMedia);
   });
 });

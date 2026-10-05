@@ -222,7 +222,7 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
 
   /** 范围模式的区间预览终点：选完为终点本身；选起点后跟随悬停/键盘高亮 */
   private get previewEnd(): string {
-    const [s, e] = this._range;
+    const [, e] = this._range;
     if (e) return e;
     if (this.pending === 'end' && this.activeIso) return this.activeIso;
     return '';

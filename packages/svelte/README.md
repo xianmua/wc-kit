@@ -39,4 +39,31 @@ pnpm add @wc-kit/svelte
 
 > Svelte 项目若开启了 svelte-check，`@wc-kit/svelte` 导入一次即可让全部 `<wc-*>` 标签获得类型提示。
 
+## 双向绑定
+
+表单组件由 core 伴发原生 `input` / `change` 事件，Svelte 的 `bind:` 指令可直接使用，无需包装：
+
+```svelte
+<script lang="ts">
+  import '@wc-kit/svelte';
+
+  let name = $state('');
+  let on = $state(false);
+</script>
+
+<!-- 值类组件：bind:value（走原生 input 事件 + value property） -->
+<wc-input bind:value={name} />
+<wc-textarea bind:value={name} />
+<wc-select bind:value={name}><wc-option value="1">北京</wc-option></wc-select>
+<wc-slider bind:value={level} />
+<wc-input-number bind:value={count} />
+<wc-switch bind:value={on} />
+
+<!-- 布尔组件：bind:checked（走原生 change 事件 + checked property） -->
+<wc-checkbox bind:checked={on} />
+<wc-radio bind:checked={on} value="a" />
+```
+
+> `wc-switch` 提供 `value` 布尔代理（与 checked 同步），两种绑法皆可；`wc-input-number` 绑定值为提交式更新（失焦/回车/步进）。
+
 MIT License

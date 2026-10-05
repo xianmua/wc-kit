@@ -194,11 +194,7 @@ export class wcTable extends LitElement {
         composed: true,
       }),
     );
-    if (
-      this.expandRowByClick &&
-      this.expandEnabled &&
-      this.rowExpandable?.(row, index) !== false
-    ) {
+    if (this.expandRowByClick && this.expandEnabled && this.rowExpandable?.(row, index) !== false) {
       this.toggleExpand(row, index, e);
     }
   }
@@ -332,10 +328,7 @@ export class wcTable extends LitElement {
               ${
                 expanded
                   ? html`<tr class="expanded-row" part="expanded-row">
-                      <td
-                        class="expanded-cell"
-                        colspan=${this.columns.length + 1}
-                      >
+                      <td class="expanded-cell" colspan=${this.columns.length + 1}>
                         ${this.expandedRowRender!(row, index)}
                       </td>
                     </tr>`

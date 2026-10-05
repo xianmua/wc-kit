@@ -28,7 +28,31 @@ import { zoomOut } from './zoom-out.js';
 export type { WcIconData } from './library.js';
 export * from './library.js';
 
-export { arrowLeft, arrowRight, arrowUp, calendar, check, chevronDown, chevronLeft, chevronRight, chevronUp, close, error, file, imageOff, info, loader, minus, plus, rotateCw, search, upload, warning, zoomIn, zoomOut };
+export {
+  arrowLeft,
+  arrowRight,
+  arrowUp,
+  calendar,
+  check,
+  chevronDown,
+  chevronLeft,
+  chevronRight,
+  chevronUp,
+  close,
+  error,
+  file,
+  imageOff,
+  info,
+  loader,
+  minus,
+  plus,
+  rotateCw,
+  search,
+  upload,
+  warning,
+  zoomIn,
+  zoomOut,
+};
 
 /** 手挑内置图标（组件内部依赖 + 高频图标；与 Feather 全集重名时以这些为准） */
 export const builtinIcons: WcIconData[] = [

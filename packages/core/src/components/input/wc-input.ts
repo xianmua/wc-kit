@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import { hasAssignedElements } from '../../common/slot';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
@@ -22,6 +23,8 @@ export type wcInputStatus = 'default' | 'success' | 'warning' | 'error';
  * @fires wc-input - 输入时触发，detail.value
  * @fires wc-change - 值变更提交时触发（失焦/回车），detail.value
  * @fires wc-clear - 点击清除按钮后触发
+ * @fires input - 原生伴发事件，输入/清除时触发（供框架 v-model 绑定）
+ * @fires change - 原生伴发事件，值提交时触发
  */
 export class wcInput extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, inputStyles];
@@ -83,6 +86,8 @@ export class wcInput extends FormAssociatedMixin(LitElement) {
   }
 
   private handleInput(e: Event): void {
+    // 阻断内层 composed input 事件外泄，统一由宿主派发
+    stopInnerEvent(e);
     const target = e.target as HTMLInputElement;
     this.value = target.value;
     this.dispatchEvent(
@@ -92,9 +97,11 @@ export class wcInput extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
   }
 
-  private handleChange(): void {
+  private handleChange(e: Event): void {
+    stopInnerEvent(e);
     this.dispatchEvent(
       new CustomEvent('wc-change', {
         detail: { value: this.value },
@@ -102,6 +109,7 @@ export class wcInput extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'change');
   }
 
   private handleClear(e: MouseEvent): void {
@@ -112,6 +120,8 @@ export class wcInput extends FormAssociatedMixin(LitElement) {
     this.dispatchEvent(
       new CustomEvent('wc-change', { detail: { value: '' }, bubbles: true, composed: true }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
     this.requestUpdate();
     // 清除后保持焦点
     this.shadowRoot!.querySelector('input')?.focus();

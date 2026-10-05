@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent } from '../../common/native-events';
 import { OutsideClickController } from '../../common/outside-click';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
@@ -23,6 +24,8 @@ export type wcSelectStatus = 'default' | 'success' | 'warning' | 'error';
  * @cssprop --wc-select-height - 触发器高度
  * @fires wc-change - 选中值变化时触发，detail.value / detail.label
  * @fires wc-clear - 点击清除按钮后触发
+ * @fires input - 原生伴发事件，选中/清除时触发（供框架 v-model 绑定）
+ * @fires change - 原生伴发事件，选中/清除时触发
  */
 export class wcSelect extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, selectStyles];
@@ -167,6 +170,8 @@ export class wcSelect extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   private handleClear(e: MouseEvent): void {
@@ -182,6 +187,8 @@ export class wcSelect extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   /* ---------- 键盘导航 ---------- */

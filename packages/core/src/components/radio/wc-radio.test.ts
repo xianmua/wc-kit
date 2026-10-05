@@ -81,4 +81,16 @@ describe('wc-radio', () => {
     expect(el.shadowRoot!.querySelector('[part="dot"]')).to.exist;
     expect(el.shadowRoot!.querySelector('[part="label"]')).to.exist;
   });
+
+  it('选中时伴发原生 input / change 事件且内层事件不外泄（宿主只收到一次）', async () => {
+    const el = await fixture<wcRadio>(html`<wc-radio value="a">选项</wc-radio>`);
+    const counts = { input: 0, change: 0 };
+    el.addEventListener('input', () => counts.input++);
+    el.addEventListener('change', () => counts.change++);
+    el.shadowRoot!.querySelector<HTMLInputElement>('.native')!.click();
+    await el.updateComplete;
+    expect(el.checked).to.be.true;
+    expect(counts.input).to.equal(1);
+    expect(counts.change).to.equal(1);
+  });
 });

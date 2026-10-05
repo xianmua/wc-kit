@@ -78,6 +78,21 @@ describe('wc-textarea', () => {
     expect(detail).to.equal('x');
   });
 
+  it('伴发原生 input / change 事件且内层事件不外泄（宿主只收到一次）', async () => {
+    const el = await fixture<wcTextarea>(html`<wc-textarea></wc-textarea>`);
+    const ta = el.shadowRoot!.querySelector('textarea')!;
+    let inputCount = 0;
+    let changeCount = 0;
+    el.addEventListener('input', () => inputCount++);
+    el.addEventListener('change', () => changeCount++);
+    ta.value = 'abc';
+    ta.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    ta.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    await el.updateComplete;
+    expect(inputCount).to.equal(1);
+    expect(changeCount).to.equal(1);
+  });
+
   it('maxlength 透传且渲染字数统计', async () => {
     const el = await fixture<wcTextarea>(
       html`<wc-textarea maxlength="10" value="abc"></wc-textarea>`,

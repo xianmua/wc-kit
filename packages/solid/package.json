@@ -1,6 +1,6 @@
 {
   "name": "@wc-kit/solid",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "SolidJS type definitions and helpers for @wc-kit/core web components",
   "keywords": [
     "components",

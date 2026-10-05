@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import { sliderStyles } from './wc-slider.styles';
 
 /**
@@ -14,6 +15,8 @@ import { sliderStyles } from './wc-slider.styles';
  * @csspart thumb - 滑块按钮
  * @fires wc-input - 拖动过程中持续触发，detail.value
  * @fires wc-change - 松手提交时触发，detail.value
+ * @fires input - 原生伴发事件，拖动时触发（供框架 v-model 绑定）
+ * @fires change - 原生伴发事件，松手提交时触发
  */
 export class wcSlider extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, sliderStyles];
@@ -76,6 +79,8 @@ export class wcSlider extends FormAssociatedMixin(LitElement) {
   }
 
   private handleInput(e: Event): void {
+    // 阻断内层 composed input 事件外泄，统一由宿主派发
+    stopInnerEvent(e);
     const input = e.target as HTMLInputElement;
     this.value = Number(input.value);
     this.dispatchEvent(
@@ -85,9 +90,11 @@ export class wcSlider extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
   }
 
-  private handleChange(): void {
+  private handleChange(e: Event): void {
+    stopInnerEvent(e);
     this.dispatchEvent(
       new CustomEvent('wc-change', {
         detail: { value: this.value },
@@ -95,6 +102,7 @@ export class wcSlider extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'change');
   }
 
   render() {

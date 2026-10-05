@@ -185,11 +185,13 @@ export class wcTablePager extends LitElement {
           <slot name="empty" @slotchange=${this.onSlotChange} slot="empty"></slot>
         </wc-table>
         <div class="pager ${hasTotal ? 'has-total' : ''}" part="pager">
-          ${hasTotal
-            ? html`<span class="total" part="total">
-                ${this.localize.term('pagination.total', { total: this.data.length })}
-              </span>`
-            : nothing}
+          ${
+            hasTotal
+              ? html`<span class="total" part="total">
+                  ${this.localize.term('pagination.total', { total: this.data.length })}
+                </span>`
+              : nothing
+          }
           <wc-pagination
             .total=${this.data.length}
             .current=${this.currentPage}

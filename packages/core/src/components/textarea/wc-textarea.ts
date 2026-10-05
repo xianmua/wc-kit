@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import '../icon/wc-icon.js';
 import { textareaStyles } from './wc-textarea.styles';
 
@@ -16,6 +17,8 @@ export type wcTextareaStatus = 'default' | 'success' | 'warning' | 'error';
  * @cssprop --wc-textarea-min-height - 最小高度
  * @fires wc-input - 输入时触发，detail.value
  * @fires wc-change - 值变更提交时触发（失焦），detail.value
+ * @fires input - 原生伴发事件，输入时触发（供框架 v-model 绑定）
+ * @fires change - 原生伴发事件，值提交时触发
  */
 export class wcTextarea extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, textareaStyles];
@@ -75,6 +78,8 @@ export class wcTextarea extends FormAssociatedMixin(LitElement) {
   }
 
   private handleInput(e: Event): void {
+    // 阻断内层 composed input 事件外泄，统一由宿主派发
+    stopInnerEvent(e);
     const target = e.target as HTMLTextAreaElement;
     this.value = target.value;
     this.dispatchEvent(
@@ -84,12 +89,14 @@ export class wcTextarea extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
     if (this.autosize) {
       this.autoResize();
     }
   }
 
-  private handleChange(): void {
+  private handleChange(e: Event): void {
+    stopInnerEvent(e);
     this.dispatchEvent(
       new CustomEvent('wc-change', {
         detail: { value: this.value },
@@ -97,6 +104,7 @@ export class wcTextarea extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'change');
   }
 
   /** 按内容自适应高度：先回到 auto 再取 scrollHeight */

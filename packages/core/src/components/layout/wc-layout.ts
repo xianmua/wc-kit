@@ -215,24 +215,30 @@ export class wcLayoutSider extends LitElement {
     const width = Math.max(0, this.width);
     const collapsedWidth = Math.max(0, this.collapsedWidth);
     return html`
-      <div class="sider" part="sider" style=${`--wc-layout-sider-width:${width}px;--wc-layout-sider-collapsed-width:${collapsedWidth}px`}>
+      <div
+        class="sider"
+        part="sider"
+        style=${`--wc-layout-sider-width:${width}px;--wc-layout-sider-collapsed-width:${collapsedWidth}px`}
+      >
         <slot></slot>
       </div>
-      ${this.collapsible
-        ? html`
-            <button
-              class="trigger"
-              part="trigger"
-              type="button"
-              aria-label=${this.collapsed ? '展开侧边栏' : '折叠侧边栏'}
-              @click=${() => this.setCollapsed(!this.collapsed)}
-            >
-              <slot name="trigger">
-                <wc-icon name="chevron-left"></wc-icon>
-              </slot>
-            </button>
-          `
-        : nothing}
+      ${
+        this.collapsible
+          ? html`
+              <button
+                class="trigger"
+                part="trigger"
+                type="button"
+                aria-label=${this.collapsed ? '展开侧边栏' : '折叠侧边栏'}
+                @click=${() => this.setCollapsed(!this.collapsed)}
+              >
+                <slot name="trigger">
+                  <wc-icon name="chevron-left"></wc-icon>
+                </slot>
+              </button>
+            `
+          : nothing
+      }
     `;
   }
 }

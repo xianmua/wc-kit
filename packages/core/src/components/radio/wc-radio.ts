@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import { radioStyles } from './wc-radio.styles';
 
 /**
@@ -13,6 +14,8 @@ import { radioStyles } from './wc-radio.styles';
  * @csspart dot - 圆点指示器
  * @csspart label - 标签文本容器
  * @fires wc-change - 选中时触发，detail.value
+ * @fires input - 原生伴发事件，选中时触发
+ * @fires change - 原生伴发事件，选中时触发（`type="radio"` + v-model 可直接双向绑定）
  */
 export class wcRadio extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, radioStyles];
@@ -51,7 +54,13 @@ export class wcRadio extends FormAssociatedMixin(LitElement) {
     this.internals.setFormValue(this.checked ? this.value : null);
   }
 
+  /** 内层原生 radio 的 input 事件是 composed 的，阻断外泄，由宿主统一派发 */
+  private handleInnerInput(e: Event): void {
+    stopInnerEvent(e);
+  }
+
   private handleChange(e: Event): void {
+    stopInnerEvent(e);
     const input = e.target as HTMLInputElement;
     this.checked = input.checked;
     this.dispatchEvent(
@@ -61,6 +70,8 @@ export class wcRadio extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   render() {
@@ -72,6 +83,7 @@ export class wcRadio extends FormAssociatedMixin(LitElement) {
           .checked=${this.checked}
           ?disabled=${this.disabled}
           aria-label=${this.label || undefined}
+          @input=${this.handleInnerInput}
           @change=${this.handleChange}
         />
         <span class="dot" part="dot" aria-hidden="true"><span class="inner"></span></span>

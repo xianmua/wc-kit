@@ -74,6 +74,21 @@ describe('wc-select', () => {
     expect(el.shadowRoot!.querySelector('.trigger')!.textContent).to.include('上海');
   });
 
+  it('选中时伴发原生 input / change 事件（供框架 v-model 绑定）', async () => {
+    const el = await fixture<wcSelect>(html`
+      <wc-select><wc-option value="1">北京</wc-option></wc-select>
+    `);
+    const events: string[] = [];
+    el.addEventListener('input', () => events.push('input'));
+    el.addEventListener('change', () => events.push('change'));
+
+    await openSelect(el);
+    el.querySelector('wc-option')!.shadowRoot!.querySelector<HTMLElement>('.option')!.click();
+    await el.updateComplete;
+
+    expect(events).to.deep.equal(['input', 'change']);
+  });
+
   it('选中项标记 selected', async () => {
     const el = await fixture<wcSelect>(html`
       <wc-select value="1">

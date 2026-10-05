@@ -290,8 +290,11 @@ describe('wc-pagination', () => {
       html`<wc-pagination total="100" disabled show-size-changer></wc-pagination>`,
     );
     expect(
-      (el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')! as HTMLSelectElement)
-        .disabled,
+      (
+        el.shadowRoot!.querySelector<HTMLSelectElement>(
+          '[part="size-select"]',
+        )! as HTMLSelectElement
+      ).disabled,
     ).to.be.true;
   });
 });

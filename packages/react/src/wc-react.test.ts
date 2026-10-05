@@ -70,6 +70,26 @@ describe('@wc-kit/react', () => {
     container.remove();
   });
 
+  it('原生伴发事件通过 onInput / onChange props 接收且内层事件不外泄', async () => {
+    const events: string[] = [];
+    const container = await render(
+      React.createElement(WcInput, {
+        onInput: () => events.push('input'),
+        onChange: () => events.push('change'),
+      }),
+    );
+    const el = container.querySelector('wc-input') as HTMLElement & {
+      shadowRoot: ShadowRoot;
+    };
+    // 内层原生 input 派发 composed input/change（change 按 jsdom 实际行为 composed:false 也覆盖）
+    const input = el.shadowRoot.querySelector('input')!;
+    input.value = 'abc';
+    input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    expect(events).to.deep.equal(['input', 'change']);
+    container.remove();
+  });
+
   it('复杂属性（数组）透传：WcTable columns/data', async () => {
     const container = await render(
       React.createElement(WcTable, {

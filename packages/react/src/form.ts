@@ -19,21 +19,38 @@ import { createWrapper } from './create-wrapper.js';
 export const WcInput = createWrapper({
   tagName: 'wc-input',
   elementClass: wcInput,
-  events: { onWcInput: 'wc-input', onWcChange: 'wc-change', onWcClear: 'wc-clear' },
+  // input/change 为 core 伴发的原生事件（与 v-model 同通道），onInput 实时受控、onChange 提交式
+  events: {
+    onWcInput: 'wc-input',
+    onWcChange: 'wc-change',
+    onWcClear: 'wc-clear',
+    onInput: 'input',
+    onChange: 'change',
+  },
   displayName: 'WcInput',
 });
 
 export const WcTextarea = createWrapper({
   tagName: 'wc-textarea',
   elementClass: wcTextarea,
-  events: { onWcInput: 'wc-input', onWcChange: 'wc-change' },
+  events: {
+    onWcInput: 'wc-input',
+    onWcChange: 'wc-change',
+    onInput: 'input',
+    onChange: 'change',
+  },
   displayName: 'WcTextarea',
 });
 
 export const WcSelect = createWrapper({
   tagName: 'wc-select',
   elementClass: wcSelect,
-  events: { onWcChange: 'wc-change', onWcClear: 'wc-clear' },
+  events: {
+    onWcChange: 'wc-change',
+    onWcClear: 'wc-clear',
+    onInput: 'input',
+    onChange: 'change',
+  },
   displayName: 'WcSelect',
 });
 
@@ -46,35 +63,46 @@ export const WcOption = createWrapper({
 export const WcCheckbox = createWrapper({
   tagName: 'wc-checkbox',
   elementClass: wcCheckbox,
-  events: { onWcChange: 'wc-change' },
+  events: { onWcChange: 'wc-change', onInput: 'input', onChange: 'change' },
   displayName: 'WcCheckbox',
 });
 
 export const WcRadio = createWrapper({
   tagName: 'wc-radio',
   elementClass: wcRadio,
-  events: { onWcChange: 'wc-change' },
+  events: { onWcChange: 'wc-change', onInput: 'input', onChange: 'change' },
   displayName: 'WcRadio',
 });
 
 export const WcSwitch = createWrapper({
   tagName: 'wc-switch',
   elementClass: wcSwitch,
-  events: { onWcChange: 'wc-change' },
+  events: { onWcChange: 'wc-change', onInput: 'input', onChange: 'change' },
   displayName: 'WcSwitch',
 });
 
 export const WcSlider = createWrapper({
   tagName: 'wc-slider',
   elementClass: wcSlider,
-  events: { onWcInput: 'wc-input', onWcChange: 'wc-change' },
+  events: {
+    onWcInput: 'wc-input',
+    onWcChange: 'wc-change',
+    onInput: 'input',
+    onChange: 'change',
+  },
   displayName: 'WcSlider',
 });
 
 export const WcInputNumber = createWrapper({
   tagName: 'wc-input-number',
   elementClass: wcInputNumber,
-  events: { onWcInput: 'wc-input', onWcChange: 'wc-change' },
+  // 原生 input/change 仅在值提交（失焦/回车/步进）时伴发，编辑中不触发
+  events: {
+    onWcInput: 'wc-input',
+    onWcChange: 'wc-change',
+    onInput: 'input',
+    onChange: 'change',
+  },
   displayName: 'WcInputNumber',
 });
 

@@ -78,11 +78,8 @@ import type {
   wcUpload,
 } from '@wc-kit/core';
 
-type WcIntrinsic<T extends HTMLElement> = React.DetailedHTMLProps<
-  React.HTMLAttributes<T>,
-  T
-> &
-  Record<string, any>;
+type WcIntrinsic<T extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T> &
+  Record<string, unknown>;
 
 interface WcTags {
   'wc-alert': WcIntrinsic<wcAlert>;

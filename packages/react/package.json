@@ -1,8 +1,7 @@
 {
   "name": "@wc-kit/react",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "React wrappers for @wc-kit/core web components, built on @lit/react",
-  "license": "MIT",
   "keywords": [
     "components",
     "lit",
@@ -11,6 +10,7 @@
     "wc-kit",
     "web-components"
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xianmua/wc-kit.git",

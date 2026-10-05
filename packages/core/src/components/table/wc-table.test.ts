@@ -302,9 +302,7 @@ describe('wc-table', () => {
       ></wc-table>
     `);
     const changes: unknown[][] = [];
-    el.addEventListener('wc-expanded-rows-change', (e) =>
-      changes.push((e as CustomEvent).detail),
-    );
+    el.addEventListener('wc-expanded-rows-change', (e) => changes.push((e as CustomEvent).detail));
     // 点击展开箭头：受控模式下内部状态不变
     (el.shadowRoot!.querySelector('.expand-btn') as HTMLElement).click();
     await el.updateComplete;
@@ -320,7 +318,12 @@ describe('wc-table', () => {
 
   it('columnWidth 设置展开列宽', async () => {
     const el = await fixture<wcTable>(
-      html`<wc-table .columns=${columns} .data=${data} .expandedRowRender=${() => 'x'} .columnWidth=${64}></wc-table>`,
+      html`<wc-table
+        .columns=${columns}
+        .data=${data}
+        .expandedRowRender=${() => 'x'}
+        .columnWidth=${64}
+      ></wc-table>`,
     );
     const th = el.shadowRoot!.querySelector('th.expand-col') as HTMLElement;
     expect(th.getAttribute('style')).to.contain('64px');

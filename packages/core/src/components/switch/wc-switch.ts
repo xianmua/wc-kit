@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import { switchStyles } from './wc-switch.styles';
 
 /**
@@ -13,6 +14,8 @@ import { switchStyles } from './wc-switch.styles';
  * @csspart thumb - 滑块
  * @csspart label - 标签文本容器
  * @fires wc-change - 切换时触发，detail.checked
+ * @fires input - 原生伴发事件，切换时触发（供框架 v-model 绑定）
+ * @fires change - 原生伴发事件，切换时触发
  */
 export class wcSwitch extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, switchStyles];
@@ -25,6 +28,16 @@ export class wcSwitch extends FormAssociatedMixin(LitElement) {
 
   /** 关闭时提交到表单的值（为空则不提交） */
   @property() uncheckedValue = '';
+
+  /** 选中状态（与 checked 双向同步，供框架 v-model 直接绑定 el.value） */
+  @property({ type: Boolean })
+  get value(): boolean {
+    return this.checked;
+  }
+
+  set value(v: boolean) {
+    this.checked = Boolean(v);
+  }
 
   /** 无障碍标签（无默认插槽文本时使用） */
   @property() label = '';
@@ -54,7 +67,13 @@ export class wcSwitch extends FormAssociatedMixin(LitElement) {
     this.internals.setFormValue(this.checked ? this.checkedValue : this.uncheckedValue || null);
   }
 
+  /** 内层原生 checkbox 的 input 事件是 composed 的，阻断外泄，由宿主统一派发 */
+  private handleInnerInput(e: Event): void {
+    stopInnerEvent(e);
+  }
+
   private handleChange(e: Event): void {
+    stopInnerEvent(e);
     const input = e.target as HTMLInputElement;
     this.checked = input.checked;
     this.dispatchEvent(
@@ -64,6 +83,8 @@ export class wcSwitch extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   render() {
@@ -76,6 +97,7 @@ export class wcSwitch extends FormAssociatedMixin(LitElement) {
           .checked=${this.checked}
           ?disabled=${this.disabled}
           aria-label=${this.label || undefined}
+          @input=${this.handleInnerInput}
           @change=${this.handleChange}
         />
         <span class="track" part="track" aria-hidden="true">

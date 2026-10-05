@@ -103,4 +103,16 @@ describe('wc-checkbox', () => {
     expect(el.shadowRoot!.querySelector('[part="box"]')).to.exist;
     expect(el.shadowRoot!.querySelector('[part="label"]')).to.exist;
   });
+
+  it('切换时伴发原生 input / change 事件且内层事件不外泄（宿主只收到一次）', async () => {
+    const el = await fixture<wcCheckbox>(html`<wc-checkbox>选项</wc-checkbox>`);
+    const counts = { input: 0, change: 0 };
+    el.addEventListener('input', () => counts.input++);
+    el.addEventListener('change', () => counts.change++);
+    el.shadowRoot!.querySelector<HTMLInputElement>('.native')!.click();
+    await el.updateComplete;
+    expect(el.checked).to.be.true;
+    expect(counts.input).to.equal(1);
+    expect(counts.change).to.equal(1);
+  });
 });

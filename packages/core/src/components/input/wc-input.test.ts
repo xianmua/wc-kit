@@ -81,6 +81,21 @@ describe('wc-input', () => {
     expect(detail).to.equal('x');
   });
 
+  it('伴发原生 input / change 事件且内层事件不外泄（宿主只收到一次）', async () => {
+    const el = await fixture<wcInput>(html`<wc-input></wc-input>`);
+    const input = el.shadowRoot!.querySelector('input')!;
+    let inputCount = 0;
+    let changeCount = 0;
+    el.addEventListener('input', () => inputCount++);
+    el.addEventListener('change', () => changeCount++);
+    input.value = 'abc';
+    input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    await el.updateComplete;
+    expect(inputCount).to.equal(1);
+    expect(changeCount).to.equal(1);
+  });
+
   it('maxlength 透传到内部 input', async () => {
     const el = await fixture<wcInput>(html`<wc-input maxlength="10"></wc-input>`);
     expect(el.shadowRoot!.querySelector('input')!.getAttribute('maxlength')).to.equal('10');

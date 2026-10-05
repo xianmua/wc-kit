@@ -91,6 +91,27 @@ describe('wc-input-number', () => {
     expect(composed).to.be.true;
   });
 
+  it('步进/提交时伴发原生 input / change 事件（编辑中不派发）', async () => {
+    const el = await fixture<wcInputNumber>(html`<wc-input-number value="5"></wc-input-number>`);
+    const counts = { input: 0, change: 0 };
+    el.addEventListener('input', () => counts.input++);
+    el.addEventListener('change', () => counts.change++);
+    // 编辑中只改文本，不派发原生事件
+    const inner = getInner(el);
+    inner.dispatchEvent(new Event('focus'));
+    inner.value = '8';
+    inner.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    await el.updateComplete;
+    expect(counts.input).to.equal(0);
+    expect(counts.change).to.equal(0);
+    // 失焦提交后伴发
+    inner.dispatchEvent(new Event('blur'));
+    await el.updateComplete;
+    expect(el.value).to.equal(8);
+    expect(counts.input).to.equal(1);
+    expect(counts.change).to.equal(1);
+  });
+
   it('到达边界时对应按钮禁用', async () => {
     const el = await fixture<wcInputNumber>(
       html`<wc-input-number min="0" max="10" value="10"></wc-input-number>`,

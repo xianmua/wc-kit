@@ -86,6 +86,21 @@ describe('wc-slider', () => {
     expect(detail).to.equal(10);
   });
 
+  it('伴发原生 input / change 事件且内层事件不外泄（宿主只收到一次）', async () => {
+    const el = await fixture<wcSlider>(html`<wc-slider value="10"></wc-slider>`);
+    const native = el.shadowRoot!.querySelector<HTMLInputElement>('.native')!;
+    let inputCount = 0;
+    let changeCount = 0;
+    el.addEventListener('input', () => inputCount++);
+    el.addEventListener('change', () => changeCount++);
+    native.value = '50';
+    native.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    native.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    await el.updateComplete;
+    expect(inputCount).to.equal(1);
+    expect(changeCount).to.equal(1);
+  });
+
   it('fill 宽度与 thumb 位置反映百分比', async () => {
     const el = await fixture<wcSlider>(html`<wc-slider value="25"></wc-slider>`);
     await el.updateComplete;

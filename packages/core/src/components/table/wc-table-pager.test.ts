@@ -3,7 +3,10 @@ import './wc-table-pager.js';
 import type { wcTableRow, wcTablePager } from './wc-table-pager.js';
 
 const makeRows = (n: number): wcTableRow[] =>
-  Array.from({ length: n }, (_, i) => ({ name: `用户${String(n - i).padStart(2, '0')}`, age: n - i }));
+  Array.from({ length: n }, (_, i) => ({
+    name: `用户${String(n - i).padStart(2, '0')}`,
+    age: n - i,
+  }));
 
 describe('wc-table-pager', () => {
   async function create(overrides: Record<string, string> = {}): Promise<wcTablePager> {
@@ -25,10 +28,8 @@ describe('wc-table-pager', () => {
       'wc-pagination',
     )!;
   // 行渲染在内部 wc-table 的 shadowRoot 里
-  const rows = (el: wcTablePager) =>
-    innerTable(el).shadowRoot!.querySelectorAll('tbody tr');
-  const cells = (el: wcTablePager, row: number) =>
-    rows(el)[row].querySelectorAll('td');
+  const rows = (el: wcTablePager) => innerTable(el).shadowRoot!.querySelectorAll('tbody tr');
+  const cells = (el: wcTablePager, row: number) => rows(el)[row].querySelectorAll('td');
 
   it('默认每页 10 条，只渲染当前页切片，total 为全量条数', async () => {
     const el = await create();
@@ -40,7 +41,11 @@ describe('wc-table-pager', () => {
   it('翻页后切片联动，page 镜像同步', async () => {
     const el = await create();
     innerPager(el).dispatchEvent(
-      new CustomEvent('wc-change', { detail: { current: 3, previous: 1 }, bubbles: true, composed: true }),
+      new CustomEvent('wc-change', {
+        detail: { current: 3, previous: 1 },
+        bubbles: true,
+        composed: true,
+      }),
     );
     await el.updateComplete;
     expect(el.page).to.equal(3);
@@ -52,7 +57,11 @@ describe('wc-table-pager', () => {
     const el = await create();
     // 全量数据按 name 倒序是 用户25 → 用户01；升序切片第 1 页应为 用户01~10
     innerTable(el).dispatchEvent(
-      new CustomEvent('wc-sort', { detail: { key: 'name', order: 'asc' }, bubbles: true, composed: true }),
+      new CustomEvent('wc-sort', {
+        detail: { key: 'name', order: 'asc' },
+        bubbles: true,
+        composed: true,
+      }),
     );
     await el.updateComplete;
     expect(cells(el, 0)[0].textContent).to.contain('用户01');
@@ -60,11 +69,19 @@ describe('wc-table-pager', () => {
 
     // 降序时翻到第 3 页应是末尾 5 条（用户05~01）
     innerTable(el).dispatchEvent(
-      new CustomEvent('wc-sort', { detail: { key: 'name', order: 'desc' }, bubbles: true, composed: true }),
+      new CustomEvent('wc-sort', {
+        detail: { key: 'name', order: 'desc' },
+        bubbles: true,
+        composed: true,
+      }),
     );
     await el.updateComplete;
     innerPager(el).dispatchEvent(
-      new CustomEvent('wc-change', { detail: { current: 3, previous: 1 }, bubbles: true, composed: true }),
+      new CustomEvent('wc-change', {
+        detail: { current: 3, previous: 1 },
+        bubbles: true,
+        composed: true,
+      }),
     );
     await el.updateComplete;
     expect(cells(el, 0)[0].textContent).to.contain('用户05');
@@ -88,7 +105,11 @@ describe('wc-table-pager', () => {
   it('数据缩水导致当前页越界时自动夹紧', async () => {
     const el = await create();
     innerPager(el).dispatchEvent(
-      new CustomEvent('wc-change', { detail: { current: 3, previous: 1 }, bubbles: true, composed: true }),
+      new CustomEvent('wc-change', {
+        detail: { current: 3, previous: 1 },
+        bubbles: true,
+        composed: true,
+      }),
     );
     await el.updateComplete;
     expect(el.page).to.equal(3);
@@ -114,7 +135,11 @@ describe('wc-table-pager', () => {
     el.addEventListener('wc-change', () => events.push('page'));
     rows(el)[0].querySelector('td')!.click();
     innerPager(el).dispatchEvent(
-      new CustomEvent('wc-change', { detail: { current: 2, previous: 1 }, bubbles: true, composed: true }),
+      new CustomEvent('wc-change', {
+        detail: { current: 2, previous: 1 },
+        bubbles: true,
+        composed: true,
+      }),
     );
     await el.updateComplete;
     expect(events).to.deep.equal(['row', 'page']);

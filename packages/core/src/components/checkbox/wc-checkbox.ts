@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { emitNativeEvent, stopInnerEvent } from '../../common/native-events';
 import { checkboxStyles } from './wc-checkbox.styles';
 
 /**
@@ -12,6 +13,8 @@ import { checkboxStyles } from './wc-checkbox.styles';
  * @csspart box - 方框指示器
  * @csspart label - 标签文本容器
  * @fires wc-change - 选中状态变化时触发，detail.checked / detail.value
+ * @fires input - 原生伴发事件，选中状态变化时触发
+ * @fires change - 原生伴发事件，选中状态变化时触发（`type="checkbox"` + v-model 可直接双向绑定）
  */
 export class wcCheckbox extends FormAssociatedMixin(LitElement) {
   static styles = [baseStyles, checkboxStyles];
@@ -53,7 +56,13 @@ export class wcCheckbox extends FormAssociatedMixin(LitElement) {
     this.internals.setFormValue(this.checked ? this.value : null);
   }
 
+  /** 内层原生 checkbox 的 input 事件是 composed 的，阻断外泄，由宿主统一派发 */
+  private handleInnerInput(e: Event): void {
+    stopInnerEvent(e);
+  }
+
   private handleChange(e: Event): void {
+    stopInnerEvent(e);
     const input = e.target as HTMLInputElement;
     // 用户交互后解除半选态
     this.indeterminate = false;
@@ -65,6 +74,8 @@ export class wcCheckbox extends FormAssociatedMixin(LitElement) {
         composed: true,
       }),
     );
+    emitNativeEvent(this, 'input');
+    emitNativeEvent(this, 'change');
   }
 
   render() {
@@ -77,6 +88,7 @@ export class wcCheckbox extends FormAssociatedMixin(LitElement) {
           .indeterminate=${this.indeterminate}
           ?disabled=${this.disabled}
           aria-label=${this.label || undefined}
+          @input=${this.handleInnerInput}
           @change=${this.handleChange}
         />
         <span class="box" part="box" aria-hidden="true">

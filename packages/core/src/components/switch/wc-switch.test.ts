@@ -70,6 +70,28 @@ describe('wc-switch', () => {
     expect(getLastFormValue(el)).to.equal('on');
   });
 
+  it('value 与 checked 双向同步（供框架 v-model 绑定）', async () => {
+    const el = await fixture<wcSwitch>(html`<wc-switch></wc-switch>`);
+    el.value = true;
+    await el.updateComplete;
+    expect(el.checked).to.be.true;
+    el.checked = false;
+    await el.updateComplete;
+    expect(el.value).to.be.false;
+  });
+
+  it('切换时伴发原生 input / change 事件且内层事件不外泄（宿主只收到一次）', async () => {
+    const el = await fixture<wcSwitch>(html`<wc-switch></wc-switch>`);
+    const counts = { input: 0, change: 0 };
+    el.addEventListener('input', () => counts.input++);
+    el.addEventListener('change', () => counts.change++);
+    el.shadowRoot!.querySelector<HTMLInputElement>('.native')!.click();
+    await el.updateComplete;
+    expect(el.checked).to.be.true;
+    expect(counts.input).to.equal(1);
+    expect(counts.change).to.equal(1);
+  });
+
   it('表单关联：uncheckedValue 自定义关闭值', async () => {
     const el = await fixture<wcSwitch>(
       html`<wc-switch name="mode" checkedvalue="1" uncheckedvalue="0"></wc-switch>`,
