@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { hasAssignedElements } from '../../common/slot';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
 import { inputStyles } from './wc-input.styles';
@@ -163,12 +164,12 @@ export class wcInput extends FormAssociatedMixin(LitElement) {
   private _hasSuffix = false;
 
   private _onPrefixSlotChange(e: Event): void {
-    this._hasPrefix = (e.target as HTMLSlotElement).assignedElements({ flatten: true }).length > 0;
+    this._hasPrefix = hasAssignedElements(e.target as HTMLSlotElement);
     this.requestUpdate();
   }
 
   private _onSuffixSlotChange(e: Event): void {
-    this._hasSuffix = (e.target as HTMLSlotElement).assignedElements({ flatten: true }).length > 0;
+    this._hasSuffix = hasAssignedElements(e.target as HTMLSlotElement);
     this.requestUpdate();
   }
 }

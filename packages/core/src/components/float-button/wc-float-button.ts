@@ -3,6 +3,8 @@ import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { LocalizeController } from '../../i18n/localize-controller';
 import { POSITION_GAP } from '../../common/position';
+import { hasAssignedElements, hasVisibleContent } from '../../common/slot';
+import { OutsideClickController } from '../../common/outside-click';
 import '../icon/wc-icon.js';
 import { floatButtonStyles } from './wc-float-button.styles';
 
@@ -87,13 +89,12 @@ export class wcFloatButton extends LitElement {
   @state() private _hasText = false;
 
   private onIconSlotChange(e: Event): void {
-    this._hasIcon = (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+    this._hasIcon = hasAssignedElements(e.target as HTMLSlotElement);
   }
 
   private onTextSlotChange(e: Event): void {
     // 过滤纯空白文本节点（嵌套写法/模板缩进会产生，会让空 desc 参与布局挤偏图标）
-    const nodes = (e.target as HTMLSlotElement).assignedNodes({ flatten: true });
-    this._hasText = nodes.some((n) => (n.textContent ?? '').trim() !== '');
+    this._hasText = hasVisibleContent(e.target as HTMLSlotElement);
   }
 
   private showTimer: ReturnType<typeof setTimeout> | null = null;
@@ -103,10 +104,7 @@ export class wcFloatButton extends LitElement {
     this.toggleAttribute('data-visible', window.scrollY > this.visibilityHeight);
   };
 
-  private onDocumentClick = (e: Event): void => {
-    if (e.composedPath().includes(this)) return;
-    this.hideTip();
-  };
+  private outsideClick = new OutsideClickController(this, () => this.hideTip());
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -115,7 +113,6 @@ export class wcFloatButton extends LitElement {
 
   override disconnectedCallback(): void {
     this.unbindBacktop();
-    this.unbindOutsideClose();
     this.clearTimers();
     super.disconnectedCallback();
   }
@@ -159,7 +156,6 @@ export class wcFloatButton extends LitElement {
     this.showTimer = setTimeout(() => {
       if (this.tooltipIsOpen) return;
       this.tooltipIsOpen = true;
-      this.bindOutsideClose();
       this.updateComplete.then(() => this.positionTip());
       this.requestUpdate();
     }, SHOW_DELAY);
@@ -170,7 +166,6 @@ export class wcFloatButton extends LitElement {
     this.hideTimer = setTimeout(() => {
       if (!this.tooltipIsOpen) return;
       this.tooltipIsOpen = false;
-      this.unbindOutsideClose();
       this.requestUpdate();
     }, HIDE_DELAY);
   }
@@ -189,14 +184,6 @@ export class wcFloatButton extends LitElement {
     tip.style.left = `${Math.max(POSITION_GAP, x)}px`;
     tip.style.top = `${Math.min(Math.max(POSITION_GAP, y), window.innerHeight - tipRect.height - POSITION_GAP)}px`;
     tip.style.visibility = '';
-  }
-
-  private bindOutsideClose(): void {
-    document.addEventListener('click', this.onDocumentClick, true);
-  }
-
-  private unbindOutsideClose(): void {
-    document.removeEventListener('click', this.onDocumentClick, true);
   }
 
   private clearTimers(): void {

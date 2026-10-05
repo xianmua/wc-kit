@@ -1,7 +1,8 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
-import { computePosition, splitPlacement, type WcPlacement } from '../../common/position';
+import { positionPanel, splitPlacement, type WcPlacement } from '../../common/position';
+import { OutsideClickController } from '../../common/outside-click';
 import '../icon/wc-icon.js';
 import { tooltipStyles } from './wc-tooltip.styles';
 
@@ -46,19 +47,14 @@ export class wcTooltip extends LitElement {
   private showTimer: ReturnType<typeof setTimeout> | null = null;
   private hideTimer: ReturnType<typeof setTimeout> | null = null;
 
-  private onDocumentClick = (e: Event): void => {
-    if (e.composedPath().includes(this)) return;
-    this.hide();
-  };
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-  }
+  private outsideClick = new OutsideClickController(this, () => {
+    // 仅 click 触发模式响应外点关闭；hover 模式由 mouseleave 收起
+    if (this.trigger === 'click') this.hide();
+  });
 
   override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.clearTimers();
-    document.removeEventListener('click', this.onDocumentClick, true);
   }
 
   /** 显示（manual 模式或编程调用） */
@@ -120,29 +116,20 @@ export class wcTooltip extends LitElement {
 
   protected override updated(changed: Map<string, unknown>): void {
     super.updated(changed);
-    // open 变化后：click 模式挂/卸 document 点击关闭
-    if (changed.has('open')) {
-      if (this.open && this.trigger === 'click') {
-        document.addEventListener('click', this.onDocumentClick, true);
-      } else if (!this.open) {
-        document.removeEventListener('click', this.onDocumentClick, true);
-      }
-      if (this.open) this.position();
+    if (changed.has('open') && this.open) {
+      this.position();
     }
   }
 
   /** 计算并应用 fixed 定位与箭头偏移 */
   private position(): void {
-    const panel = this.shadowRoot!.querySelector<HTMLElement>('.panel');
-    if (!panel) return;
-    const anchor = this.getBoundingClientRect();
-    const panelRect = panel.getBoundingClientRect();
-    const viewport = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
-    const result = computePosition(anchor, panelRect, viewport, this.placement);
-    panel.style.left = `${result.x}px`;
-    panel.style.top = `${result.y}px`;
-    panel.dataset.placement = result.placement;
-    panel.style.setProperty('--wc-tooltip-arrow-offset', `${result.arrowOffset}px`);
+    positionPanel(
+      this,
+      this.shadowRoot!.querySelector<HTMLElement>('.panel'),
+      this.placement,
+      undefined,
+      '--wc-tooltip-arrow-offset',
+    );
   }
 
   render() {

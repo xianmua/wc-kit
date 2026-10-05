@@ -1,6 +1,7 @@
 import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
+import { hasAssignedElements } from '../../common/slot';
 import { cardStyles } from './wc-card.styles';
 
 /**
@@ -51,7 +52,7 @@ export class wcCard extends LitElement {
 
   private onSlotChange(e: Event): void {
     const slot = e.target as HTMLSlotElement;
-    const has = slot.assignedElements().length > 0;
+    const has = hasAssignedElements(slot);
     if (slot.name === 'header') this.hasHeaderSlot = has;
     else if (slot.name === 'actions') this.hasActions = has;
     else if (slot.name === 'footer') this.hasFooter = has;

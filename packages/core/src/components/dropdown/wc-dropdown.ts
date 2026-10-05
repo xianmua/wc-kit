@@ -1,7 +1,8 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
-import { computePosition, type WcPlacement } from '../../common/position';
+import { positionPanel, type WcPlacement } from '../../common/position';
+import { OutsideClickController } from '../../common/outside-click';
 import './wc-dropdown-item.js';
 import { dropdownStyles } from './wc-dropdown.styles';
 import type { wcDropdownItem } from './wc-dropdown-item.js';
@@ -48,17 +49,6 @@ export class wcDropdown extends LitElement {
     this.addEventListener('keydown', this.handleKeydown);
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this.unbindSideEffects();
-  }
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-    // 带 open 属性创建时 show() 不会执行，副作用需在此绑定
-    if (this.open) this.bindSideEffects();
-  }
-
   /** 面板中的可用菜单项列表 */
   private get enabledItems(): wcDropdownItem[] {
     return this.assignedItems.filter((o) => !o.disabled && !o.divider);
@@ -72,7 +62,6 @@ export class wcDropdown extends LitElement {
     this.open = true;
     this.activeIndex = this.enabledItems.length ? 0 : -1;
     this.syncActive();
-    this.bindSideEffects();
     this.dispatchEvent(new CustomEvent('wc-open', { bubbles: true, composed: true }));
   }
 
@@ -82,7 +71,17 @@ export class wcDropdown extends LitElement {
     this.open = false;
     this.activeIndex = -1;
     this.syncActive();
-    this.unbindSideEffects();
+  }
+
+  protected override updated(changed: Map<string, unknown>): void {
+    super.updated(changed);
+    // updated 时面板已渲染，可直接测量定位
+    if (changed.has('open') && this.open) this.position();
+  }
+
+  /** 计算并应用 fixed 定位（同 Popconfirm，无箭头） */
+  private position(): void {
+    positionPanel(this, this.shadowRoot!.querySelector<HTMLElement>('.panel'), this.placement);
   }
 
   /** 切换开合 */
@@ -101,40 +100,11 @@ export class wcDropdown extends LitElement {
     );
   }
 
-  private onDocumentClick = (e: Event): void => {
-    if ((e.composedPath() as Array<EventTarget>).includes(this)) return;
+  private outsideClick = new OutsideClickController(this, () => {
     const wasOpen = this.open;
     this.hide();
     if (wasOpen) this.emitClose('outside');
-  };
-
-  private bindSideEffects(): void {
-    document.addEventListener('click', this.onDocumentClick, true);
-    this.updateComplete.then(() => this.position());
-  }
-
-  private unbindSideEffects(): void {
-    document.removeEventListener('click', this.onDocumentClick, true);
-  }
-
-  protected override updated(changed: Map<string, unknown>): void {
-    super.updated(changed);
-    if (changed.has('open') && this.open) {
-      this.position();
-    }
-  }
-
-  /** 计算并应用 fixed 定位（同 Popconfirm，无箭头） */
-  private position(): void {
-    const panel = this.shadowRoot!.querySelector<HTMLElement>('.panel');
-    if (!panel) return;
-    const anchor = this.getBoundingClientRect();
-    const panelRect = panel.getBoundingClientRect();
-    const viewport = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
-    const result = computePosition(anchor, panelRect, viewport, this.placement);
-    panel.style.left = `${result.x}px`;
-    panel.style.top = `${result.y}px`;
-  }
+  });
 
   /* ---------- 菜单项 ---------- */
 

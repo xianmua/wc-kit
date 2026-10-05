@@ -2,6 +2,7 @@ import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { OutsideClickController } from '../../common/outside-click';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
 import './wc-option.js';
@@ -87,16 +88,6 @@ export class wcSelect extends FormAssociatedMixin(LitElement) {
     this.internals.setFormValue(this.value || null);
   }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-    document.addEventListener('click', this.onDocumentClick);
-  }
-
-  override disconnectedCallback(): void {
-    document.removeEventListener('click', this.onDocumentClick);
-    super.disconnectedCallback();
-  }
-
   /** 面板中的选项列表 */
   private get enabledOptions(): wcOption[] {
     return this.assignedOptions.filter((o) => !o.disabled);
@@ -153,11 +144,7 @@ export class wcSelect extends FormAssociatedMixin(LitElement) {
     }
   }
 
-  private onDocumentClick = (e: MouseEvent): void => {
-    if (!(e.composedPath() as Array<EventTarget>).includes(this)) {
-      this.hide();
-    }
-  };
+  private outsideClick = new OutsideClickController(this, () => this.hide());
 
   private onTriggerClick(): void {
     this.toggle();

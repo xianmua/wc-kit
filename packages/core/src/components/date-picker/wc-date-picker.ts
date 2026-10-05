@@ -2,6 +2,7 @@ import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
+import { OutsideClickController } from '../../common/outside-click';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
 import {
@@ -138,16 +139,6 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
     this.internals.setFormValue(this.value || null);
   }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-    document.addEventListener('click', this.onDocumentClick);
-  }
-
-  override disconnectedCallback(): void {
-    document.removeEventListener('click', this.onDocumentClick);
-    super.disconnectedCallback();
-  }
-
   /* ---------- 开合（同 Select 模式） ---------- */
 
   private show(): void {
@@ -176,11 +167,7 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
     }
   }
 
-  private onDocumentClick = (e: MouseEvent): void => {
-    if (!(e.composedPath() as Array<EventTarget>).includes(this)) {
-      this.hide();
-    }
-  };
+  private outsideClick = new OutsideClickController(this, () => this.hide());
 
   /* ---------- 月视图 ---------- */
 
@@ -456,29 +443,33 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
           part="panel"
           id="${this.uid}-panel"
           role="dialog"
-          aria-label=${this.label ||
-          (this.range
-            ? this.localize.term('rangePicker.placeholderStart')
-            : this.localize.term('datePicker.placeholder'))}
+          aria-label=${
+            this.label ||
+            (this.range
+              ? this.localize.term('rangePicker.placeholderStart')
+              : this.localize.term('datePicker.placeholder'))
+          }
           ?hidden=${!this.open}
           @mouseover=${this.range ? this.onCellHover : nothing}
         >
           ${this.renderPanels()}
-          ${this.range
-            ? nothing
-            : html`
-                <div class="footer" part="footer">
-                  <button
-                    type="button"
-                    class="today"
-                    part="today-button"
-                    tabindex="-1"
-                    @click=${this.selectToday}
-                  >
-                    ${this.localize.term('datePicker.today')}
-                  </button>
-                </div>
-              `}
+          ${
+            this.range
+              ? nothing
+              : html`
+                  <div class="footer" part="footer">
+                    <button
+                      type="button"
+                      class="today"
+                      part="today-button"
+                      tabindex="-1"
+                      @click=${this.selectToday}
+                    >
+                      ${this.localize.term('datePicker.today')}
+                    </button>
+                  </div>
+                `
+          }
         </div>
       </div>
     `;
@@ -573,9 +564,7 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
             </div>
             ${rows.map(
               (row) => html`
-                <div class="row" role="row">
-                  ${row.map((c) => this.renderCell(c, idx))}
-                </div>
+                <div class="row" role="row">${row.map((c) => this.renderCell(c, idx))}</div>
               `,
             )}
           </div>

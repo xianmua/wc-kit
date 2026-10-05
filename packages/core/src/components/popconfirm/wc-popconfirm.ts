@@ -1,7 +1,8 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
-import { computePosition, splitPlacement, type WcPlacement } from '../../common/position';
+import { positionPanel, splitPlacement, type WcPlacement } from '../../common/position';
+import { OutsideClickController } from '../../common/outside-click';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../button/wc-button.js';
 import '../icon/wc-icon.js';
@@ -51,10 +52,9 @@ export class wcPopconfirm extends LitElement {
 
   private localize = new LocalizeController(this);
 
-  private onDocumentClick = (e: Event): void => {
-    if (e.composedPath().includes(this)) return;
-    this.cancel('outside');
-  };
+  private outsideClick = new OutsideClickController(this, () => {
+    if (this.open) this.cancel('outside');
+  });
 
   private onDocumentKeydown = (e: KeyboardEvent): void => {
     if (e.key === 'Escape') {
@@ -104,7 +104,6 @@ export class wcPopconfirm extends LitElement {
   }
 
   private bindSideEffects(): void {
-    document.addEventListener('click', this.onDocumentClick, true);
     document.addEventListener('keydown', this.onDocumentKeydown, true);
     // 焦点移到确认按钮；关闭时归还给触发元素
     queueMicrotask(() => {
@@ -113,7 +112,6 @@ export class wcPopconfirm extends LitElement {
   }
 
   private unbindSideEffects(): void {
-    document.removeEventListener('click', this.onDocumentClick, true);
     document.removeEventListener('keydown', this.onDocumentKeydown, true);
     this.shadowRoot!.querySelector<HTMLElement>('.trigger')?.focus();
   }
@@ -131,16 +129,13 @@ export class wcPopconfirm extends LitElement {
 
   /** 计算并应用 fixed 定位与箭头偏移（同 Tooltip） */
   private position(): void {
-    const panel = this.shadowRoot!.querySelector<HTMLElement>('.panel');
-    if (!panel) return;
-    const anchor = this.getBoundingClientRect();
-    const panelRect = panel.getBoundingClientRect();
-    const viewport = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
-    const result = computePosition(anchor, panelRect, viewport, this.placement);
-    panel.style.left = `${result.x}px`;
-    panel.style.top = `${result.y}px`;
-    panel.dataset.placement = result.placement;
-    panel.style.setProperty('--wc-popconfirm-arrow-offset', `${result.arrowOffset}px`);
+    positionPanel(
+      this,
+      this.shadowRoot!.querySelector<HTMLElement>('.panel'),
+      this.placement,
+      undefined,
+      '--wc-popconfirm-arrow-offset',
+    );
   }
 
   private onTriggerClick(e: Event): void {

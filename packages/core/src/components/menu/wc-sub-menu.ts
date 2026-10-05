@@ -1,6 +1,7 @@
 import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
-import { computePosition } from '../../common/position';
+import { positionPanel } from '../../common/position';
+import { OutsideClickController } from '../../common/outside-click';
 import '../icon/wc-icon.js';
 import { menuItemStyles } from './wc-menu-item.styles';
 import { subMenuStyles } from './wc-sub-menu.styles';
@@ -50,7 +51,6 @@ export class wcSubMenu extends LitElement {
   toggle(): void {
     if (this.open) {
       this.open = false;
-      this.unbindSideEffects();
       this.dispatchEvent(
         new CustomEvent('wc-close', {
           detail: { reason: 'toggle' },
@@ -60,19 +60,18 @@ export class wcSubMenu extends LitElement {
       );
     } else {
       this.open = true;
-      this.bindSideEffects();
+      this.bindPosition();
       this.dispatchEvent(new CustomEvent('wc-open', { bubbles: true, composed: true }));
     }
   }
 
-  private onOutsideClick = (e: Event): void => {
-    if ((e.composedPath() as Array<EventTarget>).includes(this)) return;
+  private outsideClick = new OutsideClickController(this, () => {
+    if (!this.open) return;
     this.open = false;
-    this.unbindSideEffects();
     this.dispatchEvent(
       new CustomEvent('wc-close', { detail: { reason: 'outside' }, bubbles: true, composed: true }),
     );
-  };
+  });
 
   private onKeydown = (e: KeyboardEvent): void => {
     if (this.disabled) return;
@@ -82,25 +81,19 @@ export class wcSubMenu extends LitElement {
     }
   };
 
-  private bindSideEffects(): void {
-    document.addEventListener('click', this.onOutsideClick, true);
+  private bindPosition(): void {
     // 仅弹出层需要定位；内联展开无定位诉求
     if (this.popup) this.updateComplete.then(() => this.position());
   }
 
-  private unbindSideEffects(): void {
-    document.removeEventListener('click', this.onOutsideClick, true);
-  }
-
   override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.unbindSideEffects();
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
-    // 带 open 属性创建时需要补绑定副作用
-    if (this.open) this.bindSideEffects();
+    // 带 open 属性创建时 toggle() 不会执行，定位需在此补挂
+    if (this.open) this.bindPosition();
   }
 
   protected override updated(changed: Map<string, unknown>): void {
@@ -112,14 +105,12 @@ export class wcSubMenu extends LitElement {
 
   /** 弹出层定位在头部正下方（空间不足自动翻转，同 dropdown） */
   private position(): void {
-    const panel = this.renderRoot.querySelector<HTMLElement>('.sub');
-    if (!panel) return;
-    const anchor = this.renderRoot.querySelector<HTMLElement>('.head')!.getBoundingClientRect();
-    const panelRect = panel.getBoundingClientRect();
-    const viewport = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
-    const result = computePosition(anchor, panelRect, viewport, 'bottom-start');
-    panel.style.left = `${result.x}px`;
-    panel.style.top = `${result.y}px`;
+    positionPanel(
+      this,
+      this.renderRoot.querySelector<HTMLElement>('.sub'),
+      'bottom-start',
+      this.renderRoot.querySelector<HTMLElement>('.head')!.getBoundingClientRect(),
+    );
   }
 
   /** 点击子项后收起弹出层（选择事件由 wc-menu 统一派发） */
@@ -130,7 +121,6 @@ export class wcSubMenu extends LitElement {
     );
     if (hit) {
       this.open = false;
-      this.unbindSideEffects();
       this.dispatchEvent(
         new CustomEvent('wc-close', {
           detail: { reason: 'select' },

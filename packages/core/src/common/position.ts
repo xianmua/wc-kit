@@ -147,3 +147,28 @@ export function computePosition(
   const placement: WcPlacement = align ? `${useBase}-${align}` : useBase;
   return { x, y, placement, arrowOffset };
 }
+
+/**
+ * 计算并应用 fixed 定位到弹层元素（Tooltip / Popconfirm / Dropdown 等共用包装）。
+ * @param host 锚点宿主元素（anchorRect 缺省时取其矩形）
+ * @param panel 弹层元素（需已渲染可测量；不可见时可 visibility:hidden）
+ * @param preferred 期望 placement
+ * @param anchorRect 锚点矩形（弹层锚定在 host 内部子元素时传入）
+ * @param arrowVar 箭头偏移 CSS 变量名（无箭头弹层不传）
+ */
+export function positionPanel(
+  host: HTMLElement,
+  panel: HTMLElement | null,
+  preferred: WcPlacement,
+  anchorRect?: WcRect,
+  arrowVar?: string,
+): void {
+  if (!panel) return;
+  const anchor = anchorRect ?? host.getBoundingClientRect();
+  const viewport = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+  const result = computePosition(anchor, panel.getBoundingClientRect(), viewport, preferred);
+  panel.style.left = `${result.x}px`;
+  panel.style.top = `${result.y}px`;
+  panel.dataset.placement = result.placement;
+  if (arrowVar) panel.style.setProperty(arrowVar, `${result.arrowOffset}px`);
+}

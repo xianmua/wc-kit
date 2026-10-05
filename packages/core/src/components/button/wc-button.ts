@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
+import { hasAssignedElements, hasVisibleContent } from '../../common/slot';
 import '../icon/wc-icon.js';
 import { buttonStyles } from './wc-button.styles';
 
@@ -130,14 +131,13 @@ export class wcButton extends LitElement {
   }
 
   private _onIconSlotChange(e: Event): void {
-    this._hasIcon = (e.target as HTMLSlotElement).assignedElements({ flatten: true }).length > 0;
+    this._hasIcon = hasAssignedElements(e.target as HTMLSlotElement);
     this._syncIconOnly();
     this.requestUpdate();
   }
 
   private _onTextSlotChange(e: Event): void {
-    const nodes = (e.target as HTMLSlotElement).assignedNodes({ flatten: true });
-    this._hasText = nodes.some((n) => (n.textContent ?? '').trim().length > 0);
+    this._hasText = hasVisibleContent(e.target as HTMLSlotElement);
     this._syncIconOnly();
     this.requestUpdate();
   }

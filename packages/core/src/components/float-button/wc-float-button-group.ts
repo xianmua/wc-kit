@@ -1,6 +1,7 @@
 import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
+import { OutsideClickController } from '../../common/outside-click';
 import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
 import './wc-float-button.js';
@@ -57,15 +58,16 @@ export class wcFloatButtonGroup extends LitElement {
     this.addEventListener('mouseleave', this.onHostMouseleave);
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    this.unbindOutsideClose();
-  }
+  private outsideClick = new OutsideClickController(this, () => {
+    // 仅 click 触发模式响应外点关闭
+    if (this.trigger !== 'click') return;
+    const wasOpen = this.open;
+    this.hide();
+    if (wasOpen) this.emitClose('outside');
+  });
 
   override connectedCallback(): void {
     super.connectedCallback();
-    // 带 open 属性创建时 show() 不会执行，副作用需在此绑定
-    if (this.open && this.trigger === 'click') this.bindOutsideClose();
   }
 
   /* ---------- 开合 ---------- */
@@ -74,7 +76,6 @@ export class wcFloatButtonGroup extends LitElement {
   show(): void {
     if (!this.trigger || this.open) return;
     this.open = true;
-    if (this.trigger === 'click') this.bindOutsideClose();
     this.dispatchEvent(new CustomEvent('wc-open', { bubbles: true, composed: true }));
   }
 
@@ -82,7 +83,6 @@ export class wcFloatButtonGroup extends LitElement {
   hide(): void {
     if (!this.open) return;
     this.open = false;
-    this.unbindOutsideClose();
   }
 
   /** 切换开合 */
@@ -99,21 +99,6 @@ export class wcFloatButtonGroup extends LitElement {
     this.dispatchEvent(
       new CustomEvent('wc-close', { detail: { reason }, bubbles: true, composed: true }),
     );
-  }
-
-  private onDocumentClick = (e: Event): void => {
-    if ((e.composedPath() as Array<EventTarget>).includes(this)) return;
-    const wasOpen = this.open;
-    this.hide();
-    if (wasOpen) this.emitClose('outside');
-  };
-
-  private bindOutsideClose(): void {
-    document.addEventListener('click', this.onDocumentClick, true);
-  }
-
-  private unbindOutsideClose(): void {
-    document.removeEventListener('click', this.onDocumentClick, true);
   }
 
   private handleKeydown = (e: KeyboardEvent): void => {
