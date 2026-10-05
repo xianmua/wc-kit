@@ -33,12 +33,12 @@ export class wcCollapse extends LitElement {
     return Array.from(this.querySelectorAll(':scope > wc-collapse-item'));
   }
 
-  protected override connectedCallback(): void {
+  override connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener('wc-change', this.onItemChange);
   }
 
-  protected override disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.removeEventListener('wc-change', this.onItemChange);
   }

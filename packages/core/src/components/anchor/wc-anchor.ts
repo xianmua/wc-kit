@@ -51,7 +51,7 @@ export class wcAnchor extends LitElement {
     if (changed.has('current')) this.syncSelected();
   }
 
-  protected override disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     this.unbindContainer();
     super.disconnectedCallback();
   }
@@ -113,7 +113,8 @@ export class wcAnchor extends LitElement {
     this.scrollContainer.removeEventListener('scroll', this.onScroll, { capture: true });
   }
 
-  private get scrollTop(): number {
+  /** 容器滚动顶部（命名避开 HTMLElement.scrollTop——TS 私有成员遮蔽公开属性会导致框架包装类型不兼容） */
+  private get containerScrollTop(): number {
     return this.scrollContainer instanceof Document
       ? window.scrollY || document.documentElement.scrollTop || 0
       : this.scrollContainer.scrollTop;
@@ -170,10 +171,10 @@ export class wcAnchor extends LitElement {
     for (const link of valid) {
       if (this.relativeTop(this.targetOf(link)!) <= offset) next = link.href;
     }
-    if (this.scrollTop <= 0) next = valid[0].href;
+    if (this.containerScrollTop <= 0) next = valid[0].href;
     else if (
       this.containerScrollHeight > this.viewportHeight &&
-      this.scrollTop + this.viewportHeight >= this.containerScrollHeight - 1
+      this.containerScrollTop + this.viewportHeight >= this.containerScrollHeight - 1
     ) {
       next = valid[valid.length - 1].href;
     }
@@ -211,7 +212,7 @@ export class wcAnchor extends LitElement {
   private scrollToTarget(href: string): void {
     const target = this.resolveTarget(href);
     if (!target) return;
-    const top = this.relativeTop(target) - this.targetOffset + this.scrollTop;
+    const top = this.relativeTop(target) - this.targetOffset + this.containerScrollTop;
     if (this.scrollContainer instanceof Document) {
       window.scrollTo?.({ top, behavior: 'smooth' });
     } else {

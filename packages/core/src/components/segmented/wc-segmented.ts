@@ -106,7 +106,7 @@ export class wcSegmented extends LitElement {
     }
   }
 
-  protected override disconnectedCallback(): void {
+  override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.ro?.disconnect();
     this.ro = null;

@@ -1,6 +1,6 @@
 {
   "name": "@wc-kit/svelte",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Svelte type definitions and helpers for @wc-kit/core web components",
   "keywords": [
     "components",
