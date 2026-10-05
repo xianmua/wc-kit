@@ -6,6 +6,7 @@ import {
   wcList,
   wcListItem,
   wcTable,
+  wcTablePager,
   wcImage,
   wcSkeleton,
   wcSkeletonItem,
@@ -57,6 +58,18 @@ export const WcTable = createWrapper({
   elementClass: wcTable,
   events: { onWcSort: 'wc-sort', onWcRowClick: 'wc-row-click' },
   displayName: 'WcTable',
+});
+
+export const WcTablePager = createWrapper({
+  tagName: 'wc-table-pager',
+  elementClass: wcTablePager,
+  events: {
+    onWcSort: 'wc-sort',
+    onWcRowClick: 'wc-row-click',
+    onWcChange: 'wc-change',
+    onWcSizeChange: 'wc-size-change',
+  },
+  displayName: 'WcTablePager',
 });
 
 export const WcImage = createWrapper({

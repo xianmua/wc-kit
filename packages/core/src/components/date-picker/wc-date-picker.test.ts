@@ -275,3 +275,65 @@ describe('wc-date-picker', () => {
     expect(el.shadowRoot!.querySelector('[part="panel"]')).to.exist;
   });
 });
+
+describe('wc-date-picker range 范围模式', () => {
+  it('range + value 属性：双月面板、无「今天」按钮、触发器显示两端', async () => {
+    const el = await fixture<wcDatePicker>(
+      html`<wc-date-picker range value="2026-03-02,2026-03-06"></wc-date-picker>`,
+    );
+    expect(el.value).to.equal('2026-03-02,2026-03-06');
+    await open(el);
+    expect(el.shadowRoot!.querySelectorAll('.month').length).to.equal(2);
+    expect(el.shadowRoot!.querySelectorAll('.cell.day').length).to.equal(84);
+    expect(el.shadowRoot!.querySelector('[part="today-button"]')).to.not.exist;
+    expect(el.shadowRoot!.querySelector('.value')!.textContent).to.contain('2026-03-02');
+    expect(el.shadowRoot!.querySelector('.value')!.textContent).to.contain('2026-03-06');
+  });
+
+  it('属性书写顺序无关：value 在 range 之前也能按范围解析', async () => {
+    const el = await fixture<wcDatePicker>(
+      html`<wc-date-picker value="2026-03-02,2026-03-06" range></wc-date-picker>`,
+    );
+    await el.updateComplete;
+    expect(el.value).to.equal('2026-03-02,2026-03-06');
+  });
+
+  it('两次点击完成选择：第一击后面板保持展开，第二击收起并派发数组 detail', async () => {
+    const el = await fixture<wcDatePicker>(html`<wc-date-picker range></wc-date-picker>`);
+    await open(el);
+    let detail: unknown;
+    el.addEventListener('wc-change', (e) => {
+      detail = (e as CustomEvent).detail.value;
+    });
+    cell(el, '2026-10-05').click();
+    await el.updateComplete;
+    expect(el.open).to.be.true;
+    expect(el.value).to.equal('');
+    expect(cell(el, '2026-10-05').classList.contains('selected')).to.be.true;
+    cell(el, '2026-10-12').click();
+    await el.updateComplete;
+    expect(el.value).to.equal('2026-10-05,2026-10-12');
+    expect(el.open).to.be.false;
+    expect(detail).to.deep.equal(['2026-10-05', '2026-10-12']);
+  });
+
+  it('第二击早于起点时自动交换', async () => {
+    const el = await fixture<wcDatePicker>(html`<wc-date-picker range></wc-date-picker>`);
+    await open(el);
+    cell(el, '2026-10-12').click();
+    await el.updateComplete;
+    cell(el, '2026-10-05').click();
+    await el.updateComplete;
+    expect(el.value).to.equal('2026-10-05,2026-10-12');
+  });
+
+  it('已选区间内中间日期有 in-range 高亮，端点 selected', async () => {
+    const el = await fixture<wcDatePicker>(
+      html`<wc-date-picker range value="2026-03-02,2026-03-06"></wc-date-picker>`,
+    );
+    await open(el);
+    expect(cell(el, '2026-03-02').classList.contains('selected')).to.be.true;
+    expect(cell(el, '2026-03-06').classList.contains('selected')).to.be.true;
+    expect(cell(el, '2026-03-04').classList.contains('in-range')).to.be.true;
+  });
+});

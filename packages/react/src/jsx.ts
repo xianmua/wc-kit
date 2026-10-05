@@ -69,6 +69,7 @@ import type {
   wcSwitch,
   wcTab,
   wcTable,
+  wcTablePager,
   wcTabs,
   wcTag,
   wcText,
@@ -144,6 +145,7 @@ interface WcTags {
   'wc-switch': WcIntrinsic<wcSwitch>;
   'wc-tab': WcIntrinsic<wcTab>;
   'wc-table': WcIntrinsic<wcTable>;
+  'wc-table-pager': WcIntrinsic<wcTablePager>;
   'wc-tabs': WcIntrinsic<wcTabs>;
   'wc-tag': WcIntrinsic<wcTag>;
   'wc-text': WcIntrinsic<wcText>;

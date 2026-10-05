@@ -4,6 +4,11 @@
 悬停预览区间高亮，第二击早于起点时自动交换。值为 `YYYY-MM-DD,YYYY-MM-DD` 格式字符串
 （本地时区），基于 ElementInternals 接入原生 form，value / name / disabled 可随表单提交与重置。
 
+::: tip 与 DatePicker 的关系
+`<wc-date-range-picker>` 等价于 `<wc-date-picker range>`，两者行为完全一致，保留独立标签
+只为兼容旧代码。新项目推荐直接用 `range` 属性，见 [DatePicker](/components/date-picker)。
+:::
+
 **属性**
 
 - `value`：当前选中范围，string（`YYYY-MM-DD,YYYY-MM-DD`），默认 ''；非法值会被忽略

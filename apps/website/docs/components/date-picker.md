@@ -1,13 +1,21 @@
 # DatePicker 日期选择器
 
-日期选择器组件，值为 YYYY-MM-DD 格式字符串（本地时区）。点击触发器展开日历面板，支持年/月切换、
-「今天」快捷选择与完整的键盘导航（方向键移动高亮、Enter/Space 选择、Esc 关闭）。
-基于 ElementInternals 接入原生 form，value / name / disabled 可随表单提交与重置。
+日期选择器组件，点击触发器展开日历面板，支持年/月切换、完整的键盘导航（方向键移动高亮、
+Enter/Space 选择、Esc 关闭）。基于 ElementInternals 接入原生 form，value / name / disabled
+可随表单提交与重置。
+
+两种模式由 `range` 属性切换：
+
+- **单日期**（默认）：值为 YYYY-MM-DD 格式字符串（本地时区）
+- **范围**（加 `range`，antd RangePicker 对标）：两次点击选中日期区间，双月面板并排展示、
+  悬停预览区间高亮、第二击早于起点自动交换；值为 `YYYY-MM-DD,YYYY-MM-DD`（逗号分隔，
+  可只给一端）。注意 HTML 里 `range` 要写在 `value` 之前
 
 **属性**
 
-- `value`：当前选中值，string（YYYY-MM-DD），默认 ''；非法值会被忽略
-- `placeholder`：占位提示，默认取 i18n 文案
+- `range`：范围选择模式，布尔，默认 false
+- `value`：当前选中值；单值为 YYYY-MM-DD，范围为 `YYYY-MM-DD,YYYY-MM-DD`，非法值会被忽略
+- `placeholder`：占位提示（范围模式同时覆盖两端），默认取 i18n 文案
 - `label`：无障碍标签
 - `size`：尺寸 'small' | 'medium' | 'large'，默认 'medium'
 - `status`：校验状态 'default' | 'success' | 'warning' | 'error'，默认 'default'
@@ -18,7 +26,7 @@
 
 **事件**
 
-- `wc-change`：选中日期变化时触发，detail.value（YYYY-MM-DD）
+- `wc-change`：选中变化时触发；单值模式 detail.value 为 YYYY-MM-DD，范围模式为 [start, end]
 - `wc-clear`：点击清除按钮后触发
 
 **React 用法**
@@ -194,12 +202,57 @@ import { WcDatePicker } from '@wc-kit/react';
 :::
 ::::
 
+### 范围选择（range）
+
+加 `range` 属性切换为范围选择：双月面板、两次点击选中区间、悬停预览、终点早于起点自动交换。
+
+<div class="demo-block">
+
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <wc-date-picker range value="2026-10-01,2026-10-15" clearable></wc-date-picker>
+      <wc-date-picker range placeholder="请选择范围"></wc-date-picker>
+    </div>
+
+</div>
+
+:::: details 查看代码
+::: code-group
+
+```html [HTML]
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+  <wc-date-picker range value="2026-10-01,2026-10-15" clearable></wc-date-picker>
+  <wc-date-picker range placeholder="请选择范围"></wc-date-picker>
+</div>
+```
+
+```vue [Vue]
+<template>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+    <wc-date-picker range value="2026-10-01,2026-10-15" clearable></wc-date-picker>
+    <wc-date-picker range placeholder="请选择范围"></wc-date-picker>
+  </div>
+</template>
+```
+
+```tsx [React]
+import { WcDatePicker } from '@wc-kit/react';
+
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+  <WcDatePicker range value="2026-10-01,2026-10-15" clearable></WcDatePicker>
+  <WcDatePicker range placeholder="请选择范围"></WcDatePicker>
+</div>;
+```
+
+:::
+::::
+
 ## API
 
 ### 属性
 
 | 属性             | attribute           | 类型                                             | 默认值      | 说明                                   |
 | ---------------- | ------------------- | ------------------------------------------------ | ----------- | -------------------------------------- |
+| `range`          | `range`             | `boolean`                                        | `false`     | 范围选择模式（双月面板，两次点击选区间）|
 | `placeholder`    | `placeholder`       | `string`                                         | `''`        | 占位提示，默认取 i18n 文案             |
 | `label`          | `label`             | `string`                                         | `''`        | 无障碍标签                             |
 | `size`           | `size`              | `'small' \| 'medium' \| 'large'`                 | `'medium'`  | 尺寸                                   |
@@ -210,10 +263,10 @@ import { WcDatePicker } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                           |
-| ----------- | ---------------------------------------------- |
-| `wc-change` | 选中日期变化时触发，detail.value（YYYY-MM-DD） |
-| `wc-clear`  | 点击清除按钮后触发                             |
+| 事件        | 说明                                                                  |
+| ----------- | --------------------------------------------------------------------- |
+| `wc-change` | 选中变化时触发；单值模式 detail.value 为 YYYY-MM-DD，范围模式为 [start, end] |
+| `wc-clear`  | 点击清除按钮后触发                                                    |
 
 ### CSS 变量
 

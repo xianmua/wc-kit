@@ -10,16 +10,18 @@ type PageItem = number | 'ellipsis-prev' | 'ellipsis-next';
 /**
  * 分页。由 total / page-size 推导总页数，页码过多时按 folded-page-count 折叠
  * 为「1 … 中间窗 … 末页」。页码切换派发 wc-change（detail: { current, previous }），
+ * 每页条数变化派发 wc-size-change（detail: { pageSize, previous, current }），
  * total/page-size 变化导致越界时静默夹紧 current（不派发事件）。
  *
  * @example
  * ```html
- * <wc-pagination total="200" current="1" show-total show-jumper></wc-pagination>
+ * <wc-pagination total="200" current="1" show-total show-jumper show-size-changer></wc-pagination>
  * <wc-pagination total="50" simple></wc-pagination>
  * ```
  *
  * @csspart nav - 导航容器
  * @csspart total - 总条数
+ * @csspart size-select - 每页条数选择器
  * @csspart prev / next - 前后翻页按钮
  * @csspart page - 页码按钮
  * @csspart ellipsis - 省略号
@@ -27,7 +29,8 @@ type PageItem = number | 'ellipsis-prev' | 'ellipsis-next';
  * @csspart jumper-input - 跳页输入框
  * @csspart simple-pager - 极简模式的「当前页/总页数」容器
  * @csspart simple-input - 极简模式的当前页输入框
- * @fires wc-change - 页码变化后触发（含用户点击与跳页输入）
+ * @fires wc-change - 页码变化后触发（含用户点击、跳页输入与条数变化引起的翻页）
+ * @fires wc-size-change - 每页条数变化后触发（show-size-changer）
  */
 export class wcPagination extends LitElement {
   static styles = [baseStyles, paginationStyles];
@@ -49,6 +52,12 @@ export class wcPagination extends LitElement {
 
   /** 显示跳页输入框（Enter 跳转，自动夹紧到有效范围） */
   @property({ type: Boolean, attribute: 'show-jumper' }) showJumper = false;
+
+  /** 显示每页条数选择器 */
+  @property({ type: Boolean, attribute: 'show-size-changer' }) showSizeChanger = false;
+
+  /** 每页条数可选项（逗号分隔），当前 pageSize 不在列表中时自动补入 */
+  @property({ attribute: 'page-size-options' }) pageSizeOptions = '10,20,50,100';
 
   /** 极简模式：仅前后翻页按钮 + 「当前页 / 总页数」快速跳转输入（antd simple 同款） */
   @property({ type: Boolean, reflect: true }) simple = false;
@@ -112,6 +121,42 @@ export class wcPagination extends LitElement {
     input.value = String(this.current);
   }
 
+  /** 每页条数可选项（升序去重，保证包含当前 pageSize） */
+  private get sizeOptions(): number[] {
+    const list = this.pageSizeOptions
+      .split(',')
+      .map((s) => Number.parseInt(s.trim(), 10))
+      .filter((n) => Number.isFinite(n) && n > 0);
+    if (!list.includes(this.pageSize)) list.push(this.pageSize);
+    return [...new Set(list)].sort((a, b) => a - b);
+  }
+
+  /** 每页条数变化：夹紧当前页，派发 wc-size-change（当前页同时变化时补发 wc-change） */
+  private onSizeChange(e: Event): void {
+    const size = Number.parseInt((e.target as HTMLSelectElement).value, 10);
+    if (this.disabled || !Number.isFinite(size) || size === this.pageSize) return;
+    const previousPage = this.current;
+    const previousSize = this.pageSize;
+    this.pageSize = size;
+    if (this.current > this.pageCount) this.current = this.pageCount;
+    this.dispatchEvent(
+      new CustomEvent('wc-size-change', {
+        detail: { pageSize: size, previous: previousSize, current: this.current },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    if (this.current !== previousPage) {
+      this.dispatchEvent(
+        new CustomEvent('wc-change', {
+          detail: { current: this.current, previous: previousPage },
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    }
+  }
+
   /** 极简模式输入提交（Enter 与失焦都触发）；非法输入回落当前页 */
   private onSimpleCommit(e: Event): void {
     const input = e.target as HTMLInputElement;
@@ -122,6 +167,26 @@ export class wcPagination extends LitElement {
     }
     this.select(page);
     input.value = String(this.current);
+  }
+
+  /** 每页条数选择器（show-size-changer）：置于总条数之后、翻页按钮之前（antd 同位置） */
+  private renderSizeChanger(): unknown {
+    if (!this.showSizeChanger) return nothing;
+    return html`
+      <select
+        class="size-select"
+        part="size-select"
+        ?disabled=${this.disabled}
+        aria-label=${this.localize.term('pagination.sizeLabel')}
+        .value=${String(this.pageSize)}
+        @change=${this.onSizeChange}
+      >
+        ${this.sizeOptions.map(
+          (n) =>
+            html`<option value=${n}>${n} ${this.localize.term('pagination.pageSizeUnit')}</option>`,
+        )}
+      </select>
+    `;
   }
 
   protected override render(): TemplateResult {
@@ -137,6 +202,7 @@ export class wcPagination extends LitElement {
                 </span>`
               : nothing
           }
+          ${this.renderSizeChanger()}
           <button
             type="button"
             class="page-button"
@@ -182,6 +248,7 @@ export class wcPagination extends LitElement {
               </span>`
             : nothing
         }
+        ${this.renderSizeChanger()}
         <button
           type="button"
           class="page-button"

@@ -84,6 +84,7 @@ export const componentSidebar: SidebarGroup[] = [
       { text: 'Segmented 分段控制器', link: '/components/segmented' },
       { text: 'Skeleton 骨架屏', link: '/components/skeleton' },
       { text: 'Table 表格', link: '/components/table' },
+      { text: 'TablePager 表格分页', link: '/components/table-pager' },
     ],
   },
 ];

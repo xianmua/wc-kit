@@ -18,6 +18,43 @@ export const paginationStyles = css`
     color: var(--wc-color-text-secondary);
   }
 
+  /* 每页条数选择器：与页码按钮同高，原生 select 去默认外观 + 自绘箭头 */
+  .size-select {
+    appearance: none;
+    box-sizing: border-box;
+    height: 32px;
+    margin-right: var(--wc-space-1);
+    padding: 0 var(--wc-space-5) 0 var(--wc-space-2);
+    color: var(--wc-color-text);
+    font: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid var(--wc-color-border);
+    border-radius: var(--wc-radius-small);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--wc-space-2) center;
+    transition:
+      border-color var(--wc-duration-fast) var(--wc-easing-standard),
+      color var(--wc-duration-fast) var(--wc-easing-standard);
+  }
+
+  .size-select:hover:not(:disabled) {
+    color: var(--wc-color-primary);
+    border-color: var(--wc-color-primary);
+  }
+
+  .size-select:focus {
+    outline: none;
+    border-color: var(--wc-color-primary);
+  }
+
+  .size-select:disabled {
+    color: var(--wc-color-text-disabled);
+    cursor: not-allowed;
+    background-color: var(--wc-color-bg-disabled, var(--wc-color-bg-hover));
+  }
+
   .page-button {
     display: inline-flex;
     align-items: center;

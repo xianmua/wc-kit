@@ -62,6 +62,7 @@ import type {
   wcSwitch,
   wcTab,
   wcTable,
+  wcTablePager,
   wcImage,
   wcTabs,
   wcTag,
@@ -140,6 +141,7 @@ declare module 'vue' {
     'wc-list': WcComponent<wcList>;
     'wc-list-item': WcComponent<wcListItem>;
     'wc-table': WcComponent<wcTable>;
+    'wc-table-pager': WcComponent<wcTablePager>;
     'wc-image': WcComponent<wcImage>;
     'wc-skeleton': WcComponent<wcSkeleton>;
     'wc-skeleton-item': WcComponent<wcSkeletonItem>;

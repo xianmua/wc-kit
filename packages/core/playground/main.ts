@@ -488,8 +488,8 @@ class PlaygroundApp extends LitElement {
             <wc-date-picker value="2026-10-15" clearable></wc-date-picker>
             <wc-date-picker placeholder="请选择日期"></wc-date-picker>
             <wc-date-picker placeholder="禁用" disabled></wc-date-picker>
+            <wc-date-picker range value="2026-10-01,2026-10-15" clearable></wc-date-picker>
             <wc-date-range-picker clearable></wc-date-range-picker>
-            <wc-date-range-picker value="2026-10-01,2026-10-15" clearable></wc-date-range-picker>
           </div>
         </section>
 
@@ -752,7 +752,9 @@ class PlaygroundApp extends LitElement {
             total="200"
             show-total
             show-jumper
+            show-size-changer
             @wc-change=${(e: CustomEvent) => message.info(`跳到第 ${e.detail.current} 页`)}
+            @wc-size-change=${(e: CustomEvent) => message.info(`每页 ${e.detail.pageSize} 条`)}
           ></wc-pagination>
           <div class="row" style="margin-top: 12px">
             <wc-pagination total="50" current="2"></wc-pagination>
@@ -835,6 +837,18 @@ class PlaygroundApp extends LitElement {
             @wc-sort=${(e: CustomEvent) => message.info(`排序：${e.detail.key} ${e.detail.order ?? '取消'}`)}
             @wc-row-click=${(e: CustomEvent) => message.info(`点击行：${e.detail.row.name}`)}
           ></wc-table>
+        </section>
+
+        <section>
+          <h3>TablePager 表格分页</h3>
+          <wc-table-pager
+            id="demo-table-pager"
+            striped
+            show-total
+            show-size-changer
+            style="max-width: 560px"
+            @wc-row-click=${(e: CustomEvent) => message.info(`点击行：${e.detail.row.name}`)}
+          ></wc-table-pager>
         </section>
 
         <section>
@@ -948,4 +962,20 @@ appEl.updateComplete.then(() => {
     { name: '李四', age: 22, city: '北京', tags: ['测试'] },
     { name: '王五', age: 25, city: '广州', tags: ['后端', '网关', '存储'] },
   ];
+
+  // TablePager 演示：25 条模拟数据验证客户端分页
+  const demoTablePager = appEl.renderRoot.querySelector('#demo-table-pager') as unknown as {
+    columns: unknown[];
+    data: unknown[];
+  };
+  demoTablePager.columns = [
+    { key: 'name', title: '姓名', sortable: true },
+    { key: 'age', title: '年龄', align: 'right', width: 100 },
+    { key: 'city', title: '城市', ellipsis: true },
+  ];
+  demoTablePager.data = Array.from({ length: 25 }, (_, i) => ({
+    name: `用户${String(25 - i).padStart(2, '0')}`,
+    age: 18 + ((i * 7) % 40),
+    city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
+  }));
 });

@@ -48,3 +48,11 @@ export function buildMonthCells(year: number, month: number): CalendarCell[] {
   }
   return cells;
 }
+
+/** 解析范围 value：'a,b' → [a, b]（均校验合法 ISO，非法端为空串） */
+export function parseRange(v: string): [string, string] {
+  if (!v) return ['', ''];
+  const [s = '', e = ''] = v.split(',');
+  const ok = (x: string) => (x && parseDate(x) ? x : '');
+  return [ok(s.trim()), ok(e.trim())];
+}

@@ -10,6 +10,8 @@ export const enUS: WcTranslations = {
   'pagination.page': 'Page {page}',
   'pagination.jumpTo': 'Go to',
   'pagination.pageUnit': 'Page',
+  'pagination.pageSizeUnit': '/ page',
+  'pagination.sizeLabel': 'Items per page',
   'dialog.confirm': 'Confirm',
   'dialog.cancel': 'Cancel',
   'empty.noData': 'No data',

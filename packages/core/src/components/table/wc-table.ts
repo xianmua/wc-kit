@@ -3,6 +3,7 @@ import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import '../empty/wc-empty.js';
 import '../icon/wc-icon.js';
+import { sortRows } from './sort-rows.js';
 import { tableStyles } from './wc-table.styles';
 
 export type wcTableAlign = 'left' | 'right' | 'center';
@@ -85,17 +86,7 @@ export class wcTable extends LitElement {
 
   /** 排序后的展示数据 */
   private get displayData(): wcTableRow[] {
-    if (!this.sortKey || !this.sortOrder) return this.data;
-    const dir = this.sortOrder === 'asc' ? 1 : -1;
-    return [...this.data].sort((a, b) => {
-      const va = a[this.sortKey];
-      const vb = b[this.sortKey];
-      // 空值恒排末尾
-      if (va == null) return 1;
-      if (vb == null) return -1;
-      if (typeof va === 'number' && typeof vb === 'number') return (va - vb) * dir;
-      return String(va).localeCompare(String(vb), 'zh-CN') * dir;
-    });
+    return sortRows(this.data, this.sortKey, this.sortOrder);
   }
 
   private onHeaderClick(col: wcTableColumn): void {

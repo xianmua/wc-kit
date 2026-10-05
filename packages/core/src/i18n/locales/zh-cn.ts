@@ -10,6 +10,8 @@ export const zhCN: WcTranslations = {
   'pagination.page': '第 {page} 页',
   'pagination.jumpTo': '跳至',
   'pagination.pageUnit': '页',
+  'pagination.pageSizeUnit': '条/页',
+  'pagination.sizeLabel': '每页条数',
   'dialog.confirm': '确认',
   'dialog.cancel': '取消',
   'empty.noData': '暂无数据',

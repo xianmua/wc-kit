@@ -219,4 +219,79 @@ describe('wc-pagination', () => {
       '上一页',
     );
   });
+
+  it('默认不渲染每页条数选择器，show-size-changer 开启后渲染', async () => {
+    const none = await fixture<wcPagination>(html`<wc-pagination total="100"></wc-pagination>`);
+    expect(none.shadowRoot!.querySelector('[part="size-select"]')).to.not.exist;
+
+    const shown = await fixture<wcPagination>(
+      html`<wc-pagination total="100" show-size-changer></wc-pagination>`,
+    );
+    const sel = shown.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    expect(sel).to.exist;
+    expect(sel.value).to.equal('10');
+    // 默认选项 10/20/50/100
+    expect([...sel.options].map((o) => o.value)).to.deep.equal(['10', '20', '50', '100']);
+  });
+
+  it('切换每页条数：pageSize 更新、页码重新推导、派发 wc-size-change', async () => {
+    const el = await fixture<wcPagination>(
+      html`<wc-pagination total="100" show-size-changer></wc-pagination>`,
+    );
+    const sizes: Array<{ pageSize: number; previous: number; current: number }> = [];
+    el.addEventListener('wc-size-change', (e) => sizes.push((e as CustomEvent).detail));
+    const sel = el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    sel.value = '50';
+    sel.dispatchEvent(new Event('change'));
+    await el.updateComplete;
+    expect(el.pageSize).to.equal(50);
+    expect(el.pageCount).to.equal(2);
+    expect(sizes).to.deep.equal([{ pageSize: 50, previous: 10, current: 1 }]);
+  });
+
+  it('page-size-options 自定义可选项，当前 pageSize 自动补入并升序排列', async () => {
+    const el = await fixture<wcPagination>(
+      html`<wc-pagination
+        total="100"
+        page-size="30"
+        show-size-changer
+        page-size-options="10,30,60"
+      ></wc-pagination>`,
+    );
+    const sel = el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    expect([...sel.options].map((o) => Number(o.value))).to.deep.equal([10, 30, 60]);
+
+    // pageSize 不在列表中时补入
+    const extra = await fixture<wcPagination>(
+      html`<wc-pagination total="100" page-size="25" show-size-changer></wc-pagination>`,
+    );
+    const sel2 = extra.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    expect([...sel2.options].map((o) => Number(o.value))).to.deep.equal([10, 20, 25, 50, 100]);
+  });
+
+  it('条数变大导致当前页越界时夹紧并补发 wc-change', async () => {
+    const el = await fixture<wcPagination>(
+      html`<wc-pagination total="100" current="10" show-size-changer></wc-pagination>`,
+    );
+    expect(el.pageCount).to.equal(10);
+    const changes: Array<{ current: number; previous: number }> = [];
+    el.addEventListener('wc-change', (e) => changes.push((e as CustomEvent).detail));
+    const sel = el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    sel.value = '50';
+    sel.dispatchEvent(new Event('change'));
+    await el.updateComplete;
+    expect(el.pageSize).to.equal(50);
+    expect(el.current).to.equal(2); // 100/50 = 2 页，原第 10 页夹紧到末页
+    expect(changes).to.deep.equal([{ current: 2, previous: 10 }]);
+  });
+
+  it('disabled 时每页条数选择器不可用', async () => {
+    const el = await fixture<wcPagination>(
+      html`<wc-pagination total="100" disabled show-size-changer></wc-pagination>`,
+    );
+    expect(
+      (el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')! as HTMLSelectElement)
+        .disabled,
+    ).to.be.true;
+  });
 });

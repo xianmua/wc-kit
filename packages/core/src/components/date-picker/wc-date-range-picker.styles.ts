@@ -1,25 +1,26 @@
 import { css } from 'lit';
 
 /**
- * 范围选择器样式：在 datePickerStyles 之上做范围特化覆盖——
+ * 范围模式样式：在 datePickerStyles 之上做范围特化覆盖——
  * 双月并排、方形区间高亮、端点圆形选中、触发器箭头分隔。
+ * 全部规则限定在 :host([range]) 下，与单值模式共存于同一组件。
  */
 export const dateRangePickerStyles = css`
-  :host {
+  :host([range]) {
     width: 300px;
     /* 范围面板更紧凑：复用 datePickerStyles 的格尺寸变量，整体调小一档 */
     --wc-date-picker-cell-size: var(--wc-date-range-picker-cell-size);
   }
 
-  :host([size='small']) {
+  :host([range][size='small']) {
     --wc-date-range-picker-cell-size: 24px;
   }
 
-  :host([size='medium']) {
+  :host([range][size='medium']) {
     --wc-date-range-picker-cell-size: 28px;
   }
 
-  :host([size='large']) {
+  :host([range][size='large']) {
     --wc-date-range-picker-cell-size: 32px;
   }
 
@@ -35,10 +36,9 @@ export const dateRangePickerStyles = css`
   }
 
   /* ---- 双月面板 ---- */
-  .panel {
+  :host([range]) .panel {
     display: flex;
     gap: var(--wc-space-5);
-    padding: var(--wc-space-3);
   }
 
   .month {
@@ -50,27 +50,27 @@ export const dateRangePickerStyles = css`
   }
 
   /* ---- 区间高亮：中间方形浅底，端点保持圆形实底 ---- */
-  .cell.day {
+  :host([range]) .cell.day {
     border-radius: 0;
   }
 
-  .cell.day.in-range {
+  :host([range]) .cell.day.in-range {
     background-color: var(--wc-color-primary-light);
   }
 
-  .cell.day.selected {
+  :host([range]) .cell.day.selected {
     border-radius: var(--wc-radius-circle);
   }
 
-  .cell.day.selected.today {
+  :host([range]) .cell.day.selected.today {
     color: var(--wc-color-text-anti);
   }
 
-  .cell.day.active {
+  :host([range]) .cell.day.active {
     border-radius: var(--wc-radius-circle);
   }
 
-  .cell.day.in-range.active {
+  :host([range]) .cell.day.in-range.active {
     box-shadow: inset 0 0 0 1px var(--wc-color-primary);
   }
 `;
