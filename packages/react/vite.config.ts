@@ -17,8 +17,12 @@ export default defineConfig({
   plugins: [
     dts({
       tsconfigPath: './tsconfig.json',
-      rollupTypes: true,
+      // JSX 全局类型增强（declare global / declare module 'react'）无法被 rollup 合并，
+      // 直接输出原始 d.ts（同 @wc-kit/vue 的做法）
+      rollupTypes: false,
       insertTypesEntry: true,
+      include: ['src/**/*.ts', 'src/**/*.d.ts'],
+      exclude: ['src/**/*.test.ts'],
     }),
   ],
 });

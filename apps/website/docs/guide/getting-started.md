@@ -45,6 +45,21 @@ initTheme();
 | React | `@wc-kit/react` | 基于 @lit/react 的包装组件，事件映射为 `onWc*` props |
 | Vue 3 | `@wc-kit/vue`   | 类型增强（GlobalComponents），原生标签直接使用       |
 
+## TypeScript 支持
+
+三个包均自带类型声明，TS 项目无需任何额外配置：
+
+- **`@wc-kit/core`**：每个组件都注册了 `HTMLElementTagNameMap` 增强——`document.createElement('wc-button')`、`querySelector('wc-input')` 自动推导为对应的元素类，属性与方法有完整提示
+- **`@wc-kit/react`**：包装组件属性/事件完全类型化；同时内置 JSX `IntrinsicElements` 增强（兼容 React 18 / 19），TSX 里直接写 `<wc-button>` 也能通过类型检查
+- **`@wc-kit/vue`**：增强 vue 的 `GlobalComponents`，SFC 模板里 `<wc-button>` 标签名与属性拼写错误会在编译期报错
+
+```ts
+import '@wc-kit/core';
+
+const el = document.createElement('wc-dialog'); // 类型：wcDialog
+el.open = true; // 有完整属性提示
+```
+
 ## 主题
 
 ```ts

@@ -34,6 +34,19 @@ export function Demo() {
 - 自定义事件（`wc-change` 等）映射为 `onWc*` props，回调参数类型为对应 `CustomEvent`
 - 需要 React 18 或 19（peerDependencies）
 
+## TypeScript
+
+本包自带类型，无需额外 @types：
+
+- **包装组件**（推荐）：属性与 `onWc*` 事件完全类型化，`ref` 推导为对应的 core 元素类
+- **原生标签**：内置 `JSX.IntrinsicElements` 全局增强（兼容 React 18 / 19 类型布局），TSX 里直接写 `<wc-button>` 也有基础类型与正确的 `ref` 推导：
+
+```tsx
+// 原生标签写法同样可用（attribute 为弱类型；严格类型请用包装组件）
+const ref = useRef<import('@wc-kit/core').wcDialog>(null);
+return <wc-dialog ref={ref}></wc-dialog>;
+```
+
 组件 API 与交互示例见仓库 [apps/website](https://github.com/xianmua/wui/tree/main/apps/website) 文档站。
 
 ## License
