@@ -2,6 +2,7 @@
   "name": "@wc-kit/react",
   "version": "0.0.5",
   "description": "React wrappers for @wc-kit/core web components, built on @lit/react",
+  "license": "MIT",
   "keywords": [
     "components",
     "lit",

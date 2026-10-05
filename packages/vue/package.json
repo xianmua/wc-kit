@@ -2,6 +2,7 @@
   "name": "@wc-kit/vue",
   "version": "0.0.5",
   "description": "Vue 3 type definitions and helpers for @wc-kit/core web components",
+  "license": "MIT",
   "keywords": [
     "components",
     "lit",
