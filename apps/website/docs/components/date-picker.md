@@ -13,7 +13,6 @@
 - `status`：校验状态 'default' | 'success' | 'warning' | 'error'，默认 'default'
 - `clearable`：可清除，布尔，默认 false
 - `readonly`：只读（不可展开面板），布尔，默认 false
-- `firstDayOfWeek`：一周从周几开始，number，0 周日（默认）~ 6 周六
 - `open`：面板是否展开（内部状态，一般无需手动设置）
 - `name` / `disabled`：表单字段名 / 禁用
 
@@ -30,7 +29,6 @@ import { WcDatePicker } from '@wc-kit/react';
 <WcDatePicker
   value={date}
   clearable
-  firstDayOfWeek={1}
   onWcChange={(e) => setDate(e.detail.value)}
 />;
 ```
@@ -44,7 +42,6 @@ import { WcDatePicker } from '@wc-kit/react';
 <wc-date-picker
   :value="date"
   clearable
-  :first-day-of-week="1"
   @wc-change="(e) => (date = e.detail.value)"
 ></wc-date-picker>
 ```
@@ -95,49 +92,7 @@ import { WcDatePicker } from '@wc-kit/react';
 
 ### 一周起始日
 
-<div class="demo-block">
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-date-picker style="width:200px" placeholder="周日开始（默认）"></wc-date-picker>
-    <wc-date-picker style="width:200px" first-day-of-week="1" placeholder="周一开始"></wc-date-picker>
-  </div>
-</div>
-
-firstDayOfWeek=1 表示一周从周一开始，取值 0（周日）~ 6（周六）。
-
-:::: details 查看代码
-::: code-group
-
-```html [HTML]
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <wc-date-picker style="width:200px" placeholder="周日开始（默认）"></wc-date-picker>
-  <wc-date-picker style="width:200px" first-day-of-week="1" placeholder="周一开始"></wc-date-picker>
-</div>
-```
-
-```vue [Vue]
-<template>
-  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-date-picker style="width:200px" placeholder="周日开始（默认）"></wc-date-picker>
-    <wc-date-picker
-      style="width:200px"
-      first-day-of-week="1"
-      placeholder="周一开始"
-    ></wc-date-picker>
-  </div>
-</template>
-```
-
-```tsx [React]
-import { WcDatePicker } from '@wc-kit/react';
-
-<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcDatePicker style="width:200px" placeholder="周日开始（默认）"></WcDatePicker>
-  <WcDatePicker style="width:200px" firstDayOfWeek={1} placeholder="周一开始"></WcDatePicker>
-</div>;
-```
-
-:::
-::::
+日历一周从**周日**开始，暂不提供配置属性。
 
 ### 尺寸
 
@@ -251,7 +206,6 @@ import { WcDatePicker } from '@wc-kit/react';
 | `status`         | `status`            | `'default' \| 'success' \| 'warning' \| 'error'` | `'default'` | 校验状态（影响边框色）                 |
 | `clearable`      | `clearable`         | `boolean`                                        | `false`     | 可清除                                 |
 | `readonly`       | `readonly`          | `boolean`                                        | `false`     | 只读                                   |
-| `firstDayOfWeek` | `first-day-of-week` | `number`                                         | `0`         | 一周从周几开始：0 周日（默认）~ 6 周六 |
 | `open`           | `open`              | `boolean`                                        | `false`     | 面板是否展开（内部状态）               |
 
 ### 事件

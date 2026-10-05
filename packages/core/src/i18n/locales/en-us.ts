@@ -36,6 +36,7 @@ export const enUS: WcTranslations = {
   'floatbutton.menu': 'More actions',
   'dialog.close': 'Close',
   'message.close': 'Close',
+  'alert.close': 'Close',
   'breadcrumb.label': 'Breadcrumb',
   'image.loadError': 'Failed to load image',
   'image.preview': 'Preview',

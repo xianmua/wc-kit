@@ -3,9 +3,14 @@ import {
   wcTab,
   wcBreadcrumb,
   wcBreadcrumbItem,
+  wcAnchor,
+  wcAnchorLink,
   wcPagination,
   wcDropdown,
   wcDropdownItem,
+  wcMenu,
+  wcMenuItem,
+  wcSubMenu,
   wcSplitButton,
   wcFloatButton,
   wcFloatButtonGroup,
@@ -38,6 +43,19 @@ export const WcBreadcrumbItem = createWrapper({
   displayName: 'WcBreadcrumbItem',
 });
 
+export const WcAnchor = createWrapper({
+  tagName: 'wc-anchor',
+  elementClass: wcAnchor,
+  events: { onWcChange: 'wc-change', onWcClick: 'wc-click' },
+  displayName: 'WcAnchor',
+});
+
+export const WcAnchorLink = createWrapper({
+  tagName: 'wc-anchor-link',
+  elementClass: wcAnchorLink,
+  displayName: 'WcAnchorLink',
+});
+
 export const WcPagination = createWrapper({
   tagName: 'wc-pagination',
   elementClass: wcPagination,
@@ -60,6 +78,26 @@ export const WcDropdownItem = createWrapper({
   tagName: 'wc-dropdown-item',
   elementClass: wcDropdownItem,
   displayName: 'WcDropdownItem',
+});
+
+export const WcMenu = createWrapper({
+  tagName: 'wc-menu',
+  elementClass: wcMenu,
+  events: { onWcSelect: 'wc-select' },
+  displayName: 'WcMenu',
+});
+
+export const WcMenuItem = createWrapper({
+  tagName: 'wc-menu-item',
+  elementClass: wcMenuItem,
+  displayName: 'WcMenuItem',
+});
+
+export const WcSubMenu = createWrapper({
+  tagName: 'wc-sub-menu',
+  elementClass: wcSubMenu,
+  events: { onWcOpen: 'wc-open', onWcClose: 'wc-close' },
+  displayName: 'WcSubMenu',
 });
 
 export const WcSplitButton = createWrapper({

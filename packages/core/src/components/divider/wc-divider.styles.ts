@@ -16,12 +16,14 @@ export const dividerStyles = css`
   .divider {
     display: flex;
     align-items: center;
-    gap: var(--wc-divider-text-gap);
     margin: var(--wc-space-4) 0;
   }
 
+  /* 间距挂在 content 自身 margin（而非容器 gap）：无文案时 content 隐藏，
+     两条线段才能无缝相接——gap 会在这两条线段间留下固定断缝 */
   .content {
     flex-shrink: 0;
+    margin: 0 var(--wc-divider-text-gap);
     font-size: var(--wc-font-size-medium);
     color: var(--wc-color-text-secondary);
     white-space: nowrap;
@@ -61,13 +63,9 @@ export const dividerStyles = css`
     border-left: 1px dashed var(--wc-divider-color);
   }
 
-  /* 文案对齐：一侧线固定短 */
-  .align-left .line.start {
-    flex: 0 0 var(--wc-space-4);
-  }
-
-  .align-right .line.end {
-    flex: 0 0 var(--wc-space-4);
+  /* 文案对齐：文案贴边一侧不渲染线段（渲染出来会以孤立短线夹在两个 gap 之间，形似断线） */
+  .line[hidden] {
+    display: none;
   }
 
   .align-left .content {

@@ -17,7 +17,12 @@ export const layoutStyles = css`
 
   .row {
     display: flex;
-    column-gap: var(--wc-row-gutter, 0);
+    /* gutter 只由 .col 的内 padding 承担（antd 同款）：column-gap 会与百分比栅格宽度
+       相加溢出，wrap 开启时把列挤到下一行；负 margin 抵消首尾列 padding 保持两端对齐。
+       row-gap 让 wrap 换行后的行与行之间保持同等间距 */
+    row-gap: var(--wc-row-gutter, 0);
+    margin-left: calc(var(--wc-row-gutter, 0) / -2);
+    margin-right: calc(var(--wc-row-gutter, 0) / -2);
   }
 
   .row slot {

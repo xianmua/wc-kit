@@ -86,7 +86,7 @@ wc/
 - [x] Radio 单选框（name 同表单互斥分组/表单关联）
 - [x] Switch 开关（checkedValue/uncheckedValue/表单关联）
 - [x] Slider 滑块（原生 range 键盘导航 / min-max-step / 表单关联）
-- [x] DatePicker 日期选择（日历面板 / 键盘导航 activedescendant / first-day-of-week / i18n Intl 格式化 / 表单关联）
+- [x] DatePicker 日期选择（日历面板 / 键盘导航 activedescendant / 周日起始 / i18n Intl 格式化 / 表单关联）
 - [x] Form(校验) 表单（wc-form + wc-form-item / 声明式规则 + 自定义 validator / wc-submit 事件 / submit·reset 按钮委托）
 - [x] InputNumber 数字输入（步进按钮 row/column/normal 主题 / ↑↓ 键盘步进 / 表单关联）
 

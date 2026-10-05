@@ -8,6 +8,8 @@ import {
   wcSpace,
   wcRow,
   wcCol,
+  wcSplitter,
+  wcSplitterPanel,
   wcText,
 } from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
@@ -65,6 +67,19 @@ export const WcCol = createWrapper({
   tagName: 'wc-col',
   elementClass: wcCol,
   displayName: 'WcCol',
+});
+
+export const WcSplitter = createWrapper({
+  tagName: 'wc-splitter',
+  elementClass: wcSplitter,
+  events: { onWcResize: 'wc-resize', onWcResizeEnd: 'wc-resize-end' },
+  displayName: 'WcSplitter',
+});
+
+export const WcSplitterPanel = createWrapper({
+  tagName: 'wc-splitter-panel',
+  elementClass: wcSplitterPanel,
+  displayName: 'WcSplitterPanel',
 });
 
 export const WcText = createWrapper({

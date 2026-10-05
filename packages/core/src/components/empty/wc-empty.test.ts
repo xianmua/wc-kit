@@ -3,9 +3,9 @@ import './wc-empty.js';
 import type { wcEmpty } from './wc-empty.js';
 
 describe('wc-empty', () => {
-  it('默认渲染占位图形 + i18n「暂无数据」', async () => {
+  it('默认渲染 inbox 占位图标 + i18n「暂无数据」', async () => {
     const el = await fixture<wcEmpty>(html`<wc-empty></wc-empty>`);
-    expect(el.shadowRoot!.querySelector('.placeholder')).to.exist;
+    expect(el.shadowRoot!.querySelector('.icon wc-icon[name="inbox"]')).to.exist;
     expect(el.shadowRoot!.querySelector('.description')!.textContent!.trim()).to.equal('暂无数据');
   });
 

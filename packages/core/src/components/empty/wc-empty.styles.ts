@@ -19,28 +19,14 @@ export const emptyStyles = css`
     align-items: center;
     justify-content: center;
     color: var(--wc-color-text-placeholder);
+    /* 默认 inbox 图标 1em 跟随 font-size；自定义 slot 内容同样继承此尺寸 */
+    font-size: var(--wc-empty-icon-size, 48px);
   }
 
-  /* 默认占位图形：圆角方块 + 内嵌虚线圆，柔和示意「空」 */
-  .placeholder {
-    position: relative;
-    display: block;
-    width: 56px;
-    height: 56px;
-    background-color: var(--wc-color-bg-hover);
-    border-radius: var(--wc-radius-xlarge);
-  }
-
-  .placeholder::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 24px;
-    height: 24px;
-    border: 2px dashed var(--wc-color-text-placeholder);
-    border-radius: var(--wc-radius-circle);
-    transform: translate(-50%, -50%);
+  /* baseStyles 的 :host font-size(14px) 会掐断继承链，外层树规则强制接管（同 color 继承案） */
+  .icon wc-icon,
+  .icon ::slotted(wc-icon) {
+    font-size: inherit;
   }
 
   .description {

@@ -15,6 +15,7 @@ type PageItem = number | 'ellipsis-prev' | 'ellipsis-next';
  * @example
  * ```html
  * <wc-pagination total="200" current="1" show-total show-jumper></wc-pagination>
+ * <wc-pagination total="50" simple></wc-pagination>
  * ```
  *
  * @csspart nav - 导航容器
@@ -24,6 +25,8 @@ type PageItem = number | 'ellipsis-prev' | 'ellipsis-next';
  * @csspart ellipsis - 省略号
  * @csspart jumper - 跳页区
  * @csspart jumper-input - 跳页输入框
+ * @csspart simple-pager - 极简模式的「当前页/总页数」容器
+ * @csspart simple-input - 极简模式的当前页输入框
  * @fires wc-change - 页码变化后触发（含用户点击与跳页输入）
  */
 export class wcPagination extends LitElement {
@@ -46,6 +49,9 @@ export class wcPagination extends LitElement {
 
   /** 显示跳页输入框（Enter 跳转，自动夹紧到有效范围） */
   @property({ type: Boolean, attribute: 'show-jumper' }) showJumper = false;
+
+  /** 极简模式：仅前后翻页按钮 + 「当前页 / 总页数」快速跳转输入（antd simple 同款） */
+  @property({ type: Boolean, reflect: true }) simple = false;
 
   /** 整体禁用 */
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -106,9 +112,67 @@ export class wcPagination extends LitElement {
     input.value = String(this.current);
   }
 
+  /** 极简模式输入提交（Enter 与失焦都触发）；非法输入回落当前页 */
+  private onSimpleCommit(e: Event): void {
+    const input = e.target as HTMLInputElement;
+    const page = Number.parseInt(input.value, 10);
+    if (Number.isNaN(page)) {
+      input.value = String(this.current);
+      return;
+    }
+    this.select(page);
+    input.value = String(this.current);
+  }
+
   protected override render(): TemplateResult {
     const prevDisabled = this.disabled || this.current <= 1;
     const nextDisabled = this.disabled || this.current >= this.pageCount;
+    if (this.simple) {
+      return html`
+        <nav class="pagination" part="nav" aria-label=${this.localize.term('pagination.label')}>
+          ${
+            this.showTotal
+              ? html`<span class="total" part="total">
+                  ${this.localize.term('pagination.total', { total: this.total })}
+                </span>`
+              : nothing
+          }
+          <button
+            type="button"
+            class="page-button"
+            part="prev"
+            ?disabled=${prevDisabled}
+            aria-label=${this.localize.term('pagination.prev')}
+            @click=${() => this.select(this.current - 1)}
+          >
+            <wc-icon name="chevron-left"></wc-icon>
+          </button>
+          <span class="simple-pager" part="simple-pager">
+            <input
+              type="text"
+              class="simple-input"
+              part="simple-input"
+              .value=${String(this.current)}
+              ?disabled=${this.disabled}
+              aria-label=${this.localize.term('pagination.jumpTo')}
+              @keydown=${this.onJumperKeydown}
+              @blur=${this.onSimpleCommit}
+            />
+            <span aria-hidden="true">/ ${this.pageCount}</span>
+          </span>
+          <button
+            type="button"
+            class="page-button"
+            part="next"
+            ?disabled=${nextDisabled}
+            aria-label=${this.localize.term('pagination.next')}
+            @click=${() => this.select(this.current + 1)}
+          >
+            <wc-icon name="chevron-right"></wc-icon>
+          </button>
+        </nav>
+      `;
+    }
     return html`
       <nav class="pagination" part="nav" aria-label=${this.localize.term('pagination.label')}>
         ${

@@ -87,9 +87,6 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
   /** 只读 */
   @property({ type: Boolean, reflect: true }) readonly = false;
 
-  /** 一周从周几开始：0 周日（默认）~ 6 周六 */
-  @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 0;
-
   /** 面板是否展开（内部状态） */
   @property({ type: Boolean, reflect: true }) open = false;
 
@@ -198,11 +195,10 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
     this.setView(this.viewYear + 1, this.viewMonth);
   }
 
-  /** 6 行 × 7 列 = 42 格，含前后月补位日期 */
+  /** 6 行 × 7 列 = 42 格，含前后月补位日期（一周从周日开始） */
   private get calendarCells(): CalendarCell[] {
     const first = new Date(this.viewYear, this.viewMonth, 1);
-    const startOffset = (first.getDay() - this.firstDayOfWeek + 7) % 7;
-    const start = new Date(this.viewYear, this.viewMonth, 1 - startOffset);
+    const start = new Date(this.viewYear, this.viewMonth, 1 - first.getDay());
     const todayIso = formatDate(new Date());
     const cells: CalendarCell[] = [];
     for (let i = 0; i < 42; i++) {
@@ -218,11 +214,11 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
     return cells;
   }
 
-  /** 表头星期标签，顺序按 firstDayOfWeek 旋转（Intl 本地化，中文取单字「日一二三四五六」） */
+  /** 表头星期标签，周日起始（Intl 本地化，中文取单字「日一二三四五六」） */
   private get weekdayLabels(): string[] {
     // 2023-01-01 是周日，作为基准依次取星期窄名
     return Array.from({ length: 7 }, (_, i) =>
-      this.localize.date(new Date(2023, 0, 1 + ((this.firstDayOfWeek + i) % 7)), {
+      this.localize.date(new Date(2023, 0, 1 + i), {
         weekday: 'narrow',
       }),
     );

@@ -28,8 +28,14 @@ export class wcDivider extends LitElement {
   /** 是否有插槽文案（slotchange 检测） */
   private _hasContent = false;
 
+  /** 注释节点与纯空白文本不算文案，否则隐藏失败会以 0 宽 content 夹出两个 flex gap 断缝 */
   private onSlotChange(e: Event): void {
-    this._hasContent = (e.target as HTMLSlotElement).assignedNodes({ flatten: true }).length > 0;
+    const nodes = (e.target as HTMLSlotElement).assignedNodes({ flatten: true });
+    this._hasContent = nodes.some(
+      (n) =>
+        n.nodeType === Node.ELEMENT_NODE ||
+        (n.nodeType === Node.TEXT_NODE && n.textContent.trim() !== ''),
+    );
     this.requestUpdate();
   }
 
@@ -39,11 +45,11 @@ export class wcDivider extends LitElement {
     }
     return html`
       <div class="divider ${`align-${this.align}`}" part="base">
-        <span class="line start" part="line"></span>
+        <span class="line start" part="line" ?hidden=${this.align === 'left'}></span>
         <span class="content" part="content" ?hidden=${!this._hasContent}>
           <slot @slotchange=${this.onSlotChange}></slot>
         </span>
-        <span class="line end" part="line"></span>
+        <span class="line end" part="line" ?hidden=${this.align === 'right'}></span>
       </div>
     `;
   }

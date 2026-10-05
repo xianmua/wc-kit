@@ -216,6 +216,176 @@ class PlaygroundApp extends LitElement {
         ></wc-float-button>
 
         <section>
+          <h3>Splitter 分隔板</h3>
+          <div class="col">
+            <wc-splitter
+              style="height: 180px; border: 1px solid var(--wc-color-border); border-radius: var(--wc-radius-medium); overflow: hidden"
+            >
+              <wc-splitter-panel
+                collapsible
+                style="--wc-splitter-panel-padding: 12px; background: var(--wc-color-gray-50)"
+                >左</wc-splitter-panel
+              >
+              <wc-splitter-panel collapsible style="--wc-splitter-panel-padding: 12px"
+                >中</wc-splitter-panel
+              >
+              <wc-splitter-panel
+                collapsible
+                min="20"
+                size="25"
+                style="--wc-splitter-panel-padding: 12px; background: var(--wc-color-gray-50)"
+                >右（min 20%）</wc-splitter-panel
+              >
+            </wc-splitter>
+            <wc-splitter
+              layout="vertical"
+              style="height: 200px; border: 1px solid var(--wc-color-border); border-radius: var(--wc-radius-medium); overflow: hidden"
+            >
+              <wc-splitter-panel
+                collapsible
+                style="--wc-splitter-panel-padding: 12px"
+                >上</wc-splitter-panel
+              >
+              <wc-splitter-panel
+                collapsible
+                style="--wc-splitter-panel-padding: 12px; background: var(--wc-color-gray-50)"
+                >下</wc-splitter-panel
+              >
+            </wc-splitter>
+          </div>
+        </section>
+
+        <section>
+          <h3>Menu 导航菜单</h3>
+          <div class="row" style="align-items: flex-start; gap: 24px">
+            <wc-menu selected="home" bordered style="width: 200px">
+              <wc-menu-item value="home" icon="home">首页</wc-menu-item>
+              <wc-menu-item value="search" icon="search">搜索</wc-menu-item>
+              <wc-sub-menu label="设置" icon="settings">
+                <wc-menu-item value="profile">个人资料</wc-menu-item>
+                <wc-menu-item value="security">安全</wc-menu-item>
+              </wc-sub-menu>
+              <wc-menu-item value="disabled" disabled>禁用项</wc-menu-item>
+              <wc-menu-item value="delete" danger icon="trash-2">删除</wc-menu-item>
+            </wc-menu>
+            <wc-menu mode="horizontal" selected="home" bordered style="flex: 1">
+              <wc-menu-item value="home">首页</wc-menu-item>
+              <wc-menu-item value="list">列表</wc-menu-item>
+              <wc-sub-menu label="更多">
+                <wc-menu-item value="about">关于</wc-menu-item>
+                <wc-menu-item value="help">帮助</wc-menu-item>
+              </wc-sub-menu>
+            </wc-menu>
+          </div>
+        </section>
+
+        <section>
+          <h3>Anchor 锚点</h3>
+          <div class="row" style="align-items: flex-start; gap: 24px">
+            <div
+              id="anchor-scroll"
+              style="flex: 1; max-height: 300px; overflow: auto; border: 1px solid var(--wc-color-border); border-radius: var(--wc-radius-medium); padding: 0 var(--wc-space-4)"
+            >
+              <h4 id="ap-intro">介绍</h4>
+              <p style="height: 120px">介绍内容……</p>
+              <h4 id="ap-usage">基本用法</h4>
+              <p style="height: 120px">基本用法内容……</p>
+              <h4 id="ap-horizontal">水平模式</h4>
+              <p style="height: 120px">水平模式内容……</p>
+              <h4 id="ap-api">API</h4>
+              <p style="height: 120px">API 内容……</p>
+            </div>
+            <wc-anchor id="demo-anchor" container="#anchor-scroll" style="flex: none; width: 160px">
+              <wc-anchor-link href="#ap-intro">介绍</wc-anchor-link>
+              <wc-anchor-link href="#ap-usage">基本用法</wc-anchor-link>
+              <wc-anchor-link href="#ap-horizontal">
+                水平模式
+                <wc-anchor-link href="#ap-api">API</wc-anchor-link>
+              </wc-anchor-link>
+            </wc-anchor>
+          </div>
+          <div style="margin-top: 12px">
+            <wc-anchor id="demo-anchor-h" direction="horizontal">
+              <wc-anchor-link href="#ap-intro">介绍</wc-anchor-link>
+              <wc-anchor-link href="#ap-usage">基本用法</wc-anchor-link>
+              <wc-anchor-link href="#ap-horizontal">水平模式</wc-anchor-link>
+              <wc-anchor-link href="#ap-api">API</wc-anchor-link>
+            </wc-anchor>
+          </div>
+        </section>
+
+        <section>
+          <h3>Alert 警告提示</h3>
+          <div class="col" id="demo-alerts">
+            <wc-alert>默认 info 提示：一条普通信息</wc-alert>
+            <wc-alert theme="success" show-icon heading="成功">操作已保存</wc-alert>
+            <wc-alert theme="warning" show-icon heading="警告" closable>磁盘空间不足 10%</wc-alert>
+            <wc-alert theme="danger" show-icon heading="错误" closable
+              >网络连接失败，请重试</wc-alert
+            >
+          </div>
+        </section>
+
+        <section>
+          <h3>Skeleton 骨架屏</h3>
+          <div class="row" style="align-items: flex-start; gap: 24px">
+            <div style="flex: 1; max-width: 320px">
+              <wc-skeleton animated rows="3"></wc-skeleton>
+            </div>
+            <div style="flex: 1; max-width: 320px">
+              <wc-skeleton avatar animated rows="2"></wc-skeleton>
+            </div>
+            <div class="col" style="flex: none; width: 160px">
+              <wc-skeleton-item variant="circle" animated></wc-skeleton-item>
+              <wc-skeleton-item variant="text" animated></wc-skeleton-item>
+              <wc-skeleton-item variant="text" animated style="width: 60%"></wc-skeleton-item>
+              <wc-skeleton-item variant="rect" animated style="height: 60px"></wc-skeleton-item>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Collapse 折叠面板</h3>
+          <div class="row" style="align-items: flex-start; gap: 24px">
+            <wc-collapse id="demo-collapse" style="flex: 1; max-width: 420px">
+              <wc-collapse-item header="标题一" name="a" open>内容一：默认展开</wc-collapse-item>
+              <wc-collapse-item header="标题二" name="b">内容二：点击标题切换</wc-collapse-item>
+              <wc-collapse-item header="禁用面板" disabled>内容三：不可展开</wc-collapse-item>
+            </wc-collapse>
+            <wc-collapse accordion style="flex: 1; max-width: 420px">
+              <wc-collapse-item header="手风琴一" name="ga" open
+                >同一时间只展开一个</wc-collapse-item
+              >
+              <wc-collapse-item header="手风琴二" name="gb"
+                >展开我时上面的自动收起</wc-collapse-item
+              >
+            </wc-collapse>
+          </div>
+        </section>
+
+        <section>
+          <h3>Segmented 分段控制器</h3>
+          <div class="col" id="demo-segmented" style="gap: 12px">
+            <wc-segmented value="weekly">
+              <wc-segmented-item value="daily">日</wc-segmented-item>
+              <wc-segmented-item value="weekly">周</wc-segmented-item>
+              <wc-segmented-item value="monthly" disabled>月</wc-segmented-item>
+              <wc-segmented-item value="quarterly">季</wc-segmented-item>
+              <wc-segmented-item value="yearly">年</wc-segmented-item>
+            </wc-segmented>
+            <wc-segmented value="b" block>
+              <wc-segmented-item value="a">左</wc-segmented-item>
+              <wc-segmented-item value="b">中</wc-segmented-item>
+              <wc-segmented-item value="c">右</wc-segmented-item>
+            </wc-segmented>
+            <wc-segmented size="small" value="map" disabled>
+              <wc-segmented-item value="list">列表</wc-segmented-item>
+              <wc-segmented-item value="map">地图</wc-segmented-item>
+            </wc-segmented>
+          </div>
+        </section>
+
+        <section>
           <h3>Input 输入框</h3>
           <div class="col">
             <wc-input placeholder="请输入内容" clearable></wc-input>
@@ -295,7 +465,7 @@ class PlaygroundApp extends LitElement {
           <div class="col">
             <wc-date-picker></wc-date-picker>
             <wc-date-picker value="2026-10-15" clearable></wc-date-picker>
-            <wc-date-picker placeholder="周一起始" first-day-of-week="1"></wc-date-picker>
+            <wc-date-picker placeholder="请选择日期"></wc-date-picker>
             <wc-date-picker placeholder="禁用" disabled></wc-date-picker>
           </div>
         </section>
@@ -517,6 +687,23 @@ class PlaygroundApp extends LitElement {
             <wc-tab label="通知" value="notify"><p>通知偏好面板。</p></wc-tab>
             <wc-tab label="高级" value="pro" disabled><p>高级选项（禁用）。</p></wc-tab>
           </wc-tabs>
+          <div class="row" style="margin-top: 16px">
+            <wc-tabs tab-position="left" style="min-height: 180px; flex: 1">
+              <wc-tab label="账户"><p>左侧标签栏。</p></wc-tab>
+              <wc-tab label="安全" value="security"><p>安全设置面板。</p></wc-tab>
+              <wc-tab label="通知" value="notify"><p>通知偏好面板。</p></wc-tab>
+            </wc-tabs>
+            <wc-tabs tab-position="right" style="min-height: 180px; flex: 1">
+              <wc-tab label="账户"><p>右侧标签栏。</p></wc-tab>
+              <wc-tab label="安全" value="security"><p>安全设置面板。</p></wc-tab>
+              <wc-tab label="通知" value="notify"><p>通知偏好面板。</p></wc-tab>
+            </wc-tabs>
+          </div>
+          <wc-tabs tab-position="bottom" style="margin-top: 16px">
+            <wc-tab label="账户"><p>底部标签栏。</p></wc-tab>
+            <wc-tab label="安全" value="security"><p>安全设置面板。</p></wc-tab>
+            <wc-tab label="通知" value="notify"><p>通知偏好面板。</p></wc-tab>
+          </wc-tabs>
         </section>
 
         <section>
@@ -546,6 +733,9 @@ class PlaygroundApp extends LitElement {
           ></wc-pagination>
           <div class="row" style="margin-top: 12px">
             <wc-pagination total="50" current="2"></wc-pagination>
+          </div>
+          <div class="row" style="margin-top: 12px">
+            <wc-pagination total="50" simple show-total></wc-pagination>
           </div>
         </section>
 

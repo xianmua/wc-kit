@@ -111,6 +111,65 @@ describe('wc-pagination', () => {
     expect(input.value).to.equal('10');
   });
 
+  it('simple 极简模式：当前页/总页数，无页码按钮', async () => {
+    const el = await fixture<wcPagination>(html`<wc-pagination total="50" simple></wc-pagination>`);
+    expect(el.hasAttribute('simple')).to.be.true;
+    expect(el.shadowRoot!.querySelector('[part="page"]')).to.be.null;
+    expect(el.shadowRoot!.querySelector('[part="ellipsis"]')).to.be.null;
+    const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part="simple-input"]')!;
+    expect(input.value).to.equal('1');
+    expect(el.shadowRoot!.querySelector('[part="simple-pager"]')!.textContent!.trim()).to.contain(
+      '/ 5',
+    );
+  });
+
+  it('simple 输入 Enter 跳页并夹紧越界', async () => {
+    const el = await fixture<wcPagination>(html`<wc-pagination total="50" simple></wc-pagination>`);
+    const changes: number[] = [];
+    el.addEventListener('wc-change', (e) => changes.push((e as CustomEvent).detail.current));
+    const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part="simple-input"]')!;
+
+    input.value = '3';
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await el.updateComplete;
+    expect(el.current).to.equal(3);
+    expect(changes).to.deep.equal([3]);
+
+    input.value = '999';
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await el.updateComplete;
+    expect(el.current).to.equal(5);
+    expect(input.value).to.equal('5');
+  });
+
+  it('simple 失焦提交；非法输入回落当前页', async () => {
+    const el = await fixture<wcPagination>(html`<wc-pagination total="50" simple></wc-pagination>`);
+    const input = el.shadowRoot!.querySelector<HTMLInputElement>('[part="simple-input"]')!;
+
+    input.value = '2';
+    input.dispatchEvent(new FocusEvent('blur'));
+    await el.updateComplete;
+    expect(el.current).to.equal(2);
+
+    input.value = 'abc';
+    input.dispatchEvent(new FocusEvent('blur'));
+    expect(el.current).to.equal(2);
+    expect(input.value).to.equal('2');
+  });
+
+  it('simple + prev/next 翻页同步输入框', async () => {
+    const el = await fixture<wcPagination>(
+      html`<wc-pagination total="50" simple current="2"></wc-pagination>`,
+    );
+    el.shadowRoot!.querySelector<HTMLElement>('[part="next"]')!.click();
+    await el.updateComplete;
+    expect(el.current).to.equal(3);
+    expect(
+      (el.shadowRoot!.querySelector<HTMLInputElement>('[part="simple-input"]') as HTMLInputElement)
+        .value,
+    ).to.equal('3');
+  });
+
   it('disabled 整体禁用：按钮不可点且不派发 wc-change', async () => {
     const el = await fixture<wcPagination>(
       html`<wc-pagination total="100" current="2" disabled></wc-pagination>`,

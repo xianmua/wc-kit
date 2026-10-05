@@ -2,7 +2,7 @@
 
 布局组件：`wc-row` 为行容器（flex 布局），`wc-col` 为列容器，配合实现 24 栅格。
 
-wc-row 主要 API：`gutter` 列间距（px）、`justify` 水平对齐（start / center / end / space-between / space-around / space-evenly）、`align` 垂直对齐（top / middle / bottom / stretch）、`wrap` 允许换行。
+wc-row 主要 API：`gutter` 栅格间距（px，列间距，wrap 换行时也作为行间距）、`justify` 水平对齐（start / center / end / space-between / space-around / space-evenly）、`align` 垂直对齐（top / middle / bottom / stretch）、`wrap` 允许换行。
 
 wc-col 主要 API：`span` 占据列数（1~24，默认 24）、`offset` 左侧偏移列数（1~23，默认 0）。wc-col 的宿主以 display:contents 参与行布局，内容走默认插槽。无自定义事件。
 
@@ -918,7 +918,7 @@ import { WcCol, WcRow } from '@wc-kit/react';
   </div>
 </div>
 
-wrap 开启后，span + offset 总和超出 24 的列会自动换到下一行。
+wrap 开启后，span + offset 总和超出 24 的列会自动换到下一行，行间距与 gutter 一致。
 
 :::: details 查看代码
 ::: code-group
@@ -1050,14 +1050,14 @@ import { WcCol, WcRow } from '@wc-kit/react';
 
 ### 属性
 
-| 属性      | attribute | 类型                                         | 默认值    | 说明                 |
-| --------- | --------- | -------------------------------------------- | --------- | -------------------- |
-| `gutter`  | `gutter`  | `number`                                     | `0`       | 列间距（px）         |
-| `justify` | `justify` | `wcRowJustify`                               | `'start'` | 水平对齐             |
-| `align`   | `align`   | `'top' \| 'middle' \| 'bottom' \| 'stretch'` | `'top'`   | 垂直对齐             |
-| `wrap`    | `wrap`    | `boolean`                                    | `false`   | 允许换行             |
-| `span`    | `span`    | `number`                                     | `24`      | 占据列数（1~24）     |
-| `offset`  | `offset`  | `number`                                     | `0`       | 左侧偏移列数（1~23） |
+| 属性      | attribute | 类型                                         | 默认值    | 说明                             |
+| --------- | --------- | -------------------------------------------- | --------- | -------------------------------- |
+| `gutter`  | `gutter`  | `number`                                     | `0`       | 栅格间距（px），换行时也作行间距 |
+| `justify` | `justify` | `wcRowJustify`                               | `'start'` | 水平对齐                         |
+| `align`   | `align`   | `'top' \| 'middle' \| 'bottom' \| 'stretch'` | `'top'`   | 垂直对齐                         |
+| `wrap`    | `wrap`    | `boolean`                                    | `false`   | 允许换行                         |
+| `span`    | `span`    | `number`                                     | `24`      | 占据列数（1~24）                 |
+| `offset`  | `offset`  | `number`                                     | `0`       | 左侧偏移列数（1~23）             |
 
 ### 插槽
 

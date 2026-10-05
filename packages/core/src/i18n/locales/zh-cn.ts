@@ -36,6 +36,7 @@ export const zhCN: WcTranslations = {
   'floatbutton.menu': '更多操作',
   'dialog.close': '关闭',
   'message.close': '关闭',
+  'alert.close': '关闭',
   'breadcrumb.label': '面包屑导航',
   'image.loadError': '图片加载失败',
   'image.preview': '预览',

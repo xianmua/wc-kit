@@ -30,6 +30,18 @@ import type {
   wcList,
   wcListItem,
   wcMessage,
+  wcMenu,
+  wcMenuItem,
+  wcSubMenu,
+  wcAnchor,
+  wcAnchorLink,
+  wcAlert,
+  wcSkeleton,
+  wcSkeletonItem,
+  wcCollapse,
+  wcCollapseItem,
+  wcSegmented,
+  wcSegmentedItem,
   wcOption,
   wcPagination,
   wcPopconfirm,
@@ -39,6 +51,8 @@ import type {
   wcSelect,
   wcSlider,
   wcSpace,
+  wcSplitter,
+  wcSplitterPanel,
   wcSwitch,
   wcTab,
   wcTable,
@@ -64,6 +78,8 @@ declare module 'vue' {
     'wc-tag': WcComponent<wcTag>;
     'wc-avatar': WcComponent<wcAvatar>;
     'wc-space': WcComponent<wcSpace>;
+    'wc-splitter': WcComponent<wcSplitter>;
+    'wc-splitter-panel': WcComponent<wcSplitterPanel>;
     'wc-row': WcComponent<wcRow>;
     'wc-col': WcComponent<wcCol>;
     'wc-text': WcComponent<wcText>;
@@ -83,12 +99,16 @@ declare module 'vue' {
     'wc-upload': WcComponent<wcUpload>;
     // 反馈
     'wc-dialog': WcComponent<wcDialog>;
+    'wc-alert': WcComponent<wcAlert>;
     'wc-drawer': WcComponent<wcDrawer>;
     'wc-message': WcComponent<wcMessage>;
     'wc-tooltip': WcComponent<wcTooltip>;
     'wc-popconfirm': WcComponent<wcPopconfirm>;
     'wc-dropdown': WcComponent<wcDropdown>;
     'wc-dropdown-item': WcComponent<wcDropdownItem>;
+    'wc-menu': WcComponent<wcMenu>;
+    'wc-menu-item': WcComponent<wcMenuItem>;
+    'wc-sub-menu': WcComponent<wcSubMenu>;
     'wc-split-button': WcComponent<wcSplitButton>;
     'wc-float-button': WcComponent<wcFloatButton>;
     'wc-float-button-group': WcComponent<wcFloatButtonGroup>;
@@ -97,6 +117,8 @@ declare module 'vue' {
     'wc-tab': WcComponent<wcTab>;
     'wc-breadcrumb': WcComponent<wcBreadcrumb>;
     'wc-breadcrumb-item': WcComponent<wcBreadcrumbItem>;
+    'wc-anchor': WcComponent<wcAnchor>;
+    'wc-anchor-link': WcComponent<wcAnchorLink>;
     'wc-pagination': WcComponent<wcPagination>;
     // 数据展示
     'wc-badge': WcComponent<wcBadge>;
@@ -107,6 +129,12 @@ declare module 'vue' {
     'wc-list-item': WcComponent<wcListItem>;
     'wc-table': WcComponent<wcTable>;
     'wc-image': WcComponent<wcImage>;
+    'wc-skeleton': WcComponent<wcSkeleton>;
+    'wc-skeleton-item': WcComponent<wcSkeletonItem>;
+    'wc-collapse': WcComponent<wcCollapse>;
+    'wc-collapse-item': WcComponent<wcCollapseItem>;
+    'wc-segmented': WcComponent<wcSegmented>;
+    'wc-segmented-item': WcComponent<wcSegmentedItem>;
   }
 }
 

@@ -63,7 +63,6 @@ describe('wc-date-picker', () => {
     const el = await fixture<wcDatePicker>(html`<wc-date-picker></wc-date-picker>`);
     expect(el.value).to.equal('');
     expect(el.open).to.be.false;
-    expect(el.firstDayOfWeek).to.equal(0);
     expect(el.disabled).to.be.false;
   });
 
@@ -256,16 +255,16 @@ describe('wc-date-picker', () => {
     expect(el.value).to.equal('2026-10-15');
   });
 
-  it('firstDayOfWeek=1 时星期头以周一起始', async () => {
+  it('星期头以周日起始', async () => {
     const el = await fixture<wcDatePicker>(
-      html`<wc-date-picker value="2026-10-15" first-day-of-week="1"></wc-date-picker>`,
+      html`<wc-date-picker value="2026-10-15"></wc-date-picker>`,
     );
     await open(el);
     const firstCell = el.shadowRoot!.querySelector('.weekdays .cell')!;
-    const zhMonday = new Intl.DateTimeFormat('zh-CN', { weekday: 'narrow' }).format(
-      new Date(2023, 0, 2),
+    const zhSunday = new Intl.DateTimeFormat('zh-CN', { weekday: 'narrow' }).format(
+      new Date(2023, 0, 1),
     );
-    expect(firstCell.textContent!.trim()).to.equal(zhMonday);
+    expect(firstCell.textContent!.trim()).to.equal(zhSunday);
   });
 
   it('暴露 part="base" / "trigger" / "panel"', async () => {

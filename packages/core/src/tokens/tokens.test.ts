@@ -95,3 +95,42 @@ describe('tokens.css', () => {
     }
   });
 });
+
+describe('组件样式令牌引用完整性', () => {
+  // 扫描全部组件样式源码（?raw 文本），收集「定义」与「引用」两类令牌名。
+  // 背景：segmented/collapse 曾引用不存在的 --wc-duration-normal，
+  // transition 声明在计算值阶段整体失效、动画无声挂掉——此类笔误由本测试拦截。
+  const styleSources: Record<string, string> = {
+    ...import.meta.glob('../components/**/*.styles.ts', {
+      query: '?raw',
+      import: 'default',
+      eager: true,
+    }),
+    ...import.meta.glob('../styles/*.css.ts', {
+      query: '?raw',
+      import: 'default',
+      eager: true,
+    }),
+  };
+
+  // 定义池 = tokens.css + 各组件样式内的令牌声明（--wc-x:）
+  const defined = extractVarNames(tokensCss);
+  for (const source of Object.values(styleSources)) {
+    for (const m of source.matchAll(/--wc-[\w-]+(?=\s*:)/g)) defined.add(m[0]);
+  }
+
+  // 引用检查只针对「裸引用」：var(--wc-x) 不带 fallback 时令牌必须已定义，
+  // 否则该声明在计算值阶段整体失效（--wc-duration-normal 事故正是这种）。
+  // 带 fallback 的引用（var(--wc-x, y)）自洽，属于可选覆盖模式，不在拦截范围。
+  const bareUsed = new Set<string>();
+  for (const source of Object.values(styleSources)) {
+    for (const m of source.matchAll(/var\(\s*(--wc-[\w-]+)\s*([,)])/g)) {
+      if (m[2] === ')') bareUsed.add(m[1]!);
+    }
+  }
+
+  it('裸引用（无 fallback）的每个 --wc-* 令牌都有定义', () => {
+    const missing = [...bareUsed].filter((t) => !defined.has(t));
+    expect(missing, `以下令牌被裸引用但从未定义: ${missing.join(', ')}`).to.eql([]);
+  });
+});

@@ -8,7 +8,7 @@
 
 - wc-pagination：total（总条数）/ page-size（每页条数，默认 10）/ current（当前页，1 开始）/
   folded-page-count（折叠窗口页码数，默认 5）/ show-total（显示总条数）/ show-jumper（显示跳页输入框）/
-  disabled（整体禁用）；只读 pageCount（总页数）
+  simple（极简模式）/ disabled（整体禁用）；只读 pageCount（总页数）
 - 事件 wc-change（detail: { current, previous }）
 
 React 用法（@wc-kit/react 包装组件）：
@@ -120,6 +120,36 @@ import { WcPagination } from '@wc-kit/react';
   <WcPagination total={1000} foldedPageCount={5}></WcPagination>
   <WcPagination total={1000} foldedPageCount={7}></WcPagination>
 </div>;
+```
+
+:::
+::::
+
+### 极简模式
+
+<div class="demo-block">
+  <wc-pagination total="50" simple show-total></wc-pagination>
+</div>
+
+`simple` 只保留前后翻页按钮 + 「当前页 / 总页数」快速跳转输入（antd simple 同款）。输入页码后按 Enter 或失焦跳转，越界自动夹紧、非法输入回落当前页；可与 show-total 组合。
+
+:::: details 查看代码
+::: code-group
+
+```html [HTML]
+<wc-pagination total="50" simple show-total></wc-pagination>
+```
+
+```vue [Vue]
+<template>
+  <wc-pagination total="50" simple show-total></wc-pagination>
+</template>
+```
+
+```tsx [React]
+import { WcPagination } from '@wc-kit/react';
+
+<WcPagination total={50} simple showTotal></WcPagination>;
 ```
 
 :::
@@ -245,15 +275,16 @@ function onPageChange(e) {
 
 ### 属性
 
-| 属性              | attribute           | 类型      | 默认值  | 说明                                             |
-| ----------------- | ------------------- | --------- | ------- | ------------------------------------------------ |
-| `total`           | `total`             | `number`  | `0`     | 数据总条数                                       |
-| `pageSize`        | `page-size`         | `number`  | `10`    | 每页条数                                         |
-| `current`         | `current`           | `number`  | `1`     | 当前页（1 开始）                                 |
-| `foldedPageCount` | `folded-page-count` | `number`  | `5`     | 折叠时中间窗口显示的页码数量                     |
-| `showTotal`       | `show-total`        | `boolean` | `false` | 显示总条数                                       |
-| `showJumper`      | `show-jumper`       | `boolean` | `false` | 显示跳页输入框（Enter 跳转，自动夹紧到有效范围） |
-| `disabled`        | `disabled`          | `boolean` | `false` | 整体禁用                                         |
+| 属性              | attribute           | 类型      | 默认值  | 说明                                               |
+| ----------------- | ------------------- | --------- | ------- | -------------------------------------------------- |
+| `total`           | `total`             | `number`  | `0`     | 数据总条数                                         |
+| `pageSize`        | `page-size`         | `number`  | `10`    | 每页条数                                           |
+| `current`         | `current`           | `number`  | `1`     | 当前页（1 开始）                                   |
+| `foldedPageCount` | `folded-page-count` | `number`  | `5`     | 折叠时中间窗口显示的页码数量                       |
+| `showTotal`       | `show-total`        | `boolean` | `false` | 显示总条数                                         |
+| `showJumper`      | `show-jumper`       | `boolean` | `false` | 显示跳页输入框（Enter 跳转，自动夹紧到有效范围）   |
+| `simple`          | `simple`            | `boolean` | `false` | 极简模式：前后翻页按钮 + 「当前页/总页数」跳转输入 |
+| `disabled`        | `disabled`          | `boolean` | `false` | 整体禁用                                           |
 
 ### 事件
 
@@ -263,4 +294,4 @@ function onPageChange(e) {
 
 ### CSS Parts
 
-`nav` / `total` / `prev / next` / `page` / `ellipsis` / `jumper` / `jumper-input`
+`nav` / `total` / `prev / next` / `page` / `ellipsis` / `jumper` / `jumper-input` / `simple-pager` / `simple-input`

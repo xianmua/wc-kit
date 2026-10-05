@@ -81,14 +81,37 @@ export const paginationStyles = css`
     border-radius: var(--wc-radius-small);
   }
 
-  .jumper-input:focus {
+  .jumper-input:focus,
+  .simple-input:focus {
     outline: none;
     border-color: var(--wc-color-primary);
   }
 
-  .jumper-input:disabled {
+  .jumper-input:disabled,
+  .simple-input:disabled {
     color: var(--wc-color-text-disabled);
     background-color: var(--wc-color-bg-disabled, var(--wc-color-bg-hover));
     cursor: not-allowed;
+  }
+
+  /* 极简模式：当前页输入 + / 总页数 */
+  .simple-pager {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wc-space-1);
+    color: var(--wc-color-text-secondary);
+  }
+
+  .simple-input {
+    box-sizing: border-box;
+    width: var(--wc-space-8);
+    height: 32px;
+    padding: 0 2px;
+    font: inherit;
+    color: var(--wc-color-text);
+    text-align: center;
+    background: transparent;
+    border: 1px solid var(--wc-color-border);
+    border-radius: var(--wc-radius-small);
   }
 `;

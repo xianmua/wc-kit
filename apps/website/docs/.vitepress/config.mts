@@ -15,7 +15,15 @@ export default defineConfig({
     },
   },
 
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
+  head: [
+    // 首访默认浅色：仅当用户从未手动切换过明暗时预种 light，保留右上角切换、尊重已存选择
+    [
+      'script',
+      {},
+      `if (!localStorage.getItem('vitepress-appearance')) localStorage.setItem('vitepress-appearance', 'light');`,
+    ],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+  ],
 
   themeConfig: {
     nav: [

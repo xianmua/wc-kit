@@ -169,4 +169,68 @@ describe('wc-tabs', () => {
     expect(root.querySelector('[part="tab"]')).to.exist;
     expect(el.querySelector('wc-tab')!.shadowRoot!.querySelector('[part="panel"]')).to.exist;
   });
+
+  it('tabPosition 默认 top 且反射，tablist 为水平方向', async () => {
+    const el = await fixture<wcTabs>(html`
+      <wc-tabs
+        ><wc-tab label="A"><p>一</p></wc-tab></wc-tabs
+      >
+    `);
+    expect(el.tabPosition).to.equal('top');
+    expect(el.getAttribute('tab-position')).to.equal('top');
+    expect(el.shadowRoot!.querySelector('.bar')!.getAttribute('aria-orientation')).to.equal(
+      'horizontal',
+    );
+  });
+
+  it('tabPosition=left：反射 + tablist 纵向 + 标签栏在面板之前', async () => {
+    const el = await fixture<wcTabs>(html`
+      <wc-tabs tab-position="left"
+        ><wc-tab label="A"><p>一</p></wc-tab></wc-tabs
+      >
+    `);
+    await el.updateComplete;
+    expect(el.getAttribute('tab-position')).to.equal('left');
+    expect(el.shadowRoot!.querySelector('.bar')!.getAttribute('aria-orientation')).to.equal(
+      'vertical',
+    );
+    const children = Array.from(el.shadowRoot!.children);
+    expect(children.findIndex((c) => c.classList.contains('bar'))).to.equal(0);
+    expect(children.some((c) => c.tagName === 'SLOT')).to.be.true;
+  });
+
+  it('tabPosition=bottom/right：面板在前、标签栏在后', async () => {
+    for (const position of ['bottom', 'right']) {
+      const el = await fixture<wcTabs>(html`
+        <wc-tabs tab-position=${position}
+          ><wc-tab label="A"><p>一</p></wc-tab></wc-tabs
+        >
+      `);
+      await el.updateComplete;
+      // 过滤掉 jsdom 下 Lit 回退追加的 <style>，只看真实渲染节点
+      const children = Array.from(el.shadowRoot!.children).filter((c) => c.tagName !== 'STYLE');
+      const barIndex = children.findIndex((c) => c.classList.contains('bar'));
+      const slotIndex = children.findIndex((c) => c.tagName === 'SLOT');
+      expect(slotIndex).to.be.lessThan(barIndex);
+      expect(el.shadowRoot!.querySelector('.bar')!.getAttribute('aria-orientation')).to.equal(
+        position === 'right' ? 'vertical' : 'horizontal',
+      );
+    }
+  });
+
+  it('竖排切换不影响点击与键盘切换', async () => {
+    const el = await fixture<wcTabs>(html`
+      <wc-tabs tab-position="left">
+        <wc-tab label="A" value="a"><p>一</p></wc-tab>
+        <wc-tab label="B" value="b"><p>二</p></wc-tab>
+      </wc-tabs>
+    `);
+    el.shadowRoot!.querySelector<HTMLButtonElement>('.tab[data-value="b"]')!.click();
+    await el.updateComplete;
+    expect(el.value).to.equal('b');
+    el.shadowRoot!.querySelector('.bar')!.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, composed: true }),
+    );
+    expect(el.value).to.equal('a');
+  });
 });

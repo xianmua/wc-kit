@@ -7,6 +7,12 @@ import {
   wcListItem,
   wcTable,
   wcImage,
+  wcSkeleton,
+  wcSkeletonItem,
+  wcCollapse,
+  wcCollapseItem,
+  wcSegmented,
+  wcSegmentedItem,
 } from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
@@ -58,4 +64,43 @@ export const WcImage = createWrapper({
   elementClass: wcImage,
   events: { onWcLoad: 'wc-load', onWcError: 'wc-error', onWcPreviewClose: 'wc-preview-close' },
   displayName: 'WcImage',
+});
+
+export const WcSkeleton = createWrapper({
+  tagName: 'wc-skeleton',
+  elementClass: wcSkeleton,
+  displayName: 'WcSkeleton',
+});
+
+export const WcSkeletonItem = createWrapper({
+  tagName: 'wc-skeleton-item',
+  elementClass: wcSkeletonItem,
+  displayName: 'WcSkeletonItem',
+});
+
+export const WcCollapse = createWrapper({
+  tagName: 'wc-collapse',
+  elementClass: wcCollapse,
+  events: { onWcChange: 'wc-change' },
+  displayName: 'WcCollapse',
+});
+
+export const WcCollapseItem = createWrapper({
+  tagName: 'wc-collapse-item',
+  elementClass: wcCollapseItem,
+  events: { onWcChange: 'wc-change' },
+  displayName: 'WcCollapseItem',
+});
+
+export const WcSegmented = createWrapper({
+  tagName: 'wc-segmented',
+  elementClass: wcSegmented,
+  events: { onWcChange: 'wc-change' },
+  displayName: 'WcSegmented',
+});
+
+export const WcSegmentedItem = createWrapper({
+  tagName: 'wc-segmented-item',
+  elementClass: wcSegmentedItem,
+  displayName: 'WcSegmentedItem',
 });

@@ -1,6 +1,6 @@
 {
   "name": "@wc-kit/react",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React wrappers for @wc-kit/core web components, built on @lit/react",
   "keywords": [
     "components",

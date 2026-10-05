@@ -7,6 +7,9 @@ import type { wcTab } from './wc-tab.js';
 
 export type wcTabsChangeDetail = { value: string };
 
+/** 标签栏位置：top/bottom 横排，left/right 竖排 */
+export type wcTabsTabPosition = 'top' | 'right' | 'bottom' | 'left';
+
 /** 标签栏单项元数据 */
 interface TabMeta {
   value: string;
@@ -17,7 +20,8 @@ interface TabMeta {
 
 /**
  * 标签页容器：子元素 <wc-tab>（label/value/disabled）声明标签页，
- * 点击或键盘（←/→/Home/End，自动激活）切换，派发 wc-change。
+ * 点击或键盘（←/→/↑/↓/Home/End，自动激活）切换，派发 wc-change。
+ * tabPosition 控制标签栏位置：top/bottom 横排、left/right 竖排（面板在侧边）。
  *
  * @slot - <wc-tab> 子元素
  * @csspart bar - 标签栏
@@ -30,6 +34,9 @@ export class wcTabs extends LitElement {
   /** 激活标签的 value */
   @property({ reflect: true }) value = '';
 
+  /** 标签栏位置（默认 top） */
+  @property({ reflect: true, attribute: 'tab-position' }) tabPosition: wcTabsTabPosition = 'top';
+
   private tabs: TabMeta[] = [];
 
   private uid = `wc-tabs-${Math.random().toString(36).slice(2, 8)}`;
@@ -39,6 +46,8 @@ export class wcTabs extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+    // 连接时同步收集一次：保证 bottom/right 首渲染的 DOM 顺序就正确（slot/面板在前、bar 在后）
+    this.collectTabs();
     this.mutationObserver.observe(this, {
       childList: true,
       // subtree: true 使 attributeFilter 也能监视子元素 label/value/disabled 变化
@@ -135,8 +144,15 @@ export class wcTabs extends LitElement {
   }
 
   render() {
-    return html`
-      <div class="bar" part="bar" role="tablist" @keydown=${this.onTablistKeydown}>
+    const vertical = this.tabPosition === 'left' || this.tabPosition === 'right';
+    const bar = html`
+      <div
+        class="bar"
+        part="bar"
+        role="tablist"
+        aria-orientation=${vertical ? 'vertical' : 'horizontal'}
+        @keydown=${this.onTablistKeydown}
+      >
         ${this.tabs.map(
           (tab) => html`
             <button
@@ -157,8 +173,13 @@ export class wcTabs extends LitElement {
           `,
         )}
       </div>
-      ${this.tabs.length > 0 ? html`<slot @slotchange=${this.collectTabs}></slot>` : nothing}
     `;
+    const panels =
+      this.tabs.length > 0 ? html`<slot @slotchange=${this.collectTabs}></slot>` : nothing;
+    // bottom/right：面板在前、标签栏在后（宿主 flex 方向由样式决定，DOM 顺序即视觉顺序）
+    return this.tabPosition === 'bottom' || this.tabPosition === 'right'
+      ? [panels, bar]
+      : [bar, panels];
   }
 }
 

@@ -28,6 +28,31 @@ describe('wc-divider', () => {
     expect(el.shadowRoot!.querySelector('.content')!.hasAttribute('hidden')).to.be.true;
   });
 
+  it('注释节点与纯空白文本不算文案（不产生 flex gap 断缝）', async () => {
+    const el = await fixture<wcDivider>(html`<wc-divider></wc-divider>`);
+    el.appendChild(document.createComment('vue-fragment'));
+    el.appendChild(document.createTextNode('  \n '));
+    await el.updateComplete;
+    const slot = el.shadowRoot!.querySelector('slot')!;
+    slot.dispatchEvent(new Event('slotchange'));
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('.content')!.hasAttribute('hidden')).to.be.true;
+  });
+
+  it('align-left/right 隐藏贴边侧短线（避免孤立短线夹在 gap 间形似断线）', async () => {
+    const left = await fixture<wcDivider>(html`<wc-divider align="left">左</wc-divider>`);
+    expect(left.shadowRoot!.querySelector('.line.start')!.hasAttribute('hidden')).to.be.true;
+    expect(left.shadowRoot!.querySelector('.line.end')!.hasAttribute('hidden')).to.be.false;
+
+    const right = await fixture<wcDivider>(html`<wc-divider align="right">右</wc-divider>`);
+    expect(right.shadowRoot!.querySelector('.line.end')!.hasAttribute('hidden')).to.be.true;
+    expect(right.shadowRoot!.querySelector('.line.start')!.hasAttribute('hidden')).to.be.false;
+
+    const center = await fixture<wcDivider>(html`<wc-divider align="center">中</wc-divider>`);
+    expect(center.shadowRoot!.querySelector('.line.start')!.hasAttribute('hidden')).to.be.false;
+    expect(center.shadowRoot!.querySelector('.line.end')!.hasAttribute('hidden')).to.be.false;
+  });
+
   it('dashed 反射到宿主属性', async () => {
     const el = await fixture<wcDivider>(html`<wc-divider dashed></wc-divider>`);
     expect(el.hasAttribute('dashed')).to.be.true;

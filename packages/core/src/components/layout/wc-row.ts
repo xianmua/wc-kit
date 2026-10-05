@@ -15,7 +15,7 @@ export type wcRowAlign = 'top' | 'middle' | 'bottom' | 'stretch';
 
 /**
  * 行容器：flex 布局，配合 wc-col 的 span/offset 实现栅格。
- * gutter 为列间距（column-gap，px）。
+ * gutter 为栅格间距（px）：列间距，wrap 换行时也作为行间距。
  *
  * @slot - 放置 wc-col
  * @csspart base - 行容器
@@ -23,7 +23,7 @@ export type wcRowAlign = 'top' | 'middle' | 'bottom' | 'stretch';
 export class wcRow extends LitElement {
   static styles = [baseStyles, layoutStyles];
 
-  /** 列间距（px） */
+  /** 栅格间距（px）：列间距，wrap 换行时也作为行间距 */
   @property({ type: Number }) gutter = 0;
 
   /** 水平对齐 */

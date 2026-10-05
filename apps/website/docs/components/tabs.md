@@ -5,9 +5,12 @@
 Home/End 跳转首尾，自动激活并跳过禁用项）切换，激活变化后派发 wc-change（detail: { value }）。
 容器 value 表示当前激活项，可初始指定，缺省自动激活第一个；子元素的 active 由容器自动同步以驱动面板显隐，无需手写。
 
+支持 `tab-position` 四向标签栏（参考 antd Tabs tabPosition）：`top`（默认，横排）/ `bottom`（底部横排）/
+`left`（左侧竖排）/ `right`（右侧竖排），竖排时指示条贴合分隔线、面板与首个标签顶对齐。
+
 主要 API：
 
-- wc-tabs：value（激活标签的 value）；事件 wc-change（detail: { value }）；默认插槽放 wc-tab
+- wc-tabs：value（激活标签的 value）、tab-position（标签栏位置，默认 top）；事件 wc-change（detail: { value }）；默认插槽放 wc-tab
 - wc-tab：label / value / disabled；默认插槽为面板内容
 
 React 用法（@wc-kit/react 包装组件）：
@@ -114,13 +117,72 @@ Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 
 </details>
 
+### 垂直标签栏
+
+`tab-position` 支持 `left` / `right`（竖排）与 `bottom`（底部横排）。
+
+<div class="demo-block">
+
+<div style="display: flex; gap: 24px;">
+
+<wc-tabs tab-position="left" style="flex: 1; min-height: 180px">
+  <wc-tab label="账户" value="account">左侧标签栏的账户面板</wc-tab>
+  <wc-tab label="安全" value="security">左侧标签栏的安全面板</wc-tab>
+  <wc-tab label="通知" value="notify">左侧标签栏的通知面板</wc-tab>
+</wc-tabs>
+
+<wc-tabs tab-position="right" style="flex: 1; min-height: 180px">
+  <wc-tab label="账户" value="account">右侧标签栏的账户面板</wc-tab>
+  <wc-tab label="安全" value="security">右侧标签栏的安全面板</wc-tab>
+  <wc-tab label="通知" value="notify">右侧标签栏的通知面板</wc-tab>
+</wc-tabs>
+
+</div>
+
+<div style="margin-top: 16px;">
+
+<wc-tabs tab-position="bottom">
+  <wc-tab label="账户" value="account">底部标签栏的账户面板</wc-tab>
+  <wc-tab label="安全" value="security">底部标签栏的安全面板</wc-tab>
+  <wc-tab label="通知" value="notify">底部标签栏的通知面板</wc-tab>
+</wc-tabs>
+
+</div>
+
+</div>
+
+<details><summary>查看代码</summary>
+
+```html
+<wc-tabs tab-position="left">
+  <wc-tab label="账户" value="account">左侧标签栏的账户面板</wc-tab>
+  <wc-tab label="安全" value="security">左侧标签栏的安全面板</wc-tab>
+  <wc-tab label="通知" value="notify">左侧标签栏的通知面板</wc-tab>
+</wc-tabs>
+
+<wc-tabs tab-position="right">
+  <wc-tab label="账户" value="account">右侧标签栏的账户面板</wc-tab>
+  <wc-tab label="安全" value="security">右侧标签栏的安全面板</wc-tab>
+  <wc-tab label="通知" value="notify">右侧标签栏的通知面板</wc-tab>
+</wc-tabs>
+
+<wc-tabs tab-position="bottom">
+  <wc-tab label="账户" value="account">底部标签栏的账户面板</wc-tab>
+  <wc-tab label="安全" value="security">底部标签栏的安全面板</wc-tab>
+  <wc-tab label="通知" value="notify">底部标签栏的通知面板</wc-tab>
+</wc-tabs>
+```
+
+</details>
+
 ## API
 
 ### 属性
 
-| 属性    | attribute | 类型     | 默认值 | 说明             |
-| ------- | --------- | -------- | ------ | ---------------- |
-| `value` | `value`   | `string` | `''`   | 激活标签的 value |
+| 属性          | attribute      | 类型                                     | 默认值 | 说明                          |
+| ------------- | -------------- | ---------------------------------------- | ------ | ----------------------------- |
+| `value`       | `value`        | `string`                                 | `''`   | 激活标签的 value              |
+| `tabPosition` | `tab-position` | `'top' \| 'right' \| 'bottom' \| 'left'` | `top`  | 标签栏位置，left/right 为竖排 |
 
 ### 事件
 

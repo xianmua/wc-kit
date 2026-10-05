@@ -1,5 +1,12 @@
-import { wcDialog, wcDrawer, wcMessage, wcTooltip, wcPopconfirm } from '@wc-kit/core';
+import { wcAlert, wcDialog, wcDrawer, wcMessage, wcTooltip, wcPopconfirm } from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
+
+export const WcAlert = createWrapper({
+  tagName: 'wc-alert',
+  elementClass: wcAlert,
+  events: { onWcClose: 'wc-close' },
+  displayName: 'WcAlert',
+});
 
 export const WcDialog = createWrapper({
   tagName: 'wc-dialog',
