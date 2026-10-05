@@ -21,19 +21,21 @@
 
 - `wc-input`：手动输入时持续触发，detail.value 为解析结果（非法时为 NaN），detail.text 为原始文本
 - `wc-change`：值提交时触发（失焦 / 回车 / 步进），detail.value
+- 原生 `input` / `change`：仅在值提交时伴发在宿主上（失焦 / 回车 / 步进），供框架双向绑定消费——注意 v-model 语义等价 `.lazy`（输入过程中不回写）
 
 **React 用法**
 
 ```tsx
 import { WcInputNumber } from '@wc-kit/react';
 
+// 受控：onChange 在值提交（失焦/回车/步进）时回调（包装组件已内置事件映射）
 <WcInputNumber
   value={count}
   min={0}
   max={10}
   step={1}
   theme="column"
-  onWcChange={(e) => setCount(e.detail.value)}
+  onChange={(e) => setCount(e.target.value)}
 />;
 ```
 
@@ -41,15 +43,8 @@ import { WcInputNumber } from '@wc-kit/react';
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-input / wc-change（detail.value）。
-     value 为 number，建议用 .prop 绑定（.value="count"）避免字符串化。 -->
-<wc-input-number
-  .value="count"
-  :min="0"
-  :max="10"
-  @wc-change="(e) => (count = e.detail.value)"
-></wc-input-number>
+     vite 配置一次 isCustomElement 后可直接 v-model（提交式同步，等价 .lazy）。 -->
+<wc-input-number v-model="count" :min="0" :max="10"></wc-input-number>
 ```
 
 ## 示例
@@ -272,10 +267,11 @@ import { WcInputNumber } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                                        |
-| ----------- | ----------------------------------------------------------- |
-| `wc-input`  | 手动输入时持续触发，detail.value 为解析结果（非法时为 NaN） |
-| `wc-change` | 值提交时触发（失焦/回车/步进），detail.value                |
+| 事件                    | 说明                                                        |
+| ----------------------- | ----------------------------------------------------------- |
+| `wc-input`              | 手动输入时持续触发，detail.value 为解析结果（非法时为 NaN） |
+| `wc-change`             | 值提交时触发（失焦/回车/步进），detail.value                |
+| 原生 `input` / `change` | 仅在值提交时伴发在宿主上，供框架 v-model / onChange 消费    |
 
 ### 插槽
 

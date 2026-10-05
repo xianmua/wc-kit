@@ -18,17 +18,20 @@
 
 - `wc-input`：输入时触发，detail.value
 - `wc-change`：值变更提交时触发（失焦），detail.value
+- 原生 `input` / `change`：与 wc-input / wc-change 同时机伴发在宿主上（bubbles + composed），供框架双向绑定直接消费
 
 **React 用法**
 
 ```tsx
 import { WcTextarea } from '@wc-kit/react';
 
+// 受控：onInput 直接监听原生 input 事件（包装组件已内置事件映射）
 <WcTextarea
+  value={intro}
   placeholder="请输入个人简介"
   maxlength={200}
   autosize
-  onWcChange={(e) => console.log(e.detail.value)}
+  onInput={(e) => setIntro(e.target.value)}
 />;
 ```
 
@@ -36,15 +39,8 @@ import { WcTextarea } from '@wc-kit/react';
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-input / wc-change（detail.value）。 -->
-<wc-textarea
-  :value="intro"
-  placeholder="请输入个人简介"
-  :maxlength="200"
-  autosize
-  @wc-input="(e) => (intro = e.detail.value)"
-></wc-textarea>
+     vite 配置一次 isCustomElement 后可直接 v-model（详见 Input 组件页说明）。 -->
+<wc-textarea v-model="intro" placeholder="请输入个人简介" :maxlength="200" autosize></wc-textarea>
 ```
 
 ## 示例
@@ -142,10 +138,12 @@ import { WcTextarea } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                   |
-| ----------- | -------------------------------------- |
-| `wc-input`  | 输入时触发，detail.value               |
-| `wc-change` | 值变更提交时触发（失焦），detail.value |
+| 事件          | 说明                                                            |
+| ------------- | --------------------------------------------------------------- |
+| `wc-input`    | 输入时触发，detail.value                                        |
+| `wc-change`   | 值变更提交时触发（失焦），detail.value                          |
+| 原生 `input`  | 与 `wc-input` 同时机伴发在宿主上，供框架 v-model / onInput 消费 |
+| 原生 `change` | 与 `wc-change` 同时机伴发在宿主上                               |
 
 ### CSS 变量
 

@@ -14,26 +14,27 @@
 **事件**
 
 - `wc-change`：选中时触发，detail.value
+- 原生 `input` / `change`：选中时伴发在宿主上（bubbles + composed），供框架监听；注意 `value` 属性是表单提交值，Vue 不走文本 v-model（见下）
 
 **React 用法**
 
 ```tsx
 import { WcRadio } from '@wc-kit/react';
 
-<WcRadio name="city" value="beijing" checked={city === 'beijing'} onWcChange={setCity}>
+// 受控：onChange 直接监听原生 change 事件（包装组件已内置事件映射）
+<WcRadio name="city" value="beijing" checked={city === 'beijing'} onChange={() => setCity('beijing')}>
   北京
 </WcRadio>
-<WcRadio name="city" value="shanghai" checked={city === 'shanghai'} onWcChange={setCity}>
+<WcRadio name="city" value="shanghai" checked={city === 'shanghai'} onChange={() => setCity('shanghai')}>
   上海
-</WcRadio>
+</WcRadio>;
 ```
 
 **Vue 用法**
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-change（detail.value）。 -->
+     value 属性保留为表单提交值，选中态绑 checked： -->
 <wc-radio
   name="city"
   value="beijing"
@@ -42,14 +43,10 @@ import { WcRadio } from '@wc-kit/react';
 >
   北京
 </wc-radio>
-<wc-radio
-  name="city"
-  value="shanghai"
-  :checked="city === 'shanghai'"
-  @wc-change="(e) => (city = e.detail.value)"
->
-  上海
-</wc-radio>
+
+<!-- 或加 type="radio" 走 Vue 的单选通道，直接 v-model（value 即选项值）： -->
+<wc-radio type="radio" name="city" v-model="city" value="beijing">北京</wc-radio>
+<wc-radio type="radio" name="city" v-model="city" value="shanghai">上海</wc-radio>
 ```
 
 ## 示例
@@ -112,9 +109,10 @@ import { WcRadio } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                     |
-| ----------- | ------------------------ |
-| `wc-change` | 选中时触发，detail.value |
+| 事件                    | 说明                                                                 |
+| ----------------------- | -------------------------------------------------------------------- |
+| `wc-change`             | 选中时触发，detail.value                                             |
+| 原生 `input` / `change` | 选中时伴发在宿主上，供框架监听（v-model 走 radio 通道时消费 change） |
 
 ### 插槽
 

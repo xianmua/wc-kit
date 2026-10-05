@@ -17,36 +17,23 @@ Home/End 边界）。基于 ElementInternals 接入原生 form，value / name / 
 
 - `wc-input`：拖动过程中持续触发，detail.value
 - `wc-change`：松手提交时触发，detail.value
+- 原生 `input` / `change`：分别与 wc-input / wc-change 同时机伴发在宿主上（bubbles + composed），供框架双向绑定直接消费
 
 **React 用法**
 
 ```tsx
 import { WcSlider } from '@wc-kit/react';
 
-<WcSlider
-  value={volume}
-  min={0}
-  max={100}
-  step={5}
-  onWcInput={(e) => setVolume(e.detail.value)}
-  onWcChange={(e) => console.log('提交', e.detail.value)}
-/>;
+// 受控：onInput 持续跟踪、onChange 提交（包装组件已内置事件映射）
+<WcSlider value={volume} min={0} max={100} step={5} onInput={(e) => setVolume(e.target.value)} />;
 ```
 
 **Vue 用法**
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-input / wc-change（detail.value）。
-     value 为 number，建议用 .prop 绑定（.value="volume"）避免字符串化。 -->
-<wc-slider
-  .value="volume"
-  :min="0"
-  :max="100"
-  :step="5"
-  @wc-input="(e) => (volume = e.detail.value)"
-></wc-slider>
+     vite 配置一次 isCustomElement 后可直接 v-model（详见 Input 组件页说明）。 -->
+<wc-slider v-model="volume" :min="0" :max="100" :step="5"></wc-slider>
 ```
 
 ## 示例
@@ -138,10 +125,12 @@ import { WcSlider } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                             |
-| ----------- | -------------------------------- |
-| `wc-input`  | 拖动过程中持续触发，detail.value |
-| `wc-change` | 松手提交时触发，detail.value     |
+| 事件          | 说明                                                            |
+| ------------- | --------------------------------------------------------------- |
+| `wc-input`    | 拖动过程中持续触发，detail.value                                |
+| `wc-change`   | 松手提交时触发，detail.value                                    |
+| 原生 `input`  | 与 `wc-input` 同时机伴发在宿主上，供框架 v-model / onInput 消费 |
+| 原生 `change` | 与 `wc-change` 同时机伴发在宿主上                               |
 
 ### CSS Parts
 

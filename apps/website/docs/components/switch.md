@@ -6,6 +6,7 @@
 **属性**
 
 - `checked`：开启状态，布尔，默认 false
+- `value`：选中状态的布尔代理（与 checked 双向同步），供框架 v-model / 受控绑定直接用
 - `checkedValue`：开启时提交到表单的值，string，默认 'on'
 - `uncheckedValue`：关闭时提交到表单的值，string，默认 ''（为空则不提交）
 - `label`：无障碍标签（无默认插槽文本时使用）
@@ -15,32 +16,24 @@
 **事件**
 
 - `wc-change`：切换时触发，detail.checked
+- 原生 `input` / `change`：切换时伴发在宿主上（bubbles + composed），配合 value 布尔代理供框架双向绑定直接消费
 
 **React 用法**
 
 ```tsx
 import { WcSwitch } from '@wc-kit/react';
 
-<WcSwitch
-  checked={enabled}
-  checkedValue="1"
-  uncheckedValue="0"
-  onWcChange={(e) => setEnabled(e.detail.checked)}
-/>;
+// 受控：checked + onChange（原生 change 事件，包装组件已内置事件映射）
+<WcSwitch checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />;
 ```
 
 **Vue 用法**
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-change（detail.checked）。 -->
-<wc-switch
-  :checked="enabled"
-  checked-value="1"
-  unchecked-value="0"
-  @wc-change="(e) => (enabled = e.detail.checked)"
-></wc-switch>
+     vite 配置一次 isCustomElement 后可直接 v-model（绑定 value 布尔代理）。 -->
+<wc-switch v-model="enabled"></wc-switch>
+<wc-switch v-model="notice">消息通知</wc-switch>
 ```
 
 ## 示例
@@ -117,18 +110,20 @@ import { WcSwitch } from '@wc-kit/react';
 
 ### 属性
 
-| 属性             | attribute        | 类型      | 默认值  | 说明                                 |
-| ---------------- | ---------------- | --------- | ------- | ------------------------------------ |
-| `checked`        | `checked`        | `boolean` | `false` | 开启状态                             |
-| `checkedValue`   | `checkedvalue`   | `string`  | `'on'`  | 开启时提交到表单的值                 |
-| `uncheckedValue` | `uncheckedvalue` | `string`  | `''`    | 关闭时提交到表单的值（为空则不提交） |
-| `label`          | `label`          | `string`  | `''`    | 无障碍标签（无默认插槽文本时使用）   |
+| 属性             | attribute        | 类型      | 默认值  | 说明                                                     |
+| ---------------- | ---------------- | --------- | ------- | -------------------------------------------------------- |
+| `checked`        | `checked`        | `boolean` | `false` | 开启状态                                                 |
+| `value`          | —                | `boolean` | `false` | checked 的布尔代理（getter/setter），供框架 v-model 绑定 |
+| `checkedValue`   | `checkedvalue`   | `string`  | `'on'`  | 开启时提交到表单的值                                     |
+| `uncheckedValue` | `uncheckedvalue` | `string`  | `''`    | 关闭时提交到表单的值（为空则不提交）                     |
+| `label`          | `label`          | `string`  | `''`    | 无障碍标签（无默认插槽文本时使用）                       |
 
 ### 事件
 
-| 事件        | 说明                       |
-| ----------- | -------------------------- |
-| `wc-change` | 切换时触发，detail.checked |
+| 事件                    | 说明                                                                  |
+| ----------------------- | --------------------------------------------------------------------- |
+| `wc-change`             | 切换时触发，detail.checked                                            |
+| 原生 `input` / `change` | 切换时伴发在宿主上，配合 value 布尔代理供框架 v-model / onChange 消费 |
 
 ### 插槽
 

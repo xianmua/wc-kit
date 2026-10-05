@@ -23,17 +23,15 @@ value / name / disabled 可随表单提交与重置。支持键盘导航（Enter
 
 - `wc-change`：选中值变化时触发，detail.value / detail.label
 - `wc-clear`：点击清除按钮后触发
+- 原生 `input` / `change`：选中时伴发在宿主上（bubbles + composed），供框架双向绑定（v-model / bind:value / onChange）直接消费
 
 **React 用法**
 
 ```tsx
 import { WcSelect, WcOption } from '@wc-kit/react';
 
-<WcSelect
-  placeholder="请选择城市"
-  clearable
-  onWcChange={(e) => console.log(e.detail.value, e.detail.label)}
->
+// 受控：onChange 直接监听原生 change 事件（包装组件已内置事件映射）
+<WcSelect value={city} placeholder="请选择城市" clearable onChange={(e) => setCity(e.target.value)}>
   <WcOption value="beijing">北京</WcOption>
   <WcOption value="shanghai">上海</WcOption>
 </WcSelect>;
@@ -43,9 +41,8 @@ import { WcSelect, WcOption } from '@wc-kit/react';
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-change（detail.value / detail.label）。 -->
-<wc-select :value="city" @wc-change="(e) => (city = e.detail.value)">
+     vite 配置一次 isCustomElement 后可直接 v-model（详见 Input 组件页说明）。 -->
+<wc-select v-model="city" placeholder="请选择城市">
   <wc-option value="beijing">北京</wc-option>
   <wc-option value="shanghai">上海</wc-option>
 </wc-select>
@@ -217,10 +214,12 @@ import { WcSelect, WcOption } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                          |
-| ----------- | --------------------------------------------- |
-| `wc-change` | 选中值变化时触发，detail.value / detail.label |
-| `wc-clear`  | 点击清除按钮后触发                            |
+| 事件          | 说明                                          |
+| ------------- | --------------------------------------------- |
+| `wc-change`   | 选中值变化时触发，detail.value / detail.label |
+| `wc-clear`    | 点击清除按钮后触发                            |
+| 原生 `input`  | 选中时伴发在宿主上，供框架 v-model 消费       |
+| 原生 `change` | 选中时伴发在宿主上，供 React onChange 消费    |
 
 ### 插槽
 

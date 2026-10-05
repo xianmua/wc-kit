@@ -44,10 +44,10 @@ import { WcForm, WcFormItem, WcInput, WcButton } from '@wc-kit/react';
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      事件为 wc-submit（detail 为 { valid, errors, firstError }）。
-     输入控件不要用原生 v-model，用 :value + @wc-input/@wc-change 同步。 -->
+     表单内输入控件（wc-input/wc-select/wc-textarea 等）配好 isCustomElement 后可直接 v-model。 -->
 <wc-form @wc-submit="(e) => console.log(e.detail)">
   <wc-form-item label="用户名" name="username" required>
-    <wc-input name="username" :value="username" @wc-input="(e) => (username = e.detail.value)" />
+    <wc-input name="username" v-model="username" />
   </wc-form-item>
   <wc-button theme="primary" html-type="submit">提交</wc-button>
   <wc-button type="outline" html-type="reset">重置</wc-button>

@@ -14,13 +14,15 @@
 **事件**
 
 - `wc-change`：选中状态变化时触发，detail.checked / detail.value
+- 原生 `input` / `change`：切换时伴发在宿主上（bubbles + composed），供框架监听；注意 `value` 属性是表单提交值，Vue 不走文本 v-model（见下）
 
 **React 用法**
 
 ```tsx
 import { WcCheckbox } from '@wc-kit/react';
 
-<WcCheckbox checked={agree} onWcChange={(e) => setAgree(e.detail.checked)}>
+// 受控：onChange 直接监听原生 change 事件（包装组件已内置事件映射）
+<WcCheckbox checked={agree} onChange={(e) => setAgree(e.target.checked)}>
   我已阅读并同意用户协议
 </WcCheckbox>;
 ```
@@ -29,11 +31,13 @@ import { WcCheckbox } from '@wc-kit/react';
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-change（detail.checked / detail.value）。 -->
+     value 属性保留为表单提交值，布尔选中态绑 checked： -->
 <wc-checkbox :checked="agree" @wc-change="(e) => (agree = e.detail.checked)">
   我已阅读并同意用户协议
 </wc-checkbox>
+
+<!-- 或加 type="checkbox" 走 Vue 的复选通道，直接 v-model： -->
+<wc-checkbox type="checkbox" v-model="agree">我已阅读并同意用户协议</wc-checkbox>
 ```
 
 ## 示例
@@ -105,9 +109,10 @@ import { WcCheckbox } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                              |
-| ----------- | ------------------------------------------------- |
-| `wc-change` | 选中状态变化时触发，detail.checked / detail.value |
+| 事件                    | 说明                                                                    |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `wc-change`             | 选中状态变化时触发，detail.checked / detail.value                       |
+| 原生 `input` / `change` | 切换时伴发在宿主上，供框架监听（v-model 走 checkbox 通道时消费 change） |
 
 ### 插槽
 

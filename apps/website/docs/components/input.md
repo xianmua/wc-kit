@@ -24,27 +24,29 @@
 - `wc-input`：输入时触发，detail.value
 - `wc-change`：值变更提交时触发（失焦 / 回车），detail.value
 - `wc-clear`：点击清除按钮后触发
+- 原生 `input` / `change`：与 wc-input / wc-change 同时机伴发在宿主上（bubbles + composed），供框架双向绑定（v-model / bind:value / onInput）直接消费
 
 **React 用法**
 
 ```tsx
 import { WcInput } from '@wc-kit/react';
 
-<WcInput placeholder="请输入用户名" clearable onWcChange={(e) => console.log(e.detail.value)} />;
+// 受控：onInput 直接监听原生 input 事件（包装组件已内置事件映射）
+<WcInput
+  value={username}
+  placeholder="请输入用户名"
+  clearable
+  onInput={(e) => setUsername(e.target.value)}
+/>;
 ```
 
 **Vue 用法**
 
 ```html
 <!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
-     不要使用原生 v-model（它绑定 value + 原生 input 事件），
-     组件派发的是 wc-input / wc-change（detail.value）。 -->
-<wc-input
-  :value="username"
-  placeholder="请输入用户名"
-  clearable
-  @wc-input="(e) => (username = e.detail.value)"
-></wc-input>
+     vite 配置一次 isCustomElement 后可直接 v-model：
+     vue({ template: { compilerOptions: { isCustomElement: tag => tag.includes('-') } } }) -->
+<wc-input v-model="username" placeholder="请输入用户名" clearable></wc-input>
 ```
 
 ## 示例
@@ -197,11 +199,13 @@ import { WcInput } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                        |
-| ----------- | ------------------------------------------- |
-| `wc-input`  | 输入时触发，detail.value                    |
-| `wc-change` | 值变更提交时触发（失焦/回车），detail.value |
-| `wc-clear`  | 点击清除按钮后触发                          |
+| 事件          | 说明                                                            |
+| ------------- | --------------------------------------------------------------- |
+| `wc-input`    | 输入时触发，detail.value                                        |
+| `wc-change`   | 值变更提交时触发（失焦/回车），detail.value                     |
+| `wc-clear`    | 点击清除按钮后触发                                              |
+| 原生 `input`  | 与 `wc-input` 同时机伴发在宿主上，供框架 v-model / onInput 消费 |
+| 原生 `change` | 与 `wc-change` 同时机伴发在宿主上                               |
 
 ### 插槽
 
