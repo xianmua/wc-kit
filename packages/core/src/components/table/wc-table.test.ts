@@ -258,4 +258,71 @@ describe('wc-table', () => {
     expect(lastRowName).to.equal('张三');
     expect(lastRow.nextElementSibling!.classList.contains('expanded-row')).to.be.true;
   });
+
+  it('expandRowByClick 点击行切换展开，且 wc-row-click 仍派发', async () => {
+    const el = await fixture<wcTable>(html`
+      <wc-table
+        .columns=${columns}
+        .data=${data}
+        .expandedRowRender=${() => 'x'}
+        expand-row-by-click
+      ></wc-table>
+    `);
+    const rowClicks: unknown[] = [];
+    el.addEventListener('wc-row-click', (e) => rowClicks.push((e as CustomEvent).detail));
+    expect(el.shadowRoot!.querySelector('.expanded-row')).to.not.exist;
+    (el.shadowRoot!.querySelector('tbody tr[part="row"]') as HTMLElement).click();
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('.expanded-row')).to.exist;
+    expect(rowClicks.length).to.equal(1);
+  });
+
+  it('defaultExpandedRowKeys 初始展开（rowKey 键）', async () => {
+    const el = await fixture<wcTable>(html`
+      <wc-table
+        .columns=${columns}
+        .data=${data}
+        row-key="name"
+        .defaultExpandedRowKeys=${['李四']}
+        .expandedRowRender=${(row: wcTableRow) => String(row.name)}
+      ></wc-table>
+    `);
+    const rows = el.shadowRoot!.querySelectorAll('tbody tr[part="row"]');
+    expect(rows[1]!.nextElementSibling!.classList.contains('expanded-row')).to.be.true;
+  });
+
+  it('受控 expandedRowKeys：内部不自行变更，wc-expanded-rows-change 回写后生效', async () => {
+    const el = await fixture<wcTable>(html`
+      <wc-table
+        .columns=${columns}
+        .data=${data}
+        row-key="name"
+        .expandedRowKeys=${[]}
+        .expandedRowRender=${() => 'x'}
+      ></wc-table>
+    `);
+    const changes: unknown[][] = [];
+    el.addEventListener('wc-expanded-rows-change', (e) =>
+      changes.push((e as CustomEvent).detail),
+    );
+    // 点击展开箭头：受控模式下内部状态不变
+    (el.shadowRoot!.querySelector('.expand-btn') as HTMLElement).click();
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('.expanded-row')).to.not.exist;
+
+    // 外部回写 expandedRowKeys 后生效
+    el.expandedRowKeys = ['张三'];
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('.expanded-row')).to.exist;
+    expect(changes.length).to.equal(1); // 之前那次点击派发过
+    expect(changes[0]).to.deep.equal(['张三']);
+  });
+
+  it('columnWidth 设置展开列宽', async () => {
+    const el = await fixture<wcTable>(
+      html`<wc-table .columns=${columns} .data=${data} .expandedRowRender=${() => 'x'} .columnWidth=${64}></wc-table>`,
+    );
+    const th = el.shadowRoot!.querySelector('th.expand-col') as HTMLElement;
+    expect(th.getAttribute('style')).to.contain('64px');
+  });
 });

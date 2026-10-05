@@ -1,4 +1,4 @@
-import { html, LitElement, nothing, type TemplateResult } from 'lit';
+import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import '../empty/wc-empty.js';
@@ -37,6 +37,8 @@ export type wcTableRow = Record<string, unknown>;
  * 展开行：设置 expandedRowRender 后首列出现展开箭头，点击展开/收起，
  * 展开区渲染任意内容（嵌套子表格、详情等）；rowExpandable 可按行禁用，
  * rowKey 指定行唯一键字段（不设则按行对象引用跟踪展开状态）。
+ * antd expandable 对标：expandRowByClick 点击行展开、defaultExpandedRowKeys
+ * 初始展开、expandedRowKeys 受控模式（null = 非受控）、columnWidth 展开列宽。
  *
  * @example
  * ```html
@@ -63,6 +65,7 @@ export type wcTableRow = Record<string, unknown>;
  * @fires wc-sort - 点击可排序列头后派发（detail: { key, order }）
  * @fires wc-row-click - 点击数据行后派发（detail: { row, index }）
  * @fires wc-expand - 行展开/收起后派发（detail: { row, index, expanded }）
+ * @fires wc-expanded-rows-change - 展开行集合变化后派发（detail: 展开键数组，受控模式据此回写 expandedRowKeys）
  */
 export class wcTable extends LitElement {
   static styles = [baseStyles, tableStyles];
@@ -86,7 +89,7 @@ export class wcTable extends LitElement {
   @property({ type: Boolean, reflect: true }) loading = false;
 
   /** 行唯一键字段名（展开状态跟踪用；不设则按行对象引用跟踪） */
-  @property() rowKey = '';
+  @property({ attribute: 'row-key' }) rowKey = '';
 
   /** 展开区渲染函数（设置后首列出现展开箭头），返回模板或文本 */
   @property({ attribute: false })
@@ -96,8 +99,25 @@ export class wcTable extends LitElement {
   @property({ attribute: false })
   rowExpandable?: (row: wcTableRow, index: number) => boolean;
 
+  /** 点击行即切换展开（antd expandRowByClick），默认仅点击展开箭头 */
+  @property({ type: Boolean, attribute: 'expand-row-by-click' }) expandRowByClick = false;
+
+  /** 初始展开行的键集合（非受控，仅首次渲染前生效） */
+  @property({ type: Array, attribute: false })
+  defaultExpandedRowKeys: Array<string | wcTableRow> = [];
+
+  /** 受控展开行的键集合（antd expandedRowKeys；null = 非受控内部自管） */
+  @property({ type: Array, attribute: false })
+  expandedRowKeys: Array<string | wcTableRow> | null = null;
+
+  /** 展开列宽（antd columnWidth，数值 px 或任意 CSS 宽度） */
+  @property() columnWidth: number | string = 48;
+
   /** 已展开行的键集合（rowKey 字段值或行对象引用，内部状态） */
   @state() private expandedKeys = new Set<string | wcTableRow>();
+
+  /** defaultExpandedRowKeys 只在首次更新时播种一次 */
+  private seededDefaults = false;
 
   @state() private sortKey = '';
 
@@ -145,7 +165,10 @@ export class wcTable extends LitElement {
     } else {
       next.delete(key);
     }
-    this.expandedKeys = next;
+    // 受控模式（expandedRowKeys 非 null）以外部为唯一数据源，等待外部回写
+    if (this.expandedRowKeys == null) {
+      this.expandedKeys = next;
+    }
     this.dispatchEvent(
       new CustomEvent('wc-expand', {
         detail: { row, index, expanded },
@@ -153,6 +176,46 @@ export class wcTable extends LitElement {
         composed: true,
       }),
     );
+    this.dispatchEvent(
+      new CustomEvent('wc-expanded-rows-change', {
+        detail: [...next],
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
+  /** 行点击：派发 wc-row-click；expandRowByClick 时同时切换展开 */
+  private onRowClick(row: wcTableRow, index: number, e: Event): void {
+    this.dispatchEvent(
+      new CustomEvent('wc-row-click', {
+        detail: { row, index },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    if (
+      this.expandRowByClick &&
+      this.expandEnabled &&
+      this.rowExpandable?.(row, index) !== false
+    ) {
+      this.toggleExpand(row, index, e);
+    }
+  }
+
+  protected override willUpdate(changed: PropertyValues<this>): void {
+    super.willUpdate(changed);
+    // defaultExpandedRowKeys 仅首次生效（antd 语义：初始展开，之后由交互接管）
+    if (!this.seededDefaults) {
+      this.seededDefaults = true;
+      if (this.expandedRowKeys == null && this.defaultExpandedRowKeys.length > 0) {
+        this.expandedKeys = new Set(this.defaultExpandedRowKeys);
+      }
+    }
+    // 受控模式：外部 expandedRowKeys 变化时同步进内部集合
+    if (changed.has('expandedRowKeys') && this.expandedRowKeys != null) {
+      this.expandedKeys = new Set(this.expandedRowKeys);
+    }
   }
 
   private cellContent(col: wcTableColumn, row: wcTableRow, index: number): TemplateResult | string {
@@ -169,7 +232,17 @@ export class wcTable extends LitElement {
       <tr>
         ${
           this.expandEnabled
-            ? html`<th class="expand-col" part="th" scope="col" aria-label="展开"></th>`
+            ? html`<th
+                class="expand-col"
+                part="th"
+                scope="col"
+                aria-label="展开"
+                style=${
+                  typeof this.columnWidth === 'number'
+                    ? `width: ${this.columnWidth}px`
+                    : `width: ${this.columnWidth}`
+                }
+              ></th>`
             : nothing
         }
         ${this.columns.map((col) => {
@@ -227,17 +300,7 @@ export class wcTable extends LitElement {
             const expandable = this.expandEnabled && this.rowExpandable?.(row, index) !== false;
             const expanded = expandable && this.expandedKeys.has(this.rowId(row));
             return html`
-              <tr
-                part="row"
-                @click=${() =>
-                  this.dispatchEvent(
-                    new CustomEvent('wc-row-click', {
-                      detail: { row, index },
-                      bubbles: true,
-                      composed: true,
-                    }),
-                  )}
-              >
+              <tr part="row" @click=${(e: Event) => this.onRowClick(row, index, e)}>
                 ${
                   this.expandEnabled
                     ? expandable

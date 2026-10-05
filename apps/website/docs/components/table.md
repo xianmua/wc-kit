@@ -840,16 +840,21 @@ useEffect(() => {
 | `size`               | `size`             | `'small' \| 'medium' \| 'large'` | `'medium'` | 密度                                       |
 | `loading`            | `loading`          | `boolean`                        | `false`    | 加载中（叠加遮罩）                         |
 | `rowKey`             | `row-key`          | `string`                         | `''`       | 行唯一键字段名（展开状态跟踪用）           |
+| `expandRowByClick`   | `expand-row-by-click` | `boolean`                     | `false`    | 点击行即切换展开（antd expandRowByClick）  |
+| `defaultExpandedRowKeys` | —（仅 JS 属性） | `(string \| object)[]`          | `[]`       | 初始展开行的键集合（非受控）               |
+| `expandedRowKeys`    | —（仅 JS 属性）    | `(string \| object)[] \| null`   | `null`     | 受控展开行集合；null = 非受控内部自管      |
+| `columnWidth`        | —（仅 JS 属性）    | `number \| string`               | `48`       | 展开列宽（antd columnWidth）               |
 | `expandedRowRender`  | —（仅 JS 属性）    | `(row, index) => TemplateResult \| string` | — | 展开区渲染函数，设置后出现展开列 |
 | `rowExpandable`      | —（仅 JS 属性）    | `(row, index) => boolean`        | —          | 判断行是否可展开（默认全部可展开）         |
 
 ### 事件
 
-| 事件           | 说明                                            |
-| -------------- | ----------------------------------------------- |
-| `wc-sort`      | 点击可排序列头后派发（detail: { key, order }）  |
-| `wc-row-click` | 点击数据行后派发（detail: { row, index }）      |
-| `wc-expand`    | 行展开/收起后派发（detail: { row, index, expanded }） |
+| 事件                     | 说明                                            |
+| ------------------------ | ----------------------------------------------- |
+| `wc-sort`                | 点击可排序列头后派发（detail: { key, order }）  |
+| `wc-row-click`           | 点击数据行后派发（detail: { row, index }）      |
+| `wc-expand`              | 行展开/收起后派发（detail: { row, index, expanded }） |
+| `wc-expanded-rows-change` | 展开行集合变化后派发（detail: 展开键数组，受控模式据此回写 `expandedRowKeys`） |
 
 ### 插槽
 

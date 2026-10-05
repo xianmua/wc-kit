@@ -60,6 +60,7 @@ export const WcTable = createWrapper({
     onWcSort: 'wc-sort',
     onWcRowClick: 'wc-row-click',
     onWcExpand: 'wc-expand',
+    onWcExpandedRowsChange: 'wc-expanded-rows-change',
   },
   displayName: 'WcTable',
 });
@@ -71,6 +72,7 @@ export const WcTablePager = createWrapper({
     onWcSort: 'wc-sort',
     onWcRowClick: 'wc-row-click',
     onWcExpand: 'wc-expand',
+    onWcExpandedRowsChange: 'wc-expanded-rows-change',
     onWcChange: 'wc-change',
     onWcSizeChange: 'wc-size-change',
   },

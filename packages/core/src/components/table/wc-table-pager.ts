@@ -36,6 +36,7 @@ import type { wcSortOrder, wcTableColumn, wcTableRow, wcTableSize } from './wc-t
  * @fires wc-sort - 内部表格列头排序后派发（detail: { key, order }）
  * @fires wc-row-click - 点击数据行后派发（detail: { row, index }，index 为当前页内序号）
  * @fires wc-expand - 行展开/收起后派发（detail: { row, index, expanded }）
+ * @fires wc-expanded-rows-change - 展开行集合变化后派发（detail: 展开键数组）
  * @fires wc-change - 页码变化后派发（detail: { current, previous }）
  * @fires wc-size-change - 每页条数变化后派发（detail: { pageSize, previous, current }）
  */
@@ -75,7 +76,7 @@ export class wcTablePager extends LitElement {
   @property({ attribute: 'page-size-options' }) pageSizeOptions = '10,20,50,100';
 
   /** 行唯一键字段名（透传 wc-table.rowKey，展开状态跟踪用） */
-  @property() rowKey = '';
+  @property({ attribute: 'row-key' }) rowKey = '';
 
   /** 展开区渲染函数（透传，设置后表格出现展开列） */
   @property({ attribute: false })
@@ -84,6 +85,20 @@ export class wcTablePager extends LitElement {
   /** 判断行是否可展开（透传，默认全部可展开） */
   @property({ attribute: false })
   rowExpandable?: (row: wcTableRow, index: number) => boolean;
+
+  /** 点击行即切换展开（透传） */
+  @property({ type: Boolean, attribute: 'expand-row-by-click' }) expandRowByClick = false;
+
+  /** 初始展开行的键集合（透传，非受控） */
+  @property({ type: Array, attribute: false })
+  defaultExpandedRowKeys: Array<string | wcTableRow> = [];
+
+  /** 受控展开行的键集合（透传；null = 非受控） */
+  @property({ type: Array, attribute: false })
+  expandedRowKeys: Array<string | wcTableRow> | null = null;
+
+  /** 展开列宽（透传） */
+  @property() columnWidth: number | string = 48;
 
   @state() private currentPage = 1;
 
@@ -157,6 +172,10 @@ export class wcTablePager extends LitElement {
           .rowKey=${this.rowKey}
           .expandedRowRender=${this.expandedRowRender}
           .rowExpandable=${this.rowExpandable}
+          .expandedRowKeys=${this.expandedRowKeys}
+          .defaultExpandedRowKeys=${this.defaultExpandedRowKeys}
+          .columnWidth=${this.columnWidth}
+          ?expand-row-by-click=${this.expandRowByClick}
           ?striped=${this.striped}
           ?bordered=${this.bordered}
           size=${this.size}
