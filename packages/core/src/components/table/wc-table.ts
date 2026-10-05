@@ -34,6 +34,10 @@ export type wcTableRow = Record<string, unknown>;
  * （派发 wc-sort），行点击派发 wc-row-click；空数据回退 wc-empty
  * （empty 插槽可覆盖），loading 属性叠加加载遮罩。
  *
+ * 展开行：设置 expandedRowRender 后首列出现展开箭头，点击展开/收起，
+ * 展开区渲染任意内容（嵌套子表格、详情等）；rowExpandable 可按行禁用，
+ * rowKey 指定行唯一键字段（不设则按行对象引用跟踪展开状态）。
+ *
  * @example
  * ```html
  * <wc-table id="demo"></wc-table>
@@ -52,10 +56,13 @@ export type wcTableRow = Record<string, unknown>;
  * @csspart head - thead
  * @csspart body - tbody
  * @csspart sort - 排序图标区
+ * @csspart expand - 展开按钮
+ * @csspart expanded-row - 展开内容行
  * @csspart empty - 空状态区
  * @csspart loading - 加载遮罩
  * @fires wc-sort - 点击可排序列头后派发（detail: { key, order }）
  * @fires wc-row-click - 点击数据行后派发（detail: { row, index }）
+ * @fires wc-expand - 行展开/收起后派发（detail: { row, index, expanded }）
  */
 export class wcTable extends LitElement {
   static styles = [baseStyles, tableStyles];
@@ -77,6 +84,20 @@ export class wcTable extends LitElement {
 
   /** 加载中（叠加遮罩） */
   @property({ type: Boolean, reflect: true }) loading = false;
+
+  /** 行唯一键字段名（展开状态跟踪用；不设则按行对象引用跟踪） */
+  @property() rowKey = '';
+
+  /** 展开区渲染函数（设置后首列出现展开箭头），返回模板或文本 */
+  @property({ attribute: false })
+  expandedRowRender?: (row: wcTableRow, index: number) => TemplateResult | string;
+
+  /** 判断行是否可展开（默认全部可展开） */
+  @property({ attribute: false })
+  rowExpandable?: (row: wcTableRow, index: number) => boolean;
+
+  /** 已展开行的键集合（rowKey 字段值或行对象引用，内部状态） */
+  @state() private expandedKeys = new Set<string | wcTableRow>();
 
   @state() private sortKey = '';
 
@@ -103,6 +124,37 @@ export class wcTable extends LitElement {
     );
   }
 
+  /** 是否启用展开列 */
+  private get expandEnabled(): boolean {
+    return typeof this.expandedRowRender === 'function';
+  }
+
+  /** 行的展开跟踪键：rowKey 字段值或行对象引用 */
+  private rowId(row: wcTableRow): string | wcTableRow {
+    return this.rowKey ? String(row[this.rowKey] ?? '') : row;
+  }
+
+  private toggleExpand(row: wcTableRow, index: number, e: Event): void {
+    // 阻止冒泡到行，避免同时触发 wc-row-click
+    e.stopPropagation();
+    const key = this.rowId(row);
+    const expanded = !this.expandedKeys.has(key);
+    const next = new Set(this.expandedKeys);
+    if (expanded) {
+      next.add(key);
+    } else {
+      next.delete(key);
+    }
+    this.expandedKeys = next;
+    this.dispatchEvent(
+      new CustomEvent('wc-expand', {
+        detail: { row, index, expanded },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
   private cellContent(col: wcTableColumn, row: wcTableRow, index: number): TemplateResult | string {
     const rendered = col.render?.(row, index);
     if (rendered != null && rendered !== '') {
@@ -115,6 +167,11 @@ export class wcTable extends LitElement {
   private renderHead(): TemplateResult {
     return html`<thead part="head">
       <tr>
+        ${
+          this.expandEnabled
+            ? html`<th class="expand-col" part="th" scope="col" aria-label="展开"></th>`
+            : nothing
+        }
         ${this.columns.map((col) => {
           const isSorted = this.sortKey === col.key && this.sortOrder !== null;
           return html`<th
@@ -166,30 +223,63 @@ export class wcTable extends LitElement {
       <table part="table">
         ${this.renderHead()}
         <tbody part="body" ?hidden=${!hasData}>
-          ${this.displayData.map(
-            (row, index) => html`<tr
-              part="row"
-              @click=${() =>
-                this.dispatchEvent(
-                  new CustomEvent('wc-row-click', {
-                    detail: { row, index },
-                    bubbles: true,
-                    composed: true,
-                  }),
+          ${this.displayData.map((row, index) => {
+            const expandable = this.expandEnabled && this.rowExpandable?.(row, index) !== false;
+            const expanded = expandable && this.expandedKeys.has(this.rowId(row));
+            return html`
+              <tr
+                part="row"
+                @click=${() =>
+                  this.dispatchEvent(
+                    new CustomEvent('wc-row-click', {
+                      detail: { row, index },
+                      bubbles: true,
+                      composed: true,
+                    }),
+                  )}
+              >
+                ${
+                  this.expandEnabled
+                    ? expandable
+                      ? html`<td part="td" class="expand-cell">
+                          <button
+                            class="expand-btn"
+                            part="expand"
+                            aria-expanded=${expanded ? 'true' : 'false'}
+                            aria-label=${expanded ? '收起' : '展开'}
+                            @click=${(e: Event) => this.toggleExpand(row, index, e)}
+                          >
+                            <wc-icon name="chevron-right"></wc-icon>
+                          </button>
+                        </td>`
+                      : html`<td part="td" class="expand-cell"></td>`
+                    : nothing
+                }
+                ${this.columns.map(
+                  (col) => html`<td
+                    part="td"
+                    class=${col.align ? `align-${col.align}` : nothing}
+                    ?ellipsis=${col.ellipsis === true}
+                    title=${col.ellipsis ? String(row[col.key] ?? '') : nothing}
+                  >
+                    ${this.cellContent(col, row, index)}
+                  </td>`,
                 )}
-            >
-              ${this.columns.map(
-                (col) => html`<td
-                  part="td"
-                  class=${col.align ? `align-${col.align}` : nothing}
-                  ?ellipsis=${col.ellipsis === true}
-                  title=${col.ellipsis ? String(row[col.key] ?? '') : nothing}
-                >
-                  ${this.cellContent(col, row, index)}
-                </td>`,
-              )}
-            </tr>`,
-          )}
+              </tr>
+              ${
+                expanded
+                  ? html`<tr class="expanded-row" part="expanded-row">
+                      <td
+                        class="expanded-cell"
+                        colspan=${this.columns.length + 1}
+                      >
+                        ${this.expandedRowRender!(row, index)}
+                      </td>
+                    </tr>`
+                  : nothing
+              }
+            `;
+          })}
         </tbody>
       </table>
       <div class="empty" part="empty" ?hidden=${hasData}>

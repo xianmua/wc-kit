@@ -121,6 +121,46 @@ export const tableStyles = css`
     text-align: center;
   }
 
+  /* ---- 展开行 ---- */
+  .expand-col {
+    width: 48px;
+  }
+
+  .expand-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border: none;
+    background: none;
+    color: var(--wc-color-text-secondary);
+    cursor: pointer;
+    border-radius: var(--wc-radius-small);
+  }
+
+  .expand-btn:hover {
+    color: var(--wc-color-primary);
+  }
+
+  .expand-btn wc-icon {
+    display: block;
+    transition: transform var(--wc-duration-fast) var(--wc-easing-standard);
+  }
+
+  .expand-btn[aria-expanded='true'] wc-icon {
+    transform: rotate(90deg);
+  }
+
+  /* 展开内容行：浅底色，且不跟随行 hover 高亮 */
+  tr.expanded-row td,
+  tbody tr.expanded-row:hover td {
+    background-color: var(--wc-color-bg-container-secondary);
+  }
+
+  .expanded-cell {
+    padding: var(--wc-space-3) var(--wc-space-4);
+  }
+
   .empty {
     padding: var(--wc-space-4) 0;
   }

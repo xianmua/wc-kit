@@ -64,6 +64,7 @@ const customCell = ref(null)
 const loadingTable = ref(null)
 const emptyTable = ref(null)
 const emptySlotTable = ref(null)
+const expandTable = ref(null)
 
 // 基础演示数据：「姓名」列可排序
 const baseColumns = [
@@ -131,6 +132,43 @@ onMounted(() => {
   }
   if (emptyTable.value) emptyTable.value.columns = baseColumns
   if (emptySlotTable.value) emptySlotTable.value.columns = baseColumns
+  if (expandTable.value) {
+    expandTable.value.columns = [
+      { key: 'order', title: '订单号' },
+      { key: 'customer', title: '客户' },
+      { key: 'total', title: '金额', align: 'right' },
+    ]
+    expandTable.value.rowKey = 'order'
+    expandTable.value.data = [
+      {
+        order: 'SO-2026-001',
+        customer: '张三',
+        total: 1280,
+        items: [
+          { product: '机械键盘', qty: 1, price: 680 },
+          { product: '无线鼠标', qty: 2, price: 300 },
+        ],
+      },
+      {
+        order: 'SO-2026-002',
+        customer: '李四',
+        total: 450,
+        items: [{ product: '显示器支架', qty: 1, price: 450 }],
+      },
+    ]
+    // 展开区嵌套子表格：返回元素（也可返回 lit 模板或文本）
+    expandTable.value.expandedRowRender = (row) => {
+      const sub = document.createElement('wc-table')
+      sub.columns = [
+        { key: 'product', title: '商品' },
+        { key: 'qty', title: '数量', align: 'right', width: 80 },
+        { key: 'price', title: '单价', align: 'right', width: 120 },
+      ]
+      sub.size = 'small'
+      sub.data = row.items
+      return sub
+    }
+  }
 })
 </script>
 
@@ -677,25 +715,141 @@ useEffect(() => {
 :::
 ::::
 
+### 展开行子表格
+
+<div class="demo-block">
+  <wc-table ref="expandTable"></wc-table>
+</div>
+
+设置 `expandedRowRender(row, index)` 后首列出现展开箭头，展开区可渲染任意内容
+（嵌套子表格、详情表单等），返回 lit 模板、DOM 元素或文本。`rowExpandable`
+可按行禁用展开；`rowKey` 指定行唯一键字段，排序后展开状态跟随行不错位。
+
+:::: details 查看代码
+::: code-group
+
+```html [HTML]
+<wc-table id="table"></wc-table>
+
+<script type="module">
+  const table = document.getElementById('table');
+
+  table.columns = [
+    { key: 'order', title: '订单号' },
+    { key: 'customer', title: '客户' },
+    { key: 'total', title: '金额', align: 'right' },
+  ];
+  table.data = [
+    { order: 'SO-2026-001', customer: '张三', total: 1280,
+      items: [
+        { product: '机械键盘', qty: 1, price: 680 },
+        { product: '无线鼠标', qty: 2, price: 300 },
+      ] },
+    { order: 'SO-2026-002', customer: '李四', total: 450,
+      items: [{ product: '显示器支架', qty: 1, price: 450 }] },
+  ];
+
+  // 展开区嵌套子表格：返回 DOM 元素（也可返回 lit 模板）
+  table.expandedRowRender = (row) => {
+    const sub = document.createElement('wc-table');
+    sub.columns = [
+      { key: 'product', title: '商品' },
+      { key: 'qty', title: '数量', align: 'right', width: 80 },
+      { key: 'price', title: '单价', align: 'right', width: 120 },
+    ];
+    sub.size = 'small';
+    sub.data = row.items;
+    return sub;
+  };
+</script>
+```
+
+```vue [Vue]
+<template>
+  <wc-table ref="table"></wc-table>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+const table = ref(null);
+
+onMounted(() => {
+  table.value.columns = [
+    { key: 'order', title: '订单号' },
+    { key: 'customer', title: '客户' },
+    { key: 'total', title: '金额', align: 'right' },
+  ];
+  table.value.data = [/* 同上 */];
+  // 展开区嵌套子表格
+  table.value.expandedRowRender = (row) => {
+    const sub = document.createElement('wc-table');
+    sub.columns = [
+      { key: 'product', title: '商品' },
+      { key: 'qty', title: '数量', align: 'right', width: 80 },
+      { key: 'price', title: '单价', align: 'right', width: 120 },
+    ];
+    sub.size = 'small';
+    sub.data = row.items;
+    return sub;
+  };
+});
+</script>
+```
+
+```tsx [React]
+import { WcTable } from '@wc-kit/react';
+
+<WcTable ref={table}></WcTable>;
+
+useEffect(() => {
+  table.current.columns = [
+    { key: 'order', title: '订单号' },
+    { key: 'customer', title: '客户' },
+    { key: 'total', title: '金额', align: 'right' },
+  ];
+  table.current.data = [/* 同上 */];
+  // 展开区嵌套子表格
+  table.current.expandedRowRender = (row) => {
+    const sub = document.createElement('wc-table');
+    sub.columns = [
+      { key: 'product', title: '商品' },
+      { key: 'qty', title: '数量', align: 'right', width: 80 },
+      { key: 'price', title: '单价', align: 'right', width: 120 },
+    ];
+    sub.size = 'small';
+    sub.data = row.items;
+    return sub;
+  };
+}, []);
+```
+
+:::
+::::
+
 ## API
 
 ### 属性
 
-| 属性       | attribute  | 类型                             | 默认值     | 说明               |
-| ---------- | ---------- | -------------------------------- | ---------- | ------------------ |
-| `columns`  | `columns`  | `wcTableColumn[]`                | `[]`       | 列配置             |
-| `data`     | `data`     | `wcTableRow[]`                   | `[]`       | 行数据             |
-| `striped`  | `striped`  | `boolean`                        | `false`    | 斑马纹             |
-| `bordered` | `bordered` | `boolean`                        | `false`    | 全边框             |
-| `size`     | `size`     | `'small' \| 'medium' \| 'large'` | `'medium'` | 密度               |
-| `loading`  | `loading`  | `boolean`                        | `false`    | 加载中（叠加遮罩） |
+| 属性                 | attribute          | 类型                             | 默认值     | 说明                                       |
+| -------------------- | ------------------ | -------------------------------- | ---------- | ------------------------------------------ |
+| `columns`            | `columns`          | `wcTableColumn[]`                | `[]`       | 列配置                                     |
+| `data`               | `data`             | `wcTableRow[]`                   | `[]`       | 行数据                                     |
+| `striped`            | `striped`          | `boolean`                        | `false`    | 斑马纹                                     |
+| `bordered`           | `bordered`         | `boolean`                        | `false`    | 全边框                                     |
+| `size`               | `size`             | `'small' \| 'medium' \| 'large'` | `'medium'` | 密度                                       |
+| `loading`            | `loading`          | `boolean`                        | `false`    | 加载中（叠加遮罩）                         |
+| `rowKey`             | `row-key`          | `string`                         | `''`       | 行唯一键字段名（展开状态跟踪用）           |
+| `expandedRowRender`  | —（仅 JS 属性）    | `(row, index) => TemplateResult \| string` | — | 展开区渲染函数，设置后出现展开列 |
+| `rowExpandable`      | —（仅 JS 属性）    | `(row, index) => boolean`        | —          | 判断行是否可展开（默认全部可展开）         |
 
 ### 事件
 
-| 事件           | 说明                                           |
-| -------------- | ---------------------------------------------- |
-| `wc-sort`      | 点击可排序列头后派发（detail: { key, order }） |
-| `wc-row-click` | 点击数据行后派发（detail: { row, index }）     |
+| 事件           | 说明                                            |
+| -------------- | ----------------------------------------------- |
+| `wc-sort`      | 点击可排序列头后派发（detail: { key, order }）  |
+| `wc-row-click` | 点击数据行后派发（detail: { row, index }）      |
+| `wc-expand`    | 行展开/收起后派发（detail: { row, index, expanded }） |
 
 ### 插槽
 
@@ -705,4 +859,4 @@ useEffect(() => {
 
 ### CSS Parts
 
-`wrapper` / `table` / `head` / `body` / `sort` / `empty` / `loading`
+`wrapper` / `table` / `head` / `body` / `sort` / `expand` / `expanded-row` / `empty` / `loading`

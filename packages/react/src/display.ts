@@ -56,7 +56,11 @@ export const WcListItem = createWrapper({
 export const WcTable = createWrapper({
   tagName: 'wc-table',
   elementClass: wcTable,
-  events: { onWcSort: 'wc-sort', onWcRowClick: 'wc-row-click' },
+  events: {
+    onWcSort: 'wc-sort',
+    onWcRowClick: 'wc-row-click',
+    onWcExpand: 'wc-expand',
+  },
   displayName: 'WcTable',
 });
 
@@ -66,6 +70,7 @@ export const WcTablePager = createWrapper({
   events: {
     onWcSort: 'wc-sort',
     onWcRowClick: 'wc-row-click',
+    onWcExpand: 'wc-expand',
     onWcChange: 'wc-change',
     onWcSizeChange: 'wc-size-change',
   },

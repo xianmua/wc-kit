@@ -178,4 +178,84 @@ describe('wc-table', () => {
     expect(el.shadowRoot!.querySelector('.loading')).to.exist;
     expect(el.shadowRoot!.querySelector('.empty')!.hasAttribute('hidden')).to.be.false;
   });
+
+  it('设置 expandedRowRender 后出现展开列，点击展开/收起', async () => {
+    const el = await fixture<wcTable>(html`
+      <wc-table
+        .columns=${columns}
+        .data=${data}
+        .expandedRowRender=${(row: wcTableRow) => html`<wc-table
+          .columns=${columns}
+          .data=${[{ name: `${row.name}的子项`, age: 1, city: '子' }]}
+        ></wc-table>`}
+      ></wc-table>
+    `);
+    expect(el.shadowRoot!.querySelectorAll('th').length).to.equal(4);
+    expect(el.shadowRoot!.querySelector('.expanded-row')).to.not.exist;
+
+    const btn = el.shadowRoot!.querySelector('.expand-btn') as HTMLButtonElement;
+    expect(btn.getAttribute('aria-expanded')).to.equal('false');
+    btn.click();
+    await el.updateComplete;
+    expect(btn.getAttribute('aria-expanded')).to.equal('true');
+    const expandedRow = el.shadowRoot!.querySelector('.expanded-row')!;
+    expect(expandedRow).to.exist;
+    // 展开区渲染嵌套子表格（colspan 覆盖全部列）
+    expect(expandedRow.querySelector('td')!.getAttribute('colspan')).to.equal('4');
+    expect(expandedRow.querySelector('wc-table')).to.exist;
+
+    btn.click();
+    await el.updateComplete;
+    expect(el.shadowRoot!.querySelector('.expanded-row')).to.not.exist;
+  });
+
+  it('展开点击派发 wc-expand 且不触发 wc-row-click', async () => {
+    const el = await fixture<wcTable>(
+      html`<wc-table .columns=${columns} .data=${data} .expandedRowRender=${() => 'x'}></wc-table>`,
+    );
+    const expands: Array<{ index: number; expanded: boolean }> = [];
+    const rowClicks: unknown[] = [];
+    el.addEventListener('wc-expand', (e) => expands.push((e as CustomEvent).detail));
+    el.addEventListener('wc-row-click', (e) => rowClicks.push(e));
+    (el.shadowRoot!.querySelector('.expand-btn') as HTMLElement).click();
+    expect(expands).to.deep.equal([{ row: data[0], index: 0, expanded: true }]);
+    expect(rowClicks).to.deep.equal([]);
+  });
+
+  it('rowExpandable 返回 false 的行无展开按钮但保留占位单元格', async () => {
+    const el = await fixture<wcTable>(html`
+      <wc-table
+        .columns=${columns}
+        .data=${data}
+        .expandedRowRender=${() => 'x'}
+        .rowExpandable=${(row: wcTableRow) => row.name !== '张三'}
+      ></wc-table>
+    `);
+    const btns = el.shadowRoot!.querySelectorAll('.expand-btn');
+    expect(btns.length).to.equal(2); // 张三不可展开
+    const cells = el.shadowRoot!.querySelectorAll('tbody tr');
+    expect(cells[0]!.querySelectorAll('td').length).to.equal(4); // 占位空单元格仍在
+  });
+
+  it('rowKey 用字段值跟踪展开状态，排序后展开保持', async () => {
+    const el = await fixture<wcTable>(html`
+      <wc-table
+        .columns=${columns}
+        .data=${data}
+        row-key="name"
+        .expandedRowRender=${(row: wcTableRow) => String(row.name)}
+      ></wc-table>
+    `);
+    (el.shadowRoot!.querySelector('.expand-btn') as HTMLElement).click(); // 展开张三
+    await el.updateComplete;
+    // 点击年龄列排序，张三（28）排到最后，展开状态应跟随行
+    const ageTh = el.shadowRoot!.querySelectorAll('th')[1] as HTMLElement;
+    ageTh.click();
+    await el.updateComplete;
+    const rows = el.shadowRoot!.querySelectorAll('tbody tr[part="row"]');
+    const lastRow = rows[rows.length - 1]!;
+    const lastRowName = lastRow.querySelector('td:nth-child(2)')!.textContent!.trim();
+    expect(lastRowName).to.equal('张三');
+    expect(lastRow.nextElementSibling!.classList.contains('expanded-row')).to.be.true;
+  });
 });

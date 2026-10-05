@@ -128,6 +128,9 @@ useEffect(() => {
 | `showJumper`        | `show-jumper`         | `boolean`                        | `false`           | 分页区显示跳页输入框         |
 | `showSizeChanger`   | `show-size-changer`   | `boolean`                        | `false`           | 分页区显示每页条数选择器     |
 | `pageSizeOptions`   | `page-size-options`   | `string`                         | `'10,20,50,100'`  | 每页条数可选项（逗号分隔）   |
+| `rowKey`            | `row-key`             | `string`                         | `''`              | 行唯一键字段名（展开状态跟踪用，透传） |
+| `expandedRowRender` | —（仅 JS 属性）       | `(row, index) => TemplateResult \| string` | —       | 展开区渲染函数，设置后出现展开列（透传） |
+| `rowExpandable`     | —（仅 JS 属性）       | `(row, index) => boolean`        | —                 | 判断行是否可展开（透传）     |
 
 只读镜像：`page`（当前页）、`pageSize`（每页条数）、`pageCount`（总页数）。
 
@@ -137,6 +140,7 @@ useEffect(() => {
 | ---------------- | ------------------------------------------- |
 | `wc-sort`        | 列头排序后派发（detail: { key, order }）    |
 | `wc-row-click`   | 点击数据行（detail: { row, index }，页内序号） |
+| `wc-expand`      | 行展开/收起（detail: { row, index, expanded }） |
 | `wc-change`      | 页码变化（detail: { current, previous }）   |
 | `wc-size-change` | 每页条数变化（detail: { pageSize, previous, current }） |
 
