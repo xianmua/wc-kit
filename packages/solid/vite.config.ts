@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: [/^lit/, /^solid-js/, /^@wc\//],
+      external: [/^lit/, /^solid-js/, /^@wc-kit\//],
     },
     sourcemap: true,
   },
