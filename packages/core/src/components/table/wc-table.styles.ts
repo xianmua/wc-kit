@@ -151,10 +151,17 @@ export const tableStyles = css`
     transform: rotate(90deg);
   }
 
-  /* 展开内容行：浅底色，且不跟随行 hover 高亮 */
+  /* 展开内容行：浅底色，且不跟随行 hover 高亮（antd expanded row 同款浅灰底） */
   tr.expanded-row td,
   tbody tr.expanded-row:hover td {
     background-color: var(--wc-color-bg-container-secondary);
+  }
+
+  /* 嵌套子表格：antd 同款层次——展开区浅灰底上，子表格自持白底浮起，
+     否则透明单元格透出灰色底，整块看起来是纯色 */
+  .expanded-cell wc-table {
+    display: block;
+    background-color: var(--wc-color-bg-container);
   }
 
   .expanded-cell {
