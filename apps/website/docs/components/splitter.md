@@ -291,12 +291,12 @@ splitter.addEventListener('wc-resize-end', (e) => {
 
 #### CSS 变量
 
-| 变量                              | 说明                                       |
-| --------------------------------- | ------------------------------------------ |
-| `--wc-splitter-divider-bg`        | 分隔线颜色（默认 `--wc-color-border`）     |
-| `--wc-splitter-divider-hover-bg`  | 分隔线 hover / 拖拽 / 聚焦色（默认主题色） |
+| 变量                              | 说明                                                  |
+| --------------------------------- | ----------------------------------------------------- |
+| `--wc-splitter-divider-bg`        | 分隔线颜色（默认 `--wc-color-border`）                |
+| `--wc-splitter-divider-hover-bg`  | 分隔线 hover / 拖拽 / 聚焦色（默认主题色）            |
 | `--wc-splitter-grip-bg`           | 线中央拖拽把手颜色（默认 `--wc-color-text-disabled`） |
-| `--wc-splitter-focus-ring-offset` | 分隔条聚焦环偏移（默认 -2px）              |
+| `--wc-splitter-focus-ring-offset` | 分隔条聚焦环偏移（默认 -2px）                         |
 
 ### wc-splitter-panel
 

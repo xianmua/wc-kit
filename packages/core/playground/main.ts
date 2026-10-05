@@ -241,9 +241,7 @@ class PlaygroundApp extends LitElement {
               layout="vertical"
               style="height: 200px; border: 1px solid var(--wc-color-border); border-radius: var(--wc-radius-medium); overflow: hidden"
             >
-              <wc-splitter-panel
-                collapsible
-                style="--wc-splitter-panel-padding: 12px"
+              <wc-splitter-panel collapsible style="--wc-splitter-panel-padding: 12px"
                 >上</wc-splitter-panel
               >
               <wc-splitter-panel
@@ -262,7 +260,9 @@ class PlaygroundApp extends LitElement {
             <wc-layout
               style="height: 260px; border: 1px solid var(--wc-color-border); border-radius: var(--wc-radius-medium); overflow: hidden; text-align: center"
             >
-              <wc-layout-header style="background: var(--wc-color-gray-100)">Header</wc-layout-header>
+              <wc-layout-header style="background: var(--wc-color-gray-100)"
+                >Header</wc-layout-header
+              >
               <wc-layout>
                 <wc-layout-sider collapsible collapsed-width="0">
                   <div style="padding: 12px">Sider</div>
@@ -271,7 +271,9 @@ class PlaygroundApp extends LitElement {
                   >Content</wc-layout-content
                 >
               </wc-layout>
-              <wc-layout-footer style="background: var(--wc-color-gray-100)">Footer</wc-layout-footer>
+              <wc-layout-footer style="background: var(--wc-color-gray-100)"
+                >Footer</wc-layout-footer
+              >
             </wc-layout>
           </div>
         </section>

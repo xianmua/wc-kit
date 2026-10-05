@@ -34,11 +34,7 @@ Enter/Space 选择、Esc 关闭）。基于 ElementInternals 接入原生 form�
 ```tsx
 import { WcDatePicker } from '@wc-kit/react';
 
-<WcDatePicker
-  value={date}
-  clearable
-  onWcChange={(e) => setDate(e.detail.value)}
-/>;
+<WcDatePicker value={date} clearable onWcChange={(e) => setDate(e.detail.value)} />;
 ```
 
 **Vue 用法**
@@ -250,18 +246,18 @@ import { WcDatePicker } from '@wc-kit/react';
 
 ### 属性
 
-| 属性             | attribute           | 类型                                             | 默认值      | 说明                                   |
-| ---------------- | ------------------- | ------------------------------------------------ | ----------- | -------------------------------------- |
-| `range`          | `range`             | `boolean`                                        | `false`     | 范围选择模式（双月面板，两次点击选区间）|
-| `placeholder`    | `placeholder`       | `string`                                         | `''`        | 占位提示，默认取 i18n 文案             |
-| `label`          | `label`             | `string`                                         | `''`        | 无障碍标签                             |
-| `size`           | `size`              | `'small' \| 'medium' \| 'large'`                 | `'medium'`  | 尺寸                                   |
-| `status`         | `status`            | `'default' \| 'success' \| 'warning' \| 'error'` | `'default'` | 校验状态（影响边框色）                 |
-| `clearable`      | `clearable`         | `boolean`                                        | `false`     | 可清除                                 |
-| `readonly`       | `readonly`          | `boolean`                                        | `false`     | 只读                                   |
-| `open`           | `open`              | `boolean`                                        | `false`     | 面板是否展开（内部状态）               |
-| `name`           | `name`              | `string`                                         | `''`        | 表单字段名（随表单提交/重置）          |
-| `disabled`       | `disabled`          | `boolean`                                        | `false`     | 禁用                                   |
+| 属性          | attribute     | 类型                                             | 默认值      | 说明                                     |
+| ------------- | ------------- | ------------------------------------------------ | ----------- | ---------------------------------------- |
+| `range`       | `range`       | `boolean`                                        | `false`     | 范围选择模式（双月面板，两次点击选区间） |
+| `placeholder` | `placeholder` | `string`                                         | `''`        | 占位提示，默认取 i18n 文案               |
+| `label`       | `label`       | `string`                                         | `''`        | 无障碍标签                               |
+| `size`        | `size`        | `'small' \| 'medium' \| 'large'`                 | `'medium'`  | 尺寸                                     |
+| `status`      | `status`      | `'default' \| 'success' \| 'warning' \| 'error'` | `'default'` | 校验状态（影响边框色）                   |
+| `clearable`   | `clearable`   | `boolean`                                        | `false`     | 可清除                                   |
+| `readonly`    | `readonly`    | `boolean`                                        | `false`     | 只读                                     |
+| `open`        | `open`        | `boolean`                                        | `false`     | 面板是否展开（内部状态）                 |
+| `name`        | `name`        | `string`                                         | `''`        | 表单字段名（随表单提交/重置）            |
+| `disabled`    | `disabled`    | `boolean`                                        | `false`     | 禁用                                     |
 
 ::: tip 兼容说明
 `<wc-date-range-picker>` 标签保留且等价于 `<wc-date-picker range>`，仅为兼容旧代码存在，新代码请直接用 `range` 属性。
@@ -269,17 +265,17 @@ import { WcDatePicker } from '@wc-kit/react';
 
 ### 事件
 
-| 事件        | 说明                                                                  |
-| ----------- | --------------------------------------------------------------------- |
+| 事件        | 说明                                                                         |
+| ----------- | ---------------------------------------------------------------------------- |
 | `wc-change` | 选中变化时触发；单值模式 detail.value 为 YYYY-MM-DD，范围模式为 [start, end] |
-| `wc-clear`  | 点击清除按钮后触发                                                    |
+| `wc-clear`  | 点击清除按钮后触发                                                           |
 
 ### CSS 变量
 
-| 变量                                | 说明                       |
-| ----------------------------------- | -------------------------- |
-| `--wc-date-picker-height`           | 触发器高度                 |
-| `--wc-date-range-picker-cell-size`  | 范围模式日历格尺寸（默认 28px，随 size 变化） |
+| 变量                               | 说明                                          |
+| ---------------------------------- | --------------------------------------------- |
+| `--wc-date-picker-height`          | 触发器高度                                    |
+| `--wc-date-range-picker-cell-size` | 范围模式日历格尺寸（默认 28px，随 size 变化） |
 
 ### CSS Parts
 

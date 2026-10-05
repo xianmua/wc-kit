@@ -72,7 +72,14 @@ const data = Array.from({ length: 25 }, (_, i) => ({
 </script>
 
 <template>
-  <wc-table-pager :columns="columns" :data="data" striped show-total show-jumper show-size-changer></wc-table-pager>
+  <wc-table-pager
+    :columns="columns"
+    :data="data"
+    striped
+    show-total
+    show-jumper
+    show-size-changer
+  ></wc-table-pager>
 </template>
 ```
 
@@ -107,44 +114,44 @@ const data = Array.from({ length: 25 }, (_, i) => ({
 
 ### 属性
 
-| 属性                | attribute             | 类型                             | 默认值            | 说明                         |
-| ------------------- | --------------------- | -------------------------------- | ----------------- | ---------------------------- |
-| `columns`           | —                     | `wcTableColumn[]`                | `[]`              | 列配置（同 wc-table）        |
-| `data`              | —                     | `wcTableRow[]`                   | `[]`              | **全量**行数据（内部切片）   |
-| `striped`           | `striped`             | `boolean`                        | `false`           | 斑马纹                       |
-| `bordered`          | `bordered`            | `boolean`                        | `false`           | 全边框                       |
-| `size`              | `size`                | `'small' \| 'medium' \| 'large'` | `'medium'`        | 密度                         |
-| `loading`           | `loading`             | `boolean`                        | `false`           | 加载中（叠加遮罩）           |
-| `showTotal`         | `show-total`          | `boolean`                        | `false`           | 显示总条数（独立靠左，其余控件靠右） |
-| `showJumper`        | `show-jumper`         | `boolean`                        | `false`           | 分页区显示跳页输入框         |
-| `showSizeChanger`   | `show-size-changer`   | `boolean`                        | `false`           | 分页区显示每页条数选择器     |
-| `pageSizeOptions`   | `page-size-options`   | `string`                         | `'10,20,50,100'`  | 每页条数可选项（逗号分隔）   |
-| `rowKey`            | `row-key`             | `string`                         | `''`              | 行唯一键字段名（展开状态跟踪用，透传） |
-| `expandRowByClick`  | `expand-row-by-click` | `boolean`                        | `false`           | 点击行即切换展开（透传）     |
-| `defaultExpandedRowKeys` | —（仅 JS 属性）  | `(string \| object)[]`           | `[]`              | 初始展开行的键集合（透传，非受控） |
-| `expandedRowKeys`   | —（仅 JS 属性）       | `(string \| object)[] \| null`   | `null`            | 受控展开行集合（透传；null = 非受控） |
-| `columnWidth`       | —（仅 JS 属性）       | `number \| string`               | `48`              | 展开列宽（透传）             |
-| `expandedRowRender` | —（仅 JS 属性）       | `(row, index) => TemplateResult \| string` | —       | 展开区渲染函数，设置后出现展开列（透传） |
-| `rowExpandable`     | —（仅 JS 属性）       | `(row, index) => boolean`        | —                 | 判断行是否可展开（透传）     |
+| 属性                     | attribute             | 类型                                       | 默认值           | 说明                                     |
+| ------------------------ | --------------------- | ------------------------------------------ | ---------------- | ---------------------------------------- |
+| `columns`                | —                     | `wcTableColumn[]`                          | `[]`             | 列配置（同 wc-table）                    |
+| `data`                   | —                     | `wcTableRow[]`                             | `[]`             | **全量**行数据（内部切片）               |
+| `striped`                | `striped`             | `boolean`                                  | `false`          | 斑马纹                                   |
+| `bordered`               | `bordered`            | `boolean`                                  | `false`          | 全边框                                   |
+| `size`                   | `size`                | `'small' \| 'medium' \| 'large'`           | `'medium'`       | 密度                                     |
+| `loading`                | `loading`             | `boolean`                                  | `false`          | 加载中（叠加遮罩）                       |
+| `showTotal`              | `show-total`          | `boolean`                                  | `false`          | 显示总条数（独立靠左，其余控件靠右）     |
+| `showJumper`             | `show-jumper`         | `boolean`                                  | `false`          | 分页区显示跳页输入框                     |
+| `showSizeChanger`        | `show-size-changer`   | `boolean`                                  | `false`          | 分页区显示每页条数选择器                 |
+| `pageSizeOptions`        | `page-size-options`   | `string`                                   | `'10,20,50,100'` | 每页条数可选项（逗号分隔）               |
+| `rowKey`                 | `row-key`             | `string`                                   | `''`             | 行唯一键字段名（展开状态跟踪用，透传）   |
+| `expandRowByClick`       | `expand-row-by-click` | `boolean`                                  | `false`          | 点击行即切换展开（透传）                 |
+| `defaultExpandedRowKeys` | —（仅 JS 属性）       | `(string \| object)[]`                     | `[]`             | 初始展开行的键集合（透传，非受控）       |
+| `expandedRowKeys`        | —（仅 JS 属性）       | `(string \| object)[] \| null`             | `null`           | 受控展开行集合（透传；null = 非受控）    |
+| `columnWidth`            | —（仅 JS 属性）       | `number \| string`                         | `48`             | 展开列宽（透传）                         |
+| `expandedRowRender`      | —（仅 JS 属性）       | `(row, index) => TemplateResult \| string` | —                | 展开区渲染函数，设置后出现展开列（透传） |
+| `rowExpandable`          | —（仅 JS 属性）       | `(row, index) => boolean`                  | —                | 判断行是否可展开（透传）                 |
 
 只读镜像：`page`（当前页）、`pageSize`（每页条数）、`pageCount`（总页数）。
 
 ### 事件（穿透自内部组件）
 
-| 事件             | 说明                                        |
-| ---------------- | ------------------------------------------- |
-| `wc-sort`        | 列头排序后派发（detail: { key, order }）    |
-| `wc-row-click`   | 点击数据行（detail: { row, index }，页内序号） |
-| `wc-expand`      | 行展开/收起（detail: { row, index, expanded }） |
-| `wc-expanded-rows-change` | 展开行集合变化（detail: 展开键数组）   |
-| `wc-change`      | 页码变化（detail: { current, previous }）   |
-| `wc-size-change` | 每页条数变化（detail: { pageSize, previous, current }） |
+| 事件                      | 说明                                                    |
+| ------------------------- | ------------------------------------------------------- |
+| `wc-sort`                 | 列头排序后派发（detail: { key, order }）                |
+| `wc-row-click`            | 点击数据行（detail: { row, index }，页内序号）          |
+| `wc-expand`               | 行展开/收起（detail: { row, index, expanded }）         |
+| `wc-expanded-rows-change` | 展开行集合变化（detail: 展开键数组）                    |
+| `wc-change`               | 页码变化（detail: { current, previous }）               |
+| `wc-size-change`          | 每页条数变化（detail: { pageSize, previous, current }） |
 
 ### 插槽
 
-| 名称    | 说明                                    |
-| ------- | --------------------------------------- |
-| `empty` | 空状态（透传给内部 wc-table）           |
+| 名称    | 说明                          |
+| ------- | ----------------------------- |
+| `empty` | 空状态（透传给内部 wc-table） |
 
 ### CSS Parts
 

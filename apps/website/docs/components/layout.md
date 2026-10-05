@@ -113,7 +113,9 @@ import { WcLayout, WcLayoutContent, WcLayoutFooter, WcLayoutHeader } from '@wc-k
     <wc-layout-header style="background:var(--wc-color-gray-200);">Header</wc-layout-header>
     <wc-layout>
       <wc-layout-sider style="color:#fff;">Sider</wc-layout-sider>
-      <wc-layout-content style="background:var(--wc-color-bg-container);">Content</wc-layout-content>
+      <wc-layout-content style="background:var(--wc-color-bg-container);"
+        >Content</wc-layout-content
+      >
     </wc-layout>
     <wc-layout-footer style="background:var(--wc-color-gray-200);">Footer</wc-layout-footer>
   </wc-layout>
@@ -121,13 +123,21 @@ import { WcLayout, WcLayoutContent, WcLayoutFooter, WcLayoutHeader } from '@wc-k
 ```
 
 ```tsx [React]
-import { WcLayout, WcLayoutContent, WcLayoutFooter, WcLayoutHeader, WcLayoutSider } from '@wc-kit/react';
+import {
+  WcLayout,
+  WcLayoutContent,
+  WcLayoutFooter,
+  WcLayoutHeader,
+  WcLayoutSider,
+} from '@wc-kit/react';
 
 <WcLayout style={{ height: 220, textAlign: 'center' }}>
   <WcLayoutHeader style={{ background: 'var(--wc-color-gray-200)' }}>Header</WcLayoutHeader>
   <WcLayout>
     <WcLayoutSider style={{ color: '#fff' }}>Sider</WcLayoutSider>
-    <WcLayoutContent style={{ background: 'var(--wc-color-bg-container)' }}>Content</WcLayoutContent>
+    <WcLayoutContent style={{ background: 'var(--wc-color-bg-container)' }}>
+      Content
+    </WcLayoutContent>
   </WcLayout>
   <WcLayoutFooter style={{ background: 'var(--wc-color-gray-200)' }}>Footer</WcLayoutFooter>
 </WcLayout>;
@@ -175,7 +185,9 @@ import { WcLayout, WcLayoutContent, WcLayoutFooter, WcLayoutHeader, WcLayoutSide
     </wc-layout-sider>
     <wc-layout>
       <wc-layout-header style="background:var(--wc-color-gray-200);">Header</wc-layout-header>
-      <wc-layout-content style="background:var(--wc-color-bg-container);">Content</wc-layout-content>
+      <wc-layout-content style="background:var(--wc-color-bg-container);"
+        >Content</wc-layout-content
+      >
     </wc-layout>
   </wc-layout>
 </template>
@@ -190,7 +202,9 @@ import { WcLayout, WcLayoutContent, WcLayoutHeader, WcLayoutSider } from '@wc-ki
   </WcLayoutSider>
   <WcLayout>
     <WcLayoutHeader style={{ background: 'var(--wc-color-gray-200)' }}>Header</WcLayoutHeader>
-    <WcLayoutContent style={{ background: 'var(--wc-color-bg-container)' }}>Content</WcLayoutContent>
+    <WcLayoutContent style={{ background: 'var(--wc-color-bg-container)' }}>
+      Content
+    </WcLayoutContent>
   </WcLayout>
 </WcLayout>;
 ```
@@ -204,25 +218,25 @@ import { WcLayout, WcLayoutContent, WcLayoutHeader, WcLayoutSider } from '@wc-ki
 
 ### wc-layout
 
-| 属性        | attribute   | 类型      | 默认值  | 说明                                   |
-| ----------- | ----------- | --------- | ------- | -------------------------------------- |
-| `hasSider`  | `has-sider` | `boolean` | `false` | 强制横向排列（默认检测到 sider 时自动） |
+| 属性       | attribute   | 类型      | 默认值  | 说明                                    |
+| ---------- | ----------- | --------- | ------- | --------------------------------------- |
+| `hasSider` | `has-sider` | `boolean` | `false` | 强制横向排列（默认检测到 sider 时自动） |
 
 ### wc-layout-sider
 
-| 属性             | attribute         | 类型                                                          | 默认值   | 说明                                       |
-| ---------------- | ----------------- | ------------------------------------------------------------- | -------- | ------------------------------------------ |
-| `collapsible`    | `collapsible`     | `boolean`                                                     | `false`  | 开启折叠能力（显示默认触发器）             |
-| `collapsed`      | `collapsed`       | `boolean`                                                     | `false`  | 当前是否折叠                               |
-| `breakpoint`     | `breakpoint`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'xxl'`               | `'lg'`   | 视口低于断点时自动折叠                     |
-| `width`          | `width`           | `number`                                                      | `200`    | 展开宽度（px）                             |
-| `collapsedWidth` | `collapsed-width` | `number`                                                      | `80`     | 折叠宽度（px），设为 0 时完全隐藏          |
-| `theme`          | `theme`           | `'dark' \| 'light'`                                           | `'dark'` | 主题                                       |
+| 属性             | attribute         | 类型                                            | 默认值   | 说明                              |
+| ---------------- | ----------------- | ----------------------------------------------- | -------- | --------------------------------- |
+| `collapsible`    | `collapsible`     | `boolean`                                       | `false`  | 开启折叠能力（显示默认触发器）    |
+| `collapsed`      | `collapsed`       | `boolean`                                       | `false`  | 当前是否折叠                      |
+| `breakpoint`     | `breakpoint`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'xxl'` | `'lg'`   | 视口低于断点时自动折叠            |
+| `width`          | `width`           | `number`                                        | `200`    | 展开宽度（px）                    |
+| `collapsedWidth` | `collapsed-width` | `number`                                        | `80`     | 折叠宽度（px），设为 0 时完全隐藏 |
+| `theme`          | `theme`           | `'dark' \| 'light'`                             | `'dark'` | 主题                              |
 
 ### 事件
 
-| 名称         | 说明                                   | detail                    |
-| ------------ | -------------------------------------- | ------------------------- |
+| 名称          | 说明                                  | detail                     |
+| ------------- | ------------------------------------- | -------------------------- |
 | `wc-collapse` | 折叠状态变化（触发器点击 / 断点变化） | `{ isCollapsed: boolean }` |
 
 ### 插槽
@@ -234,17 +248,17 @@ import { WcLayout, WcLayoutContent, WcLayoutHeader, WcLayoutSider } from '@wc-ki
 
 ### CSS 自定义属性
 
-| 名称                                 | 说明                                    |
-| ------------------------------------ | --------------------------------------- |
-| `--wc-layout-header-padding`         | 头部内边距（默认 16px 24px）            |
-| `--wc-layout-header-bg`              | 头部背景                                |
-| `--wc-layout-footer-padding`         | 底部内边距（默认 24px）                 |
-| `--wc-layout-footer-bg`              | 底部背景                                |
-| `--wc-layout-sider-width`            | 侧栏展开宽度（默认 200px）              |
-| `--wc-layout-sider-collapsed-width`  | 侧栏折叠宽度（默认 80px）               |
-| `--wc-layout-sider-bg`               | 侧栏背景                                |
-| `--wc-layout-sider-color`            | 侧栏文字色                              |
-| `--wc-layout-sider-trigger-bg`       | 折叠触发器背景                          |
+| 名称                                | 说明                         |
+| ----------------------------------- | ---------------------------- |
+| `--wc-layout-header-padding`        | 头部内边距（默认 16px 24px） |
+| `--wc-layout-header-bg`             | 头部背景                     |
+| `--wc-layout-footer-padding`        | 底部内边距（默认 24px）      |
+| `--wc-layout-footer-bg`             | 底部背景                     |
+| `--wc-layout-sider-width`           | 侧栏展开宽度（默认 200px）   |
+| `--wc-layout-sider-collapsed-width` | 侧栏折叠宽度（默认 80px）    |
+| `--wc-layout-sider-bg`              | 侧栏背景                     |
+| `--wc-layout-sider-color`           | 侧栏文字色                   |
+| `--wc-layout-sider-trigger-bg`      | 折叠触发器背景               |
 
 ### CSS Parts
 

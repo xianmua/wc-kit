@@ -302,24 +302,24 @@ function Demo() {
 
 ### 属性
 
-| 属性              | attribute           | 类型      | 默认值  | 说明                                               |
-| ----------------- | ------------------- | --------- | ------- | -------------------------------------------------- |
-| `total`           | `total`             | `number`  | `0`     | 数据总条数                                         |
-| `pageSize`        | `page-size`         | `number`  | `10`    | 每页条数                                           |
-| `current`         | `current`           | `number`  | `1`     | 当前页（1 开始）                                   |
-| `foldedPageCount` | `folded-page-count` | `number`  | `5`     | 折叠时中间窗口显示的页码数量                       |
-| `showTotal`       | `show-total`        | `boolean` | `false` | 显示总条数                                         |
-| `showJumper`      | `show-jumper`       | `boolean` | `false` | 显示跳页输入框（Enter 跳转，自动夹紧到有效范围）   |
-| `showSizeChanger` | `show-size-changer` | `boolean` | `false` | 显示每页条数选择器                                 |
-| `pageSizeOptions` | `page-size-options` | `string`  | `'10,20,50,100'` | 每页条数可选项（逗号分隔）                |
-| `simple`          | `simple`            | `boolean` | `false` | 极简模式：前后翻页按钮 + 「当前页/总页数」跳转输入 |
-| `disabled`        | `disabled`          | `boolean` | `false` | 整体禁用                                           |
+| 属性              | attribute           | 类型      | 默认值           | 说明                                               |
+| ----------------- | ------------------- | --------- | ---------------- | -------------------------------------------------- |
+| `total`           | `total`             | `number`  | `0`              | 数据总条数                                         |
+| `pageSize`        | `page-size`         | `number`  | `10`             | 每页条数                                           |
+| `current`         | `current`           | `number`  | `1`              | 当前页（1 开始）                                   |
+| `foldedPageCount` | `folded-page-count` | `number`  | `5`              | 折叠时中间窗口显示的页码数量                       |
+| `showTotal`       | `show-total`        | `boolean` | `false`          | 显示总条数                                         |
+| `showJumper`      | `show-jumper`       | `boolean` | `false`          | 显示跳页输入框（Enter 跳转，自动夹紧到有效范围）   |
+| `showSizeChanger` | `show-size-changer` | `boolean` | `false`          | 显示每页条数选择器                                 |
+| `pageSizeOptions` | `page-size-options` | `string`  | `'10,20,50,100'` | 每页条数可选项（逗号分隔）                         |
+| `simple`          | `simple`            | `boolean` | `false`          | 极简模式：前后翻页按钮 + 「当前页/总页数」跳转输入 |
+| `disabled`        | `disabled`          | `boolean` | `false`          | 整体禁用                                           |
 
 ### 事件
 
-| 事件             | 说明                                                     |
-| ---------------- | -------------------------------------------------------- |
-| `wc-change`      | 页码变化后触发（含用户点击与跳页输入）                   |
+| 事件             | 说明                                                        |
+| ---------------- | ----------------------------------------------------------- |
+| `wc-change`      | 页码变化后触发（含用户点击与跳页输入）                      |
 | `wc-size-change` | 每页条数变化后触发（show-size-changer，含夹紧后的 current） |
 
 ### CSS Parts

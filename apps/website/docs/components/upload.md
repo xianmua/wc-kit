@@ -80,7 +80,12 @@ function showError(e) {
 </script>
 
 <template>
-  <wc-upload :requestMethod="simulate" multiple @wc-success="showSuccess" @wc-error="showError"></wc-upload>
+  <wc-upload
+    :requestMethod="simulate"
+    multiple
+    @wc-success="showSuccess"
+    @wc-error="showError"
+  ></wc-upload>
 </template>
 ```
 
@@ -150,7 +155,14 @@ function showError(e) {
 </script>
 
 <template>
-  <wc-upload :requestMethod="simulate" draggable multiple max="3" @wc-exceed="showExceed" @wc-error="showError">
+  <wc-upload
+    :requestMethod="simulate"
+    draggable
+    multiple
+    max="3"
+    @wc-exceed="showExceed"
+    @wc-error="showError"
+  >
     <span slot="tip">单个文件不超过 500MB，最多 3 个</span>
   </wc-upload>
 </template>
