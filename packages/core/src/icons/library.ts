@@ -30,9 +30,25 @@ const libraries = new Map<string, WcIconLibrary>();
 /** 解析结果缓存，key 为 `${library}:${name}`，避免同一图标重复请求/解析 */
 const cache = new Map<string, Promise<string>>();
 
+/** 注册变化监听：解决「组件首渲染早于图标注册」的时序竞态（未命中后可订阅重试） */
+const registerListeners = new Set<() => void>();
+
+/** 订阅注册变化，返回取消订阅函数 */
+export function onIconRegister(cb: () => void): () => void {
+  registerListeners.add(cb);
+  return () => registerListeners.delete(cb);
+}
+
+function notifyRegister(): void {
+  // 必须快照后遍历：回调（wc-icon 的重试 loadIcon）会同步退订/重订，
+  // 直接遍历 Set 会把新增项也纳入迭代，造成无限同步循环卡死页面
+  for (const cb of [...registerListeners]) cb();
+}
+
 /** 注册本地图标（同步），同名覆盖 */
 export function registerIcon(name: string, svg: string): void {
   registry.set(name, svg);
+  notifyRegister();
 }
 
 export function getIcon(name: string): string | undefined {
@@ -42,6 +58,7 @@ export function getIcon(name: string): string | undefined {
 /** 注册分组图标库，同名覆盖。'default' 为内置保留库名 */
 export function registerIconLibrary(name: string, library: WcIconLibrary): void {
   libraries.set(name, library);
+  notifyRegister();
 }
 
 export function getIconLibrary(name: string): WcIconLibrary | undefined {
@@ -94,6 +111,8 @@ export async function resolveIcon(libraryName: string, iconName: string): Promis
 
   const raw = await pending;
   if (!raw) {
+    // 未命中不缓存，否则注册晚于首渲染时重试永远拿到空的旧结果
+    cache.delete(cacheKey);
     if (import.meta.env?.DEV && registry.size === 0 && libraryName === 'default') {
       console.warn(
         `[wc-icon] 未找到图标 "${iconName}"，且注册表为空。` +

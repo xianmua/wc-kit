@@ -1,4 +1,4 @@
-import { wcDialog, wcDrawer, wcMessage, wcTooltip, wcPopconfirm } from '@wc/core';
+import { wcDialog, wcDrawer, wcMessage, wcTooltip, wcPopconfirm } from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
 export const WcDialog = createWrapper({

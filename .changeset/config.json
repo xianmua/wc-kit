@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@wc/core", "@wc/react", "@wc/vue", "@wc/tokens"]],
+  "linked": [["@wc-kit/core", "@wc-kit/react", "@wc-kit/vue"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

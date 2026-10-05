@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcRadio } from '@wc/core';
+import type { wcRadio } from '@wc-kit/core';
 
 const meta: Meta<wcRadio> = {
   title: '表单组件/Radio 单选框',
@@ -38,7 +38,7 @@ const meta: Meta<wcRadio> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcRadio } from '@wc/react';
+import { WcRadio } from '@wc-kit/react';
 
 <WcRadio name="city" value="beijing" checked={city === 'beijing'} onWcChange={setCity}>
   北京
@@ -51,7 +51,7 @@ import { WcRadio } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-change（detail.value）。 -->
 <wc-radio name="city" value="beijing" :checked="city === 'beijing'" @wc-change="(e) => (city = e.detail.value)">

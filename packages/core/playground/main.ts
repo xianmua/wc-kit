@@ -9,7 +9,7 @@ import {
   tokensCss,
   type WcTheme,
 } from '../src/index.js';
-import type { WcButton } from '../src/index.js';
+import type { WcButton, wcUpload, wcUploadRequestMethod } from '../src/index.js';
 import './main.css';
 
 // 注册内置图标 + 恢复持久化主题
@@ -61,6 +61,28 @@ class PlaygroundApp extends LitElement {
       loading.close();
       message.success('上传完成');
     }, 2000);
+  }
+
+  /** 模拟上传：进度步进，文件名含 "fail" 时失败 */
+  private simulateUpload: wcUploadRequestMethod = (file, { onProgress, onSuccess, onError }) => {
+    let percent = 0;
+    const timer = window.setInterval(() => {
+      percent = Math.min(100, percent + 15 + Math.random() * 20);
+      onProgress(Math.round(percent));
+      if (percent >= 100) {
+        window.clearInterval(timer);
+        if (file.name.includes('fail')) {
+          onError('模拟上传失败');
+        } else {
+          onSuccess({ url: `https://example.com/${file.name}` });
+        }
+      }
+    }, 180);
+  };
+
+  private submitManualUpload() {
+    const el = this.renderRoot.querySelector('#demo-upload-manual') as wcUpload | null;
+    el?.submit();
   }
 
   private renderSwatches() {
@@ -125,6 +147,24 @@ class PlaygroundApp extends LitElement {
             <wc-button size="small" theme="primary">小</wc-button>
             <wc-button size="medium" theme="primary">中</wc-button>
             <wc-button size="large" theme="primary">大</wc-button>
+          </div>
+          <div class="row">
+            <wc-button><wc-icon name="search" slot="icon"></wc-icon>搜索</wc-button>
+            <wc-button icon-position="end" theme="primary"
+              ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
+            >
+            <wc-button theme="primary"><wc-icon name="search" slot="icon"></wc-icon></wc-button>
+          </div>
+          <div class="row">
+            <wc-button-group>
+              <wc-button theme="primary"
+                ><wc-icon name="arrow-left" slot="icon"></wc-icon>上一步</wc-button
+              >
+              <wc-button theme="primary">第 2 步</wc-button>
+              <wc-button theme="primary" icon-position="end"
+                ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
+              >
+            </wc-button-group>
           </div>
         </section>
 
@@ -551,6 +591,68 @@ class PlaygroundApp extends LitElement {
         </section>
 
         <section>
+          <h3>图片（预览 / 失败占位 / 懒加载）</h3>
+          <div class="row">
+            <wc-image
+              style="--wc-image-width: 200px; --wc-image-height: 130px"
+              src="https://picsum.photos/id/1015/900/600"
+              alt="示例图片"
+              fit="cover"
+              shape="rounded"
+              preview
+            ></wc-image>
+            <wc-image
+              style="--wc-image-width: 200px; --wc-image-height: 130px"
+              src="https://invalid.example.com/broken.png"
+              alt="加载失败"
+              shape="rounded"
+            ></wc-image>
+            <wc-image
+              style="--wc-image-width: 200px; --wc-image-height: 130px"
+              src="https://picsum.photos/id/1016/900/600"
+              alt="懒加载图片"
+              fit="cover"
+              shape="rounded"
+              lazy
+            ></wc-image>
+          </div>
+        </section>
+
+        <section>
+          <h3>Upload 上传（点击 / 拖拽 / 手动）</h3>
+          <div style="display: grid; gap: 20px; max-width: 480px">
+            <wc-upload
+              .requestMethod=${this.simulateUpload}
+              multiple
+              @wc-success=${(e: CustomEvent) => message.success(`上传成功：${e.detail.file.name}`)}
+              @wc-error=${(e: CustomEvent) => message.error(`上传失败：${e.detail.file.name}`)}
+            ></wc-upload>
+            <wc-upload
+              class="demo-upload"
+              .requestMethod=${this.simulateUpload}
+              draggable
+              multiple
+              max="3"
+              @wc-exceed=${(e: CustomEvent) => message.warning(`最多上传 ${e.detail.max} 个文件`)}
+            >
+              <span slot="tip">单个文件不超过 500MB，最多 3 个（文件名含 fail 模拟失败）</span>
+            </wc-upload>
+            <div>
+              <wc-upload
+                id="demo-upload-manual"
+                .requestMethod=${this.simulateUpload}
+                auto-upload="false"
+              ></wc-upload>
+              <div style="margin-top: 8px">
+                <wc-button size="small" variant="outline" @click=${this.submitManualUpload}
+                  >开始上传</wc-button
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
           <h3>语义色令牌（切主题观察变化）</h3>
           <div class="swatches">${this.renderSwatches()}</div>
         </section>
@@ -560,25 +662,30 @@ class PlaygroundApp extends LitElement {
 }
 
 customElements.define('playground-app', PlaygroundApp);
-document.querySelector('#app')!.append(document.createElement('playground-app'));
+const appEl = document.createElement('playground-app');
+document.querySelector('#app')!.append(appEl);
 
-// Table 演示数据（columns/data 为复杂属性，需 JS 赋值）
-const demoTable = document.querySelector('#demo-table') as {
-  columns: unknown[];
-  data: unknown[];
-};
-demoTable.columns = [
-  { key: 'name', title: '姓名', sortable: true },
-  { key: 'age', title: '年龄', align: 'right', width: 100 },
-  { key: 'city', title: '城市', ellipsis: true },
-  {
-    key: 'tags',
-    title: '标签',
-    render: (row: { tags: string[] }) => row.tags.join(' / '),
-  },
-];
-demoTable.data = [
-  { name: '张三', age: 28, city: '上海', tags: ['前端', '渲染'] },
-  { name: '李四', age: 22, city: '北京', tags: ['测试'] },
-  { name: '王五', age: 25, city: '广州', tags: ['后端', '网关', '存储'] },
-];
+// Table 演示数据（columns/data 为复杂属性，需 JS 赋值）。
+// 注意 #demo-table 在 playground-app 的 shadow root 内，document.querySelector 查不到；
+// 且 Lit 异步渲染，须等 updateComplete 后元素才存在。
+appEl.updateComplete.then(() => {
+  const demoTable = appEl.renderRoot.querySelector('#demo-table') as unknown as {
+    columns: unknown[];
+    data: unknown[];
+  };
+  demoTable.columns = [
+    { key: 'name', title: '姓名', sortable: true },
+    { key: 'age', title: '年龄', align: 'right', width: 100 },
+    { key: 'city', title: '城市', ellipsis: true },
+    {
+      key: 'tags',
+      title: '标签',
+      render: (row: { tags: string[] }) => row.tags.join(' / '),
+    },
+  ];
+  demoTable.data = [
+    { name: '张三', age: 28, city: '上海', tags: ['前端', '渲染'] },
+    { name: '李四', age: 22, city: '北京', tags: ['测试'] },
+    { name: '王五', age: 25, city: '广州', tags: ['后端', '网关', '存储'] },
+  ];
+});

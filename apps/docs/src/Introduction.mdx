@@ -9,14 +9,14 @@ import { Meta } from '@storybook/blocks';
 ## 快速开始
 
 ```bash
-pnpm add @wc/core
+pnpm add @wc-kit/core
 ```
 
 ```ts
 // 入口处引入：设计令牌 + reset + 全部组件注册
-import '@wc/core/tokens.css';
-import '@wc/core/reset.css';
-import '@wc/core';
+import '@wc-kit/core/tokens.css';
+import '@wc-kit/core/reset.css';
+import '@wc-kit/core';
 ```
 
 ```html
@@ -25,14 +25,14 @@ import '@wc/core';
 
 ## 框架适配
 
-| 框架          | 包          | 说明                                         |
-| ------------- | ----------- | -------------------------------------------- |
-| React 18 / 19 | `@wc/react` | `@lit/react` 包装，事件映射为 `onWc*` props  |
-| Vue 3         | `@wc/vue`   | GlobalComponents 类型增强 + v-model 适配说明 |
+| 框架          | 包              | 说明                                         |
+| ------------- | --------------- | -------------------------------------------- |
+| React 18 / 19 | `@wc-kit/react` | `@lit/react` 包装，事件映射为 `onWc*` props  |
+| Vue 3         | `@wc-kit/vue`   | GlobalComponents 类型增强 + v-model 适配说明 |
 
 ```tsx
 // React
-import { WcInput } from '@wc/react';
+import { WcInput } from '@wc-kit/react';
 
 <WcInput label="用户名" clearable onWcChange={(e) => console.log(e.detail.value)} />;
 ```
@@ -51,4 +51,4 @@ import { WcInput } from '@wc/react';
 - **基础**：Button / Icon / Divider / Tag / Avatar / Space / Layout / Typography
 - **表单**：Input / Textarea / Select / Checkbox / Radio / Switch / Slider / InputNumber / DatePicker / Form
 - **反馈与导航**：Dialog / Drawer / Message / Tooltip / Popconfirm / Tabs / Breadcrumb / Pagination
-- **数据展示**：Badge / Empty / Progress / Card / List / Table
+- **数据展示**：Badge / Empty / Progress / Card / List / Table / Image

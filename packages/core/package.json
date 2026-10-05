@@ -1,5 +1,5 @@
 {
-  "name": "@wc/core",
+  "name": "@wc-kit/core",
   "version": "0.0.1",
   "description": "wc core - framework-agnostic UI components built with Lit",
   "files": [

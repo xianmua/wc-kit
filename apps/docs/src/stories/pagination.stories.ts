@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcPagination } from '@wc/core';
+import type { wcPagination } from '@wc-kit/core';
 
 const meta: Meta<wcPagination> = {
   title: '导航组件/Pagination 分页',
@@ -31,10 +31,10 @@ const meta: Meta<wcPagination> = {
   disabled（整体禁用）；只读 pageCount（总页数）
 - 事件 wc-change（detail: { current, previous }）
 
-React 用法（@wc/react 包装组件）：
+React 用法（@wc-kit/react 包装组件）：
 
 \`\`\`tsx
-import { WcPagination } from '@wc/react';
+import { WcPagination } from '@wc-kit/react';
 
 export default function Demo() {
   return (
@@ -46,7 +46,7 @@ export default function Demo() {
 }
 \`\`\`
 
-Vue 用法（原生标签，@wc/vue 提供类型增强）：
+Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 
 \`\`\`vue
 <template>

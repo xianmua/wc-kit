@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcInput } from '@wc/core';
+import type { wcInput } from '@wc-kit/core';
 
 const meta: Meta<wcInput> = {
   title: '表单组件/Input 输入框',
@@ -59,7 +59,7 @@ const meta: Meta<wcInput> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcInput } from '@wc/react';
+import { WcInput } from '@wc-kit/react';
 
 <WcInput
   placeholder="请输入用户名"
@@ -71,7 +71,7 @@ import { WcInput } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-input / wc-change（detail.value）。 -->
 <wc-input

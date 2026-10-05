@@ -1,9 +1,9 @@
 import type { Preview } from '@storybook/web-components-vite';
 
 // 设计令牌 + 全局 reset + 全部自定义元素注册
-import '@wc/core/tokens.css';
-import '@wc/core/reset.css';
-import '@wc/core';
+import '@wc-kit/core/tokens.css';
+import '@wc-kit/core/reset.css';
+import '@wc-kit/core';
 
 const preview: Preview = {
   parameters: {

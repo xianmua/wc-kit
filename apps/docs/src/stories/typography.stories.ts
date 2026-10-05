@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcText } from '@wc/core';
+import type { wcText } from '@wc-kit/core';
 
 const meta: Meta<wcText & { content: string }> = {
   title: '基础组件/Typography 排版',
@@ -30,17 +30,17 @@ const meta: Meta<wcText & { content: string }> = {
 
 主要 API：\`variant\` 变体（text / heading，默认 text）、\`level\` 标题级别（仅 heading 生效，1~6，默认 3）、\`type\` 语义色（default / secondary / success / warning / danger）、\`disabled\` 禁用态。内容走默认插槽，无自定义事件。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { WcText } from '@wc/react';
+import { WcText } from '@wc-kit/react';
 
 <WcText>正文内容</WcText>
 <WcText variant="heading" level={2}>二级标题</WcText>
 <WcText type="danger">危险提示文字</WcText>
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <template>

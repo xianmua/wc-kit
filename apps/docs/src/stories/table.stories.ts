@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcTable, wcTableColumn, wcTableRow } from '@wc/core';
+import type { wcTable, wcTableColumn, wcTableRow } from '@wc-kit/core';
 
 // 基础演示用的列配置与行数据
 const baseColumns: wcTableColumn[] = [
@@ -49,10 +49,10 @@ const meta: Meta<wcTable> = {
           '',
           '**插槽**：empty（空状态，默认渲染内置 wc-empty）。',
           '',
-          '**React 用法**（@wc/react 包装组件，事件 props 为 onWcSort / onWcRowClick）',
+          '**React 用法**（@wc-kit/react 包装组件，事件 props 为 onWcSort / onWcRowClick）',
           '',
           '```jsx',
-          "import { WcTable } from '@wc/react';",
+          "import { WcTable } from '@wc-kit/react';",
           '',
           'const columns = [',
           "  { key: 'name', title: '姓名', sortable: true },",
@@ -69,7 +69,7 @@ const meta: Meta<wcTable> = {
           '></WcTable>',
           '```',
           '',
-          '**Vue 用法**（原生标签，@wc/vue 为纯类型增强，监听 @wc-sort / @wc-row-click）',
+          '**Vue 用法**（原生标签，@wc-kit/vue 为纯类型增强，监听 @wc-sort / @wc-row-click）',
           '',
           '```vue',
           '<template>',

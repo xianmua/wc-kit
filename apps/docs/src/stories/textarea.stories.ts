@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcTextarea } from '@wc/core';
+import type { wcTextarea } from '@wc-kit/core';
 
 const meta: Meta<wcTextarea> = {
   title: '表单组件/Textarea 多行输入框',
@@ -48,7 +48,7 @@ const meta: Meta<wcTextarea> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcTextarea } from '@wc/react';
+import { WcTextarea } from '@wc-kit/react';
 
 <WcTextarea
   placeholder="请输入个人简介"
@@ -61,7 +61,7 @@ import { WcTextarea } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-input / wc-change（detail.value）。 -->
 <wc-textarea

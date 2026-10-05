@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcSwitch } from '@wc/core';
+import type { wcSwitch } from '@wc-kit/core';
 
 const meta: Meta<wcSwitch> = {
   title: '表单组件/Switch 开关',
@@ -40,7 +40,7 @@ const meta: Meta<wcSwitch> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcSwitch } from '@wc/react';
+import { WcSwitch } from '@wc-kit/react';
 
 <WcSwitch
   checked={enabled}
@@ -53,7 +53,7 @@ import { WcSwitch } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-change（detail.checked）。 -->
 <wc-switch

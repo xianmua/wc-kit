@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { message, type wcMessage } from '@wc/core';
+import { message, type wcMessage } from '@wc-kit/core';
 
 const meta: Meta<wcMessage> = {
   title: '反馈组件/Message 全局提示',
@@ -42,7 +42,7 @@ const meta: Meta<wcMessage> = {
           '## React / 任意框架（命令式与框架无关）',
           '',
           '```tsx',
-          "import { message } from '@wc/core';",
+          "import { message } from '@wc-kit/core';",
           '',
           "message.info('普通提示');",
           "message.success('保存成功', { duration: 5000 });",
@@ -50,9 +50,9 @@ const meta: Meta<wcMessage> = {
           'loading.close();',
           '```',
           '',
-          '需要声明式书写时，可使用 @wc/react 的 WcMessage（onWcClose 接收 wc-close 事件）。',
+          '需要声明式书写时，可使用 @wc-kit/react 的 WcMessage（onWcClose 接收 wc-close 事件）。',
           '',
-          '## Vue（原生标签 + @wc/vue 类型增强）',
+          '## Vue（原生标签 + @wc-kit/vue 类型增强）',
           '',
           '```vue',
           '<template>',
@@ -60,7 +60,7 @@ const meta: Meta<wcMessage> = {
           '</template>',
           '',
           '<script setup lang="ts">',
-          "import { message } from '@wc/core';",
+          "import { message } from '@wc-kit/core';",
           '',
           'function show() {',
           "  message.success('删除成功');",

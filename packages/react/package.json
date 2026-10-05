@@ -1,7 +1,7 @@
 {
-  "name": "@wc/react",
-  "version": "0.0.1",
-  "description": "React wrappers for @wc/core web components, built on @lit/react",
+  "name": "@wc-kit/react",
+  "version": "0.0.2",
+  "description": "React wrappers for @wc-kit/core web components, built on @lit/react",
   "files": [
     "dist"
   ],
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@lit/react": "^1.0.8",
-    "@wc/core": "workspace:*"
+    "@wc-kit/core": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",

@@ -1,4 +1,13 @@
-import { wcBadge, wcEmpty, wcProgress, wcCard, wcList, wcListItem, wcTable } from '@wc/core';
+import {
+  wcBadge,
+  wcEmpty,
+  wcProgress,
+  wcCard,
+  wcList,
+  wcListItem,
+  wcTable,
+  wcImage,
+} from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
 export const WcBadge = createWrapper({
@@ -42,4 +51,11 @@ export const WcTable = createWrapper({
   elementClass: wcTable,
   events: { onWcSort: 'wc-sort', onWcRowClick: 'wc-row-click' },
   displayName: 'WcTable',
+});
+
+export const WcImage = createWrapper({
+  tagName: 'wc-image',
+  elementClass: wcImage,
+  events: { onWcLoad: 'wc-load', onWcError: 'wc-error', onWcPreviewClose: 'wc-preview-close' },
+  displayName: 'WcImage',
 });

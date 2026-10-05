@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcTabs } from '@wc/core';
+import type { wcTabs } from '@wc-kit/core';
 
 const meta: Meta<wcTabs> = {
   title: '导航组件/Tabs 标签页',
@@ -24,10 +24,10 @@ Home/End 跳转首尾，自动激活并跳过禁用项）切换，激活变化�
 - wc-tabs：value（激活标签的 value）；事件 wc-change（detail: { value }）；默认插槽放 wc-tab
 - wc-tab：label / value / disabled；默认插槽为面板内容
 
-React 用法（@wc/react 包装组件）：
+React 用法（@wc-kit/react 包装组件）：
 
 \`\`\`tsx
-import { WcTabs, WcTab } from '@wc/react';
+import { WcTabs, WcTab } from '@wc-kit/react';
 
 export default function Demo() {
   return (
@@ -39,7 +39,7 @@ export default function Demo() {
 }
 \`\`\`
 
-Vue 用法（原生标签，@wc/vue 提供类型增强）：
+Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 
 \`\`\`vue
 <template>

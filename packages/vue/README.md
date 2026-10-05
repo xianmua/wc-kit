@@ -1,21 +1,21 @@
-# @wc/vue
+# @wc-kit/vue
 
-Vue 3 适配包：为 [@wc/core](../core) 的 Web Components 提供 **模板类型检查**（GlobalComponents 增强）。
+Vue 3 适配包：为 [@wc-kit/core](../core) 的 Web Components 提供 **模板类型检查**（GlobalComponents 增强）。
 
 ## 安装
 
 ```bash
-pnpm add @wc/vue vue
+pnpm add @wc-kit/vue vue
 ```
 
 ```ts
 // main.ts —— 副作用导入注册全部自定义元素
-import '@wc/vue';
+import '@wc-kit/vue';
 ```
 
 ## 类型增强
 
-引入本包后，SFC 模板中的 `<wc-*>` 标签自动获得属性类型检查（由 @wc/core 元素类实例类型推导，无需手工维护）：
+引入本包后，SFC 模板中的 `<wc-*>` 标签自动获得属性类型检查（由 @wc-kit/core 元素类实例类型推导，无需手工维护）：
 
 ```vue
 <template>
@@ -27,7 +27,7 @@ import '@wc/vue';
 <script setup lang="ts">
 // 全局类型生效需要 tsconfig include 覆盖到本包的类型声明，
 // 或在 env.d.ts 中显式引用：
-import type {} from '@wc/vue/global-components';
+import type {} from '@wc-kit/vue/global-components';
 </script>
 ```
 

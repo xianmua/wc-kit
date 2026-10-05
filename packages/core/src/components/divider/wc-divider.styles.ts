@@ -34,7 +34,8 @@ export const dividerStyles = css`
   .line {
     display: block;
     flex: 1;
-    height: 0;
+    /* 不能用 height: 0 + 背景——0 高度画不出背景色，实线会不可见 */
+    height: 1px;
     background-color: var(--wc-divider-color);
   }
 

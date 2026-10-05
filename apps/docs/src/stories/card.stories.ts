@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcCard } from '@wc/core';
+import type { wcCard } from '@wc-kit/core';
 
 const meta: Meta<wcCard & { content: string }> = {
   title: '数据展示/Card 卡片',
@@ -31,10 +31,10 @@ const meta: Meta<wcCard & { content: string }> = {
           '**插槽**：默认（卡片内容）、header（自定义整个头部）、actions（头部右侧操作区）、',
           'footer（底部操作区）。无自定义事件。',
           '',
-          '**React 用法**（@wc/react 包装组件）',
+          '**React 用法**（@wc-kit/react 包装组件）',
           '',
           '```jsx',
-          "import { WcCard, WcButton } from '@wc/react';",
+          "import { WcCard, WcButton } from '@wc-kit/react';",
           '',
           '<WcCard title="卡片标题" subtitle="副标题" hoverable>',
           '  <p>卡片内容</p>',
@@ -42,7 +42,7 @@ const meta: Meta<wcCard & { content: string }> = {
           '</WcCard>',
           '```',
           '',
-          '**Vue 用法**（原生标签，@wc/vue 为纯类型增强）',
+          '**Vue 用法**（原生标签，@wc-kit/vue 为纯类型增强）',
           '',
           '```vue',
           '<wc-card title="卡片标题" subtitle="副标题" hoverable>',

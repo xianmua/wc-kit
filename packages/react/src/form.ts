@@ -11,7 +11,8 @@ import {
   wcDatePicker,
   wcForm,
   wcFormItem,
-} from '@wc/core';
+  wcUpload,
+} from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
 export const WcInput = createWrapper({
@@ -94,4 +95,20 @@ export const WcFormItem = createWrapper({
   tagName: 'wc-form-item',
   elementClass: wcFormItem,
   displayName: 'WcFormItem',
+});
+
+export const WcUpload = createWrapper({
+  tagName: 'wc-upload',
+  elementClass: wcUpload,
+  events: {
+    onWcSelect: 'wc-select',
+    onWcChange: 'wc-change',
+    onWcProgress: 'wc-progress',
+    onWcSuccess: 'wc-success',
+    onWcError: 'wc-error',
+    onWcRemove: 'wc-remove',
+    onWcExceed: 'wc-exceed',
+    onWcPreview: 'wc-preview',
+  },
+  displayName: 'WcUpload',
 });

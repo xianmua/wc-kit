@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcProgress } from '@wc/core';
+import type { wcProgress } from '@wc-kit/core';
 
 const meta: Meta<wcProgress> = {
   title: '数据展示/Progress 进度条',
@@ -42,15 +42,15 @@ const meta: Meta<wcProgress> = {
           '',
           '无自定义事件。',
           '',
-          '**React 用法**（@wc/react 包装组件）',
+          '**React 用法**（@wc-kit/react 包装组件）',
           '',
           '```jsx',
-          "import { WcProgress } from '@wc/react';",
+          "import { WcProgress } from '@wc-kit/react';",
           '',
           '<WcProgress value={60} theme="circle" status="success"></WcProgress>',
           '```',
           '',
-          '**Vue 用法**（原生标签，@wc/vue 为纯类型增强）',
+          '**Vue 用法**（原生标签，@wc-kit/vue 为纯类型增强）',
           '',
           '```vue',
           '<wc-progress :value="60" theme="circle" status="success"></wc-progress>',

@@ -218,12 +218,12 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
     return cells;
   }
 
-  /** 表头星期标签，顺序按 firstDayOfWeek 旋转（Intl 本地化） */
+  /** 表头星期标签，顺序按 firstDayOfWeek 旋转（Intl 本地化，中文取单字「日一二三四五六」） */
   private get weekdayLabels(): string[] {
-    // 2023-01-01 是周日，作为基准依次取星期短名
+    // 2023-01-01 是周日，作为基准依次取星期窄名
     return Array.from({ length: 7 }, (_, i) =>
       this.localize.date(new Date(2023, 0, 1 + ((this.firstDayOfWeek + i) % 7)), {
-        weekday: 'short',
+        weekday: 'narrow',
       }),
     );
   }

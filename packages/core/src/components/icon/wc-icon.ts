@@ -3,7 +3,7 @@ import { property, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import type { PropertyValues } from 'lit';
 import { baseStyles } from '../../styles/base.css.js';
-import { resolveIcon } from '../../icons/library.js';
+import { onIconRegister, resolveIcon } from '../../icons/library.js';
 import { iconStyles } from './wc-icon.styles.js';
 
 /**
@@ -42,14 +42,31 @@ export class WcIcon extends LitElement {
   /** 竞态守卫：name 快速切换时只采纳最后一次解析结果 */
   private requestId = 0;
 
+  /** 图标未注册时的订阅句柄（注册后重试） */
+  private unwatchRegister: (() => void) | undefined;
+
   protected willUpdate(changed: PropertyValues<this>): void {
     if (changed.has('src') || changed.has('name') || changed.has('library')) {
       void this.loadIcon();
     }
   }
 
+  disconnectedCallback(): void {
+    this.unwatchRegister?.();
+  }
+
   private async loadIcon(): Promise<void> {
+    this.unwatchRegister?.();
+    this.unwatchRegister = undefined;
     const requestId = ++this.requestId;
+    // 先订阅再解析：注册通知可能整个落在解析的 await 间隙里（如 registerBuiltinIcons
+    // 晚于首渲染），后订阅会错过通知导致图标永久空白；解析成功后立即退订
+    const unwatch =
+      this.name && !this.src
+        ? onIconRegister(() => {
+            void this.loadIcon();
+          })
+        : null;
     let raw = '';
     if (this.src) {
       raw = await this.fetchSrc(this.src);
@@ -57,7 +74,13 @@ export class WcIcon extends LitElement {
       raw = await resolveIcon(this.library, this.name);
     }
     if (requestId !== this.requestId) {
+      unwatch?.();
       return;
+    }
+    if (raw || !unwatch) {
+      unwatch?.();
+    } else {
+      this.unwatchRegister = unwatch;
     }
     this.svg = raw;
   }

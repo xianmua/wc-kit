@@ -10,10 +10,23 @@ export default tseslint.config(
       '**/coverage/**',
       '**/node_modules/**',
       '**/storybook-static/**',
+      '**/.vitepress/cache/**',
     ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    files: ['**/*.mjs'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
+        fetch: 'readonly',
+        Buffer: 'readonly',
+      },
+    },
+  },
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'error',

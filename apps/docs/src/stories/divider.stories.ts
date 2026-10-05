@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcDivider } from '@wc/core';
+import type { wcDivider } from '@wc-kit/core';
 
 const meta: Meta<wcDivider & { content: string }> = {
   title: '基础组件/Divider 分隔线',
@@ -22,17 +22,17 @@ const meta: Meta<wcDivider & { content: string }> = {
 
 主要 API：\`dashed\` 虚线、\`align\` 文案位置（left / center / right，默认 center）、\`vertical\` 竖向分隔。无自定义事件。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { WcDivider } from '@wc/react';
+import { WcDivider } from '@wc-kit/react';
 
 <WcDivider>或者</WcDivider>
 <WcDivider dashed align="left">标题</WcDivider>
 <WcDivider vertical />
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <template>

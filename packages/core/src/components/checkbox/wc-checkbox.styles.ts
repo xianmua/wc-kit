@@ -39,7 +39,7 @@ export const checkboxStyles = css`
     background-color: var(--wc-color-bg-container);
     border: 1px solid var(--wc-color-border-strong);
     border-radius: var(--wc-checkbox-radius);
-    color: #ffffff;
+    color: var(--wc-color-text-anti);
     flex-shrink: 0;
     transition:
       background-color var(--wc-duration-fast) var(--wc-easing-standard),

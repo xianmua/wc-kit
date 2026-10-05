@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { registerBuiltinIcons } from '@wc/core';
-import type { wcTag } from '@wc/core';
+import { registerBuiltinIcons } from '@wc-kit/core';
+import type { wcTag } from '@wc-kit/core';
 
 // 可关闭标签内置的 close 图标、icon 插槽示例均依赖内置图标注册
 registerBuiltinIcons();
@@ -36,10 +36,10 @@ const meta: Meta<wcTag & { label: string }> = {
 
 主要 API：\`theme\` 语义色（default / primary / success / warning / danger）、\`size\` 尺寸（small / medium / large）、\`variant\` 填充风格（dark 实底 / light 浅底 / outline 描边，默认 light）、\`closable\` 可关闭、\`disabled\` 禁用。事件：\`wc-close\`。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { WcTag } from '@wc/react';
+import { WcTag } from '@wc-kit/react';
 
 <WcTag theme="success">成功</WcTag>
 <WcTag
@@ -51,7 +51,7 @@ import { WcTag } from '@wc/react';
 </WcTag>
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <template>

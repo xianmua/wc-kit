@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcBreadcrumb } from '@wc/core';
+import type { wcBreadcrumb } from '@wc-kit/core';
 
 const meta: Meta<wcBreadcrumb> = {
   title: '导航组件/Breadcrumb 面包屑',
@@ -20,10 +20,10 @@ const meta: Meta<wcBreadcrumb> = {
 - wc-breadcrumb：separator（分隔符文本，默认 /）；事件 wc-select（detail: { index, label, href }）
 - wc-breadcrumb-item：href（目标链接）/ disabled（禁用）
 
-React 用法（@wc/react 包装组件）：
+React 用法（@wc-kit/react 包装组件）：
 
 \`\`\`tsx
-import { WcBreadcrumb, WcBreadcrumbItem } from '@wc/react';
+import { WcBreadcrumb, WcBreadcrumbItem } from '@wc-kit/react';
 
 export default function Demo() {
   return (
@@ -36,7 +36,7 @@ export default function Demo() {
 }
 \`\`\`
 
-Vue 用法（原生标签，@wc/vue 提供类型增强）：
+Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 
 \`\`\`vue
 <template>

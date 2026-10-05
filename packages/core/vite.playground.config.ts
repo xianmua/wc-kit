@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 
-// 主题/组件可视化验证页：pnpm --filter @wc/core playground
+// 主题/组件可视化验证页：pnpm --filter @wc-kit/core playground
 export default defineConfig({
   root: 'playground',
   server: {

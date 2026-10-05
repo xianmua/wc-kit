@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { registerBuiltinIcons } from '@wc/core';
-import type { WcIcon } from '@wc/core';
+import { registerBuiltinIcons } from '@wc-kit/core';
+import type { WcIcon } from '@wc-kit/core';
 
 // 内置图标需注册后才能通过 name 使用（此处调用一次，应用入口同理）
 registerBuiltinIcons();
 
-/** 内置图标名清单（共 16 个） */
+/** 内置图标名清单（共 22 个） */
 const BUILTIN_NAMES = [
   'arrow-left',
   'arrow-right',
@@ -18,12 +18,18 @@ const BUILTIN_NAMES = [
   'chevron-up',
   'close',
   'error',
+  'file',
+  'image-off',
   'info',
   'loader',
   'minus',
   'plus',
+  'rotate-cw',
   'search',
+  'upload',
   'warning',
+  'zoom-in',
+  'zoom-out',
 ];
 
 const meta: Meta<WcIcon> = {
@@ -50,15 +56,15 @@ const meta: Meta<WcIcon> = {
       description: {
         component: `图标组件。图标来源优先级：src（SVG 地址直连）> name + library（图标库解析）。
 
-内置 16 个图标：arrow-left / arrow-right / calendar / check / chevron-down / chevron-left / chevron-right / chevron-up / close / error / info / loader / minus / plus / search / warning。使用前需在应用入口调用一次 \`registerBuiltinIcons()\`（也可用 \`registerIcon(name, svg)\` 注册单个图标、\`registerIconLibrary(name, lib)\` 注册自定义/远程图标库）。
+内置 22 个图标：arrow-left / arrow-right / calendar / check / chevron-down / chevron-left / chevron-right / chevron-up / close / error / file / image-off / info / loader / minus / plus / rotate-cw / search / upload / warning / zoom-in / zoom-out。使用前需在应用入口调用一次 \`registerBuiltinIcons()\`（也可用 \`registerIcon(name, svg)\` 注册单个图标、\`registerIconLibrary(name, lib)\` 注册自定义/远程图标库）。
 
 主要 API：\`name\` 图标名、\`src\` SVG 地址、\`library\` 图标库（默认 default）、\`label\` 无障碍描述、\`spin\` 旋转动画、\`pulse\` 缓动旋转动画。尺寸默认跟随字号（1em），可用 CSS 变量 \`--wc-icon-size\` 覆盖。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { registerBuiltinIcons } from '@wc/core';
-import { WcIcon } from '@wc/react';
+import { registerBuiltinIcons } from '@wc-kit/core';
+import { WcIcon } from '@wc-kit/react';
 
 // 应用入口调用一次，注册全部内置图标
 registerBuiltinIcons();
@@ -68,11 +74,11 @@ registerBuiltinIcons();
 <WcIcon name="check" style={{ fontSize: 24 }} />
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <script setup lang="ts">
-import { registerBuiltinIcons } from '@wc/core';
+import { registerBuiltinIcons } from '@wc-kit/core';
 
 registerBuiltinIcons(); // 应用入口调用一次
 </script>
@@ -118,7 +124,7 @@ export const 全部内置图标: Story = {
   parameters: {
     docs: {
       description: {
-        story: '内置共 16 个图标，需先调用 registerBuiltinIcons() 注册。',
+        story: '内置共 22 个图标，需先调用 registerBuiltinIcons() 注册。',
       },
     },
   },

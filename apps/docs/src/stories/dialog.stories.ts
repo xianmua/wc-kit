@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { message, type wcDialog } from '@wc/core';
+import { message, type wcDialog } from '@wc-kit/core';
 
 /** 按 id 获取元素（各 story 用独立 id 避免相互干扰） */
 function byId<T extends HTMLElement>(id: string): T | null {
@@ -37,12 +37,12 @@ const meta: Meta<wcDialog & { label: string }> = {
           '  escape / confirm / cancel / api）；wc-confirm / wc-cancel 点击默认确认 / 取消按钮触发',
           '- 插槽：默认插槽为内容；header 自定义页头；footer 自定义页脚',
           '',
-          '## React（@wc/react）',
+          '## React（@wc-kit/react）',
           '',
           '```tsx',
           "import { useRef } from 'react';",
-          "import { WcDialog } from '@wc/react';",
-          "import type { wcDialog } from '@wc/core';",
+          "import { WcDialog } from '@wc-kit/react';",
+          "import type { wcDialog } from '@wc-kit/core';",
           '',
           'function Demo() {',
           '  const ref = useRef<wcDialog>(null);',
@@ -66,7 +66,7 @@ const meta: Meta<wcDialog & { label: string }> = {
           '}',
           '```',
           '',
-          '## Vue（原生标签 + @wc/vue 类型增强）',
+          '## Vue（原生标签 + @wc-kit/vue 类型增强）',
           '',
           '```vue',
           '<template>',
@@ -85,7 +85,7 @@ const meta: Meta<wcDialog & { label: string }> = {
           '',
           '<script setup lang="ts">',
           "import { ref } from 'vue';",
-          "import type { wcDialog } from '@wc/core';",
+          "import type { wcDialog } from '@wc-kit/core';",
           '',
           'const dialog = ref<wcDialog>();',
           '</script>',

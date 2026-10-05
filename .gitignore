@@ -6,3 +6,5 @@ storybook-static/
 .DS_Store
 .vite/
 playground-dist/
+.trae/
+**/.vitepress/cache/

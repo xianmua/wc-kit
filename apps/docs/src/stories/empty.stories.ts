@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcEmpty } from '@wc/core';
+import type { wcEmpty } from '@wc-kit/core';
 
 const meta: Meta<wcEmpty> = {
   title: '数据展示/Empty 空状态',
@@ -20,17 +20,17 @@ const meta: Meta<wcEmpty> = {
           '| icon | 自定义占位图形 |',
           '| action | 操作区 |',
           '',
-          '**React 用法**（@wc/react 包装组件）',
+          '**React 用法**（@wc-kit/react 包装组件）',
           '',
           '```jsx',
-          "import { WcEmpty, WcButton } from '@wc/react';",
+          "import { WcEmpty, WcButton } from '@wc-kit/react';",
           '',
           '<WcEmpty>',
           '  <WcButton slot="action" theme="primary">重新加载</WcButton>',
           '</WcEmpty>',
           '```',
           '',
-          '**Vue 用法**（原生标签，@wc/vue 为纯类型增强）',
+          '**Vue 用法**（原生标签，@wc-kit/vue 为纯类型增强）',
           '',
           '```vue',
           '<wc-empty>',

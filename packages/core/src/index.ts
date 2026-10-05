@@ -1,4 +1,5 @@
 export * from './components/button/index.js';
+export * from './components/button-group/index.js';
 export * from './components/icon/index.js';
 export * from './components/input/index.js';
 export * from './components/textarea/index.js';
@@ -30,6 +31,8 @@ export * from './components/progress/index.js';
 export * from './components/card/index.js';
 export * from './components/list/index.js';
 export * from './components/table/index.js';
+export * from './components/image/index.js';
+export * from './components/upload/index.js';
 export * from './common/position.js';
 export * from './icons/index.js';
 export * from './i18n/index.js';

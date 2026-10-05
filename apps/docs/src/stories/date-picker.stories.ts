@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcDatePicker } from '@wc/core';
+import type { wcDatePicker } from '@wc-kit/core';
 
 const meta: Meta<wcDatePicker> = {
   title: '表单组件/DatePicker 日期选择器',
@@ -58,7 +58,7 @@ const meta: Meta<wcDatePicker> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcDatePicker } from '@wc/react';
+import { WcDatePicker } from '@wc-kit/react';
 
 <WcDatePicker
   value={date}
@@ -71,7 +71,7 @@ import { WcDatePicker } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-change（detail.value，YYYY-MM-DD）。 -->
 <wc-date-picker

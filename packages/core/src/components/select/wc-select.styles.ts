@@ -48,7 +48,9 @@ export const selectStyles = css`
       box-shadow var(--wc-duration-fast) var(--wc-easing-standard);
   }
 
-  .trigger:focus-visible {
+  /* 与 input 的 focus-within 对齐：键盘聚焦或展开时均呈现焦点视觉 */
+  .trigger:focus-visible,
+  :host([open]) .trigger {
     outline: none;
     border-color: var(--wc-color-primary);
     box-shadow: 0 0 0 2px var(--wc-color-focus-ring);
@@ -147,7 +149,8 @@ export const selectStyles = css`
     border-color: var(--wc-color-error);
   }
 
-  :host([status='error']) .trigger:focus-visible {
+  :host([status='error']) .trigger:focus-visible,
+  :host([status='error'][open]) .trigger {
     border-color: var(--wc-color-error);
     box-shadow: 0 0 0 2px var(--wc-color-error-light);
   }

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcSpace } from '@wc/core';
+import type { wcSpace } from '@wc-kit/core';
 
 const meta: Meta<wcSpace> = {
   title: '基础组件/Space 间距',
@@ -31,10 +31,10 @@ const meta: Meta<wcSpace> = {
 
 主要 API：\`size\` 间距（small / medium / large 预设档位，或纯数字按 px、任意 CSS 尺寸值）、\`direction\` 排列方向（horizontal / vertical）、\`align\` 对齐方式（start / center / end / baseline，不设置时水平方向默认 center、竖向默认 stretch）、\`wrap\` 允许换行。无自定义事件。也可直接覆写 CSS 变量 \`--wc-space-gap\`。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { WcButton, WcSpace } from '@wc/react';
+import { WcButton, WcSpace } from '@wc-kit/react';
 
 <WcSpace size="large">
   <WcButton>按钮一</WcButton>
@@ -42,7 +42,7 @@ import { WcButton, WcSpace } from '@wc/react';
 </WcSpace>
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <template>

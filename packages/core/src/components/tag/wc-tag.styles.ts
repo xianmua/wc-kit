@@ -67,7 +67,7 @@ export const tagStyles = css`
   }
 
   .close:hover {
-    background-color: rgb(0 0 0 / 10%);
+    background-color: var(--wc-color-overlay-hover);
   }
 
   .close wc-icon {

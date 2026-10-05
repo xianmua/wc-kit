@@ -62,7 +62,7 @@
 
   /* 正文字号 */
   --wc-font-size-xsmall: 12px;
-  --wc-font-size-small: 12px;
+  --wc-font-size-small: 13px;
   --wc-font-size-medium: 14px;
   --wc-font-size-large: 16px;
   --wc-font-size-xlarge: 20px;
@@ -98,18 +98,18 @@
    * ============================================================ */
   --wc-radius-none: 0;
   --wc-radius-small: 3px;
-  --wc-radius-medium: 6px;
-  --wc-radius-large: 9px;
-  --wc-radius-xlarge: 12px;
+  --wc-radius-medium: 4px;
+  --wc-radius-large: 8px;
+  --wc-radius-xlarge: 10px;
   --wc-radius-round: 999px;
   --wc-radius-circle: 50%;
 
   /* ============================================================
    * primitive：阴影分层（1 卡片 / 2 下拉浮层 / 3 模态）
    * ============================================================ */
-  --wc-shadow-1: 0 1px 4px rgb(0 0 0 / 12%);
-  --wc-shadow-2: 0 3px 14px 2px rgb(0 0 0 / 8%), 0 1px 4px rgb(0 0 0 / 10%);
-  --wc-shadow-3: 0 6px 30px 5px rgb(0 0 0 / 8%), 0 3px 12px 2px rgb(0 0 0 / 12%);
+  --wc-shadow-1: 0 1px 2px rgb(15 23 42 / 6%), 0 1px 3px rgb(15 23 42 / 10%);
+  --wc-shadow-2: 0 1px 2px rgb(15 23 42 / 6%), 0 4px 12px -2px rgb(15 23 42 / 12%);
+  --wc-shadow-3: 0 4px 8px -2px rgb(15 23 42 / 8%), 0 12px 32px -4px rgb(15 23 42 / 18%);
 
   /* ============================================================
    * primitive：动效
@@ -126,7 +126,7 @@
   --wc-z-index-dropdown: 1000;
   --wc-z-index-sticky: 1100;
   --wc-z-index-modal: 1200;
-  --wc-z-index-drawer: 1200;
+  --wc-z-index-drawer: 1300;
   --wc-z-index-message: 1500;
   --wc-z-index-tooltip: 1600;
 
@@ -149,12 +149,12 @@
 
   /* 文本 */
   --wc-color-text: var(--wc-color-gray-900);
-  --wc-color-text-secondary: var(--wc-color-gray-700);
-  --wc-color-text-placeholder: var(--wc-color-gray-500);
+  --wc-color-text-secondary: var(--wc-color-gray-600);
+  --wc-color-text-placeholder: var(--wc-color-gray-400);
   --wc-color-text-disabled: var(--wc-color-gray-500);
 
   /* 边框与背景 */
-  --wc-color-border: var(--wc-color-gray-300);
+  --wc-color-border: var(--wc-color-gray-200);
   --wc-color-border-strong: var(--wc-color-gray-500);
   --wc-color-bg: var(--wc-color-gray-50);
   --wc-color-bg-container: #ffffff;
@@ -162,6 +162,7 @@
   --wc-color-bg-hover: var(--wc-color-gray-100);
   --wc-color-bg-disabled: var(--wc-color-gray-100);
   --wc-color-mask: rgb(0 0 0 / 60%);
+  --wc-color-overlay-hover: rgb(0 0 0 / 8%);
   --wc-color-focus-ring: var(--wc-color-brand-300);
 }
 
@@ -187,8 +188,8 @@
   --wc-color-info-bg: var(--wc-color-brand-800);
 
   --wc-color-text: var(--wc-color-gray-50);
-  --wc-color-text-secondary: var(--wc-color-gray-300);
-  --wc-color-text-placeholder: var(--wc-color-gray-500);
+  --wc-color-text-secondary: var(--wc-color-gray-400);
+  --wc-color-text-placeholder: var(--wc-color-gray-600);
   --wc-color-text-disabled: var(--wc-color-gray-500);
 
   --wc-color-border: var(--wc-color-gray-700);
@@ -199,9 +200,10 @@
   --wc-color-bg-hover: var(--wc-color-gray-800);
   --wc-color-bg-disabled: var(--wc-color-gray-700);
   --wc-color-mask: rgb(0 0 0 / 70%);
+  --wc-color-overlay-hover: rgb(255 255 255 / 12%);
   --wc-color-focus-ring: var(--wc-color-brand-200);
 
-  --wc-shadow-1: 0 1px 4px rgb(0 0 0 / 40%);
-  --wc-shadow-2: 0 3px 14px 2px rgb(0 0 0 / 32%), 0 1px 4px rgb(0 0 0 / 40%);
-  --wc-shadow-3: 0 6px 30px 5px rgb(0 0 0 / 32%), 0 3px 12px 2px rgb(0 0 0 / 40%);
+  --wc-shadow-1: 0 1px 2px rgb(0 0 0 / 40%), 0 1px 3px rgb(0 0 0 / 30%);
+  --wc-shadow-2: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 12px -2px rgb(0 0 0 / 45%);
+  --wc-shadow-3: 0 4px 8px -2px rgb(0 0 0 / 40%), 0 12px 32px -4px rgb(0 0 0 / 50%);
 }

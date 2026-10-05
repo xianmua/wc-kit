@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { message, type wcTooltip } from '@wc/core';
+import { message, type wcTooltip } from '@wc-kit/core';
 
 /** 按 id 获取元素（各 story 用独立 id 避免相互干扰） */
 function byId<T extends HTMLElement>(id: string): T | null {
@@ -56,10 +56,10 @@ const meta: Meta<wcTooltip> = {
           '- 事件：wc-show 开始显示时触发；wc-hide 开始隐藏时触发',
           '- 插槽：默认插槽为触发元素；content 插槽为富文本内容',
           '',
-          '## React（@wc/react）',
+          '## React（@wc-kit/react）',
           '',
           '```tsx',
-          "import { WcButton, WcTooltip } from '@wc/react';",
+          "import { WcButton, WcTooltip } from '@wc-kit/react';",
           '',
           '<WcTooltip',
           '  content="提示文字"',
@@ -71,7 +71,7 @@ const meta: Meta<wcTooltip> = {
           '</WcTooltip>',
           '```',
           '',
-          '## Vue（原生标签 + @wc/vue 类型增强）',
+          '## Vue（原生标签 + @wc-kit/vue 类型增强）',
           '',
           '```vue',
           '<template>',

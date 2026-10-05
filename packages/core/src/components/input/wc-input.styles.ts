@@ -83,10 +83,16 @@ export const inputStyles = css`
     height: 16px;
     justify-content: center;
     padding: 0;
+    border: none;
     border-radius: var(--wc-radius-circle);
     background: transparent;
     color: var(--wc-color-text-placeholder);
     cursor: pointer;
+  }
+
+  /* wc-icon 的 :host 自带 text 色，这里让叉号跟随按钮的灰阶 */
+  .clear wc-icon {
+    color: inherit;
   }
 
   .clear:hover {

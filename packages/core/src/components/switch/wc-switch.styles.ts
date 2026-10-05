@@ -47,7 +47,7 @@ export const switchStyles = css`
     width: var(--wc-switch-thumb);
     height: var(--wc-switch-thumb);
     border-radius: var(--wc-radius-circle);
-    background-color: #ffffff;
+    background-color: var(--wc-color-text-anti);
     box-shadow: var(--wc-shadow-1);
     transform: translateX(0);
     transition: transform var(--wc-duration-fast) var(--wc-easing-standard);

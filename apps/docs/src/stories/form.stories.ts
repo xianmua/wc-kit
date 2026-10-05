@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcForm } from '@wc/core';
+import type { wcForm } from '@wc-kit/core';
 
 // wc-form 自身没有属性，校验能力通过 validate / reset / submit 方法与 wc-form-item 提供
 const meta: Meta<wcForm> = {
@@ -38,7 +38,7 @@ wc-button[type=submit] / wc-button[type=reset] 会触发提交流程 / 重置（
 **React 用法**
 
 \`\`\`tsx
-import { WcForm, WcFormItem, WcInput, WcButton } from '@wc/react';
+import { WcForm, WcFormItem, WcInput, WcButton } from '@wc-kit/react';
 
 <WcForm onWcSubmit={(e) => console.log(e.detail)}>
   <WcFormItem label="用户名" name="username" required>
@@ -51,7 +51,7 @@ import { WcForm, WcFormItem, WcInput, WcButton } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      事件为 wc-submit（detail 为 { valid, errors, firstError }）。
      输入控件不要用原生 v-model，用 :value + @wc-input/@wc-change 同步。 -->
 <wc-form @wc-submit="(e) => console.log(e.detail)">

@@ -22,8 +22,9 @@ export const iconStyles = css`
     display: block;
     width: 100%;
     height: 100%;
-    fill: currentColor;
-    /* 描边风格图标的关键：继承文字颜色 */
+    /* 不设 fill：描边图标由 SVG 根的 fill="none" 决定（CSS 会覆盖 presentation attribute，
+       设 fill: currentColor 会把闭合形状整体填充导致发糊）；填充型图标由各自 SVG 声明。
+       颜色统一走 color → stroke="currentColor" 继承。 */
     color: currentColor;
     pointer-events: none;
   }

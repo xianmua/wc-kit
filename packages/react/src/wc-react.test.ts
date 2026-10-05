@@ -30,7 +30,7 @@ async function render(ui: React.ReactElement): Promise<HTMLDivElement> {
   return container;
 }
 
-describe('@wc/react', () => {
+describe('@wc-kit/react', () => {
   it('包装器渲染为对应标签的自定义元素', async () => {
     const container = await render(React.createElement(WcButton, { theme: 'primary' }, '按钮'));
     const el = container.querySelector('wc-button')!;

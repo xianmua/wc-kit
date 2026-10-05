@@ -1,12 +1,12 @@
 /**
- * @wc/core/reset.css — 全局基础样式（宿主页面 light DOM）
+ * @wc-kit/core/reset.css — 全局基础样式（宿主页面 light DOM）
  *
  * 可选引入，适合整站使用 WUI 的应用：
- *   import '@wc/core/reset.css';
- *   或 <link rel="stylesheet" href="node_modules/@wc/core/reset.css">
+ *   import '@wc-kit/core/reset.css';
+ *   或 <link rel="stylesheet" href="node_modules/@wc-kit/core/reset.css">
  *
  * 职责：统一 box-sizing、排版基线、链接/表单/媒体元素默认值、
- * focus-visible 焦点环。依赖 @wc/core/tokens.css 提供的 CSS 变量。
+ * focus-visible 焦点环。依赖 @wc-kit/core/tokens.css 提供的 CSS 变量。
  */
 
 /* ---------- 盒模型 ---------- */

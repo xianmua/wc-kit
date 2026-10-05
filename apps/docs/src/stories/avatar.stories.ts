@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { registerBuiltinIcons } from '@wc/core';
-import type { wcAvatar } from '@wc/core';
+import { registerBuiltinIcons } from '@wc-kit/core';
+import type { wcAvatar } from '@wc-kit/core';
 
 // 图标头像示例依赖内置图标注册
 registerBuiltinIcons();
@@ -38,16 +38,16 @@ const meta: Meta<wcAvatar & { content: string }> = {
 
 主要 API：\`size\` 尺寸（small / medium / large 三档预设，或任意 CSS 尺寸值如 "48px"、"3rem"，纯数字按 px 处理）、\`shape\` 形状（circle 圆形 / round 圆角矩形 / square 方形，默认 circle）。无自定义事件。自定义尺寸时也可直接覆写 CSS 变量 \`--wc-avatar-size\`。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { WcAvatar } from '@wc/react';
+import { WcAvatar } from '@wc-kit/react';
 
 <WcAvatar>张</WcAvatar>
 <WcAvatar size={48} shape="square">图</WcAvatar>
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <template>

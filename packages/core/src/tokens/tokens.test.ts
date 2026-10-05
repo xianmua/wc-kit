@@ -26,6 +26,7 @@ describe('tokens.css', () => {
       '--wc-color-bg',
       '--wc-color-bg-container',
       '--wc-color-bg-disabled',
+      '--wc-color-overlay-hover',
       '--wc-color-focus-ring',
       '--wc-font-family',
       '--wc-duration-fast',
@@ -62,6 +63,12 @@ describe('tokens.css', () => {
     for (const n of [2, 3, 4, 5, 6, 8, 10, 12]) {
       expect(extractVarNames(rootBlock).has(`--wc-space-${n}`)).to.be.true;
     }
+  });
+
+  it('正文小号字号不重复(xsmall < small)', () => {
+    const xsmall = rootBlock.match(/--wc-font-size-xsmall:\s*(\d+)px/)?.[1];
+    const small = rootBlock.match(/--wc-font-size-small:\s*(\d+)px/)?.[1];
+    expect(Number(xsmall)).to.be.lessThan(Number(small));
   });
 
   it('阴影分 3 层且暗色主题覆盖', () => {

@@ -16,7 +16,7 @@ export const dialogStyles = css`
     align-items: center;
     justify-content: center;
     padding: var(--wc-space-4);
-    background: rgb(0 0 0 / 45%);
+    background: var(--wc-color-mask);
     animation: wc-dialog-fade var(--wc-duration-fast) var(--wc-easing-standard);
   }
 
@@ -32,7 +32,7 @@ export const dialogStyles = css`
     max-height: calc(100vh - var(--wc-space-8));
     overflow: hidden;
     background-color: var(--wc-color-bg-container);
-    border-radius: var(--wc-radius-medium);
+    border-radius: var(--wc-radius-xlarge);
     box-shadow: var(--wc-shadow-3);
     animation: wc-dialog-in var(--wc-duration-medium) var(--wc-easing-standard);
     outline: none;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcButton } from '@wc/core';
+import type { wcButton } from '@wc-kit/core';
 
 const meta: Meta<wcButton & { label: string }> = {
   title: '基础组件/Button 按钮',
@@ -14,7 +14,7 @@ const meta: Meta<wcButton & { label: string }> = {
     },
     variant: {
       control: 'select',
-      options: ['base', 'outline', 'text', 'dashed'],
+      options: ['base', 'outline', 'text', 'dashed', 'link'],
       description: '按钮样式变体',
     },
     size: {
@@ -72,6 +72,7 @@ export const 变体: Story = {
       <wc-button theme="primary" variant="outline">outline</wc-button>
       <wc-button theme="primary" variant="text">text</wc-button>
       <wc-button theme="primary" variant="dashed">dashed</wc-button>
+      <wc-button theme="primary" variant="link">link</wc-button>
     </div>
   `,
 };
@@ -91,13 +92,16 @@ export const 状态: Story = {
     <div style="display:flex;gap:12px;align-items:center;">
       <wc-button theme="primary" disabled>禁用</wc-button>
       <wc-button theme="primary" loading>加载中</wc-button>
+    </div>
+    <div style="margin-top:12px;">
       <wc-button theme="primary" block>块级按钮（block）</wc-button>
     </div>
   `,
   parameters: {
     docs: {
       description: {
-        story: 'block 单独一行撑满宽度，见下方渲染结果。',
+        story:
+          'block 单独一行撑满宽度；注意 block 与普通按钮不要放在同一 flex 行，否则会挤压其它按钮宽度。',
       },
     },
   },

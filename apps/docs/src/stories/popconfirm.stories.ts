@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { message, type wcPopconfirm } from '@wc/core';
+import { message, type wcPopconfirm } from '@wc-kit/core';
 
 /** 12 个期望弹出方向（与源码 WcPlacement 一致） */
 const PLACEMENTS: Array<wcPopconfirm['placement']> = [
@@ -56,10 +56,10 @@ const meta: Meta<wcPopconfirm> = {
           '  （detail.reason 为 button / outside / escape，之后自动关闭）',
           '- 插槽：默认插槽为触发元素；content 插槽为富文本确认内容',
           '',
-          '## React（@wc/react）',
+          '## React（@wc-kit/react）',
           '',
           '```tsx',
-          "import { WcPopconfirm } from '@wc/react';",
+          "import { WcPopconfirm } from '@wc-kit/react';",
           '',
           '<WcPopconfirm',
           '  content="确定删除吗？"',
@@ -73,7 +73,7 @@ const meta: Meta<wcPopconfirm> = {
           '</WcPopconfirm>',
           '```',
           '',
-          '## Vue（原生标签 + @wc/vue 类型增强）',
+          '## Vue（原生标签 + @wc-kit/vue 类型增强）',
           '',
           '```vue',
           '<template>',

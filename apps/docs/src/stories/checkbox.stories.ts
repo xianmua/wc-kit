@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcCheckbox } from '@wc/core';
+import type { wcCheckbox } from '@wc-kit/core';
 
 const meta: Meta<wcCheckbox> = {
   title: '表单组件/Checkbox 复选框',
@@ -42,7 +42,7 @@ const meta: Meta<wcCheckbox> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcCheckbox } from '@wc/react';
+import { WcCheckbox } from '@wc-kit/react';
 
 <WcCheckbox
   checked={agree}
@@ -55,7 +55,7 @@ import { WcCheckbox } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-change（detail.checked / detail.value）。 -->
 <wc-checkbox :checked="agree" @wc-change="(e) => (agree = e.detail.checked)">

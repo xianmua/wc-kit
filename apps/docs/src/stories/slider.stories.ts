@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcSlider } from '@wc/core';
+import type { wcSlider } from '@wc-kit/core';
 
 const meta: Meta<wcSlider> = {
   title: '表单组件/Slider 滑块',
@@ -40,7 +40,7 @@ Home/End 边界）。基于 ElementInternals 接入原生 form，value / name / 
 **React 用法**
 
 \`\`\`tsx
-import { WcSlider } from '@wc/react';
+import { WcSlider } from '@wc-kit/react';
 
 <WcSlider
   value={volume}
@@ -55,7 +55,7 @@ import { WcSlider } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-input / wc-change（detail.value）。
      value 为 number，建议用 .prop 绑定（.value="volume"）避免字符串化。 -->

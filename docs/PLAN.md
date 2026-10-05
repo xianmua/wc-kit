@@ -26,7 +26,7 @@
 ```
 wc/
 ├── packages/
-│   ├── core/                # @wc/core 组件库本体（Lit）
+│   ├── core/                # @wc-kit/core 组件库本体（Lit）
 │   │   ├── src/
 │   │   │   ├── tokens/      # 设计令牌定义与生成
 │   │   │   ├── styles/      # 基础样式、reset、工具类
@@ -38,9 +38,9 @@ wc/
 │   │   │   │       └── index.ts
 │   │   │   └── index.ts     # 统一出口
 │   │   └── package.json
-│   ├── react/               # @wc/react（@lit/react 自动包装）
-│   ├── vue/                 # @wc/vue（类型 + 指令增强）
-│   └── tokens/              # @wc/tokens（CSS/JS 双格式令牌，供 Figma 同步）
+│   ├── react/               # @wc-kit/react（@lit/react 自动包装）
+│   ├── vue/                 # @wc-kit/vue（类型 + 指令增强）
+│   └── tokens/              # @wc-kit/tokens（CSS/JS 双格式令牌，供 Figma 同步）
 ├── apps/
 │   └── docs/                # Storybook 文档站
 ├── docs/                    # 计划与规则文档
@@ -118,15 +118,15 @@ Phase 5 完成（6/6）。
 
 ### Phase 7 — 组件补遗（Phase 6 收尾后）
 
-- [ ] Image 图片（加载/失败态 + fallback、懒加载、大图预览缩放旋转，复用浮层基建）
-- [ ] Upload 上传（文件选择 + 拖拽、上传进度对接 Progress、预览列表、requestMethod 自定义上传）
+- [x] Image 图片（加载/失败态 + fallback、懒加载、大图预览缩放旋转，复用浮层基建）
+- [x] Upload 上传（文件选择 + 拖拽、上传进度对接 Progress、预览列表、requestMethod 自定义上传）
 
 ### Phase 6 — 框架适配与发布
 
-- [x] `@wc/react`：@lit/react 包装 + Events 映射（38 个标签全量包装；事件回调参数标注 CustomEvent；vitest 需 alias @lit/react 到浏览器构建——node 条件命中 SSR 构建会静默丢弃 props/事件）
-- [x] `@wc/vue`：GlobalComponents 类型声明（38 标签 → DefineComponent<Partial<元素类>>，实例类型自动推导零手工维护）+ v-model 适配说明（README：wc-input 等派发 wc-input/wc-change 自定义事件，原生 v-model 不生效，用 :value + @wc-input/@wc-change）
-- [ ] 文档站补全每组件的 React/Vue 用法示例
-- [ ] npm 首次发布
+- [x] `@wc-kit/react`：@lit/react 包装 + Events 映射（38 个标签全量包装；事件回调参数标注 CustomEvent；vitest 需 alias @lit/react 到浏览器构建——node 条件命中 SSR 构建会静默丢弃 props/事件）
+- [x] `@wc-kit/vue`：GlobalComponents 类型声明（38 标签 → DefineComponent<Partial<元素类>>，实例类型自动推导零手工维护）+ v-model 适配说明（README：wc-input 等派发 wc-input/wc-change 自定义事件，原生 v-model 不生效，用 :value + @wc-input/@wc-change）
+- [x] 文档站补全每组件的 React/Vue 用法示例（31 个 story 文件 / 145 个 story，五大分组；Meta/StoryObj 须从 @storybook/web-components 导入，vite 框架包只导出 StorybookConfig）
+- [x] npm 首次发布（2026-10-05：`@wc-kit/core@0.0.1` + `@wc-kit/react@0.0.2` + `@wc-kit/vue@0.0.2`，scope 因 `@wc` 被占用改为 `@wc-kit`；发布流程 pnpm pack 替换 workspace 协议后 npm publish，esm.sh CDN 端到端验证通过）
 
 ## 5. 里程碑验收标准
 

@@ -58,7 +58,7 @@ export const tabsStyles = css`
   }
 
   .tab:focus-visible {
-    box-shadow: var(--wc-color-focus-ring);
+    box-shadow: 0 0 0 2px var(--wc-color-focus-ring);
   }
 
   .tab[data-disabled] {

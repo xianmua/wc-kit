@@ -1,4 +1,4 @@
-import { wcTabs, wcTab, wcBreadcrumb, wcBreadcrumbItem, wcPagination } from '@wc/core';
+import { wcTabs, wcTab, wcBreadcrumb, wcBreadcrumbItem, wcPagination } from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
 export const WcTabs = createWrapper({

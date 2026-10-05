@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcList } from '@wc/core';
+import type { wcList } from '@wc-kit/core';
 
 const meta: Meta<wcList & { items: string[] }> = {
   title: '数据展示/List 列表',
@@ -32,10 +32,10 @@ const meta: Meta<wcList & { items: string[] }> = {
           '',
           '**插槽**：默认（列表条目 wc-list-item）、empty（空状态，默认 wc-empty）。无自定义事件。',
           '',
-          '**React 用法**（@wc/react 包装组件）',
+          '**React 用法**（@wc-kit/react 包装组件）',
           '',
           '```jsx',
-          "import { WcList, WcListItem } from '@wc/react';",
+          "import { WcList, WcListItem } from '@wc-kit/react';",
           '',
           '<WcList striped hoverable>',
           '  <WcListItem>条目一</WcListItem>',
@@ -43,7 +43,7 @@ const meta: Meta<wcList & { items: string[] }> = {
           '</WcList>',
           '```',
           '',
-          '**Vue 用法**（原生标签，@wc/vue 为纯类型增强）',
+          '**Vue 用法**（原生标签，@wc-kit/vue 为纯类型增强）',
           '',
           '```vue',
           '<wc-list striped hoverable>',

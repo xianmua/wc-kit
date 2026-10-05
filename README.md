@@ -17,7 +17,7 @@
 pnpm install
 pnpm -r build     # 构建所有包
 pnpm test         # 运行测试
-pnpm --filter @wc/core playground   # 启动组件 playground（端口 5180）
+pnpm --filter @wc-kit/core playground   # 启动组件 playground（端口 5180）
 ```
 
 ## 使用示例
@@ -40,10 +40,10 @@ pnpm --filter @wc/core playground   # 启动组件 playground（端口 5180）
 
 ```
 packages/
-├── core/     # @wc/core 组件库本体（Lit）
-├── react/    # @wc/react React 适配层
-├── vue/      # @wc/vue Vue 适配层
-└── tokens/   # @wc/tokens 设计令牌
+├── core/     # @wc-kit/core 组件库本体（Lit）
+├── react/    # @wc-kit/react React 适配层
+├── vue/      # @wc-kit/vue Vue 适配层
+└── tokens/   # @wc-kit/tokens 设计令牌
 apps/
 └── docs/     # Storybook 文档站
 ```

@@ -1,6 +1,7 @@
 import {
   wcButton,
   WcIcon as WcIconElement,
+  wcButtonGroup,
   wcDivider,
   wcTag,
   wcAvatar,
@@ -8,13 +9,19 @@ import {
   wcRow,
   wcCol,
   wcText,
-} from '@wc/core';
+} from '@wc-kit/core';
 import { createWrapper } from './create-wrapper.js';
 
 export const WcButton = createWrapper({
   tagName: 'wc-button',
   elementClass: wcButton,
   displayName: 'WcButton',
+});
+
+export const WcButtonGroup = createWrapper({
+  tagName: 'wc-button-group',
+  elementClass: wcButtonGroup,
+  displayName: 'WcButtonGroup',
 });
 
 export const WcIcon = createWrapper({

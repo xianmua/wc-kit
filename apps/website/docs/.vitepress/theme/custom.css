@@ -1,0 +1,11 @@
+/* 组件 demo 与文档的间距微调 */
+.vp-doc .demo-block {
+  border: 1px solid var(--wc-color-border);
+  border-radius: var(--wc-radius-medium);
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.vp-doc .demo-block + p {
+  margin-top: 8px;
+}

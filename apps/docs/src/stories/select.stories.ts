@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcSelect } from '@wc/core';
+import type { wcSelect } from '@wc-kit/core';
 
 const meta: Meta<wcSelect> = {
   title: '表单组件/Select 选择器',
@@ -54,7 +54,7 @@ value / name / disabled 可随表单提交与重置。支持键盘导航（Enter
 **React 用法**
 
 \`\`\`tsx
-import { WcSelect, WcOption } from '@wc/react';
+import { WcSelect, WcOption } from '@wc-kit/react';
 
 <WcSelect
   placeholder="请选择城市"
@@ -69,7 +69,7 @@ import { WcSelect, WcOption } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-change（detail.value / detail.label）。 -->
 <wc-select :value="city" @wc-change="(e) => (city = e.detail.value)">

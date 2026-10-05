@@ -1,7 +1,7 @@
 {
-  "name": "@wc/vue",
-  "version": "0.0.1",
-  "description": "Vue 3 type definitions and helpers for @wc/core web components",
+  "name": "@wc-kit/vue",
+  "version": "0.0.2",
+  "description": "Vue 3 type definitions and helpers for @wc-kit/core web components",
   "files": [
     "dist"
   ],
@@ -26,7 +26,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@wc/core": "workspace:*"
+    "@wc-kit/core": "workspace:*"
   },
   "devDependencies": {
     "jsdom": "^26.0.0",

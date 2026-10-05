@@ -12,7 +12,7 @@ export const drawerStyles = css`
     position: fixed;
     inset: 0;
     z-index: var(--wc-z-index-drawer);
-    background: rgb(0 0 0 / 45%);
+    background: var(--wc-color-mask);
     animation: wc-drawer-fade var(--wc-duration-fast) var(--wc-easing-standard);
   }
 

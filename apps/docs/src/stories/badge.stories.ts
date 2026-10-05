@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcBadge } from '@wc/core';
+import type { wcBadge } from '@wc-kit/core';
 
 const meta: Meta<wcBadge & { label: string }> = {
   title: '数据展示/Badge 徽标',
@@ -27,17 +27,17 @@ const meta: Meta<wcBadge & { label: string }> = {
           'dot（圆点模式，默认 false）、theme（语义色：primary / success / warning / danger，默认 danger）。',
           '默认插槽为被标记的内容（可空，空时独立展示）。无自定义事件。',
           '',
-          '**React 用法**（@wc/react 包装组件）',
+          '**React 用法**（@wc-kit/react 包装组件）',
           '',
           '```jsx',
-          "import { WcBadge } from '@wc/react';",
+          "import { WcBadge } from '@wc-kit/react';",
           '',
           '<WcBadge count={5} max={99} theme="danger">',
           '  <span>消息</span>',
           '</WcBadge>',
           '```',
           '',
-          '**Vue 用法**（原生标签，@wc/vue 为纯类型增强）',
+          '**Vue 用法**（原生标签，@wc-kit/vue 为纯类型增强）',
           '',
           '```vue',
           '<wc-badge :count="5" :max="99" theme="danger">',

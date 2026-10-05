@@ -4,28 +4,35 @@ import { baseStyles } from '../../styles/base.css';
 import { buttonStyles } from './wc-button.styles';
 
 export type wcButtonTheme = 'default' | 'primary' | 'success' | 'warning' | 'danger';
-export type wcButtonVariant = 'base' | 'outline' | 'dashed' | 'text';
+export type wcButtonVariant = 'base' | 'outline' | 'dashed' | 'text' | 'link';
 export type wcButtonSize = 'small' | 'medium' | 'large';
+export type wcButtonIconPosition = 'start' | 'end';
 
 /**
  * 按钮
  *
  * @slot - 按钮内容
- * @slot icon - 前置图标
+ * @slot icon - 图标（位置由 iconPosition 控制）
  * @csspart base - 按钮根元素
+ * @csspart icon - 图标容器
+ * @csspart content - 文案容器
  * @cssprop --wc-button-height - 按钮高度
  */
 export class wcButton extends LitElement {
   static styles = [baseStyles, buttonStyles];
 
   /** 组件风格（语义色） */
-  @property() theme: wcButtonTheme = 'default';
+  @property({ reflect: true }) theme: wcButtonTheme = 'default';
 
   /** 按钮形式 */
-  @property() variant: wcButtonVariant = 'base';
+  @property({ reflect: true }) variant: wcButtonVariant = 'base';
 
   /** 尺寸 */
   @property({ reflect: true }) size: wcButtonSize = 'medium';
+
+  /** 图标位置：start 左 / end 右 */
+  @property({ reflect: true, attribute: 'icon-position' }) iconPosition: wcButtonIconPosition =
+    'start';
 
   /** 是否为块级元素 */
   @property({ type: Boolean, reflect: true }) block = false;
@@ -44,7 +51,19 @@ export class wcButton extends LitElement {
     }
   }
 
+  /** 是否有图标（icon 插槽检测） */
+  private _hasIcon = false;
+
+  /** 是否有文案（默认插槽检测），两者决定纯图标方形态 */
+  private _hasText = false;
+
   render() {
+    const icon = html`<span class="icon" part="icon" ?hidden=${!this._hasIcon}>
+      <slot name="icon" @slotchange=${this._onIconSlotChange}></slot>
+    </span>`;
+    const content = html`<span class="content" part="content"
+      ><slot @slotchange=${this._onTextSlotChange}></slot
+    ></span>`;
     return html`
       <button
         part="base"
@@ -54,19 +73,27 @@ export class wcButton extends LitElement {
         aria-busy=${this.loading}
         @click=${this.handleClick}
       >
-        <span class="icon" part="icon" ?hidden=${!this._hasIcon}>
-          <slot name="icon" @slotchange=${this._onSlotChange}></slot>
-        </span>
-        <span class="content" part="content"><slot></slot></span>
+        ${this.iconPosition === 'end' ? [content, icon] : [icon, content]}
       </button>
     `;
   }
 
-  private _hasIcon = false;
-
-  private _onSlotChange(e: Event): void {
+  private _onIconSlotChange(e: Event): void {
     this._hasIcon = (e.target as HTMLSlotElement).assignedElements({ flatten: true }).length > 0;
+    this._syncIconOnly();
     this.requestUpdate();
+  }
+
+  private _onTextSlotChange(e: Event): void {
+    const nodes = (e.target as HTMLSlotElement).assignedNodes({ flatten: true });
+    this._hasText = nodes.some((n) => (n.textContent ?? '').trim().length > 0);
+    this._syncIconOnly();
+    this.requestUpdate();
+  }
+
+  /** 纯图标（有 icon 无文案）时收为正方形 */
+  private _syncIconOnly(): void {
+    this.classList.toggle('wc-button--icon-only', this._hasIcon && !this._hasText);
   }
 }
 

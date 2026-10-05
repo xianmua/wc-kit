@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { wcButton } from './index.js';
-describe('@wc/vue', () => {
+describe('@wc-kit/vue', () => {
   it('入口副作用导入注册全部自定义元素', () => {
     expect(customElements.get('wc-button')).to.equal(wcButton);
     for (const tag of [

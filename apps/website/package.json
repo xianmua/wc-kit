@@ -1,0 +1,19 @@
+{
+  "name": "@wc-kit/website",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "gen": "node scripts/gen-from-stories.mjs",
+    "test": "echo \"website: no tests\" && exit 0"
+  },
+  "dependencies": {
+    "@wc-kit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

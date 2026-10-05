@@ -262,7 +262,7 @@ describe('wc-date-picker', () => {
     );
     await open(el);
     const firstCell = el.shadowRoot!.querySelector('.weekdays .cell')!;
-    const zhMonday = new Intl.DateTimeFormat('zh-CN', { weekday: 'short' }).format(
+    const zhMonday = new Intl.DateTimeFormat('zh-CN', { weekday: 'narrow' }).format(
       new Date(2023, 0, 2),
     );
     expect(firstCell.textContent!.trim()).to.equal(zhMonday);

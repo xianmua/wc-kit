@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcInputNumber } from '@wc/core';
+import type { wcInputNumber } from '@wc-kit/core';
 
 const meta: Meta<wcInputNumber> = {
   title: '表单组件/InputNumber 数字输入框',
@@ -61,7 +61,7 @@ const meta: Meta<wcInputNumber> = {
 **React 用法**
 
 \`\`\`tsx
-import { WcInputNumber } from '@wc/react';
+import { WcInputNumber } from '@wc-kit/react';
 
 <WcInputNumber
   value={count}
@@ -76,7 +76,7 @@ import { WcInputNumber } from '@wc/react';
 **Vue 用法**
 
 \`\`\`html
-<!-- @wc/vue 仅提供类型增强，直接使用原生标签。
+<!-- @wc-kit/vue 仅提供类型增强，直接使用原生标签。
      不要使用原生 v-model（它绑定 value + 原生 input 事件），
      组件派发的是 wc-input / wc-change（detail.value）。
      value 为 number，建议用 .prop 绑定（.value="count"）避免字符串化。 -->

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import type { wcRow } from '@wc/core';
+import type { wcRow } from '@wc-kit/core';
 
 /** 演示用色块（帮助观察栅格占位与间距） */
 const block = (text: string, bg = 'var(--wc-color-primary)') => html`<div
@@ -40,10 +40,10 @@ wc-row 主要 API：\`gutter\` 列间距（px）、\`justify\` 水平对齐（st
 
 wc-col 主要 API：\`span\` 占据列数（1~24，默认 24）、\`offset\` 左侧偏移列数（1~23，默认 0）。wc-col 的宿主以 display:contents 参与行布局，内容走默认插槽。无自定义事件。
 
-React 用法（\`@wc/react\` 包装组件）：
+React 用法（\`@wc-kit/react\` 包装组件）：
 
 \`\`\`tsx
-import { WcCol, WcRow } from '@wc/react';
+import { WcCol, WcRow } from '@wc-kit/react';
 
 <WcRow gutter={16}>
   <WcCol span={12}>col-12</WcCol>
@@ -51,7 +51,7 @@ import { WcCol, WcRow } from '@wc/react';
 </WcRow>
 \`\`\`
 
-Vue 用法（\`@wc/vue\` 为纯类型增强包，直接使用原生标签）：
+Vue 用法（\`@wc-kit/vue\` 为纯类型增强包，直接使用原生标签）：
 
 \`\`\`vue
 <template>
