@@ -1,6 +1,7 @@
-import { html, LitElement, type TemplateResult } from 'lit';
+import { html, LitElement, nothing, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
+import { LocalizeController } from '../../i18n/localize-controller';
 import '../pagination/wc-pagination.js';
 import { sortRows } from './sort-rows.js';
 import { tablePagerStyles } from './wc-table-pager.styles.js';
@@ -31,6 +32,7 @@ import type { wcSortOrder, wcTableColumn, wcTableRow, wcTableSize } from './wc-t
  * @csspart base - 外层容器
  * @csspart table - 内部 wc-table
  * @csspart pager - 分页区容器
+ * @csspart total - 总条数（show-total，独立靠左）
  * @fires wc-sort - 内部表格列头排序后派发（detail: { key, order }）
  * @fires wc-row-click - 点击数据行后派发（detail: { row, index }，index 为当前页内序号）
  * @fires wc-change - 页码变化后派发（detail: { current, previous }）
@@ -38,6 +40,8 @@ import type { wcSortOrder, wcTableColumn, wcTableRow, wcTableSize } from './wc-t
  */
 export class wcTablePager extends LitElement {
   static styles = [baseStyles, tablePagerStyles];
+
+  private localize = new LocalizeController(this);
 
   /** 列配置（同 wc-table.columns） */
   @property({ type: Array }) columns: wcTableColumn[] = [];
@@ -57,7 +61,7 @@ export class wcTablePager extends LitElement {
   /** 加载中（透传，叠加表格遮罩） */
   @property({ type: Boolean, reflect: true }) loading = false;
 
-  /** 显示总条数（透传给分页器） */
+  /** 分页区显示总条数（独立渲染在左侧，其余分页控件靠右） */
   @property({ type: Boolean, attribute: 'show-total' }) showTotal = false;
 
   /** 显示跳页输入框（透传给分页器） */
@@ -131,6 +135,7 @@ export class wcTablePager extends LitElement {
   }
 
   protected override render(): TemplateResult {
+    const hasTotal = this.showTotal && this.data.length > 0;
     return html`
       <div class="table-pager" part="base">
         <wc-table
@@ -145,12 +150,16 @@ export class wcTablePager extends LitElement {
         >
           <slot name="empty" @slotchange=${this.onSlotChange} slot="empty"></slot>
         </wc-table>
-        <div class="pager" part="pager">
+        <div class="pager ${hasTotal ? 'has-total' : ''}" part="pager">
+          ${hasTotal
+            ? html`<span class="total" part="total">
+                ${this.localize.term('pagination.total', { total: this.data.length })}
+              </span>`
+            : nothing}
           <wc-pagination
             .total=${this.data.length}
             .current=${this.currentPage}
             .pageSize=${this.currentPageSize}
-            ?show-total=${this.showTotal}
             ?show-jumper=${this.showJumper}
             ?show-size-changer=${this.showSizeChanger}
             page-size-options=${this.pageSizeOptions}

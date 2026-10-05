@@ -36,7 +36,7 @@ onMounted(() => {
   <wc-table-pager ref="pagerTable" striped show-total show-jumper show-size-changer></wc-table-pager>
 </div>
 
-25 条模拟数据：每页 10 条，共 3 页；分页区靠左对齐，含总条数、每页条数选择与跳页输入；点击「姓名」列头会全量排序后重新切片。
+25 条模拟数据：每页 10 条，共 3 页；总条数独立靠左，每页条数选择、页码与跳页输入靠右；点击「姓名」列头会全量排序后重新切片。
 
 :::: details 查看代码
 ::: code-group
@@ -124,7 +124,7 @@ useEffect(() => {
 | `bordered`          | `bordered`            | `boolean`                        | `false`           | 全边框                       |
 | `size`              | `size`                | `'small' \| 'medium' \| 'large'` | `'medium'`        | 密度                         |
 | `loading`           | `loading`             | `boolean`                        | `false`           | 加载中（叠加遮罩）           |
-| `showTotal`         | `show-total`          | `boolean`                        | `false`           | 分页区显示总条数             |
+| `showTotal`         | `show-total`          | `boolean`                        | `false`           | 显示总条数（独立靠左，其余控件靠右） |
 | `showJumper`        | `show-jumper`         | `boolean`                        | `false`           | 分页区显示跳页输入框         |
 | `showSizeChanger`   | `show-size-changer`   | `boolean`                        | `false`           | 分页区显示每页条数选择器     |
 | `pageSizeOptions`   | `page-size-options`   | `string`                         | `'10,20,50,100'`  | 每页条数可选项（逗号分隔）   |
@@ -148,4 +148,4 @@ useEffect(() => {
 
 ### CSS Parts
 
-`base` / `table` / `pager`
+`base` / `table` / `pager` / `total`
