@@ -8,15 +8,16 @@ pnpm add @wc-kit/core
 
 ## 引入
 
-在应用入口注册组件、内置图标，并注入设计令牌与宿主 reset：
+在应用入口注册组件、注入设计令牌与宿主 reset：
 
 ```ts
-import { registerBuiltinIcons, tokensCss, resetCss, initTheme } from '@wc-kit/core';
+import { tokensCss, resetCss, initTheme } from '@wc-kit/core';
 
-// 注册全部组件（副作用导入）
+// 注册全部组件（副作用导入）；常用 23 个内置图标也随之自动注册
 import '@wc-kit/core';
 
-registerBuiltinIcons();
+// 如需 Feather 全集其余 268 个图标：
+// import { registerBuiltinIcons } from '@wc-kit/core'; registerBuiltinIcons();
 
 // 设计令牌（:root 变量 + 暗色主题）与宿主页面 reset
 const style = document.createElement('style');
