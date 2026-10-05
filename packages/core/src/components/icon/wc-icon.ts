@@ -4,13 +4,12 @@ import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import type { PropertyValues } from 'lit';
 import { baseStyles } from '../../styles/base.css.js';
 import { getIcon, onIconRegister, registerIcon, resolveIcon } from '../../icons/library.js';
-import { builtinIcons } from '../../icons/builtin-icons.js';
+import { builtinIconsWithFeather } from '../../icons/index.js';
 import { iconStyles } from './wc-icon.styles.js';
 
-// 手挑内置图标随模块加载自动注册（用户同名注册优先，不覆盖）：
-// 内部组件（date-picker / select / pagination 等）依赖这些图标，
-// 外部项目安装即用、无需手动 registerBuiltinIcons()；全量 291 个仍需手动开启
-for (const icon of builtinIcons) {
+// 全部内置图标（291 个）随模块加载自动注册（用户同名注册优先，不覆盖）：
+// 内部组件与 <wc-icon name="..."> 开箱即用、零配置
+for (const icon of builtinIconsWithFeather) {
   if (!getIcon(icon.name)) {
     registerIcon(icon.name, icon.svg);
   }
@@ -20,8 +19,8 @@ for (const icon of builtinIcons) {
  * 图标
  *
  * 三种来源（优先级从高到低）：`src`（URL 直连）> `name` + `library`（图标库解析）。
- * 常用 23 个内置图标随本模块自动注册（组件依赖的都在其中，开箱即用）；
- * 需要 Feather 全集时调用 `registerBuiltinIcons()`；自定义库用 `registerIconLibrary()`。
+ * 全部 291 个内置图标随本模块自动注册，开箱即用；
+ * 自定义图标用 `registerIcon()`，自定义/远程库用 `registerIconLibrary()`。
  *
  * @slot - 无（内容由 name/src 解析而来）
  * @csspart base - 图标容器

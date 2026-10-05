@@ -4,7 +4,7 @@
 
 内置 291 个图标 = **Feather Icons 全集**（287 个）+ error / image-off / warning 补充（Feather 缺失）；其中与 Feather 重名的 19 个（如 arrow-up 带回顶横线）为按组件需求定制过的版本，以定制为准。
 
-**零配置**：组件内部依赖的 23 个常用图标（下方示例中的全部图标）随 `@wc-kit/core` 导入自动注册，开箱即用；用户同名注册优先，不会被覆盖。需要 Feather 全集其余 268 个时，在应用入口调用一次 `registerBuiltinIcons()`（也可用 `registerIcon(name, svg)` 注册单个图标、`registerIconLibrary(name, lib)` 注册自定义/远程图标库）。
+**零配置**：全部 291 个内置图标随 `@wc-kit/core` 导入自动注册，开箱即用；用户同名注册优先，不会被覆盖。自定义图标用 `registerIcon(name, svg)` 注册单个图标、`registerIconLibrary(name, lib)` 注册自定义/远程图标库。`registerBuiltinIcons()` 保留作兼容（重复注册无副作用），新代码无需调用。
 
 主要 API：`name` 图标名、`src` SVG 地址、`library` 图标库（默认 default）、`label` 无障碍描述、`spin` 旋转动画、`pulse` 缓动旋转动画。尺寸默认跟随字号（1em），可用 CSS 变量 `--wc-icon-size` 覆盖。
 
@@ -13,8 +13,7 @@ React 用法（`@wc-kit/react` 包装组件）：
 ```tsx
 import { WcIcon } from '@wc-kit/react';
 
-// 常用 23 个图标已自动注册，直接用；需要 Feather 全集时在应用入口
-// import { registerBuiltinIcons } from '@wc-kit/core'; registerBuiltinIcons();
+// 全部内置图标已自动注册，直接用
 
 <WcIcon name="search" />
 <WcIcon name="loader" spin />
@@ -131,7 +130,7 @@ Vue 用法（`@wc-kit/vue` 为纯类型增强包，直接使用原生标签）�
   </div>
 </div>
 
-下方 23 个为自动注册的常用图标；全部 291 个需调用 `registerBuiltinIcons()` 解锁。
+全部 291 个图标均已自动注册，直接按名称使用。
 
 :::: details 查看代码
 ::: code-group
