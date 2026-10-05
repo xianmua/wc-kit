@@ -21,6 +21,7 @@ export default defineConfig({
       rollupTypes: false,
       insertTypesEntry: true,
       include: ['src/**/*.ts', 'src/**/*.d.ts'],
+      exclude: ['src/**/*.test.ts'],
     }),
   ],
 });
