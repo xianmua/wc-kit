@@ -3,7 +3,7 @@ import { componentSidebar } from './sidebar.data';
 
 export default defineConfig({
   lang: 'zh-CN',
-  title: 'WUI',
+  title: 'wc-kit',
   description: '基于 Lit 3 的 Web Components 组件库，一份代码同时服务 React / Vue / 原生页面',
 
   // <wc-*> 是原生自定义元素，不让 Vue 当作组件解析

@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: WUI
+  name: wc-kit
   text: Web Components 组件库
   tagline: 基于 Lit 3，一份代码同时服务 React / Vue / 原生页面，内置设计令牌与明暗主题
   actions:
