@@ -53,18 +53,18 @@ const data = [{ name: '张三', age: 18 }];
 ## 示例
 
 <script setup>
-import { onMounted, ref } from 'vue'
+// 对象数组型属性直接模板绑定（:columns / :data），Vue 检测到同名 property 会走 property 通道
 
-// columns / data 为属性型（对象数组），需 JS 赋值
-const alignTable = ref(null)
-const zebraTable = ref(null)
-const sizeSmall = ref(null)
-const sizeLarge = ref(null)
-const customCell = ref(null)
-const loadingTable = ref(null)
-const emptyTable = ref(null)
-const emptySlotTable = ref(null)
-const expandTable = ref(null)
+const alignColumns = [
+  { key: 'name', title: '姓名', width: 120 },
+  { key: 'age', title: '年龄', width: 80, align: 'right' },
+  { key: 'status', title: '状态', width: 100, align: 'center' },
+  { key: 'address', title: '住址', ellipsis: true },
+]
+const alignData = [
+  { name: '张三', age: 32, status: '在职', address: '广东省深圳市南山区科技园南区高新南一道 006 号' },
+  { name: '李四', age: 26, status: '离职', address: '上海市浦东新区世纪大道 100 号环球金融中心' },
+]
 
 // 基础演示数据：「姓名」列可排序
 const baseColumns = [
@@ -90,92 +90,57 @@ function renderStatus(row) {
   return tag
 }
 
-onMounted(() => {
-  if (alignTable.value) {
-    alignTable.value.columns = [
-      { key: 'name', title: '姓名', width: 120 },
-      { key: 'age', title: '年龄', width: 80, align: 'right' },
-      { key: 'status', title: '状态', width: 100, align: 'center' },
-      { key: 'address', title: '住址', ellipsis: true },
-    ]
-    alignTable.value.data = [
-      { name: '张三', age: 32, status: '在职', address: '广东省深圳市南山区科技园南区高新南一道 006 号' },
-      { name: '李四', age: 26, status: '离职', address: '上海市浦东新区世纪大道 100 号环球金融中心' },
-    ]
-  }
-  if (zebraTable.value) {
-    zebraTable.value.columns = baseColumns
-    zebraTable.value.data = baseData
-  }
-  if (sizeSmall.value) {
-    sizeSmall.value.columns = baseColumns
-    sizeSmall.value.data = baseData
-  }
-  if (sizeLarge.value) {
-    sizeLarge.value.columns = baseColumns
-    sizeLarge.value.data = baseData
-  }
-  if (customCell.value) {
-    customCell.value.columns = [
-      { key: 'name', title: '姓名' },
-      { key: 'level', title: '等级', render: (row) => `P${row.level}` },
-      { key: 'status', title: '状态', render: renderStatus },
-    ]
-    customCell.value.data = [
-      { name: '张三', level: 8, status: '在职' },
-      { name: '李四', level: 6, status: '离职' },
-    ]
-  }
-  if (loadingTable.value) {
-    loadingTable.value.columns = baseColumns
-    loadingTable.value.data = baseData
-  }
-  if (emptyTable.value) emptyTable.value.columns = baseColumns
-  if (emptySlotTable.value) emptySlotTable.value.columns = baseColumns
-  if (expandTable.value) {
-    expandTable.value.columns = [
-      { key: 'order', title: '订单号' },
-      { key: 'customer', title: '客户' },
-      { key: 'total', title: '金额', align: 'right' },
-    ]
-    expandTable.value.rowKey = 'order'
-    expandTable.value.data = [
-      {
-        order: 'SO-2026-001',
-        customer: '张三',
-        total: 1280,
-        items: [
-          { product: '机械键盘', qty: 1, price: 680 },
-          { product: '无线鼠标', qty: 2, price: 300 },
-        ],
-      },
-      {
-        order: 'SO-2026-002',
-        customer: '李四',
-        total: 450,
-        items: [{ product: '显示器支架', qty: 1, price: 450 }],
-      },
-    ]
-    // 展开区嵌套子表格：返回元素（也可返回 lit 模板或文本）
-    expandTable.value.expandedRowRender = (row) => {
-      const sub = document.createElement('wc-table')
-      sub.columns = [
-        { key: 'product', title: '商品' },
-        { key: 'qty', title: '数量', align: 'right', width: 80 },
-        { key: 'price', title: '单价', align: 'right', width: 120 },
-      ]
-      sub.size = 'small'
-      sub.data = row.items
-      return sub
-    }
-  }
-})
+const customColumns = [
+  { key: 'name', title: '姓名' },
+  { key: 'level', title: '等级', render: (row) => `P${row.level}` },
+  { key: 'status', title: '状态', render: renderStatus },
+]
+const customData = [
+  { name: '张三', level: 8, status: '在职' },
+  { name: '李四', level: 6, status: '离职' },
+]
+
+const expandColumns = [
+  { key: 'order', title: '订单号' },
+  { key: 'customer', title: '客户' },
+  { key: 'total', title: '金额', align: 'right' },
+]
+const expandData = [
+  {
+    order: 'SO-2026-001',
+    customer: '张三',
+    total: 1280,
+    items: [
+      { product: '机械键盘', qty: 1, price: 680 },
+      { product: '无线鼠标', qty: 2, price: 300 },
+    ],
+  },
+  {
+    order: 'SO-2026-002',
+    customer: '李四',
+    total: 450,
+    items: [{ product: '显示器支架', qty: 1, price: 450 }],
+  },
+]
+
+// 展开区嵌套子表格：返回元素（也可返回 lit 模板或文本）
+function expandRender(row) {
+  const sub = document.createElement('wc-table')
+  sub.columns = [
+    { key: 'product', title: '商品' },
+    { key: 'qty', title: '数量', align: 'right', width: 80 },
+    { key: 'price', title: '单价', align: 'right', width: 120 },
+  ]
+  sub.size = 'small'
+  sub.data = row.items
+  return sub
+}
 </script>
 
 ### 列对齐与列宽
 
 <div class="demo-block">
-  <wc-table ref="alignTable" bordered></wc-table>
+  <wc-table :columns="alignColumns" :data="alignData" bordered></wc-table>
 </div>
 
 列的 align 控制单元格对齐，width 控制列宽（数值 px 或任意 CSS 宽度），ellipsis 超宽省略（title 提示完整内容）。
@@ -189,7 +154,7 @@ onMounted(() => {
 <script type="module">
   const table = document.getElementById('table');
 
-  // columns / data 为属性型（对象数组），需 JS 赋值
+  // attribute 只能传字符串，columns / data 是对象数组，需 JS 设 property
 
   table.columns = [
     { key: 'name', title: '姓名', width: 120 },
@@ -210,60 +175,50 @@ onMounted(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-table ref="table" bordered></wc-table>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = ref(null);
-
-onMounted(() => {
-  table.value.columns = [
-    { key: 'name', title: '姓名', width: 120 },
-    { key: 'age', title: '年龄', width: 80, align: 'right' },
-    { key: 'status', title: '状态', width: 100, align: 'center' },
-    { key: 'address', title: '住址', ellipsis: true },
-  ];
-  table.value.data = [
-    {
-      name: '张三',
-      age: 32,
-      status: '在职',
-      address: '广东省深圳市南山区科技园南区高新南一道 006 号',
-    },
-    { name: '李四', age: 26, status: '离职', address: '上海市浦东新区世纪大道 100 号环球金融中心' },
-  ];
-});
+// 对象数组直接绑定 :columns / :data（Vue 检测到同名 property 走 property 通道）
+const columns = [
+  { key: 'name', title: '姓名', width: 120 },
+  { key: 'age', title: '年龄', width: 80, align: 'right' },
+  { key: 'status', title: '状态', width: 100, align: 'center' },
+  { key: 'address', title: '住址', ellipsis: true },
+];
+const data = [
+  {
+    name: '张三',
+    age: 32,
+    status: '在职',
+    address: '广东省深圳市南山区科技园南区高新南一道 006 号',
+  },
+  { name: '李四', age: 26, status: '离职', address: '上海市浦东新区世纪大道 100 号环球金融中心' },
+];
 </script>
+
+<template>
+  <wc-table :columns="columns" :data="data" bordered></wc-table>
+</template>
 ```
 
 ```tsx [React]
 import { WcTable } from '@wc-kit/react';
 
-<WcTable ref={table} bordered></WcTable>;
+const columns = [
+  { key: 'name', title: '姓名', width: 120 },
+  { key: 'age', title: '年龄', width: 80, align: 'right' },
+  { key: 'status', title: '状态', width: 100, align: 'center' },
+  { key: 'address', title: '住址', ellipsis: true },
+];
+const data = [
+  {
+    name: '张三',
+    age: 32,
+    status: '在职',
+    address: '广东省深圳市南山区科技园南区高新南一道 006 号',
+  },
+  { name: '李四', age: 26, status: '离职', address: '上海市浦东新区世纪大道 100 号环球金融中心' },
+];
 
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = useRef(null);
-useEffect(() => {
-  table.current.columns = [
-    { key: 'name', title: '姓名', width: 120 },
-    { key: 'age', title: '年龄', width: 80, align: 'right' },
-    { key: 'status', title: '状态', width: 100, align: 'center' },
-    { key: 'address', title: '住址', ellipsis: true },
-  ];
-  table.current.data = [
-    {
-      name: '张三',
-      age: 32,
-      status: '在职',
-      address: '广东省深圳市南山区科技园南区高新南一道 006 号',
-    },
-    { name: '李四', age: 26, status: '离职', address: '上海市浦东新区世纪大道 100 号环球金融中心' },
-  ];
-}, []);
+<WcTable columns={columns} data={data} bordered></WcTable>;
 ```
 
 :::
@@ -272,7 +227,7 @@ useEffect(() => {
 ### 斑马纹与边框
 
 <div class="demo-block">
-  <wc-table ref="zebraTable" striped bordered></wc-table>
+  <wc-table :columns="baseColumns" :data="baseData" striped bordered></wc-table>
 </div>
 
 :::: details 查看代码
@@ -284,7 +239,7 @@ useEffect(() => {
 <script type="module">
   const table = document.getElementById('table');
 
-  // columns / data 为属性型（对象数组），需 JS 赋值
+  // attribute 只能传字符串，columns / data 是对象数组，需 JS 设 property
 
   table.columns = [
     { key: 'name', title: '姓名', sortable: true },
@@ -300,50 +255,40 @@ useEffect(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-table ref="table" striped bordered></wc-table>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = ref(null);
-
-onMounted(() => {
-  table.value.columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'address', title: '住址' },
-  ];
-  table.value.data = [
-    { name: '张三', age: 32, address: '北京市朝阳区' },
-    { name: '李四', age: 26, address: '上海市浦东新区' },
-    { name: '王五', age: 41, address: '广州市天河区' },
-  ];
-});
+// 对象数组直接绑定 :columns / :data（Vue 检测到同名 property 走 property 通道）
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'address', title: '住址' },
+];
+const data = [
+  { name: '张三', age: 32, address: '北京市朝阳区' },
+  { name: '李四', age: 26, address: '上海市浦东新区' },
+  { name: '王五', age: 41, address: '广州市天河区' },
+];
 </script>
+
+<template>
+  <wc-table :columns="columns" :data="data" striped bordered></wc-table>
+</template>
 ```
 
 ```tsx [React]
 import { WcTable } from '@wc-kit/react';
 
-<WcTable ref={table} striped bordered></WcTable>;
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'address', title: '住址' },
+];
+const data = [
+  { name: '张三', age: 32, address: '北京市朝阳区' },
+  { name: '李四', age: 26, address: '上海市浦东新区' },
+  { name: '王五', age: 41, address: '广州市天河区' },
+];
 
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = useRef(null);
-useEffect(() => {
-  table.current.columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'address', title: '住址' },
-  ];
-  table.current.data = [
-    { name: '张三', age: 32, address: '北京市朝阳区' },
-    { name: '李四', age: 26, address: '上海市浦东新区' },
-    { name: '王五', age: 41, address: '广州市天河区' },
-  ];
-}, []);
+<WcTable columns={columns} data={data} striped bordered></WcTable>;
 ```
 
 :::
@@ -353,8 +298,8 @@ useEffect(() => {
 
 <div class="demo-block">
   <div style="display:flex;flex-direction:column;gap:16px;">
-    <wc-table ref="sizeSmall" size="small"></wc-table>
-    <wc-table ref="sizeLarge" size="large"></wc-table>
+    <wc-table :columns="baseColumns" :data="baseData" size="small"></wc-table>
+    <wc-table :columns="baseColumns" :data="baseData" size="large"></wc-table>
   </div>
 </div>
 
@@ -374,7 +319,7 @@ useEffect(() => {
 
   const large = document.getElementById('large');
 
-  // columns / data 为属性型（对象数组），需 JS 赋值
+  // attribute 只能传字符串，columns / data 是对象数组，需 JS 设 property
 
   const columns = [
     { key: 'name', title: '姓名', sortable: true },
@@ -394,66 +339,46 @@ useEffect(() => {
 ```
 
 ```vue [Vue]
+<script setup lang="ts">
+// 对象数组直接绑定 :columns / :data（Vue 检测到同名 property 走 property 通道）
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'address', title: '住址' },
+];
+const data = [
+  { name: '张三', age: 32, address: '北京市朝阳区' },
+  { name: '李四', age: 26, address: '上海市浦东新区' },
+  { name: '王五', age: 41, address: '广州市天河区' },
+];
+</script>
+
 <template>
   <div style="display:flex;flex-direction:column;gap:16px;">
-    <wc-table ref="small" size="small"></wc-table>
-    <wc-table ref="large" size="large"></wc-table>
+    <wc-table :columns="columns" :data="data" size="small"></wc-table>
+    <wc-table :columns="columns" :data="data" size="large"></wc-table>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const small = ref(null);
-const large = ref(null);
-
-onMounted(() => {
-  const columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'address', title: '住址' },
-  ];
-  const data = [
-    { name: '张三', age: 32, address: '北京市朝阳区' },
-    { name: '李四', age: 26, address: '上海市浦东新区' },
-    { name: '王五', age: 41, address: '广州市天河区' },
-  ];
-  for (const el of [small.value, large.value]) {
-    el.columns = columns;
-    el.data = data;
-  }
-});
-</script>
 ```
 
 ```tsx [React]
 import { WcTable } from '@wc-kit/react';
 
-<div style="display:flex;flex-direction:column;gap:16px;">
-  <WcTable ref={small} size="small"></WcTable>
-  <WcTable ref={large} size="large"></WcTable>
-</div>;
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'address', title: '住址' },
+];
+const data = [
+  { name: '张三', age: 32, address: '北京市朝阳区' },
+  { name: '李四', age: 26, address: '上海市浦东新区' },
+  { name: '王五', age: 41, address: '广州市天河区' },
+];
 
-// columns / data 为属性型（对象数组），需 JS 赋值
-const small = useRef(null);
-const large = useRef(null);
-useEffect(() => {
-  const columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'address', title: '住址' },
-  ];
-  const data = [
-    { name: '张三', age: 32, address: '北京市朝阳区' },
-    { name: '李四', age: 26, address: '上海市浦东新区' },
-    { name: '王五', age: 41, address: '广州市天河区' },
-  ];
-  for (const el of [small.current, large.current]) {
-    el.columns = columns;
-    el.data = data;
-  }
-}, []);
+<div style="display:flex;flex-direction:column;gap:16px;">
+  <WcTable columns={columns} data={data} size="small"></WcTable>
+  <WcTable columns={columns} data={data} size="large"></WcTable>
+</div>;
 ```
 
 :::
@@ -462,7 +387,7 @@ useEffect(() => {
 ### 自定义单元格
 
 <div class="demo-block">
-  <wc-table ref="customCell"></wc-table>
+  <wc-table :columns="customColumns" :data="customData"></wc-table>
 </div>
 
 列配置的 render(row, index) 可返回 lit 模板或文本，覆盖默认单元格内容。
@@ -476,7 +401,7 @@ useEffect(() => {
 <script type="module">
   const table = document.getElementById('table');
 
-  // columns / data 为属性型（对象数组），需 JS 赋值
+  // attribute 只能传字符串，columns / data 是对象数组，需 JS 设 property
 
   table.columns = [
     { key: 'name', title: '姓名' },
@@ -506,78 +431,68 @@ useEffect(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-table ref="table"></wc-table>
-</template>
-
 <script setup lang="tsx">
-import { onMounted, ref } from 'vue';
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = ref(null);
-
-onMounted(() => {
-  table.value.columns = [
-    { key: 'name', title: '姓名' },
-    // render 返回文本
-    { key: 'level', title: '等级', render: (row) => `P${row.level}` },
-    // render 返回元素（也可返回 lit 模板）
-    {
-      key: 'status',
-      title: '状态',
-      render: (row) => {
-        const tag = document.createElement('wc-tag');
-        if (row.status === '在职') {
-          tag.setAttribute('theme', 'success');
-          tag.textContent = '在职';
-        } else {
-          tag.textContent = '离职';
-        }
-        return tag;
-      },
+// 对象数组（含 render 函数）直接绑定 :columns / :data
+const columns = [
+  { key: 'name', title: '姓名' },
+  // render 返回文本
+  { key: 'level', title: '等级', render: (row) => `P${row.level}` },
+  // render 返回元素（也可返回 lit 模板）
+  {
+    key: 'status',
+    title: '状态',
+    render: (row) => {
+      const tag = document.createElement('wc-tag');
+      if (row.status === '在职') {
+        tag.setAttribute('theme', 'success');
+        tag.textContent = '在职';
+      } else {
+        tag.textContent = '离职';
+      }
+      return tag;
     },
-  ];
-  table.value.data = [
-    { name: '张三', level: 8, status: '在职' },
-    { name: '李四', level: 6, status: '离职' },
-  ];
-});
+  },
+];
+const data = [
+  { name: '张三', level: 8, status: '在职' },
+  { name: '李四', level: 6, status: '离职' },
+];
 </script>
+
+<template>
+  <wc-table :columns="columns" :data="data"></wc-table>
+</template>
 ```
 
 ```tsx [React]
 import { WcTable } from '@wc-kit/react';
 
-<WcTable ref={table}></WcTable>;
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = useRef(null);
-useEffect(() => {
-  table.current.columns = [
-    { key: 'name', title: '姓名' },
-    // render 返回文本
-    { key: 'level', title: '等级', render: (row) => `P${row.level}` },
-    // render 返回元素（也可返回 lit 模板）
-    {
-      key: 'status',
-      title: '状态',
-      render: (row) => {
-        const tag = document.createElement('wc-tag');
-        if (row.status === '在职') {
-          tag.setAttribute('theme', 'success');
-          tag.textContent = '在职';
-        } else {
-          tag.textContent = '离职';
-        }
-        return tag;
-      },
+const columns = [
+  { key: 'name', title: '姓名' },
+  // render 返回文本
+  { key: 'level', title: '等级', render: (row) => `P${row.level}` },
+  // render 返回元素（也可返回 lit 模板）
+  {
+    key: 'status',
+    title: '状态',
+    render: (row) => {
+      const tag = document.createElement('wc-tag');
+      if (row.status === '在职') {
+        tag.setAttribute('theme', 'success');
+        tag.textContent = '在职';
+      } else {
+        tag.textContent = '离职';
+      }
+      return tag;
     },
-  ];
-  table.current.data = [
-    { name: '张三', level: 8, status: '在职' },
-    { name: '李四', level: 6, status: '离职' },
-  ];
-}, []);
+  },
+];
+const data = [
+  { name: '张三', level: 8, status: '在职' },
+  { name: '李四', level: 6, status: '离职' },
+];
+
+<WcTable columns={columns} data={data}></WcTable>;
 ```
 
 :::
@@ -587,9 +502,9 @@ useEffect(() => {
 
 <div class="demo-block">
   <div style="display:flex;flex-direction:column;gap:16px;">
-    <wc-table ref="loadingTable" loading></wc-table>
-    <wc-table ref="emptyTable" bordered></wc-table>
-    <wc-table ref="emptySlotTable">
+    <wc-table :columns="baseColumns" :data="baseData" loading></wc-table>
+    <wc-table :columns="baseColumns" bordered></wc-table>
+    <wc-table :columns="baseColumns">
       <wc-button slot="empty">自定义空状态</wc-button>
     </wc-table>
   </div>
@@ -616,7 +531,7 @@ loading 叠加加载遮罩；data 为空时回退渲染内置 wc-empty，可用 
 
   const emptySlot = document.getElementById('emptySlot');
 
-  // columns / data 为属性型（对象数组），需 JS 赋值
+  // attribute 只能传字符串，columns / data 是对象数组，需 JS 设 property
 
   const columns = [
     { key: 'name', title: '姓名', sortable: true },
@@ -638,78 +553,54 @@ loading 叠加加载遮罩；data 为空时回退渲染内置 wc-empty，可用 
 ```
 
 ```vue [Vue]
+<script setup lang="ts">
+// 对象数组直接绑定 :columns / :data（Vue 检测到同名 property 走 property 通道）
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'address', title: '住址' },
+];
+const data = [
+  { name: '张三', age: 32, address: '北京市朝阳区' },
+  { name: '李四', age: 26, address: '上海市浦东新区' },
+  { name: '王五', age: 41, address: '广州市天河区' },
+];
+</script>
+
 <template>
   <div style="display:flex;flex-direction:column;gap:16px;">
-    <wc-table ref="loading" loading></wc-table>
-    <wc-table ref="empty" bordered></wc-table>
-    <wc-table ref="emptySlot">
+    <wc-table :columns="columns" :data="data" loading></wc-table>
+    <!-- data 为空（默认 []）时回退空状态 -->
+    <wc-table :columns="columns" bordered></wc-table>
+    <wc-table :columns="columns">
       <wc-button slot="empty">自定义空状态</wc-button>
     </wc-table>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const loading = ref(null);
-const empty = ref(null);
-const emptySlot = ref(null);
-
-onMounted(() => {
-  const columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'address', title: '住址' },
-  ];
-  if (loading.value) {
-    loading.value.columns = columns;
-    loading.value.data = [
-      { name: '张三', age: 32, address: '北京市朝阳区' },
-      { name: '李四', age: 26, address: '上海市浦东新区' },
-      { name: '王五', age: 41, address: '广州市天河区' },
-    ];
-  }
-  // data 为空（默认 []）时回退空状态
-  if (empty.value) empty.value.columns = columns;
-  if (emptySlot.value) emptySlot.value.columns = columns;
-});
-</script>
 ```
 
 ```tsx [React]
 import { WcButton, WcTable } from '@wc-kit/react';
 
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'address', title: '住址' },
+];
+const data = [
+  { name: '张三', age: 32, address: '北京市朝阳区' },
+  { name: '李四', age: 26, address: '上海市浦东新区' },
+  { name: '王五', age: 41, address: '广州市天河区' },
+];
+
 <div style="display:flex;flex-direction:column;gap:16px;">
-  <WcTable ref={loading} loading></WcTable>
-  <WcTable ref={empty} bordered></WcTable>
-  <WcTable ref={emptySlot}>
+  <WcTable columns={columns} data={data} loading></WcTable>
+  {/* data 为空（默认 []）时回退空状态 */}
+  <WcTable columns={columns} bordered></WcTable>
+  <WcTable columns={columns}>
     <WcButton slot="empty">自定义空状态</WcButton>
   </WcTable>
 </div>;
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const loading = useRef(null);
-const empty = useRef(null);
-const emptySlot = useRef(null);
-useEffect(() => {
-  const columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'address', title: '住址' },
-  ];
-  if (loading.current) {
-    loading.current.columns = columns;
-    loading.current.data = [
-      { name: '张三', age: 32, address: '北京市朝阳区' },
-      { name: '李四', age: 26, address: '上海市浦东新区' },
-      { name: '王五', age: 41, address: '广州市天河区' },
-    ];
-  }
-  // data 为空（默认 []）时回退空状态
-  if (empty.current) empty.current.columns = columns;
-  if (emptySlot.current) emptySlot.current.columns = columns;
-}, []);
 ```
 
 :::
@@ -718,7 +609,12 @@ useEffect(() => {
 ### 展开行子表格
 
 <div class="demo-block">
-  <wc-table ref="expandTable"></wc-table>
+  <wc-table
+    :columns="expandColumns"
+    :data="expandData"
+    row-key="order"
+    :expandedRowRender="expandRender"
+  ></wc-table>
 </div>
 
 设置 `expandedRowRender(row, index)` 后首列出现展开箭头，展开区可渲染任意内容
@@ -765,63 +661,84 @@ useEffect(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-table ref="table"></wc-table>
-</template>
-
 <script setup lang="tsx">
-import { onMounted, ref } from 'vue';
+// 对象数组（含 render / expandedRowRender 函数）直接绑定
+const columns = [
+  { key: 'order', title: '订单号' },
+  { key: 'customer', title: '客户' },
+  { key: 'total', title: '金额', align: 'right' },
+];
+const data = [
+  { order: 'SO-2026-001', customer: '张三', total: 1280,
+    items: [
+      { product: '机械键盘', qty: 1, price: 680 },
+      { product: '无线鼠标', qty: 2, price: 300 },
+    ] },
+  { order: 'SO-2026-002', customer: '李四', total: 450,
+    items: [{ product: '显示器支架', qty: 1, price: 450 }] },
+];
 
-const table = ref(null);
-
-onMounted(() => {
-  table.value.columns = [
-    { key: 'order', title: '订单号' },
-    { key: 'customer', title: '客户' },
-    { key: 'total', title: '金额', align: 'right' },
+// 展开区嵌套子表格：返回 DOM 元素（也可返回 lit 模板或文本）
+function expandedRowRender(row) {
+  const sub = document.createElement('wc-table');
+  sub.columns = [
+    { key: 'product', title: '商品' },
+    { key: 'qty', title: '数量', align: 'right', width: 80 },
+    { key: 'price', title: '单价', align: 'right', width: 120 },
   ];
-  table.value.data = [/* 同上 */];
-  // 展开区嵌套子表格
-  table.value.expandedRowRender = (row) => {
-    const sub = document.createElement('wc-table');
-    sub.columns = [
-      { key: 'product', title: '商品' },
-      { key: 'qty', title: '数量', align: 'right', width: 80 },
-      { key: 'price', title: '单价', align: 'right', width: 120 },
-    ];
-    sub.size = 'small';
-    sub.data = row.items;
-    return sub;
-  };
-});
+  sub.size = 'small';
+  sub.data = row.items;
+  return sub;
+}
 </script>
+
+<template>
+  <wc-table
+    :columns="columns"
+    :data="data"
+    row-key="order"
+    :expandedRowRender="expandedRowRender"
+  ></wc-table>
+</template>
 ```
 
 ```tsx [React]
 import { WcTable } from '@wc-kit/react';
 
-<WcTable ref={table}></WcTable>;
+const columns = [
+  { key: 'order', title: '订单号' },
+  { key: 'customer', title: '客户' },
+  { key: 'total', title: '金额', align: 'right' },
+];
+const data = [
+  { order: 'SO-2026-001', customer: '张三', total: 1280,
+    items: [
+      { product: '机械键盘', qty: 1, price: 680 },
+      { product: '无线鼠标', qty: 2, price: 300 },
+    ] },
+  { order: 'SO-2026-002', customer: '李四', total: 450,
+    items: [{ product: '显示器支架', qty: 1, price: 450 }] },
+];
 
-useEffect(() => {
-  table.current.columns = [
-    { key: 'order', title: '订单号' },
-    { key: 'customer', title: '客户' },
-    { key: 'total', title: '金额', align: 'right' },
+// 展开区嵌套子表格：返回 DOM 元素（也可返回 lit 模板）
+function expandedRowRender(row) {
+  const sub = document.createElement('wc-table');
+  sub.columns = [
+    { key: 'product', title: '商品' },
+    { key: 'qty', title: '数量', align: 'right', width: 80 },
+    { key: 'price', title: '单价', align: 'right', width: 120 },
   ];
-  table.current.data = [/* 同上 */];
-  // 展开区嵌套子表格
-  table.current.expandedRowRender = (row) => {
-    const sub = document.createElement('wc-table');
-    sub.columns = [
-      { key: 'product', title: '商品' },
-      { key: 'qty', title: '数量', align: 'right', width: 80 },
-      { key: 'price', title: '单价', align: 'right', width: 120 },
-    ];
-    sub.size = 'small';
-    sub.data = row.items;
-    return sub;
-  };
-}, []);
+  sub.size = 'small';
+  sub.data = row.items;
+  return sub;
+}
+
+<WcTable
+  columns={columns}
+  data={data}
+  rowKey="order"
+  expandedRowRender={expandedRowRender}
+></WcTable>;
 ```
 
 :::

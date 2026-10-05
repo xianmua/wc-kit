@@ -57,10 +57,8 @@ import { WcForm, WcFormItem, WcInput, WcButton } from '@wc-kit/react';
 ## 示例
 
 <script setup>
-import { onMounted, ref } from 'vue'
-
-// rules 为 attribute:false 的属性（validator 为函数），需 JS 赋值
-const nicknameItem = ref(null)
+// rules 含函数（validator），模板里用 camelCase 绑定（:rules），
+// Vue 检测到同名 property 会走 property 通道
 const nicknameRules = [
   {
     validator: (v) => String(v).length >= 2 || '昵称至少 2 个字符',
@@ -75,10 +73,6 @@ const nicknameRules = [
 function onFormSubmit(e) {
   console.log('wc-submit', e.detail)
 }
-
-onMounted(() => {
-  if (nicknameItem.value) nicknameItem.value.rules = nicknameRules
-})
 </script>
 
 ### 校验规则
@@ -190,7 +184,7 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
     <wc-form-item label="用户名" name="username" required>
       <wc-input name="username" placeholder="必填"></wc-input>
     </wc-form-item>
-    <wc-form-item ref="nicknameItem" label="昵称" name="nickname">
+    <wc-form-item :rules="nicknameRules" label="昵称" name="nickname">
       <wc-input name="nickname" placeholder="试试输入 admin 触发异步校验"></wc-input>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
@@ -200,7 +194,7 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
   </wc-form>
 </div>
 
-通过 `rules` 属性（JS 设置，attribute:false）传入自定义 validator：返回 false 或非空字符串表示失败，返回字符串时直接作为错误消息，支持异步（Promise）。
+通过 `rules` 属性传入自定义 validator（含函数，走 property 通道——Vue 用 `:rules` 绑定，React 用 props，HTML 需 JS 赋值）：返回 false 或非空字符串表示失败，返回字符串时直接作为错误消息，支持异步（Promise）。
 
 :::: details 查看代码
 ::: code-group
@@ -222,7 +216,7 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
 <script type="module">
   const nicknameItem = document.getElementById('nicknameItem');
 
-  // rules 为 attribute:false 的属性（validator 为函数），需 JS 赋值
+  // attribute 只能传字符串，rules 是含函数的对象数组，需 JS 设 property
 
   const nicknameRules = [
     { validator: (v) => String(v).length >= 2 || '昵称至少 2 个字符' },
@@ -238,12 +232,24 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
 ```
 
 ```vue [Vue]
+<script setup lang="ts">
+// rules 含 validator 函数，用 camelCase 绑定 :rules（Vue 检测到同名 property 走 property 通道）
+const nicknameRules = [
+  { validator: (v) => String(v).length >= 2 || '昵称至少 2 个字符' },
+  {
+    validator: (v) =>
+      new Promise((resolve) => setTimeout(() => resolve(String(v) !== 'admin'), 500)),
+    message: '该昵称已被占用（模拟异步校验）',
+  },
+];
+</script>
+
 <template>
   <wc-form style="max-width:420px">
     <wc-form-item label="用户名" name="username" required>
       <wc-input name="username" placeholder="必填"></wc-input>
     </wc-form-item>
-    <wc-form-item ref="nicknameItem" label="昵称" name="nickname">
+    <wc-form-item :rules="nicknameRules" label="昵称" name="nickname">
       <wc-input name="nickname" placeholder="试试输入 admin 触发异步校验"></wc-input>
     </wc-form-item>
     <div style="display:flex;gap:12px;">
@@ -252,12 +258,11 @@ import { WcButton, WcForm, WcFormItem, WcInput, WcInputNumber, WcTextarea } from
     </div>
   </wc-form>
 </template>
+```
 
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
+```tsx [React]
+import { WcButton, WcForm, WcFormItem, WcInput } from '@wc-kit/react';
 
-// rules 为 attribute:false 的属性（validator 为函数），需 JS 赋值
-const nicknameItem = ref(null);
 const nicknameRules = [
   { validator: (v) => String(v).length >= 2 || '昵称至少 2 个字符' },
   {
@@ -267,20 +272,11 @@ const nicknameRules = [
   },
 ];
 
-onMounted(() => {
-  if (nicknameItem.value) nicknameItem.value.rules = nicknameRules;
-});
-</script>
-```
-
-```tsx [React]
-import { WcButton, WcForm, WcFormItem, WcInput } from '@wc-kit/react';
-
 <WcForm style="max-width:420px">
   <WcFormItem label="用户名" name="username" required>
     <WcInput name="username" placeholder="必填"></WcInput>
   </WcFormItem>
-  <WcFormItem ref={nicknameItem} label="昵称" name="nickname">
+  <WcFormItem rules={nicknameRules} label="昵称" name="nickname">
     <WcInput name="nickname" placeholder="试试输入 admin 触发异步校验"></WcInput>
   </WcFormItem>
   <div style="display:flex;gap:12px;">
@@ -292,21 +288,6 @@ import { WcButton, WcForm, WcFormItem, WcInput } from '@wc-kit/react';
     </WcButton>
   </div>
 </WcForm>;
-
-// rules 为 attribute:false 的属性（validator 为函数），需 JS 赋值
-const nicknameItem = useRef(null);
-const nicknameRules = [
-  { validator: (v) => String(v).length >= 2 || '昵称至少 2 个字符' },
-  {
-    validator: (v) =>
-      new Promise((resolve) => setTimeout(() => resolve(String(v) !== 'admin'), 500)),
-    message: '该昵称已被占用（模拟异步校验）',
-  },
-];
-
-useEffect(() => {
-  if (nicknameItem.current) nicknameItem.current.rules = nicknameRules;
-}, []);
 ```
 
 :::

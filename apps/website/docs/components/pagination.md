@@ -40,13 +40,12 @@ Vue 用法（原生标签，@wc-kit/vue 提供类型增强）：
 <script setup>
 import { ref } from 'vue'
 
-const changeTip = ref(null)
+// 事件回调更新响应式文本，模板插值展示（不走 DOM textContent）
+const changeDetail = ref('')
 
 function onPageChange(e) {
   const { current, previous } = e.detail
-  if (changeTip.value) {
-    changeTip.value.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`
-  }
+  changeDetail.value = `wc-change detail: { current: ${current}, previous: ${previous} }`
 }
 </script>
 
@@ -225,7 +224,7 @@ import { WcPagination } from '@wc-kit/react';
 
 <div class="demo-block">
   <wc-pagination total="100" @wc-change="onPageChange"></wc-pagination>
-  <p ref="changeTip" style="margin-top:8px;color:#888;">点击页码、前后翻页，这里会显示 wc-change 的 detail。</p>
+  <p style="margin-top:8px;color:#888;">{{ changeDetail || '点击页码、前后翻页，这里会显示 wc-change 的 detail。' }}</p>
 </div>
 
 wc-change 的 detail 为 { current, previous }；仅用户主动切换页码（含跳页输入）时触发，total / page-size 变化导致的越界夹紧不触发。
@@ -234,73 +233,65 @@ wc-change 的 detail 为 { current, previous }；仅用户主动切换页码（�
 ::: code-group
 
 ```html [HTML]
-<wc-pagination total="100" id="pagination-4-btn0"></wc-pagination>
-<p ref="changeTip" style="margin-top:8px;color:#888;">
+<wc-pagination total="100" id="pagination"></wc-pagination>
+<p id="changeTip" style="margin-top:8px;color:#888;">
   点击页码、前后翻页，这里会显示 wc-change 的 detail。
 </p>
 
 <script type="module">
-  function onPageChange(e) {
-    const { current, previous } = e.detail;
-    if (changeTip) {
-      changeTip.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`;
-    }
-  }
+  const changeTip = document.getElementById('changeTip');
 
-  const pagination4Btn0 = document.getElementById('pagination-4-btn0');
-  pagination4Btn0.addEventListener('wc-change', () => {
-    onPageChange();
+  document.getElementById('pagination').addEventListener('wc-change', (e) => {
+    const { current, previous } = e.detail;
+    changeTip.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`;
   });
-
-  function onPageChange(e) {
-    const { current, previous } = e.detail;
-    if (changeTip.value) {
-      changeTip.value.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`;
-    }
-  }
 </script>
 ```
 
 ```vue [Vue]
-<template>
-  <wc-pagination total="100" @wc-change="onPageChange"></wc-pagination>
-  <p ref="changeTip" style="margin-top:8px;color:#888;">
-    点击页码、前后翻页，这里会显示 wc-change 的 detail。
-  </p>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const changeTip = ref(null);
+// 事件回调更新响应式文本，模板插值展示
+const changeDetail = ref('');
 
 function onPageChange(e) {
   const { current, previous } = e.detail;
-  if (changeTip.value) {
-    changeTip.value.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`;
-  }
+  changeDetail.value = `wc-change detail: { current: ${current}, previous: ${previous} }`;
 }
 </script>
+
+<template>
+  <wc-pagination total="100" @wc-change="onPageChange"></wc-pagination>
+  <p style="margin-top:8px;color:#888;">
+    {{ changeDetail || '点击页码、前后翻页，这里会显示 wc-change 的 detail。' }}
+  </p>
+</template>
 ```
 
 ```tsx [React]
+import { useState } from 'react';
 import { WcPagination } from '@wc-kit/react';
 
-<WcPagination total={100} onWcChange={() => { onPageChange }}></WcPagination>
-<p ref="changeTip" style="margin-top:8px;color:#888;">点击页码、前后翻页，这里会显示 wc-change 的 detail。</p>
+function Demo() {
+  // 事件回调更新 state，JSX 插值展示
+  const [changeDetail, setChangeDetail] = useState('');
 
-const changeTip = useRef(null);function onPageChange(e) {
-  const { current, previous } = e.detail
-  if (changeTip.current) {
-    changeTip.current.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`
-  }
-}
-
-function onPageChange(e) {
-  const { current, previous } = e.detail
-  if (changeTip.value) {
-    changeTip.value.textContent = `wc-change detail: { current: ${current}, previous: ${previous} }`
-  }
+  return (
+    <>
+      <WcPagination
+        total={100}
+        onWcChange={(e) =>
+          setChangeDetail(
+            `wc-change detail: { current: ${e.detail.current}, previous: ${e.detail.previous} }`,
+          )
+        }
+      ></WcPagination>
+      <p style={{ marginTop: 8, color: '#888' }}>
+        {changeDetail || '点击页码、前后翻页，这里会显示 wc-change 的 detail。'}
+      </p>
+    </>
+  );
 }
 ```
 

@@ -1,10 +1,6 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-
-// requestMethod 为属性型（函数），需 JS 赋值；此处为文档演示用模拟上传
-const basic = ref(null)
-const drag = ref(null)
-const manual = ref(null)
+// requestMethod 为函数型属性，模板里用 camelCase 绑定（:requestMethod），
+// Vue 检测到同名 property 会走 property 通道；此处为文档演示用模拟上传
 
 /** 模拟上传：进度步进，文件名含 "fail" 时失败 */
 function simulate(file, { onProgress, onSuccess, onError }) {
@@ -32,19 +28,11 @@ function showSuccess(e) {
 function showExceed(e) {
   import('@wc-kit/core').then(({ message }) => message.warning(`最多上传 ${e.detail.max} 个文件`))
 }
-
-onMounted(() => {
-  if (basic.value) basic.value.requestMethod = simulate
-  if (drag.value) drag.value.requestMethod = simulate
-  if (manual.value) {
-    manual.value.requestMethod = simulate
-    manual.value.addEventListener('wc-change', (e) => {
-      import('@wc-kit/core').then(({ message }) =>
-        message.info(`当前 ${e.detail.files.length} 个文件`),
-      )
-    })
-  }
-})
+function showCount(e) {
+  import('@wc-kit/core').then(({ message }) =>
+    message.info(`当前 ${e.detail.files.length} 个文件`),
+  )
+}
 </script>
 
 # Upload 上传
@@ -56,7 +44,7 @@ onMounted(() => {
 多选文件，选择后自动上传，进度条内嵌展示：
 
 <div class="demo-block">
-  <wc-upload ref="basic" multiple @wc-success="showSuccess" @wc-error="showError"></wc-upload>
+  <wc-upload :requestMethod="simulate" multiple @wc-success="showSuccess" @wc-error="showError"></wc-upload>
 </div>
 
 :::: details 查看代码
@@ -66,7 +54,7 @@ onMounted(() => {
 <wc-upload action="/api/upload" multiple></wc-upload>
 
 <script type="module">
-  // 或使用自定义上传方法（属性型，需 JS 赋值）
+  // 或使用自定义上传方法（函数型属性，需 JS 赋值；框架里用绑定/props 传入）
   const el = document.querySelector('wc-upload');
   el.requestMethod = (file, { onProgress, onSuccess, onError }) => {
     // 自行实现上传，通过回调驱动组件状态
@@ -77,30 +65,10 @@ onMounted(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-upload ref="basic" multiple @wc-success="showSuccess" @wc-error="showError"></wc-upload>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-const basic = ref(null);
-
-/** 模拟上传：进度步进，文件名含 "fail" 时失败 */
+// 函数型属性用 camelCase 绑定（:requestMethod，Vue 检测到同名 property 走 property 通道）
 function simulate(file, { onProgress, onSuccess, onError }) {
-  let percent = 0;
-  const timer = setInterval(() => {
-    percent = Math.min(100, percent + 20);
-    onProgress(percent);
-    if (percent >= 100) {
-      clearInterval(timer);
-      if (file.name.includes('fail')) {
-        onError('模拟上传失败');
-      } else {
-        onSuccess({ url: `https://example.com/${file.name}` });
-      }
-    }
-  }, 200);
+  /* 进度步进，文件名含 "fail" 时失败 */
 }
 
 function showSuccess(e) {
@@ -109,18 +77,15 @@ function showSuccess(e) {
 function showError(e) {
   import('@wc-kit/core').then(({ message }) => message.error(`上传失败：${e.detail.file.name}`));
 }
-
-onMounted(() => {
-  basic.value.requestMethod = simulate;
-});
 </script>
+
+<template>
+  <wc-upload :requestMethod="simulate" multiple @wc-success="showSuccess" @wc-error="showError"></wc-upload>
+</template>
 ```
 
 ```tsx [React]
 import { WcUpload } from '@wc-kit/react';
-import { useEffect, useRef } from 'react';
-
-const basic = useRef(null);
 
 /** 模拟上传：进度步进 */
 function simulate(file, { onProgress, onSuccess, onError }) {
@@ -139,16 +104,12 @@ function simulate(file, { onProgress, onSuccess, onError }) {
   }, 200);
 }
 
-useEffect(() => {
-  basic.current.requestMethod = simulate;
-}, []);
-
 <WcUpload
-  ref={basic}
+  requestMethod={simulate}
   multiple
   onWcSuccess={(e) => console.log('上传成功', e.detail.file.name)}
   onWcError={(e) => console.log('上传失败', e.detail.file.name)}
-/>;
+></WcUpload>;
 ```
 
 :::
@@ -159,7 +120,7 @@ useEffect(() => {
 设置 `draggable` 渲染大面积拖拽区域，配合 `max` 限制数量与 `tip` 插槽提示：
 
 <div class="demo-block">
-  <wc-upload ref="drag" draggable multiple max="3" @wc-exceed="showExceed" @wc-error="showError">
+  <wc-upload :requestMethod="simulate" draggable multiple max="3" @wc-exceed="showExceed" @wc-error="showError">
     <span slot="tip">单个文件不超过 500MB，最多 3 个（文件名含 fail 模拟失败）</span>
   </wc-upload>
 </div>
@@ -174,17 +135,8 @@ useEffect(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-upload ref="drag" draggable multiple max="3" @wc-exceed="showExceed" @wc-error="showError">
-    <span slot="tip">单个文件不超过 500MB，最多 3 个</span>
-  </wc-upload>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-const drag = ref(null);
-
+// 函数型属性用 camelCase 绑定（:requestMethod）
 function simulate(file, { onProgress, onSuccess, onError }) {
   /* 同上 */
 }
@@ -195,25 +147,24 @@ function showExceed(e) {
 function showError(e) {
   import('@wc-kit/core').then(({ message }) => message.error(`上传失败：${e.detail.file.name}`));
 }
-
-onMounted(() => {
-  drag.value.requestMethod = simulate;
-});
 </script>
+
+<template>
+  <wc-upload :requestMethod="simulate" draggable multiple max="3" @wc-exceed="showExceed" @wc-error="showError">
+    <span slot="tip">单个文件不超过 500MB，最多 3 个</span>
+  </wc-upload>
+</template>
 ```
 
 ```tsx [React]
 import { WcUpload } from '@wc-kit/react';
-import { useEffect, useRef } from 'react';
 
-const drag = useRef(null);
-
-useEffect(() => {
-  drag.current.requestMethod = simulate; // simulate 定义同上
-}, []);
+function simulate(file, { onProgress, onSuccess, onError }) {
+  /* 同上 */
+}
 
 <WcUpload
-  ref={drag}
+  requestMethod={simulate}
   draggable
   multiple
   max={3}
@@ -232,7 +183,7 @@ useEffect(() => {
 设置 `auto-upload="false"` 后选择文件仅入列，调用 `submit()` 统一上传：
 
 <div class="demo-block">
-  <wc-upload ref="manual" auto-upload="false"></wc-upload>
+  <wc-upload ref="manual" auto-upload="false" :requestMethod="simulate"></wc-upload>
   <p style="margin-top: 8px">
     <wc-button size="small" type="outline" @click="manual?.submit()">开始上传</wc-button>
   </p>
@@ -252,33 +203,35 @@ useEffect(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-upload ref="manual" auto-upload="false"></wc-upload>
-  <wc-button size="small" type="outline" @click="manual?.submit()">开始上传</wc-button>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
+// submit() 是方法调用，仍需 ref；requestMethod 用绑定
 const manual = ref(null);
 
-onMounted(() => {
-  manual.value.requestMethod = simulate; // simulate 定义同上
-});
+function simulate(file, { onProgress, onSuccess, onError }) {
+  /* 同上 */
+}
 </script>
+
+<template>
+  <wc-upload ref="manual" auto-upload="false" :requestMethod="simulate"></wc-upload>
+  <wc-button size="small" type="outline" @click="manual?.submit()">开始上传</wc-button>
+</template>
 ```
 
 ```tsx [React]
 import { WcButton, WcUpload } from '@wc-kit/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
+// submit() 是方法调用，仍需 ref
 const manual = useRef(null);
 
-useEffect(() => {
-  manual.current.requestMethod = simulate; // simulate 定义同上
-}, []);
+function simulate(file, { onProgress, onSuccess, onError }) {
+  /* 同上 */
+}
 
-<WcUpload ref={manual} autoUpload={false} />
+<WcUpload ref={manual} autoUpload={false} requestMethod={simulate} />
 <WcButton size="small" type="outline" onClick={() => manual.current?.submit()}>
   开始上传
 </WcButton>
@@ -301,7 +254,7 @@ useEffect(() => {
 | `draggable`     | `boolean`                 | `false`  | 拖拽上传模式：渲染大面积拖拽区域                            |
 | `auto-upload`   | `boolean`                 | `true`   | 选择后自动上传；`false` 时通过 `submit()` 手动触发          |
 | `disabled`      | `boolean`                 | `false`  | 是否禁用                                                    |
-| `requestMethod` | `(file, options) => void` | `null`   | 自定义上传方法（属性型，仅 JS 赋值；设置后优先于 action）   |
+| `requestMethod` | `(file, options) => void` | `null`   | 自定义上传方法（函数型属性；设置后优先于 action）           |
 
 `requestMethod` 的 `options` 回调：`onProgress(percent)` / `onSuccess(response?)` / `onError(message?)`。
 
@@ -350,29 +303,24 @@ useEffect(() => {
 
 ```jsx
 import { WcUpload } from '@wc-kit/react';
-import { createRef, useEffect } from 'react';
 
-const ref = createRef();
-useEffect(() => {
-  ref.current.requestMethod = (file, { onSuccess }) => onSuccess({ url: '/a.png' });
-}, []);
-
-<WcUpload ref={ref} multiple onWcError={(e) => console.log(e.detail.message)} />;
+<WcUpload
+  requestMethod={(file, { onSuccess }) => onSuccess({ url: '/a.png' })}
+  multiple
+  onWcError={(e) => console.log(e.detail.message)}
+/>;
 ```
 
 **Vue**（原生标签 + 类型增强，监听 `@wc-change` 等事件）：
 
 ```vue
-<template>
-  <wc-upload ref="uploader" multiple @wc-error="onError"></wc-upload>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-const uploader = ref();
-onMounted(() => {
-  uploader.value.requestMethod = (file, { onSuccess }) => onSuccess({ url: '/a.png' });
-});
+// 函数型属性用 camelCase 绑定（:requestMethod）
+const requestMethod = (file, { onSuccess }) => onSuccess({ url: '/a.png' });
 const onError = (e) => console.log(e.detail.message);
 </script>
+
+<template>
+  <wc-upload :requestMethod="requestMethod" multiple @wc-error="onError"></wc-upload>
+</template>
 ```

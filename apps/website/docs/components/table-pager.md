@@ -8,24 +8,18 @@
 会自然穿透到宿主上，直接监听即可；row-click 的 index 为当前页内序号。
 
 <script setup>
-import { onMounted, ref } from 'vue'
+// 对象数组型属性直接模板绑定（:columns / :data），Vue 检测到同名 property 会走 property 通道
 
-const pagerTable = ref(null)
-
-onMounted(() => {
-  if (pagerTable.value) {
-    pagerTable.value.columns = [
-      { key: 'name', title: '姓名', sortable: true },
-      { key: 'age', title: '年龄', width: 100, align: 'right' },
-      { key: 'city', title: '城市' },
-    ]
-    pagerTable.value.data = Array.from({ length: 25 }, (_, i) => ({
-      name: `用户${String(25 - i).padStart(2, '0')}`,
-      age: 18 + ((i * 7) % 40),
-      city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
-    }))
-  }
-})
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'city', title: '城市' },
+]
+const data = Array.from({ length: 25 }, (_, i) => ({
+  name: `用户${String(25 - i).padStart(2, '0')}`,
+  age: 18 + ((i * 7) % 40),
+  city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
+}))
 </script>
 
 ## 示例
@@ -33,7 +27,7 @@ onMounted(() => {
 ### 基础用法
 
 <div class="demo-block">
-  <wc-table-pager ref="pagerTable" striped show-total show-jumper show-size-changer></wc-table-pager>
+  <wc-table-pager :columns="columns" :data="data" striped show-total show-jumper show-size-changer></wc-table-pager>
 </div>
 
 25 条模拟数据：每页 10 条，共 3 页；总条数独立靠左，每页条数选择、页码与跳页输入靠右；点击「姓名」列头会全量排序后重新切片。
@@ -47,7 +41,7 @@ onMounted(() => {
 <script type="module">
   const table = document.getElementById('table');
 
-  // columns / data 为属性型（对象数组），需 JS 赋值
+  // attribute 只能传字符串，columns / data 是对象数组，需 JS 设 property
 
   table.columns = [
     { key: 'name', title: '姓名', sortable: true },
@@ -63,50 +57,47 @@ onMounted(() => {
 ```
 
 ```vue [Vue]
-<template>
-  <wc-table-pager ref="table" striped show-total show-jumper show-size-changer></wc-table-pager>
-</template>
-
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = ref(null);
-
-onMounted(() => {
-  table.value.columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'city', title: '城市' },
-  ];
-  table.value.data = Array.from({ length: 25 }, (_, i) => ({
-    name: `用户${String(25 - i).padStart(2, '0')}`,
-    age: 18 + ((i * 7) % 40),
-    city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
-  }));
-});
+// 对象数组直接绑定 :columns / :data（Vue 检测到同名 property 走 property 通道）
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'city', title: '城市' },
+];
+const data = Array.from({ length: 25 }, (_, i) => ({
+  name: `用户${String(25 - i).padStart(2, '0')}`,
+  age: 18 + ((i * 7) % 40),
+  city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
+}));
 </script>
+
+<template>
+  <wc-table-pager :columns="columns" :data="data" striped show-total show-jumper show-size-changer></wc-table-pager>
+</template>
 ```
 
 ```tsx [React]
 import { WcTablePager } from '@wc-kit/react';
 
-<WcTablePager striped showTotal showJumper showSizeChanger ref={table}></WcTablePager>;
+const columns = [
+  { key: 'name', title: '姓名', sortable: true },
+  { key: 'age', title: '年龄', width: 100, align: 'right' },
+  { key: 'city', title: '城市' },
+];
+const data = Array.from({ length: 25 }, (_, i) => ({
+  name: `用户${String(25 - i).padStart(2, '0')}`,
+  age: 18 + ((i * 7) % 40),
+  city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
+}));
 
-// columns / data 为属性型（对象数组），需 JS 赋值
-const table = useRef(null);
-useEffect(() => {
-  table.current.columns = [
-    { key: 'name', title: '姓名', sortable: true },
-    { key: 'age', title: '年龄', width: 100, align: 'right' },
-    { key: 'city', title: '城市' },
-  ];
-  table.current.data = Array.from({ length: 25 }, (_, i) => ({
-    name: `用户${String(25 - i).padStart(2, '0')}`,
-    age: 18 + ((i * 7) % 40),
-    city: ['上海', '北京', '广州', '深圳', '杭州'][i % 5],
-  }));
-}, []);
+<WcTablePager
+  columns={columns}
+  data={data}
+  striped
+  showTotal
+  showJumper
+  showSizeChanger
+></WcTablePager>;
 ```
 
 :::
