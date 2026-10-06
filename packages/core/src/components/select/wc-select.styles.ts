@@ -50,7 +50,7 @@ export const selectStyles = css`
 
   /* 与 input 的 focus-within 对齐：键盘聚焦或展开时均呈现焦点视觉 */
   .trigger:focus-visible,
-  :host([open]) .trigger {
+  :host(.open) .trigger {
     outline: none;
     border-color: var(--wc-color-primary);
     box-shadow: 0 0 0 2px var(--wc-color-focus-ring);
@@ -77,7 +77,7 @@ export const selectStyles = css`
     transition: transform var(--wc-duration-fast) var(--wc-easing-standard);
   }
 
-  :host([open]) .arrow {
+  :host(.open) .arrow {
     transform: rotate(180deg);
   }
 

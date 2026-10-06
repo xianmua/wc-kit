@@ -249,8 +249,17 @@ describe('wc-pagination', () => {
     expect(sizes).to.deep.equal([{ pageSize: 50, previous: 10, current: 1 }]);
   });
 
-  it('page-size-options 自定义可选项，当前 pageSize 自动补入并升序排列', async () => {
+  it('pageSizes 自定义可选项，当前 pageSize 自动补入并升序排列（旧 page-size-options 字符串兼容）', async () => {
     const el = await fixture<wcPagination>(
+      html`<wc-pagination total="100" page-size="30" show-size-changer></wc-pagination>`,
+    );
+    el.pageSizes = [10, 30, 60];
+    await el.updateComplete;
+    const sel = el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    expect([...sel.options].map((o) => Number(o.value))).to.deep.equal([10, 30, 60]);
+
+    // 旧属性名（逗号分隔字符串）兼容
+    const legacy = await fixture<wcPagination>(
       html`<wc-pagination
         total="100"
         page-size="30"
@@ -258,8 +267,9 @@ describe('wc-pagination', () => {
         page-size-options="10,30,60"
       ></wc-pagination>`,
     );
-    const sel = el.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
-    expect([...sel.options].map((o) => Number(o.value))).to.deep.equal([10, 30, 60]);
+    expect(legacy.pageSizes).to.deep.equal([10, 30, 60]);
+    const selLegacy = legacy.shadowRoot!.querySelector<HTMLSelectElement>('[part="size-select"]')!;
+    expect([...selLegacy.options].map((o) => Number(o.value))).to.deep.equal([10, 30, 60]);
 
     // pageSize 不在列表中时补入
     const extra = await fixture<wcPagination>(

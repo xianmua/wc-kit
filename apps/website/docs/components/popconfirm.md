@@ -5,7 +5,7 @@
 
 ## 主要 API
 
-- 属性：content 确认文案；placement 期望方向（默认 top）；confirm-text / cancel-text 按钮文案
+- 属性：content 确认文案；placement 期望方向（默认 top）；ok-text / cancel-text 按钮文案
   （默认 i18n「确认 / 取消」）；theme 确认按钮主题（默认 primary，透传 wc-button）；
   icon 图标名（默认 warning，空字符串隐藏）；open 是否打开
 - 方法：show() 打开；hide() 关闭（不派发事件）；confirm() / cancel() 确认 / 取消并关闭
@@ -20,7 +20,7 @@ import { WcPopconfirm } from '@wc-kit/react';
 
 <WcPopconfirm
   content="确定删除吗？"
-  confirmText="删除"
+  okText="删除"
   cancelText="再想想"
   theme="danger"
   onWcConfirm={() => console.log('已确认')}
@@ -36,7 +36,7 @@ import { WcPopconfirm } from '@wc-kit/react';
 <template>
   <wc-popconfirm
     content="确定删除吗？"
-    confirm-text="删除"
+    ok-text="删除"
     cancel-text="再想想"
     theme="danger"
     @wc-confirm="onConfirm"
@@ -242,7 +242,7 @@ import { WcButton, WcPopconfirm } from '@wc-kit/react';
 
 <wc-popconfirm
       content="删除后数据不可恢复，确定删除吗？"
-      confirm-text="删除"
+      ok-text="删除"
       cancel-text="再想想"
       theme="danger"
       icon="error"
@@ -258,7 +258,7 @@ import { WcButton, WcPopconfirm } from '@wc-kit/react';
 ```html [HTML]
 <wc-popconfirm
   content="删除后数据不可恢复，确定删除吗？"
-  confirm-text="删除"
+  ok-text="删除"
   cancel-text="再想想"
   theme="danger"
   icon="error"
@@ -271,7 +271,7 @@ import { WcButton, WcPopconfirm } from '@wc-kit/react';
 <template>
   <wc-popconfirm
     content="删除后数据不可恢复，确定删除吗？"
-    confirm-text="删除"
+    ok-text="删除"
     cancel-text="再想想"
     theme="danger"
     icon="error"
@@ -286,7 +286,7 @@ import { WcButton, WcPopconfirm } from '@wc-kit/react';
 
 <WcPopconfirm
   content="删除后数据不可恢复，确定删除吗？"
-  confirmText="删除"
+  okText="删除"
   cancelText="再想想"
   theme="danger"
   icon="error"
@@ -461,15 +461,15 @@ import { WcButton, WcPopconfirm } from '@wc-kit/react';
 
 ### 属性
 
-| 属性          | attribute      | 类型          | 默认值      | 说明                                              |
-| ------------- | -------------- | ------------- | ----------- | ------------------------------------------------- |
-| `content`     | `content`      | `string`      | `''`        | 确认文案                                          |
-| `placement`   | `placement`    | `WcPlacement` | `'top'`     | 期望弹出方向（空间不足自动翻转）                  |
-| `confirmText` | `confirm-text` | `string`      | `''`        | 确认按钮文案（默认 i18n「确认」）                 |
-| `cancelText`  | `cancel-text`  | `string`      | `''`        | 取消按钮文案（默认 i18n「取消」）                 |
-| `theme`       | `theme`        | `string`      | `'primary'` | 确认按钮主题（primary/danger 等，透传 wc-button） |
-| `icon`        | `icon`         | `string`      | `'warning'` | 图标名称（内置图标名，空字符串隐藏）              |
-| `open`        | `open`         | `boolean`     | `false`     | 当前是否打开                                      |
+| 属性         | attribute     | 类型          | 默认值      | 说明                                              |
+| ------------ | ------------- | ------------- | ----------- | ------------------------------------------------- |
+| `content`    | `content`     | `string`      | `''`        | 确认文案                                          |
+| `placement`  | `placement`   | `WcPlacement` | `'top'`     | 期望弹出方向（空间不足自动翻转）                  |
+| `okText`     | `ok-text`     | `string`      | `''`        | 确认按钮文案（默认 i18n「确认」）                 |
+| `cancelText` | `cancel-text` | `string`      | `''`        | 取消按钮文案（默认 i18n「取消」）                 |
+| `theme`      | `theme`       | `string`      | `'primary'` | 确认按钮主题（primary/danger 等，透传 wc-button） |
+| `icon`       | `icon`        | `string`      | `'warning'` | 图标名称（内置图标名，空字符串隐藏）              |
+| `open`       | `open`        | `boolean`     | `false`     | 当前是否打开                                      |
 
 ### 事件
 

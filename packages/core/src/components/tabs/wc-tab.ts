@@ -1,5 +1,5 @@
-import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html, LitElement, type PropertyValues } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { tabStyles } from './wc-tab.styles';
 
@@ -23,8 +23,15 @@ export class wcTab extends LitElement {
   /** 禁用（不可选中，键盘导航跳过） */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** 激活态，由 wc-tabs 同步（host 据此显隐） */
-  @property({ type: Boolean, reflect: true }) active = false;
+  /** 激活态（内部状态，由 wc-tabs 同步，host 据此显隐） */
+  @state() active = false;
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (changed.has('active')) {
+      this.classList.toggle('active', this.active);
+    }
+  }
 
   render() {
     return html`<div class="panel" part="panel" role="tabpanel" aria-label=${this.label}>

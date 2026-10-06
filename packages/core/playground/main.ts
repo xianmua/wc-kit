@@ -150,7 +150,7 @@ class PlaygroundApp extends LitElement {
           </div>
           <div class="row">
             <wc-button><wc-icon name="search" slot="icon"></wc-icon>搜索</wc-button>
-            <wc-button icon-position="end" theme="primary"
+            <wc-button position="end" theme="primary"
               ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
             >
             <wc-button theme="primary"><wc-icon name="search" slot="icon"></wc-icon></wc-button>
@@ -161,7 +161,7 @@ class PlaygroundApp extends LitElement {
                 ><wc-icon name="arrow-left" slot="icon"></wc-icon>上一步</wc-button
               >
               <wc-button theme="primary">第 2 步</wc-button>
-              <wc-button theme="primary" icon-position="end"
+              <wc-button theme="primary" position="end"
                 ><wc-icon name="arrow-right" slot="icon"></wc-icon>下一步</wc-button
               >
             </wc-button-group>
@@ -176,7 +176,7 @@ class PlaygroundApp extends LitElement {
           </div>
           <div class="row">
             <wc-dropdown>
-              <wc-button slot="trigger" theme="default" icon-position="end"
+              <wc-button slot="trigger" theme="default" position="end"
                 >下拉菜单<wc-icon name="chevron-down" slot="icon"></wc-icon
               ></wc-button>
               <wc-dropdown-item value="edit">编辑</wc-dropdown-item>
@@ -211,7 +211,7 @@ class PlaygroundApp extends LitElement {
         </wc-float-button-group>
         <wc-float-button
           backtop
-          visibility-height="200"
+          threshold="200"
           style="--wc-float-button-right: 84px"
         ></wc-float-button>
 
@@ -604,7 +604,7 @@ class PlaygroundApp extends LitElement {
               >打开对话框</wc-button
             >
           </div>
-          <wc-dialog id="demo-dialog" header="操作确认" close-on-overlay-click>
+          <wc-dialog id="demo-dialog" header="操作确认" mask-closable>
             <p>确认删除这条记录吗？此操作不可撤销。</p>
           </wc-dialog>
         </section>
@@ -691,7 +691,7 @@ class PlaygroundApp extends LitElement {
             </wc-popconfirm>
             <wc-popconfirm
               content="自定义文案与按钮"
-              confirm-text="好的"
+              ok-text="好的"
               cancel-text="算了"
               icon=""
               placement="bottom"

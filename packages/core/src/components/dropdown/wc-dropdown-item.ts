@@ -1,5 +1,5 @@
-import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html, LitElement, type PropertyValues } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { dropdownItemStyles } from './wc-dropdown-item.styles';
 
 /**
@@ -24,12 +24,19 @@ export class wcDropdownItem extends LitElement {
   /** 渲染为分隔线 */
   @property({ type: Boolean, reflect: true }) divider = false;
 
-  /** 键盘导航高亮态（由 wc-dropdown 管理） */
-  @property({ type: Boolean, reflect: true }) active = false;
+  /** 键盘导航高亮态（内部状态，由 wc-dropdown 管理） */
+  @state() active = false;
 
   /** 菜单项文本 */
   get label(): string {
     return (this.textContent ?? '').trim();
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (changed.has('active')) {
+      this.classList.toggle('active', this.active);
+    }
   }
 
   render() {

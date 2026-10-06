@@ -1,14 +1,14 @@
 # Pagination 分页
 
-分页组件。由 total / page-size 推导总页数，页码过多时按 folded-page-count 折叠为
+分页组件。由 total / page-size 推导总页数，页码过多时按 sibling-count 折叠为
 「1 … 中间窗口 … 末页」。切换页码（点击、前后翻页、跳页输入框按 Enter）后派发 wc-change
 （detail: { current, previous }）；total / page-size 变化导致当前页越界时静默夹紧（不派发事件）。
 
 主要 API：
 
 - wc-pagination：total（总条数）/ page-size（每页条数，默认 10）/ current（当前页，1 开始）/
-  folded-page-count（折叠窗口页码数，默认 5）/ show-total（显示总条数）/ show-jumper（显示跳页输入框）/
-  show-size-changer（显示每页条数选择器）/ page-size-options（条数可选项，默认 '10,20,50,100'）/
+  sibling-count（折叠窗口页码数，默认 5）/ show-total（显示总条数）/ show-jumper（显示跳页输入框）/
+  show-size-changer（显示每页条数选择器）/ pageSizes（条数可选项，number[]，默认 [10, 20, 50, 100]，JS 属性设置）/
   simple（极简模式）/ disabled（整体禁用）；只读 pageCount（总页数）
 - 事件 wc-change（detail: { current, previous }）、wc-size-change（detail: { pageSize, previous, current }）
 
@@ -83,31 +83,31 @@ import { WcPagination } from '@wc-kit/react';
 
 <div class="demo-block">
   <div style="display:grid;gap:16px;">
-    <wc-pagination total="1000" folded-page-count="3"></wc-pagination>
-    <wc-pagination total="1000" folded-page-count="5"></wc-pagination>
-    <wc-pagination total="1000" folded-page-count="7"></wc-pagination>
+    <wc-pagination total="1000" sibling-count="3"></wc-pagination>
+    <wc-pagination total="1000" sibling-count="5"></wc-pagination>
+    <wc-pagination total="1000" sibling-count="7"></wc-pagination>
   </div>
 </div>
 
-总页数 100，folded-page-count 依次为 3 / 5 / 7。总页数超过 folded-page-count + 2 时才折叠为「1 … 中间窗口 … 末页」，窗口以当前页为中心。
+总页数 100，sibling-count 依次为 3 / 5 / 7。总页数超过 sibling-count + 2 时才折叠为「1 … 中间窗口 … 末页」，窗口以当前页为中心。
 
 :::: details 查看代码
 ::: code-group
 
 ```html [HTML]
 <div style="display:grid;gap:16px;">
-  <wc-pagination total="1000" folded-page-count="3"></wc-pagination>
-  <wc-pagination total="1000" folded-page-count="5"></wc-pagination>
-  <wc-pagination total="1000" folded-page-count="7"></wc-pagination>
+  <wc-pagination total="1000" sibling-count="3"></wc-pagination>
+  <wc-pagination total="1000" sibling-count="5"></wc-pagination>
+  <wc-pagination total="1000" sibling-count="7"></wc-pagination>
 </div>
 ```
 
 ```vue [Vue]
 <template>
   <div style="display:grid;gap:16px;">
-    <wc-pagination total="1000" folded-page-count="3"></wc-pagination>
-    <wc-pagination total="1000" folded-page-count="5"></wc-pagination>
-    <wc-pagination total="1000" folded-page-count="7"></wc-pagination>
+    <wc-pagination total="1000" sibling-count="3"></wc-pagination>
+    <wc-pagination total="1000" sibling-count="5"></wc-pagination>
+    <wc-pagination total="1000" sibling-count="7"></wc-pagination>
   </div>
 </template>
 ```
@@ -116,9 +116,9 @@ import { WcPagination } from '@wc-kit/react';
 import { WcPagination } from '@wc-kit/react';
 
 <div style="display:grid;gap:16px;">
-  <WcPagination total={1000} foldedPageCount={3}></WcPagination>
-  <WcPagination total={1000} foldedPageCount={5}></WcPagination>
-  <WcPagination total={1000} foldedPageCount={7}></WcPagination>
+  <WcPagination total={1000} siblingCount={3}></WcPagination>
+  <WcPagination total={1000} siblingCount={5}></WcPagination>
+  <WcPagination total={1000} siblingCount={7}></WcPagination>
 </div>;
 ```
 
@@ -132,7 +132,7 @@ import { WcPagination } from '@wc-kit/react';
 </div>
 
 `show-size-changer` 显示「N 条/页」选择器（位于总条数之后、翻页按钮之前，antd 同位置）；
-`page-size-options` 自定义可选项（逗号分隔，默认 '10,20,50,100'，当前 pageSize 不在列表中时自动补入）。
+`pageSizes` 自定义可选项（number[] 数组，通过 JS 属性设置，默认 [10, 20, 50, 100]，当前 pageSize 不在列表中时自动补入）。
 切换后派发 wc-size-change（detail: { pageSize, previous, current }），当前页越界时自动夹紧到末页。
 
 :::: details 查看代码
@@ -140,13 +140,17 @@ import { WcPagination } from '@wc-kit/react';
 
 ```html [HTML]
 <wc-pagination total="1000" show-total show-size-changer></wc-pagination>
-<wc-pagination total="1000" show-size-changer page-size-options="20,50,100"></wc-pagination>
+<wc-pagination id="pager-custom-sizes" total="1000" show-size-changer></wc-pagination>
+<script type="module">
+  // pageSizes 是 number[] 数组属性（attribute: false），只能通过 JS 属性设置
+  document.getElementById('pager-custom-sizes').pageSizes = [20, 50, 100];
+</script>
 ```
 
 ```vue [Vue]
 <template>
   <wc-pagination total="1000" show-total show-size-changer></wc-pagination>
-  <wc-pagination total="1000" show-size-changer page-size-options="20,50,100"></wc-pagination>
+  <wc-pagination total="1000" show-size-changer :pageSizes="[20, 50, 100]"></wc-pagination>
 </template>
 ```
 
@@ -154,7 +158,7 @@ import { WcPagination } from '@wc-kit/react';
 import { WcPagination } from '@wc-kit/react';
 
 <WcPagination total={1000} showTotal showSizeChanger></WcPagination>;
-<WcPagination total={1000} showSizeChanger pageSizeOptions="20,50,100"></WcPagination>;
+<WcPagination total={1000} showSizeChanger pageSizes={[20, 50, 100]}></WcPagination>;
 ```
 
 :::
@@ -302,18 +306,18 @@ function Demo() {
 
 ### 属性
 
-| 属性              | attribute           | 类型      | 默认值           | 说明                                               |
-| ----------------- | ------------------- | --------- | ---------------- | -------------------------------------------------- |
-| `total`           | `total`             | `number`  | `0`              | 数据总条数                                         |
-| `pageSize`        | `page-size`         | `number`  | `10`             | 每页条数                                           |
-| `current`         | `current`           | `number`  | `1`              | 当前页（1 开始）                                   |
-| `foldedPageCount` | `folded-page-count` | `number`  | `5`              | 折叠时中间窗口显示的页码数量                       |
-| `showTotal`       | `show-total`        | `boolean` | `false`          | 显示总条数                                         |
-| `showJumper`      | `show-jumper`       | `boolean` | `false`          | 显示跳页输入框（Enter 跳转，自动夹紧到有效范围）   |
-| `showSizeChanger` | `show-size-changer` | `boolean` | `false`          | 显示每页条数选择器                                 |
-| `pageSizeOptions` | `page-size-options` | `string`  | `'10,20,50,100'` | 每页条数可选项（逗号分隔）                         |
-| `simple`          | `simple`            | `boolean` | `false`          | 极简模式：前后翻页按钮 + 「当前页/总页数」跳转输入 |
-| `disabled`        | `disabled`          | `boolean` | `false`          | 整体禁用                                           |
+| 属性              | attribute           | 类型       | 默认值              | 说明                                               |
+| ----------------- | ------------------- | ---------- | ------------------- | -------------------------------------------------- |
+| `total`           | `total`             | `number`   | `0`                 | 数据总条数                                         |
+| `pageSize`        | `page-size`         | `number`   | `10`                | 每页条数                                           |
+| `current`         | `current`           | `number`   | `1`                 | 当前页（1 开始）                                   |
+| `siblingCount`    | `sibling-count`     | `number`   | `5`                 | 折叠时中间窗口显示的页码数量                       |
+| `showTotal`       | `show-total`        | `boolean`  | `false`             | 显示总条数                                         |
+| `showJumper`      | `show-jumper`       | `boolean`  | `false`             | 显示跳页输入框（Enter 跳转，自动夹紧到有效范围）   |
+| `showSizeChanger` | `show-size-changer` | `boolean`  | `false`             | 显示每页条数选择器                                 |
+| `pageSizes`       | —（仅 JS 属性）     | `number[]` | `[10, 20, 50, 100]` | 每页条数可选项                                     |
+| `simple`          | `simple`            | `boolean`  | `false`             | 极简模式：前后翻页按钮 + 「当前页/总页数」跳转输入 |
+| `disabled`        | `disabled`          | `boolean`  | `false`             | 整体禁用                                           |
 
 ### 事件
 

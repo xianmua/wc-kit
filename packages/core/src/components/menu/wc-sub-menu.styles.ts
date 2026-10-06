@@ -27,7 +27,7 @@ export const subMenuStyles = css`
     display: flex;
   }
 
-  :host([menu-horizontal]) .sub {
+  :host(.horizontal) .sub {
     display: none;
   }
 
@@ -42,7 +42,7 @@ export const subMenuStyles = css`
     box-shadow: var(--wc-shadow-2);
   }
 
-  :host([menu-horizontal]) .sub.popup[data-open] {
+  :host(.horizontal) .sub.popup[data-open] {
     display: flex;
   }
 `;

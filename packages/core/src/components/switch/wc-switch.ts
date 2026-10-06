@@ -23,11 +23,29 @@ export class wcSwitch extends FormAssociatedMixin(LitElement) {
   /** 开启状态 */
   @property({ type: Boolean, reflect: true }) checked = false;
 
-  /** 开启时提交到表单的值 */
-  @property() checkedValue = 'on';
+  /** 开启时提交到表单的值（对齐原生 true-value 惯例） */
+  @property({ attribute: 'true-value' }) trueValue = 'on';
 
-  /** 关闭时提交到表单的值（为空则不提交） */
-  @property() uncheckedValue = '';
+  /** 关闭时提交到表单的值（为空则不提交；对齐原生 false-value 惯例） */
+  @property({ attribute: 'false-value' }) falseValue = '';
+
+  /** @deprecated 旧属性名，等价 trueValue */
+  @property({ attribute: 'checkedvalue' })
+  get checkedValue(): string {
+    return this.trueValue;
+  }
+  set checkedValue(v: string) {
+    this.trueValue = v;
+  }
+
+  /** @deprecated 旧属性名，等价 falseValue */
+  @property({ attribute: 'uncheckedvalue' })
+  get uncheckedValue(): string {
+    return this.falseValue;
+  }
+  set uncheckedValue(v: string) {
+    this.falseValue = v;
+  }
 
   /** 选中状态（与 checked 双向同步，供框架 v-model 直接绑定 el.value） */
   @property({ type: Boolean })
@@ -51,20 +69,20 @@ export class wcSwitch extends FormAssociatedMixin(LitElement) {
   }
 
   override get defaultValue(): unknown {
-    return this.initialChecked ? this.checkedValue : this.uncheckedValue || null;
+    return this.initialChecked ? this.trueValue : this.falseValue || null;
   }
 
   protected override updated(changed: Map<string, unknown>): void {
     super.updated(changed);
-    if (changed.has('checked') || changed.has('checkedValue') || changed.has('uncheckedValue')) {
-      this.internals.setFormValue(this.checked ? this.checkedValue : this.uncheckedValue || null);
+    if (changed.has('checked') || changed.has('trueValue') || changed.has('falseValue')) {
+      this.internals.setFormValue(this.checked ? this.trueValue : this.falseValue || null);
     }
   }
 
   override formResetCallback(): void {
     super.formResetCallback();
     this.checked = this.initialChecked;
-    this.internals.setFormValue(this.checked ? this.checkedValue : this.uncheckedValue || null);
+    this.internals.setFormValue(this.checked ? this.trueValue : this.falseValue || null);
   }
 
   /** 内层原生 checkbox 的 input 事件是 composed 的，阻断外泄，由宿主统一派发 */

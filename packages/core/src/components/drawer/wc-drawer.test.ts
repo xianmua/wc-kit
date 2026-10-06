@@ -57,13 +57,13 @@ describe('wc-drawer', () => {
     expect(el.open).to.be.false;
   });
 
-  it('遮罩点击默认关闭，close-on-overlay-click=false 时不关闭', async () => {
+  it('遮罩点击默认关闭，mask-closable=false 时不关闭', async () => {
     const on = await fixture<wcDrawer>(html`<wc-drawer header="设置" open><p>内容</p></wc-drawer>`);
     on.shadowRoot!.querySelector<HTMLElement>('.overlay')!.click();
     expect(on.open).to.be.false;
 
     const off = await fixture<wcDrawer>(
-      html`<wc-drawer header="设置" open .closeOnOverlayClick=${false}><p>内容</p></wc-drawer>`,
+      html`<wc-drawer header="设置" open .maskClosable=${false}><p>内容</p></wc-drawer>`,
     );
     off.shadowRoot!.querySelector<HTMLElement>('.overlay')!.click();
     expect(off.open).to.be.true;

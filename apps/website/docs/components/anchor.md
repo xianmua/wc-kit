@@ -2,7 +2,7 @@
 
 页面内导航组件（参考 antd Anchor）：`wc-anchor` 容器 + `wc-anchor-link` 链接。滚动时自动高亮当前区块对应的链接，点击平滑滚动到目标位置；链接通过 `href`（`#id`）定位页面中带该 `id` 的元素，支持嵌套形成层级。
 
-主要 API：容器 `direction` 方向（vertical 默认 / horizontal）、`target-offset` 滚动偏移、`bounds` 高亮判定边界、`container` 滚动容器选择器（默认自动向上查找最近的滚动祖先，找不到用页面）、`current` 当前高亮 href。事件：`wc-change`（高亮变化）、`wc-click`（点击链接）。
+主要 API：容器 `direction` 方向（vertical 默认 / horizontal）、`offset` 滚动偏移、`bounds` 高亮判定边界、`container` 滚动容器选择器（默认自动向上查找最近的滚动祖先，找不到用页面）、`current` 当前高亮 href。事件：`wc-change`（高亮变化）、`wc-click`（点击链接）。
 
 React 用法（`@wc-kit/react` 包装组件）：
 
@@ -255,13 +255,13 @@ anchor.addEventListener('wc-click', (e) => {
 
 #### 属性
 
-| 属性            | attribute       | 类型                         | 默认值       | 说明                                                      |
-| --------------- | --------------- | ---------------------------- | ------------ | --------------------------------------------------------- |
-| `direction`     | `direction`     | `'vertical' \| 'horizontal'` | `'vertical'` | 方向                                                      |
-| `target-offset` | `target-offset` | `number`                     | `0`          | 点击滚动后目标距容器顶部的偏移（px）                      |
-| `bounds`        | `bounds`        | `number`                     | `5`          | 高亮判定边界（px）：目标顶部越过 offset + bounds 即高亮   |
-| `container`     | `container`     | `string`                     | `''`         | 滚动容器 CSS 选择器（默认自动向上查找滚动祖先，否则页面） |
-| `current`       | `current`       | `string`                     | `''`         | 当前高亮的 href（`#id`）                                  |
+| 属性        | attribute   | 类型                         | 默认值       | 说明                                                      |
+| ----------- | ----------- | ---------------------------- | ------------ | --------------------------------------------------------- |
+| `direction` | `direction` | `'vertical' \| 'horizontal'` | `'vertical'` | 方向                                                      |
+| `offset`    | `offset`    | `number`                     | `0`          | 点击滚动后目标距容器顶部的偏移（px）                      |
+| `bounds`    | `bounds`    | `number`                     | `5`          | 高亮判定边界（px）：目标顶部越过 offset + bounds 即高亮   |
+| `container` | `container` | `string`                     | `''`         | 滚动容器 CSS 选择器（默认自动向上查找滚动祖先，否则页面） |
+| `current`   | `current`   | `string`                     | `''`         | 当前高亮的 href（`#id`）                                  |
 
 #### 事件
 

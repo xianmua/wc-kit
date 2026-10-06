@@ -1,5 +1,5 @@
-import { html, LitElement, nothing, type TemplateResult } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { positionPanel } from '../../common/position';
 import { OutsideClickController } from '../../common/outside-click';
 import '../icon/wc-icon.js';
@@ -33,13 +33,19 @@ export class wcSubMenu extends LitElement {
   /** 是否展开 */
   @property({ type: Boolean, reflect: true }) open = false;
 
-  /** 所处菜单是否为水平模式（由 wc-menu 同步，水平模式弹出浮层而非内联展开） */
-  @property({ type: Boolean, reflect: true, attribute: 'menu-horizontal' })
-  menuHorizontal = false;
+  /** 所处菜单是否为水平模式（内部状态，由 wc-menu 同步，水平模式弹出浮层而非内联展开） */
+  @state() menuHorizontal = false;
 
   /** 供 wc-menu 键盘导航聚焦内部头部 */
   focusFromMenu(): void {
     this.renderRoot.querySelector<HTMLElement>('.head')?.focus();
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (changed.has('menuHorizontal')) {
+      this.classList.toggle('horizontal', this.menuHorizontal);
+    }
   }
 
   private get popup(): boolean {

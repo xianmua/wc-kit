@@ -73,16 +73,17 @@ describe('wc-menu', () => {
     expect(items(el)[0].selected).to.be.false;
   });
 
-  it('模式同步到条目（menu-horizontal 反映为 attribute）', async () => {
+  it('模式同步到条目（内部状态 menuHorizontal + horizontal class）', async () => {
     const el = await create(
       '<wc-menu-item value="a">A</wc-menu-item><wc-sub-menu label="更多"><wc-menu-item value="b">B</wc-menu-item></wc-sub-menu>',
       'mode="horizontal"',
     );
-    expect(items(el)[0].hasAttribute('menu-horizontal')).to.be.true;
-    expect(subMenus(el)[0].hasAttribute('menu-horizontal')).to.be.true;
+    expect(items(el)[0].menuHorizontal).to.be.true;
+    expect(items(el)[0].classList.contains('horizontal')).to.be.true;
+    expect(subMenus(el)[0].menuHorizontal).to.be.true;
     el.mode = 'vertical';
     await el.updateComplete;
-    expect(items(el)[0].hasAttribute('menu-horizontal')).to.be.false;
+    expect(items(el)[0].menuHorizontal).to.be.false;
   });
 
   it('键盘方向键在条目间移动焦点', async () => {

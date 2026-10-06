@@ -127,14 +127,14 @@ describe('wc-dropdown', () => {
     key('ArrowDown');
     await el.updateComplete;
     await items(el)[0]!.updateComplete;
-    expect(items(el)[0]!.hasAttribute('active')).to.be.true;
+    expect(items(el)[0]!.classList.contains('active')).to.be.true;
 
     // 下移跳过禁用的第二项，停到第三项
     key('ArrowDown');
     await items(el)[0]!.updateComplete;
     await items(el)[2]!.updateComplete;
-    expect(items(el)[2]!.hasAttribute('active')).to.be.true;
-    expect(items(el)[0]!.hasAttribute('active')).to.be.false;
+    expect(items(el)[2]!.classList.contains('active')).to.be.true;
+    expect(items(el)[0]!.classList.contains('active')).to.be.false;
 
     key('Enter');
     await el.updateComplete;

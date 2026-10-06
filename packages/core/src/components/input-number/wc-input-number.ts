@@ -7,7 +7,9 @@ import { LocalizeController } from '../../i18n/localize-controller';
 import '../icon/wc-icon.js';
 import { inputNumberStyles } from './wc-input-number.styles';
 
-export type wcInputNumberTheme = 'row' | 'column' | 'normal';
+export type wcInputNumberControls = 'row' | 'column' | 'normal';
+/** @deprecated 旧类型名，等价 wcInputNumberControls */
+export type wcInputNumberTheme = wcInputNumberControls;
 export type wcInputNumberSize = 'small' | 'medium' | 'large';
 export type wcInputNumberStatus = 'default' | 'success' | 'warning' | 'error';
 
@@ -53,7 +55,16 @@ export class wcInputNumber extends FormAssociatedMixin(LitElement) {
   @property({ type: Number }) step = 1;
 
   /** 步进按钮布局：row 左右 / column 右侧纵排 / normal 不显示 */
-  @property({ reflect: true }) theme: wcInputNumberTheme = 'row';
+  @property({ reflect: true, attribute: 'controls' }) controls: wcInputNumberControls = 'row';
+
+  /** @deprecated 旧属性名（挪用 theme 存布局枚举），等价 controls */
+  @property({ reflect: true, attribute: 'theme' })
+  get theme(): wcInputNumberControls {
+    return this.controls;
+  }
+  set theme(v: wcInputNumberControls) {
+    this.controls = v;
+  }
 
   /** 尺寸 */
   @property({ reflect: true }) size: wcInputNumberSize = 'medium';
@@ -233,10 +244,10 @@ export class wcInputNumber extends FormAssociatedMixin(LitElement) {
       />
     `;
 
-    if (this.theme === 'normal') {
+    if (this.controls === 'normal') {
       return html`<div class="number" part="base">${inner}</div>`;
     }
-    if (this.theme === 'column') {
+    if (this.controls === 'column') {
       return html`
         <div class="number" part="base">
           ${inner}

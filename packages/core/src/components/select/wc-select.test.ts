@@ -60,7 +60,7 @@ describe('wc-select', () => {
 
     await openSelect(el);
     expect(el.open).to.be.true;
-    expect(el.hasAttribute('open')).to.be.true;
+    expect(el.classList.contains('open')).to.be.true;
 
     const options = el.querySelectorAll('wc-option');
     options[1]!.shadowRoot!.querySelector<HTMLElement>('.option')!.click();
@@ -98,8 +98,8 @@ describe('wc-select', () => {
     `);
     await el.updateComplete;
     const [opt1, opt2] = el.querySelectorAll('wc-option');
-    expect(opt1!.hasAttribute('selected')).to.be.true;
-    expect(opt2!.hasAttribute('selected')).to.be.false;
+    expect(opt1!.classList.contains('selected')).to.be.true;
+    expect(opt2!.classList.contains('selected')).to.be.false;
   });
 
   it('键盘导航：ArrowDown 展开，Enter 选中，Escape 关闭', async () => {
@@ -120,8 +120,8 @@ describe('wc-select', () => {
     pressKey('ArrowDown'); // 移到第二项
     await el.updateComplete;
     const [opt1, opt2] = el.querySelectorAll('wc-option');
-    expect(opt1!.hasAttribute('active')).to.be.false;
-    expect(opt2!.hasAttribute('active')).to.be.true;
+    expect(opt1!.classList.contains('active')).to.be.false;
+    expect(opt2!.classList.contains('active')).to.be.true;
 
     pressKey('Enter');
     await el.updateComplete;

@@ -9,7 +9,7 @@
 - 属性：open 是否打开；placement 弹出边缘（left / right / top / bottom，默认 right）；
   size 面板尺寸（small 300px / medium 500px / large 760px，纯数字按 px，也支持 CSS 尺寸值）；
   header 标题（header 插槽优先）；footer 默认页脚（默认 true）；closable 关闭按钮（默认 true）；
-  close-on-overlay-click 点击遮罩关闭（抽屉默认开启）
+  mask-closable 点击遮罩关闭（抽屉默认开启）
 - 方法：show() 打开；requestClose(reason?) 请求关闭；confirm() / cancel() 确认 / 取消并关闭
 - 事件：wc-open 打开后触发；wc-close 请求关闭（可取消，detail.reason 为 close-btn / overlay /
   escape / confirm / cancel / api）；wc-confirm / wc-cancel 点击默认确认 / 取消按钮触发
@@ -481,15 +481,15 @@ function onDwClose(e) {
 
 ### 属性
 
-| 属性                  | attribute                | 类型                                     | 默认值     | 说明                                                        |
-| --------------------- | ------------------------ | ---------------------------------------- | ---------- | ----------------------------------------------------------- |
-| `open`                | `open`                   | `boolean`                                | `false`    | 是否打开                                                    |
-| `placement`           | `placement`              | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'`  | 弹出边缘                                                    |
-| `size`                | `size`                   | `keyof typeof PRESET_SIZES \| string`    | `'medium'` | 面板尺寸：small / medium / large / 纯数字（px）/ CSS 尺寸值 |
-| `header`              | `header`                 | `string`                                 | `''`       | 页头标题（header 插槽优先）                                 |
-| `footer`              | `footer`                 | `boolean`                                | `true`     | 是否展示页脚（默认确认/取消）                               |
-| `closable`            | `closable`               | `boolean`                                | `true`     | 展示关闭按钮                                                |
-| `closeOnOverlayClick` | `close-on-overlay-click` | `boolean`                                | `true`     | 点击遮罩关闭（抽屉默认开启）                                |
+| 属性           | attribute       | 类型                                     | 默认值     | 说明                                                        |
+| -------------- | --------------- | ---------------------------------------- | ---------- | ----------------------------------------------------------- |
+| `open`         | `open`          | `boolean`                                | `false`    | 是否打开                                                    |
+| `placement`    | `placement`     | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'`  | 弹出边缘                                                    |
+| `size`         | `size`          | `keyof typeof PRESET_SIZES \| string`    | `'medium'` | 面板尺寸：small / medium / large / 纯数字（px）/ CSS 尺寸值 |
+| `header`       | `header`        | `string`                                 | `''`       | 页头标题（header 插槽优先）                                 |
+| `footer`       | `footer`        | `boolean`                                | `true`     | 是否展示页脚（默认确认/取消）                               |
+| `closable`     | `closable`      | `boolean`                                | `true`     | 展示关闭按钮                                                |
+| `maskClosable` | `mask-closable` | `boolean`                                | `true`     | 点击遮罩关闭（抽屉默认开启）                                |
 
 ### 事件
 

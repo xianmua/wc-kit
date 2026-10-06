@@ -1,5 +1,5 @@
 import { html, LitElement, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
 import { OutsideClickController } from '../../common/outside-click';
@@ -95,7 +95,7 @@ export class wcDatePicker extends FormAssociatedMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** 面板是否展开（内部状态） */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @state() open = false;
 
   /** 左侧面板视图的年（内部状态） */
   private viewYear = new Date().getFullYear();

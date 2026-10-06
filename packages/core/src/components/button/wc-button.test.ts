@@ -74,18 +74,16 @@ describe('wc-button', () => {
     expect(part).to.exist;
   });
 
-  it('iconPosition 默认 start，end 时图标渲染在文案之后', async () => {
+  it('position 默认 start，end 时图标渲染在文案之后', async () => {
     const el = await fixture<wcButton>(
-      html`<wc-button icon-position="end"
-        ><wc-icon slot="icon" name="search"></wc-icon>搜索</wc-button
-      >`,
+      html`<wc-button position="end"><wc-icon slot="icon" name="search"></wc-icon>搜索</wc-button>`,
     );
     await el.updateComplete;
-    expect(el.iconPosition).to.equal('end');
+    expect(el.position).to.equal('end');
     const button = el.shadowRoot!.querySelector('button')!;
     const children = Array.from(button.querySelectorAll(':scope > span'));
     expect(children.map((c) => c.className)).to.deep.equal(['content', 'icon']);
-    el.iconPosition = 'start';
+    el.position = 'start';
     await el.updateComplete;
     const flipped = Array.from(el.shadowRoot!.querySelectorAll('button > span'));
     expect(flipped.map((c) => c.className)).to.deep.equal(['icon', 'content']);

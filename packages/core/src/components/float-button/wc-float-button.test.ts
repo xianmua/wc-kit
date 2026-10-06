@@ -40,10 +40,8 @@ describe('wc-float-button', () => {
     expect(el.shadowRoot!.querySelector('wc-icon')!.getAttribute('name')).to.equal('close');
   });
 
-  it('description 属性与默认插槽文案展示', async () => {
-    const el = await fixture<wcFloatButton>(
-      html`<wc-float-button description="说明"></wc-float-button>`,
-    );
+  it('text 属性与默认插槽文案展示', async () => {
+    const el = await fixture<wcFloatButton>(html`<wc-float-button text="说明"></wc-float-button>`);
     await el.updateComplete;
     const desc = el.shadowRoot!.querySelector<HTMLElement>('.desc')!;
     expect(desc.hasAttribute('hidden')).to.be.false;
@@ -105,7 +103,7 @@ describe('wc-float-button', () => {
 
   it('backtop：滚动超阈值显示、点击滚顶', async () => {
     const el = await fixture<wcFloatButton>(
-      html`<wc-float-button backtop visibility-height="400"></wc-float-button>`,
+      html`<wc-float-button backtop threshold="400"></wc-float-button>`,
     );
     await el.updateComplete;
     expect(el.hasAttribute('data-visible')).to.be.false;

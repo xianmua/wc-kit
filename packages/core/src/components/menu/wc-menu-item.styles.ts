@@ -69,7 +69,7 @@ export const menuItemStyles = css`
     transform: translateY(-50%);
   }
 
-  :host([menu-horizontal]) .item.selected::before {
+  :host(.horizontal) .item.selected::before {
     top: auto;
     right: var(--wc-space-3);
     bottom: 0;

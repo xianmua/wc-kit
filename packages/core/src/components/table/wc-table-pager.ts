@@ -73,7 +73,21 @@ export class wcTablePager extends LitElement {
   @property({ type: Boolean, attribute: 'show-size-changer' }) showSizeChanger = false;
 
   /** 每页条数可选项（透传给分页器） */
-  @property({ attribute: 'page-size-options' }) pageSizeOptions = '10,20,50,100';
+  @property({ attribute: false }) pageSizes: number[] = [10, 20, 50, 100];
+
+  /** @deprecated 旧属性名（逗号分隔字符串），等价 pageSizes */
+  @property({ attribute: 'page-size-options' })
+  get pageSizeOptions(): string {
+    return this.pageSizes.join(',');
+  }
+  set pageSizeOptions(v: string | number[]) {
+    this.pageSizes = Array.isArray(v)
+      ? v
+      : v
+          .split(',')
+          .map((s) => Number.parseInt(s.trim(), 10))
+          .filter((n) => Number.isFinite(n) && n > 0);
+  }
 
   /** 行唯一键字段名（透传 wc-table.rowKey，展开状态跟踪用） */
   @property({ attribute: 'row-key' }) rowKey = '';
@@ -198,7 +212,7 @@ export class wcTablePager extends LitElement {
             .pageSize=${this.currentPageSize}
             ?show-jumper=${this.showJumper}
             ?show-size-changer=${this.showSizeChanger}
-            page-size-options=${this.pageSizeOptions}
+            .pageSizes=${this.pageSizes}
             @wc-change=${this.onPageChange}
             @wc-size-change=${this.onPageSizeChange}
           ></wc-pagination>

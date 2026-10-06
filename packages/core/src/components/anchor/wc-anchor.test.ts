@@ -95,16 +95,17 @@ describe('wc-anchor', () => {
     expect(links(el)[1].selected).to.be.true;
   });
 
-  it('direction 同步到链接（anchor-horizontal 反映为 attribute）', async () => {
+  it('direction 同步到链接（内部状态 anchorHorizontal + horizontal class）', async () => {
     const el = await create(
       '<wc-anchor-link href="#sec-a">基础</wc-anchor-link>',
       'direction="horizontal"',
     );
     expect(el.hasAttribute('direction')).to.be.true;
-    expect(links(el)[0].hasAttribute('anchor-horizontal')).to.be.true;
+    expect(links(el)[0].anchorHorizontal).to.be.true;
+    expect(links(el)[0].classList.contains('horizontal')).to.be.true;
     el.direction = 'vertical';
     await el.updateComplete;
-    expect(links(el)[0].hasAttribute('anchor-horizontal')).to.be.false;
+    expect(links(el)[0].anchorHorizontal).to.be.false;
   });
 
   it('滚动监听：按目标位置自动切换高亮并派发 wc-change', async () => {

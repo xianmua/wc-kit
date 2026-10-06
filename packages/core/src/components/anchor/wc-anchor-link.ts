@@ -1,5 +1,5 @@
-import { html, LitElement, nothing, type TemplateResult } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { anchorLinkStyles } from './wc-anchor-link.styles';
 
 /**
@@ -18,12 +18,11 @@ export class wcAnchorLink extends LitElement {
   /** 目标锚点（#id 形式，对应页面中带该 id 的元素） */
   @property({ reflect: true }) href = '';
 
-  /** 选中态（由 wc-anchor 同步，勿手工维护） */
-  @property({ type: Boolean, reflect: true }) selected = false;
+  /** 选中态（内部状态，由 wc-anchor 同步，勿手工维护） */
+  @state() selected = false;
 
-  /** 所处锚点是否为水平方向（由 wc-anchor 同步） */
-  @property({ type: Boolean, reflect: true, attribute: 'anchor-horizontal' })
-  anchorHorizontal = false;
+  /** 所处锚点是否为水平方向（内部状态，由 wc-anchor 同步） */
+  @state() anchorHorizontal = false;
 
   /** 链接标题（自身直接文本，不含嵌套链接文字） */
   get title(): string {
@@ -40,6 +39,13 @@ export class wcAnchorLink extends LitElement {
       if (n.localName === 'wc-anchor-link' && n.getAttribute('slot') !== 'sub') {
         n.setAttribute('slot', 'sub');
       }
+    }
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (changed.has('anchorHorizontal')) {
+      this.classList.toggle('horizontal', this.anchorHorizontal);
     }
   }
 

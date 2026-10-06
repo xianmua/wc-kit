@@ -61,7 +61,7 @@ describe('wc-dialog', () => {
     expect(el.open).to.be.false;
   });
 
-  it('遮罩点击默认不关闭，close-on-overlay-click 开启后关闭', async () => {
+  it('遮罩点击默认不关闭，mask-closable 开启后关闭', async () => {
     const off = await fixture<wcDialog>(
       html`<wc-dialog header="提示" open><p>内容</p></wc-dialog>`,
     );
@@ -69,7 +69,7 @@ describe('wc-dialog', () => {
     expect(off.open).to.be.true;
 
     const on = await fixture<wcDialog>(
-      html`<wc-dialog header="提示" open close-on-overlay-click><p>内容</p></wc-dialog>`,
+      html`<wc-dialog header="提示" open mask-closable><p>内容</p></wc-dialog>`,
     );
     on.shadowRoot!.querySelector<HTMLElement>('.overlay')!.click();
     expect(on.open).to.be.false;

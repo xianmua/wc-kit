@@ -10,7 +10,7 @@ export const tabStyles = css`
     color: var(--wc-color-text);
   }
 
-  :host(:not([active])) {
+  :host(:not(.active)) {
     display: none;
   }
 `;

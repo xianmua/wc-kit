@@ -1,5 +1,5 @@
-import { html, LitElement, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html, LitElement, nothing, type PropertyValues } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { menuItemStyles } from './wc-menu-item.styles';
 import '../icon/wc-icon.js';
 
@@ -27,12 +27,11 @@ export class wcMenuItem extends LitElement {
   /** 前置图标（内置图标名） */
   @property() icon = '';
 
-  /** 选中态（由 wc-menu 同步，勿手工维护） */
-  @property({ type: Boolean, reflect: true }) selected = false;
+  /** 选中态（内部状态，由 wc-menu 同步，勿手工维护） */
+  @state() selected = false;
 
-  /** 所处菜单是否为水平模式（由 wc-menu 同步） */
-  @property({ type: Boolean, reflect: true, attribute: 'menu-horizontal' })
-  menuHorizontal = false;
+  /** 所处菜单是否为水平模式（内部状态，由 wc-menu 同步） */
+  @state() menuHorizontal = false;
 
   /** 菜单项文本 */
   get label(): string {
@@ -42,6 +41,13 @@ export class wcMenuItem extends LitElement {
   /** 供 wc-menu 键盘导航聚焦内部条目 */
   focusFromMenu(): void {
     this.renderRoot.querySelector<HTMLElement>('.item')?.focus();
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (changed.has('menuHorizontal')) {
+      this.classList.toggle('horizontal', this.menuHorizontal);
+    }
   }
 
   render() {

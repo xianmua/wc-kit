@@ -27,7 +27,7 @@ export const dropdownItemStyles = css`
   }
 
   :host(:hover:not([disabled]):not([divider])) .item,
-  :host([active]:not([disabled]):not([divider])) .item {
+  :host(.active:not([disabled]):not([divider])) .item {
     background-color: var(--wc-color-bg-hover);
   }
 

@@ -8,7 +8,7 @@ import { paginationStyles } from './wc-pagination.styles';
 type PageItem = number | 'ellipsis-prev' | 'ellipsis-next';
 
 /**
- * 分页。由 total / page-size 推导总页数，页码过多时按 folded-page-count 折叠
+ * 分页。由 total / page-size 推导总页数，页码过多时按 sibling-count 折叠
  * 为「1 … 中间窗 … 末页」。页码切换派发 wc-change（detail: { current, previous }），
  * 每页条数变化派发 wc-size-change（detail: { pageSize, previous, current }），
  * total/page-size 变化导致越界时静默夹紧 current（不派发事件）。
@@ -45,7 +45,16 @@ export class wcPagination extends LitElement {
   @property({ type: Number, reflect: true }) current = 1;
 
   /** 折叠时中间窗口显示的页码数量 */
-  @property({ type: Number, attribute: 'folded-page-count' }) foldedPageCount = 5;
+  @property({ type: Number, attribute: 'sibling-count' }) siblingCount = 5;
+
+  /** @deprecated 旧属性名，等价 siblingCount */
+  @property({ type: Number, attribute: 'folded-page-count' })
+  get foldedPageCount(): number {
+    return this.siblingCount;
+  }
+  set foldedPageCount(v: number) {
+    this.siblingCount = Number(v);
+  }
 
   /** 显示总条数 */
   @property({ type: Boolean, attribute: 'show-total' }) showTotal = false;
@@ -56,8 +65,22 @@ export class wcPagination extends LitElement {
   /** 显示每页条数选择器 */
   @property({ type: Boolean, attribute: 'show-size-changer' }) showSizeChanger = false;
 
-  /** 每页条数可选项（逗号分隔），当前 pageSize 不在列表中时自动补入 */
-  @property({ attribute: 'page-size-options' }) pageSizeOptions = '10,20,50,100';
+  /** 每页条数可选项，当前 pageSize 不在列表中时自动补入 */
+  @property({ attribute: false }) pageSizes: number[] = [10, 20, 50, 100];
+
+  /** @deprecated 旧属性名（逗号分隔字符串），等价 pageSizes */
+  @property({ attribute: 'page-size-options' })
+  get pageSizeOptions(): string {
+    return this.pageSizes.join(',');
+  }
+  set pageSizeOptions(v: string | number[]) {
+    this.pageSizes = Array.isArray(v)
+      ? v
+      : v
+          .split(',')
+          .map((s) => Number.parseInt(s.trim(), 10))
+          .filter((n) => Number.isFinite(n) && n > 0);
+  }
 
   /** 极简模式：仅前后翻页按钮 + 「当前页 / 总页数」快速跳转输入（antd simple 同款） */
   @property({ type: Boolean, reflect: true }) simple = false;
@@ -97,7 +120,7 @@ export class wcPagination extends LitElement {
   /** 页码序列：1 … 中间窗口 … 末页，空间充足时全部展开 */
   private getPageItems(): PageItem[] {
     const pageCount = this.pageCount;
-    const folded = Math.max(1, this.foldedPageCount);
+    const folded = Math.max(1, this.siblingCount);
     if (pageCount <= folded + 2) {
       return Array.from({ length: pageCount }, (_, i) => i + 1);
     }
@@ -123,10 +146,7 @@ export class wcPagination extends LitElement {
 
   /** 每页条数可选项（升序去重，保证包含当前 pageSize） */
   private get sizeOptions(): number[] {
-    const list = this.pageSizeOptions
-      .split(',')
-      .map((s) => Number.parseInt(s.trim(), 10))
-      .filter((n) => Number.isFinite(n) && n > 0);
+    const list = this.pageSizes.filter((n) => Number.isFinite(n) && n > 0);
     if (!list.includes(this.pageSize)) list.push(this.pageSize);
     return [...new Set(list)].sort((a, b) => a - b);
   }

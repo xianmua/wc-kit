@@ -44,10 +44,10 @@ describe('wc-dropdown-item', () => {
     expect(item.textContent).to.equal('');
   });
 
-  it('active 高亮态 reflect（由 wc-dropdown 管理）', async () => {
+  it('active 高亮态宿主 class（由 wc-dropdown 管理，内部状态不公开 reflect）', async () => {
     const el = await fixture<wcDropdownItem>(html`<wc-dropdown-item>项</wc-dropdown-item>`);
     el.active = true;
     await el.updateComplete;
-    expect(el.hasAttribute('active')).to.be.true;
+    expect(el.classList.contains('active')).to.be.true;
   });
 });

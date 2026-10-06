@@ -60,8 +60,8 @@ export const inputNumberStyles = css`
     caret-color: var(--wc-color-primary);
   }
 
-  :host([theme='column']) .inner,
-  :host([theme='normal']) .inner {
+  :host([controls='column']) .inner,
+  :host([controls='normal']) .inner {
     text-align: inherit;
   }
 
@@ -108,7 +108,7 @@ export const inputNumberStyles = css`
     pointer-events: none;
   }
 
-  /* ---- column 主题：步进按钮右侧纵向堆叠 ---- */
+  /* ---- column 布局：步进按钮右侧纵向堆叠 ---- */
   .stepper {
     display: flex;
     flex-direction: column;
@@ -117,12 +117,12 @@ export const inputNumberStyles = css`
     border-left: 1px solid var(--wc-color-border);
   }
 
-  :host([theme='column']) .step {
+  :host([controls='column']) .step {
     flex: 1;
     width: 100%;
   }
 
-  :host([theme='column']) .step wc-icon {
+  :host([controls='column']) .step wc-icon {
     font-size: 10px;
   }
 
@@ -130,8 +130,8 @@ export const inputNumberStyles = css`
     border-top: 1px solid var(--wc-color-border);
   }
 
-  /* row 主题：左右两个按钮与边框衔接处不留圆角缝隙 */
-  :host([theme='row']) .number {
+  /* row 布局：左右两个按钮与边框衔接处不留圆角缝隙 */
+  :host([controls='row']) .number {
     overflow: hidden;
   }
 

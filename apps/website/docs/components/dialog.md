@@ -6,7 +6,7 @@
 ## 主要 API
 
 - 属性：open 是否打开；header 标题（header 插槽优先）；footer 是否展示默认页脚（默认 true）；
-  closable 右上角关闭按钮（默认 true）；close-on-overlay-click 点击遮罩关闭（默认 false）；
+  closable 右上角关闭按钮（默认 true）；mask-closable 点击遮罩关闭（默认 false）；
   width 对话框宽度（纯数字按 px）
 - 方法：show() 打开；requestClose(reason?) 请求关闭；confirm() / cancel() 确认 / 取消并关闭
 - 事件：wc-open 打开后触发；wc-close 请求关闭（可取消，detail.reason 为 close-btn / overlay /
@@ -232,8 +232,8 @@ const dlgFooter = useRef<HTMLElement | null>(null);
 
 <div class="demo-block">
   <wc-button theme="primary" @click="dlgClose?.show()">打开对话框</wc-button>
-  <wc-dialog ref="dlgClose" header="遮罩与 Esc 关闭" closable="false" close-on-overlay-click>
-    closable=false 隐藏右上角关闭按钮；开启 close-on-overlay-click 后点击遮罩或按 Esc 均可关闭。
+  <wc-dialog ref="dlgClose" header="遮罩与 Esc 关闭" closable="false" mask-closable>
+    closable=false 隐藏右上角关闭按钮；开启 mask-closable 后点击遮罩或按 Esc 均可关闭。
   </wc-dialog>
 </div>
 
@@ -244,8 +244,8 @@ const dlgFooter = useRef<HTMLElement | null>(null);
 
 ```html [HTML]
 <wc-button theme="primary" id="dialog-3-btn0">打开对话框</wc-button>
-<wc-dialog header="遮罩与 Esc 关闭" closable="false" close-on-overlay-click id="dlgClose">
-  closable=false 隐藏右上角关闭按钮；开启 close-on-overlay-click 后点击遮罩或按 Esc 均可关闭。
+<wc-dialog header="遮罩与 Esc 关闭" closable="false" mask-closable id="dlgClose">
+  closable=false 隐藏右上角关闭按钮；开启 mask-closable 后点击遮罩或按 Esc 均可关闭。
 </wc-dialog>
 
 <script type="module">
@@ -260,8 +260,8 @@ const dlgFooter = useRef<HTMLElement | null>(null);
 ```vue [Vue]
 <template>
   <wc-button theme="primary" @click="dlgClose?.show()">打开对话框</wc-button>
-  <wc-dialog ref="dlgClose" header="遮罩与 Esc 关闭" closable="false" close-on-overlay-click>
-    closable=false 隐藏右上角关闭按钮；开启 close-on-overlay-click 后点击遮罩或按 Esc 均可关闭。
+  <wc-dialog ref="dlgClose" header="遮罩与 Esc 关闭" closable="false" mask-closable>
+    closable=false 隐藏右上角关闭按钮；开启 mask-closable 后点击遮罩或按 Esc 均可关闭。
   </wc-dialog>
 </template>
 
@@ -276,8 +276,8 @@ const dlgClose = ref();
 import { WcButton, WcDialog } from '@wc-kit/react';
 
 <WcButton theme="primary" onClick={() => { dlgClose.current?.show() }}>打开对话框</WcButton>
-<WcDialog ref={dlgClose} header="遮罩与 Esc 关闭" closable={false} closeOnOverlayClick>
-  closable=false 隐藏右上角关闭按钮；开启 close-on-overlay-click 后点击遮罩或按 Esc 均可关闭。
+<WcDialog ref={dlgClose} header="遮罩与 Esc 关闭" closable={false} maskClosable>
+  closable=false 隐藏右上角关闭按钮；开启 mask-closable 后点击遮罩或按 Esc 均可关闭。
 </WcDialog>
 
 // 组件实例引用
@@ -403,7 +403,7 @@ function onDlgClose(e) {
 
 <div class="demo-block">
   <wc-button theme="primary" @click="dlgPrevent?.show()">打开对话框</wc-button>
-  <wc-dialog ref="dlgPrevent" header="拦截关闭" close-on-overlay-click @wc-close="onDlgPreventClose">
+  <wc-dialog ref="dlgPrevent" header="拦截关闭" mask-closable @wc-close="onDlgPreventClose">
     按 Esc 或点击遮罩的关闭请求会被 preventDefault 拦截；确认 / 取消 / 右上角关闭按钮不受影响。
   </wc-dialog>
 </div>
@@ -415,7 +415,7 @@ wc-close 是可取消事件：监听器中调用 `e.preventDefault()` 即可阻�
 
 ```html [HTML]
 <wc-button theme="primary" id="dialog-5-btn0">打开对话框</wc-button>
-<wc-dialog header="拦截关闭" close-on-overlay-click id="dlgPrevent">
+<wc-dialog header="拦截关闭" mask-closable id="dlgPrevent">
   按 Esc 或点击遮罩的关闭请求会被 preventDefault 拦截；确认 / 取消 / 右上角关闭按钮不受影响。
 </wc-dialog>
 
@@ -446,12 +446,7 @@ wc-close 是可取消事件：监听器中调用 `e.preventDefault()` 即可阻�
 ```vue [Vue]
 <template>
   <wc-button theme="primary" @click="dlgPrevent?.show()">打开对话框</wc-button>
-  <wc-dialog
-    ref="dlgPrevent"
-    header="拦截关闭"
-    close-on-overlay-click
-    @wc-close="onDlgPreventClose"
-  >
+  <wc-dialog ref="dlgPrevent" header="拦截关闭" mask-closable @wc-close="onDlgPreventClose">
     按 Esc 或点击遮罩的关闭请求会被 preventDefault 拦截；确认 / 取消 / 右上角关闭按钮不受影响。
   </wc-dialog>
 </template>
@@ -468,7 +463,7 @@ function onDlgPreventClose(e) {
 import { WcButton, WcDialog } from '@wc-kit/react';
 
 <WcButton theme="primary" onClick={() => { dlgPrevent.current?.show() }}>打开对话框</WcButton>
-<WcDialog ref={dlgPrevent} header="拦截关闭" closeOnOverlayClick onWcClose={() => { onDlgPreventClose }}>
+<WcDialog ref={dlgPrevent} header="拦截关闭" maskClosable onWcClose={() => { onDlgPreventClose }}>
   按 Esc 或点击遮罩的关闭请求会被 preventDefault 拦截；确认 / 取消 / 右上角关闭按钮不受影响。
 </WcDialog>
 
@@ -490,14 +485,14 @@ function onDlgPreventClose(e) {
 
 ### 属性
 
-| 属性                  | attribute                | 类型      | 默认值  | 说明                          |
-| --------------------- | ------------------------ | --------- | ------- | ----------------------------- |
-| `open`                | `open`                   | `boolean` | `false` | 是否打开                      |
-| `header`              | `header`                 | `string`  | `''`    | 页头标题（header 插槽优先）   |
-| `footer`              | `footer`                 | `boolean` | `true`  | 是否展示页脚（默认确认/取消） |
-| `closable`            | `closable`               | `boolean` | `true`  | 展示右上角关闭按钮            |
-| `closeOnOverlayClick` | `close-on-overlay-click` | `boolean` | `false` | 点击遮罩关闭                  |
-| `width`               | `width`                  | `string`  | `''`    | 对话框宽度（纯数字按 px）     |
+| 属性           | attribute       | 类型      | 默认值  | 说明                          |
+| -------------- | --------------- | --------- | ------- | ----------------------------- |
+| `open`         | `open`          | `boolean` | `false` | 是否打开                      |
+| `header`       | `header`        | `string`  | `''`    | 页头标题（header 插槽优先）   |
+| `footer`       | `footer`        | `boolean` | `true`  | 是否展示页脚（默认确认/取消） |
+| `closable`     | `closable`      | `boolean` | `true`  | 展示右上角关闭按钮            |
+| `maskClosable` | `mask-closable` | `boolean` | `false` | 点击遮罩关闭                  |
+| `width`        | `width`         | `string`  | `''`    | 对话框宽度（纯数字按 px）     |
 
 ### 事件
 

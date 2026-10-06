@@ -1,14 +1,14 @@
 # Switch 开关
 
 开关组件，用于两种状态之间的切换。标签文本写在默认插槽；基于 ElementInternals 接入原生 form，
-按 checkedValue / uncheckedValue 提交表单值。
+按 trueValue / falseValue 提交表单值。
 
 **属性**
 
 - `checked`：开启状态，布尔，默认 false
 - `value`：选中状态的布尔代理（与 checked 双向同步），供框架 v-model / 受控绑定直接用
-- `checkedValue`：开启时提交到表单的值，string，默认 'on'
-- `uncheckedValue`：关闭时提交到表单的值，string，默认 ''（为空则不提交）
+- `trueValue`：开启时提交到表单的值，string，默认 'on'
+- `falseValue`：关闭时提交到表单的值，string，默认 ''（为空则不提交）
 - `label`：无障碍标签（无默认插槽文本时使用）
 - `name`：提交到表单的字段名
 - `disabled`：是否禁用
@@ -91,7 +91,7 @@ import { WcSwitch } from '@wc-kit/react';
 <div class="demo-block">
 
 <div style="display:flex;gap:12px;align-items:center;">
-      <wc-switch name="notice" checked-value="1" unchecked-value="0" checked>开启/关闭</wc-switch>
+      <wc-switch name="notice" true-value="1" false-value="0" checked>开启/关闭</wc-switch>
     </div>
 
 </div>
@@ -100,7 +100,7 @@ import { WcSwitch } from '@wc-kit/react';
 
 ```html
 <div style="display:flex;gap:12px;align-items:center;">
-  <wc-switch name="notice" checked-value="1" unchecked-value="0" checked>开启/关闭</wc-switch>
+  <wc-switch name="notice" true-value="1" false-value="0" checked>开启/关闭</wc-switch>
 </div>
 ```
 
@@ -110,13 +110,13 @@ import { WcSwitch } from '@wc-kit/react';
 
 ### 属性
 
-| 属性             | attribute        | 类型      | 默认值  | 说明                                                     |
-| ---------------- | ---------------- | --------- | ------- | -------------------------------------------------------- |
-| `checked`        | `checked`        | `boolean` | `false` | 开启状态                                                 |
-| `value`          | —                | `boolean` | `false` | checked 的布尔代理（getter/setter），供框架 v-model 绑定 |
-| `checkedValue`   | `checkedvalue`   | `string`  | `'on'`  | 开启时提交到表单的值                                     |
-| `uncheckedValue` | `uncheckedvalue` | `string`  | `''`    | 关闭时提交到表单的值（为空则不提交）                     |
-| `label`          | `label`          | `string`  | `''`    | 无障碍标签（无默认插槽文本时使用）                       |
+| 属性         | attribute     | 类型      | 默认值  | 说明                                                     |
+| ------------ | ------------- | --------- | ------- | -------------------------------------------------------- |
+| `checked`    | `checked`     | `boolean` | `false` | 开启状态                                                 |
+| `value`      | —             | `boolean` | `false` | checked 的布尔代理（getter/setter），供框架 v-model 绑定 |
+| `trueValue`  | `true-value`  | `string`  | `'on'`  | 开启时提交到表单的值                                     |
+| `falseValue` | `false-value` | `string`  | `''`    | 关闭时提交到表单的值（为空则不提交）                     |
+| `label`      | `label`       | `string`  | `''`    | 无障碍标签（无默认插槽文本时使用）                       |
 
 ### 事件
 

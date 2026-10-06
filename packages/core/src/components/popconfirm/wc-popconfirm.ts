@@ -34,7 +34,16 @@ export class wcPopconfirm extends LitElement {
   @property() placement: WcPlacement = 'top';
 
   /** 确认按钮文案（默认 i18n「确认」） */
-  @property({ attribute: 'confirm-text' }) confirmText = '';
+  @property({ attribute: 'ok-text' }) okText = '';
+
+  /** @deprecated 旧属性名，等价 okText */
+  @property({ attribute: 'confirm-text' })
+  get confirmText(): string {
+    return this.okText;
+  }
+  set confirmText(v: string) {
+    this.okText = v;
+  }
 
   /** 取消按钮文案（默认 i18n「取消」） */
   @property({ attribute: 'cancel-text' }) cancelText = '';
@@ -49,6 +58,10 @@ export class wcPopconfirm extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   private panelId = `wc-popconfirm-panel-${++popconfirmUid}`;
+
+  /** 打开时触发器是否处于键盘聚焦（:focus-visible）：仅此情况关闭后归还焦点。
+   *  鼠标路径不归还——Chromium 对脚本 focus() 判定 :focus-visible 会在触发器上留下焦点圈 */
+  private restoreFocus = false;
 
   private localize = new LocalizeController(this);
 
@@ -113,13 +126,18 @@ export class wcPopconfirm extends LitElement {
 
   private unbindSideEffects(): void {
     document.removeEventListener('keydown', this.onDocumentKeydown, true);
-    this.shadowRoot!.querySelector<HTMLElement>('.trigger')?.focus();
+    if (this.restoreFocus) {
+      this.shadowRoot!.querySelector<HTMLElement>('.trigger')?.focus();
+      this.restoreFocus = false;
+    }
   }
 
   protected override updated(changed: Map<string, unknown>): void {
     super.updated(changed);
     if (!changed.has('open')) return;
     if (this.open) {
+      this.restoreFocus =
+        this.shadowRoot!.querySelector<HTMLElement>('.trigger')?.matches(':focus-visible') ?? false;
       this.bindSideEffects();
       this.position();
     } else {
@@ -187,7 +205,7 @@ export class wcPopconfirm extends LitElement {
             part="confirm-button"
             @click=${() => this.confirm()}
           >
-            ${this.confirmText || this.localize.term('dialog.confirm')}
+            ${this.okText || this.localize.term('dialog.confirm')}
           </wc-button>
         </div>
       </div>

@@ -57,8 +57,17 @@ export class wcDrawer extends LitElement {
   /** 展示关闭按钮 */
   @property({ type: Boolean, reflect: true }) closable = true;
 
-  /** 点击遮罩关闭（抽屉默认开启） */
-  @property({ type: Boolean, attribute: 'close-on-overlay-click' }) closeOnOverlayClick = true;
+  /** 点击遮罩关闭（抽屉默认开启；antd 惯用名 mask-closable） */
+  @property({ type: Boolean, attribute: 'mask-closable' }) maskClosable = true;
+
+  /** @deprecated 旧属性名，等价 maskClosable */
+  @property({ type: Boolean, attribute: 'close-on-overlay-click' })
+  get closeOnOverlayClick(): boolean {
+    return this.maskClosable;
+  }
+  set closeOnOverlayClick(v: boolean) {
+    this.maskClosable = Boolean(v);
+  }
 
   private localize = new LocalizeController(this);
 
@@ -121,7 +130,7 @@ export class wcDrawer extends LitElement {
 
   private onOverlayClick(e: MouseEvent): void {
     if (e.target !== e.currentTarget) return;
-    if (this.closeOnOverlayClick) this.requestClose('overlay');
+    if (this.maskClosable) this.requestClose('overlay');
   }
 
   private sizeStyle(): string {

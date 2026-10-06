@@ -209,15 +209,15 @@ describe('wc-input-number', () => {
     expect(el.value).to.equal(3);
   });
 
-  it('theme=column 渲染纵向步进器，theme=normal 不渲染按钮', async () => {
+  it('controls=column 渲染纵向步进器，controls=normal 不渲染按钮', async () => {
     const column = await fixture<wcInputNumber>(
-      html`<wc-input-number theme="column"></wc-input-number>`,
+      html`<wc-input-number controls="column"></wc-input-number>`,
     );
     expect(column.shadowRoot!.querySelector('.stepper')).to.exist;
     expect(column.shadowRoot!.querySelectorAll('.step').length).to.equal(2);
 
     const normal = await fixture<wcInputNumber>(
-      html`<wc-input-number theme="normal"></wc-input-number>`,
+      html`<wc-input-number controls="normal"></wc-input-number>`,
     );
     expect(normal.shadowRoot!.querySelectorAll('.step').length).to.equal(0);
   });

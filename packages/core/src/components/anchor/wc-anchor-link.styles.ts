@@ -50,7 +50,7 @@ export const anchorLinkStyles = css`
     transform: translateY(-50%);
   }
 
-  :host([anchor-horizontal]) .link.selected::before {
+  :host(.horizontal) .link.selected::before {
     top: auto;
     right: var(--wc-space-3);
     bottom: 0;
@@ -65,7 +65,7 @@ export const anchorLinkStyles = css`
     margin-left: var(--wc-space-4);
   }
 
-  :host([anchor-horizontal]) slot[name='sub'] {
+  :host(.horizontal) slot[name='sub'] {
     display: none;
   }
 

@@ -196,25 +196,25 @@
 
 ### 属性
 
-| 属性           | attribute       | 类型                                                           | 默认值      | 说明                                                                                  |
-| -------------- | --------------- | -------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------- |
-| `theme`        | `theme`         | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 组件风格（语义色）                                                                    |
-| `type`         | `type`          | `'base' \| 'outline' \| 'dashed' \| 'text' \| 'link'`          | `'base'`    | 按钮形式                                                                              |
-| `size`         | `size`          | `'small' \| 'medium' \| 'large'`                               | `'medium'`  | 尺寸                                                                                  |
-| `iconPosition` | `icon-position` | `'start' \| 'end'`                                             | `'start'`   | 图标位置：start 左 / end 右                                                           |
-| `block`        | `block`         | `boolean`                                                      | `false`     | 是否为块级元素                                                                        |
-| `disabled`     | `disabled`      | `boolean`                                                      | `false`     | 禁用状态                                                                              |
-| `loading`      | `loading`       | `boolean`                                                      | `false`     | 加载状态                                                                              |
-| `ghost`        | `ghost`         | `boolean`                                                      | `false`     | 幽灵模式：透明底 + 主题色边框/文字（用于深色背景；outline/dashed 悬停改为半透明淡底） |
-| `gradient`     | `gradient`      | `boolean`                                                      | `false`     | 渐变底：实色按钮改为主题色线性渐变（仅 base 变体且非 default 主题生效）               |
-| `ripple`       | `ripple`        | `boolean`                                                      | `false`     | 点击波纹效果                                                                          |
+| 属性       | attribute  | 类型                                                           | 默认值      | 说明                                                                                  |
+| ---------- | ---------- | -------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------- |
+| `theme`    | `theme`    | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 组件风格（语义色）                                                                    |
+| `type`     | `type`     | `'base' \| 'outline' \| 'dashed' \| 'text' \| 'link'`          | `'base'`    | 按钮形式                                                                              |
+| `size`     | `size`     | `'small' \| 'medium' \| 'large'`                               | `'medium'`  | 尺寸                                                                                  |
+| `position` | `position` | `'start' \| 'end'`                                             | `'start'`   | 图标位置：start 左 / end 右                                                           |
+| `block`    | `block`    | `boolean`                                                      | `false`     | 是否为块级元素                                                                        |
+| `disabled` | `disabled` | `boolean`                                                      | `false`     | 禁用状态                                                                              |
+| `loading`  | `loading`  | `boolean`                                                      | `false`     | 加载状态                                                                              |
+| `ghost`    | `ghost`    | `boolean`                                                      | `false`     | 幽灵模式：透明底 + 主题色边框/文字（用于深色背景；outline/dashed 悬停改为半透明淡底） |
+| `gradient` | `gradient` | `boolean`                                                      | `false`     | 渐变底：实色按钮改为主题色线性渐变（仅 base 变体且非 default 主题生效）               |
+| `ripple`   | `ripple`   | `boolean`                                                      | `false`     | 点击波纹效果                                                                          |
 
 ### 插槽
 
-| 名称     | 说明                                                        |
-| -------- | ----------------------------------------------------------- |
-| （默认） | 按钮内容                                                    |
-| `icon`   | 图标（位置由 iconPosition 控制；loading 时被 spinner 替换） |
+| 名称     | 说明                                                    |
+| -------- | ------------------------------------------------------- |
+| （默认） | 按钮内容                                                |
+| `icon`   | 图标（位置由 position 控制；loading 时被 spinner 替换） |
 
 ### CSS 变量
 

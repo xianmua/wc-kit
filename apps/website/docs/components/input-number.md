@@ -9,7 +9,7 @@
 - `min`：最小值，number，默认 -Infinity
 - `max`：最大值，number，默认 Infinity
 - `step`：步长，number，默认 1
-- `theme`：步进按钮布局 'row'（左右）| 'column'（右侧纵排）| 'normal'（不显示），默认 'row'
+- `controls`：步进按钮布局 'row'（左右）| 'column'（右侧纵排）| 'normal'（不显示），默认 'row'
 - `size`：尺寸 'small' | 'medium' | 'large'，默认 'medium'
 - `placeholder`：占位提示
 - `label`：无障碍标签（等价原生 aria-label）
@@ -34,7 +34,7 @@ import { WcInputNumber } from '@wc-kit/react';
   min={0}
   max={10}
   step={1}
-  theme="column"
+  controls="column"
   onChange={(e) => setCount(e.target.value)}
 />;
 ```
@@ -53,9 +53,9 @@ import { WcInputNumber } from '@wc-kit/react';
 
 <div class="demo-block">
   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-input-number value="5" theme="row"></wc-input-number>
-    <wc-input-number value="5" theme="column"></wc-input-number>
-    <wc-input-number value="5" theme="normal"></wc-input-number>
+    <wc-input-number value="5" controls="row"></wc-input-number>
+    <wc-input-number value="5" controls="column"></wc-input-number>
+    <wc-input-number value="5" controls="normal"></wc-input-number>
   </div>
 </div>
 
@@ -66,18 +66,18 @@ import { WcInputNumber } from '@wc-kit/react';
 
 ```html [HTML]
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <wc-input-number value="5" theme="row"></wc-input-number>
-  <wc-input-number value="5" theme="column"></wc-input-number>
-  <wc-input-number value="5" theme="normal"></wc-input-number>
+  <wc-input-number value="5" controls="row"></wc-input-number>
+  <wc-input-number value="5" controls="column"></wc-input-number>
+  <wc-input-number value="5" controls="normal"></wc-input-number>
 </div>
 ```
 
 ```vue [Vue]
 <template>
   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-    <wc-input-number value="5" theme="row"></wc-input-number>
-    <wc-input-number value="5" theme="column"></wc-input-number>
-    <wc-input-number value="5" theme="normal"></wc-input-number>
+    <wc-input-number value="5" controls="row"></wc-input-number>
+    <wc-input-number value="5" controls="column"></wc-input-number>
+    <wc-input-number value="5" controls="normal"></wc-input-number>
   </div>
 </template>
 ```
@@ -86,9 +86,9 @@ import { WcInputNumber } from '@wc-kit/react';
 import { WcInputNumber } from '@wc-kit/react';
 
 <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-  <WcInputNumber value={5} theme="row"></WcInputNumber>
-  <WcInputNumber value={5} theme="column"></WcInputNumber>
-  <WcInputNumber value={5} theme="normal"></WcInputNumber>
+  <WcInputNumber value={5} controls="row"></WcInputNumber>
+  <WcInputNumber value={5} controls="column"></WcInputNumber>
+  <WcInputNumber value={5} controls="normal"></WcInputNumber>
 </div>;
 ```
 
@@ -258,7 +258,7 @@ import { WcInputNumber } from '@wc-kit/react';
 | `min`         | `min`         | `—`                                              | `-Infinity` | 最小值                                                   |
 | `max`         | `max`         | `—`                                              | `Infinity`  | 最大值                                                   |
 | `step`        | `step`        | `number`                                         | `1`         | 步长                                                     |
-| `theme`       | `theme`       | `'row' \| 'column' \| 'normal'`                  | `'row'`     | 步进按钮布局：row 左右 / column 右侧纵排 / normal 不显示 |
+| `controls`    | `controls`    | `'row' \| 'column' \| 'normal'`                  | `'row'`     | 步进按钮布局：row 左右 / column 右侧纵排 / normal 不显示 |
 | `size`        | `size`        | `'small' \| 'medium' \| 'large'`                 | `'medium'`  | 尺寸                                                     |
 | `placeholder` | `placeholder` | `string`                                         | `''`        | 占位提示                                                 |
 | `label`       | `label`       | `string`                                         | `''`        | 无障碍标签（等价原生 aria-label）                        |

@@ -23,7 +23,16 @@ export class wcAnchor extends LitElement {
   @property({ reflect: true }) direction: wcAnchorDirection = 'vertical';
 
   /** 点击滚动后目标距容器顶部的偏移（px） */
-  @property({ type: Number, attribute: 'target-offset' }) targetOffset = 0;
+  @property({ type: Number }) offset = 0;
+
+  /** @deprecated 旧属性名，等价 offset */
+  @property({ type: Number, attribute: 'target-offset' })
+  get targetOffset(): number {
+    return this.offset;
+  }
+  set targetOffset(v: number) {
+    this.offset = Number(v);
+  }
 
   /** 高亮判定边界（px）：目标顶部越过 offset + bounds 即高亮 */
   @property({ type: Number }) bounds = 5;
@@ -166,7 +175,7 @@ export class wcAnchor extends LitElement {
   private updateCurrent(): void {
     const valid = this.links.filter((l) => this.targetOf(l));
     if (!valid.length) return;
-    const offset = this.targetOffset + this.bounds;
+    const offset = this.offset + this.bounds;
     let next = '';
     for (const link of valid) {
       if (this.relativeTop(this.targetOf(link)!) <= offset) next = link.href;
@@ -212,7 +221,7 @@ export class wcAnchor extends LitElement {
   private scrollToTarget(href: string): void {
     const target = this.resolveTarget(href);
     if (!target) return;
-    const top = this.relativeTop(target) - this.targetOffset + this.containerScrollTop;
+    const top = this.relativeTop(target) - this.offset + this.containerScrollTop;
     if (this.scrollContainer instanceof Document) {
       window.scrollTo?.({ top, behavior: 'smooth' });
     } else {

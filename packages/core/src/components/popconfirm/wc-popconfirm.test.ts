@@ -52,7 +52,7 @@ describe('wc-popconfirm', () => {
     expect(el.open).to.be.false;
   });
 
-  it('默认文案来自 i18n，confirm-text/cancel-text 可覆盖', async () => {
+  it('默认文案来自 i18n，ok-text/cancel-text 可覆盖', async () => {
     const el = await fixture<wcPopconfirm>(
       html`<wc-popconfirm content="确认删除？" open><button>删除</button></wc-popconfirm>`,
     );
@@ -61,7 +61,7 @@ describe('wc-popconfirm', () => {
     expect(buttons[1]!.textContent).to.contain('确认');
 
     const custom = await fixture<wcPopconfirm>(
-      html`<wc-popconfirm content="确认删除？" open confirm-text="删掉" cancel-text="再想想"
+      html`<wc-popconfirm content="确认删除？" open ok-text="删掉" cancel-text="再想想"
         ><button>删除</button></wc-popconfirm
       >`,
     );

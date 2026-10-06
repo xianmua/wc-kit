@@ -35,17 +35,17 @@ export const optionStyles = css`
     opacity: 0;
   }
 
-  :host([selected]) .check {
+  :host(.selected) .check {
     opacity: 1;
   }
 
-  :host([selected]:not([active])) .text {
+  :host(.selected:not(.active)) .text {
     color: var(--wc-color-primary);
     font-weight: var(--wc-font-weight-medium);
   }
 
   :host(:hover:not([disabled])) .option,
-  :host([active]:not([disabled])) .option {
+  :host(.active:not([disabled])) .option {
     background-color: var(--wc-color-bg-hover);
   }
 

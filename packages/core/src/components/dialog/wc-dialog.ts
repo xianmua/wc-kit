@@ -42,8 +42,17 @@ export class wcDialog extends LitElement {
   /** 展示右上角关闭按钮 */
   @property({ type: Boolean, reflect: true }) closable = true;
 
-  /** 点击遮罩关闭 */
-  @property({ type: Boolean, attribute: 'close-on-overlay-click' }) closeOnOverlayClick = false;
+  /** 点击遮罩关闭（antd 惯用名 mask-closable） */
+  @property({ type: Boolean, attribute: 'mask-closable' }) maskClosable = false;
+
+  /** @deprecated 旧属性名，等价 maskClosable */
+  @property({ type: Boolean, attribute: 'close-on-overlay-click' })
+  get closeOnOverlayClick(): boolean {
+    return this.maskClosable;
+  }
+  set closeOnOverlayClick(v: boolean) {
+    this.maskClosable = Boolean(v);
+  }
 
   /** 对话框宽度（纯数字按 px） */
   @property() width = '';
@@ -109,7 +118,7 @@ export class wcDialog extends LitElement {
 
   private onOverlayClick(e: MouseEvent): void {
     if (e.target !== e.currentTarget) return;
-    if (this.closeOnOverlayClick) this.requestClose('overlay');
+    if (this.maskClosable) this.requestClose('overlay');
   }
 
   private widthStyle(): string {

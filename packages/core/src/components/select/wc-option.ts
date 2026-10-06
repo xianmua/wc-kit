@@ -1,5 +1,5 @@
-import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { html, LitElement, type PropertyValues } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { optionStyles } from './wc-option.styles';
 
 /**
@@ -17,15 +17,23 @@ export class wcOption extends LitElement {
   /** 禁用 */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** 选中态（由 wc-select 管理，一般无需手动设置） */
-  @property({ type: Boolean, reflect: true }) selected = false;
+  /** 选中态（内部状态，由 wc-select 管理） */
+  @state() selected = false;
 
-  /** 键盘导航高亮态（由 wc-select 管理） */
-  @property({ type: Boolean, reflect: true }) active = false;
+  /** 键盘导航高亮态（内部状态，由 wc-select 管理） */
+  @state() active = false;
 
   /** 选项文本 */
   get label(): string {
     return (this.textContent ?? '').trim();
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (changed.has('selected') || changed.has('active')) {
+      this.classList.toggle('selected', this.selected);
+      this.classList.toggle('active', this.active);
+    }
   }
 
   render() {

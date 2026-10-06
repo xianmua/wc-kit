@@ -20,7 +20,7 @@ const HIDE_DELAY = 150;
 /**
  * 悬浮按钮：固定在视口角落的圆形/方形操作按钮（形态对齐 antd FloatButton）。
  * 有 href 渲染链接，dot/count 渲染右上角徽标，tooltip 悬浮显示气泡；
- * backtop 为「回到顶部」预设——滚动超过 visibility-height 才显示，点击滚回顶部。
+ * backtop 为「回到顶部」预设——滚动超过 threshold 才显示，点击滚回顶部。
  * 组合用法见 wc-float-button-group。
  *
  * @example
@@ -30,7 +30,7 @@ const HIDE_DELAY = 150;
  * ```
  *
  * @slot icon - 图标（覆盖 icon 属性）
- * @slot - 文字描述（覆盖 description 属性）
+ * @slot - 文字描述（覆盖 text 属性）
  * @csspart base - 按钮本体
  * @csspart badge - 徽标
  * @cssprop --wc-float-button-bottom - 距视口底部距离（默认 24px）
@@ -50,7 +50,16 @@ export class wcFloatButton extends LitElement {
   @property() icon = '';
 
   /** 文字描述（square 形状下显示在图标下方） */
-  @property() description = '';
+  @property() text = '';
+
+  /** @deprecated 旧属性名，等价 text */
+  @property({ attribute: 'description' })
+  get description(): string {
+    return this.text;
+  }
+  set description(v: string) {
+    this.text = v;
+  }
 
   /** 悬浮提示内容（backtop 时缺省为「回到顶部」） */
   @property() tooltip = '';
@@ -77,7 +86,16 @@ export class wcFloatButton extends LitElement {
   @property({ type: Boolean, reflect: true }) backtop = false;
 
   /** 回到顶部：滚动超过该距离（px）才显示 */
-  @property({ type: Number, attribute: 'visibility-height' }) visibilityHeight = 400;
+  @property({ type: Number }) threshold = 400;
+
+  /** @deprecated 旧属性名，等价 threshold */
+  @property({ type: Number, attribute: 'visibility-height' })
+  get visibilityHeight(): number {
+    return this.threshold;
+  }
+  set visibilityHeight(v: number) {
+    this.threshold = Number(v);
+  }
 
   private localize = new LocalizeController(this);
 
@@ -101,7 +119,7 @@ export class wcFloatButton extends LitElement {
   private hideTimer: ReturnType<typeof setTimeout> | null = null;
 
   private onScroll = (): void => {
-    this.toggleAttribute('data-visible', window.scrollY > this.visibilityHeight);
+    this.toggleAttribute('data-visible', window.scrollY > this.threshold);
   };
 
   private outsideClick = new OutsideClickController(this, () => this.hideTip());
@@ -230,8 +248,8 @@ export class wcFloatButton extends LitElement {
     const inner = html`${icon}<span
         class="desc"
         part="description"
-        ?hidden=${!this.description && !this._hasText}
-        ><slot @slotchange=${this.onTextSlotChange}>${this.description}</slot></span
+        ?hidden=${!this.text && !this._hasText}
+        ><slot @slotchange=${this.onTextSlotChange}>${this.text}</slot></span
       >`;
     const fab =
       this.href && !this.disabled

@@ -14,7 +14,7 @@ export type wcButtonIconPosition = 'start' | 'end';
  * 按钮
  *
  * @slot - 按钮内容
- * @slot icon - 图标（位置由 iconPosition 控制；loading 时被 spinner 替换）
+ * @slot icon - 图标（位置由 position 控制；loading 时被 spinner 替换）
  * @csspart base - 按钮根元素
  * @csspart icon - 图标容器
  * @csspart content - 文案容器
@@ -40,8 +40,16 @@ export class wcButton extends LitElement {
   @property({ reflect: true }) size: wcButtonSize = 'medium';
 
   /** 图标位置：start 左 / end 右 */
-  @property({ reflect: true, attribute: 'icon-position' }) iconPosition: wcButtonIconPosition =
-    'start';
+  @property({ reflect: true, attribute: 'position' }) position: wcButtonIconPosition = 'start';
+
+  /** @deprecated 旧属性名，等价 position */
+  @property({ reflect: true, attribute: 'icon-position' })
+  get iconPosition(): wcButtonIconPosition {
+    return this.position;
+  }
+  set iconPosition(v: wcButtonIconPosition) {
+    this.position = v;
+  }
 
   /** 是否为块级元素 */
   @property({ type: Boolean, reflect: true }) block = false;
@@ -125,7 +133,7 @@ export class wcButton extends LitElement {
         aria-busy=${this.loading}
         @click=${this.handleClick}
       >
-        ${this.iconPosition === 'end' ? [content, icon] : [icon, content]}
+        ${this.position === 'end' ? [content, icon] : [icon, content]}
       </button>
     `;
   }

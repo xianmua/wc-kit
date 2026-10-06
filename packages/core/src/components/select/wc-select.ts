@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { baseStyles } from '../../styles/base.css';
 import { FormAssociatedMixin } from '../../common/form-associated-mixin';
 import { emitNativeEvent } from '../../common/native-events';
@@ -57,7 +57,7 @@ export class wcSelect extends FormAssociatedMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) clearable = false;
 
   /** 下拉面板是否展开（内部状态） */
-  @property({ type: Boolean, reflect: true }) open = false;
+  @state() open = false;
 
   /** 键盘导航高亮索引（-1 表示无） */
   private activeIndex = -1;
@@ -82,6 +82,9 @@ export class wcSelect extends FormAssociatedMixin(LitElement) {
     if (changed.has('value')) {
       this.syncOptions();
       this.internals.setFormValue(this.value || null);
+    }
+    if (changed.has('open')) {
+      this.classList.toggle('open', this.open);
     }
   }
 

@@ -52,7 +52,7 @@
 
 <div style="display:flex;gap:24px;align-items:center;">
       <wc-dropdown>
-        <wc-button slot="trigger" theme="primary" icon-position="end"
+        <wc-button slot="trigger" theme="primary" position="end"
           >主要下拉<wc-icon name="chevron-down" slot="icon"></wc-icon
         ></wc-button>
         <wc-dropdown-item value="a">菜单一</wc-dropdown-item>
@@ -71,7 +71,7 @@
 ```html
 <div style="display:flex;gap:24px;align-items:center;">
   <wc-dropdown>
-    <wc-button slot="trigger" theme="primary" icon-position="end"
+    <wc-button slot="trigger" theme="primary" position="end"
       >主要下拉<wc-icon name="chevron-down" slot="icon"></wc-icon
     ></wc-button>
     <wc-dropdown-item value="a">菜单一</wc-dropdown-item>
