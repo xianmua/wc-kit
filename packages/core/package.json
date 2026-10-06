@@ -1,6 +1,6 @@
 {
   "name": "@wc-kit/core",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Framework-agnostic Web Components UI library built with Lit - 38 components, design tokens, dark mode and i18n",
   "keywords": [
     "component-library",
